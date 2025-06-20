@@ -1,0 +1,133 @@
+[
+    {
+      "id": "1",
+      "name": "Morning Stretch",
+      "difficulty": "beginner",
+      "duration": 15,
+      "calories": 120,
+      "imageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop",
+      "description": "Gentle stretches to start your day right",
+      "category": "Stretching",
+      "rounds": [
+        {
+          "id": "r1",
+          "exercises": [
+            {
+              "id": "e1",
+              "name": "Neck Stretch",
+              "duration": 30,
+              "calories": 10,
+              "imageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop",
+              "description": "Gently tilt your head from side to side",
+              "difficulty": "beginner",
+              "category": "Stretching",
+              "sets": [
+                {
+                  "id": "s1",
+                  "name": "Set 1",
+                  "description": "Neck stretch set 1",
+                  "duration": 30,
+                  "rest": 10,
+                  "videoUrl": ""
+                }
+              ]
+            },
+            {
+              "id": "e2",
+              "name": "Shoulder Rolls",
+              "duration": 30,
+              "calories": 15,
+              "imageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop",
+              "description": "Roll your shoulders forward and backward",
+              "difficulty": "beginner",
+              "category": "Stretching",
+              "sets": [
+                {
+                  "id": "s2",
+                  "name": "Set 1",
+                  "description": "Shoulder rolls set 1",
+                  "duration": 30,
+                  "rest": 10,
+                  "videoUrl": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Full Body Workout",
+      "difficulty": "intermediate",
+      "duration": 45,
+      "calories": 300,
+      "imageUrl": "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop",
+      "description": "Complete full body workout for all fitness levels",
+      "category": "Full Body",
+      "rounds": [
+        {
+          "id": "r1",
+          "exercises": [
+            {
+              "id": "e3",
+              "name": "Push-ups",
+              "duration": 45,
+              "calories": 50,
+              "imageUrl": "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop",
+              "description": "Basic push-up exercise",
+              "difficulty": "intermediate",
+              "category": "Strength",
+              "sets": [
+                { 
+                  "id": "s3",
+                  "name": "Set 1",
+                  "duration": 45,
+                  "rest": 30,
+                  "description": "Push-ups set 1",
+                  "videoUrl": ""
+                },
+                { 
+                  "id": "s4",
+                  "name": "Set 2",
+                  "duration": 45,
+                  "rest": 30,
+                  "description": "Push-ups set 2",
+                  "videoUrl": ""
+                }
+              ]
+            },
+            {
+              "id": "e4",
+              "name": "Squats",
+              "duration": 45,
+              "calories": 60,
+              "imageUrl": "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop",
+              "description": "Bodyweight squats",
+              "difficulty": "intermediate",
+              "category": "Strength",
+              "sets": [
+                { 
+                  "id": "s5",
+                  "name": "Set 1",
+                  "duration": 45,
+                  "rest": 30,
+                  "description": "Squats set 1",
+                  "videoUrl": ""
+                },
+                { 
+                  "id": "s6",
+                  "name": "Set 2",
+                  "duration": 45,
+                  "rest": 30,
+                  "description": "Squats set 2",
+                  "videoUrl": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  

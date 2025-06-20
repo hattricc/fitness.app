@@ -8,7 +8,8 @@ import Footer from '../components/organisms/footer';
 import WorkoutList from './workout-list';
 import Workout from './workout';
 import ExerciseDetail from './exercise-detail';
-import { Exercise } from '../types/exercise';
+import { Exercise, WorkoutRoutine } from '../types/exercise';
+import mockWorkouts from '../data/mockWorkouts.json';
 
 // Create a dark theme
 const darkTheme = createTheme({
@@ -34,6 +35,7 @@ function App() {
   const navigate = useNavigate();
   const [difficulty, setDifficulty] = useState<string>('all');
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
+  const [workouts] = useState<WorkoutRoutine[]>(mockWorkouts);
 
   const handleExerciseSelect = (exercise: Exercise) => {
     setSelectedExercise(exercise);
@@ -56,6 +58,7 @@ function App() {
                   onSelectWorkout={(workout) => {
                     navigate(`/workout/${workout.id}`);
                   }}
+                  workouts={workouts}
                 />
               }
             />
