@@ -1,12 +1,12 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography, CardActionArea, Box, Chip } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Exercise } from '../../../../types/exercise';
+import { Exercise } from '../../../types/exercise';
 import { useNavigate } from 'react-router-dom';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   width: '100%',
-  borderRadius: theme.shape.borderRadius * 2,
+  borderRadius: theme.spacing(2), // Using theme.spacing for consistent border radius
   marginBottom: theme.spacing(2),
   overflow: 'hidden',
   boxShadow: theme.shadows[2],
@@ -49,7 +49,7 @@ const ExerciseDuration = styled(Box)(({ theme }) => ({
   backgroundColor: 'rgba(0, 0, 0, 0.7)',
   color: '#fff',
   padding: theme.spacing(0.5, 1),
-  borderRadius: theme.shape.borderRadius,
+  borderRadius: theme.spacing(2), // Using theme.spacing for consistent spacing
   display: 'flex',
   alignItems: 'center',
   gap: theme.spacing(0.5),
@@ -92,7 +92,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({ exercise, onClick }) => {
           </Typography>
           <Box sx={{ mt: 1, display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
             <Chip 
-              label={`${exercise.sets.length} exercises`} 
+              label={`${exercise.sets?.length} exercises`} 
               size="small" 
               variant="outlined"
             />

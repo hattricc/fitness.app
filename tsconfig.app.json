@@ -22,11 +22,13 @@
     "noUncheckedSideEffectImports": true,
 
     /* Paths */
+    "baseUrl": "./src",
     "paths": {
-      "app/*": ["src/app/*"],
-      "components/*": ["src/components/*"],
-      "hooks/*": ["src/hooks/*"]
+      "app/*": ["app/*"],
+      "components/*": ["components/*"],
+      "hooks/*": ["hooks/*"],
+      "types/*": ["types/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Header from '../components/organisms/header';
 import Footer from '../components/organisms/footer';
-import ExerciseList from './exercise-list';
+import WorkoutList from './workout-list';
+import Workout from './workout';
 import ExerciseDetail from './exercise-detail';
 import { Exercise } from '../types/exercise';
 
@@ -30,8 +31,14 @@ const darkTheme = createTheme({
 });
 
 function App() {
-  const [difficulty, setDifficulty] = useState<string>('beginner');
+  const navigate = useNavigate();
+  const [difficulty, setDifficulty] = useState<string>('all');
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
+
+  const handleExerciseSelect = (exercise: Exercise) => {
+    setSelectedExercise(exercise);
+    navigate(`/exercise/${exercise.id}`);
+  };
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -43,19 +50,27 @@ function App() {
             <Route
               path="/"
               element={
-                <ExerciseList
+                <WorkoutList
                   difficulty={difficulty}
                   onDifficultyChange={setDifficulty}
-                  onSelectExercise={setSelectedExercise}
+                  onSelectWorkout={(workout) => {
+                    navigate(`/workout/${workout.id}`);
+                  }}
                 />
+              }
+            />
+            <Route
+              path="/workout/:id"
+              element={
+                <Workout onSelectExercise={handleExerciseSelect} />
               }
             />
             <Route
               path="/exercise/:id"
               element={
-                <ExerciseDetail
-                  exercise={selectedExercise}
-                  onBack={() => window.history.back()}
+                <ExerciseDetail 
+                  exercise={selectedExercise} 
+                  onBack={() => navigate(-1)} 
                 />
               }
             />

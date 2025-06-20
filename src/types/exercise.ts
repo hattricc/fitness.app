@@ -8,16 +8,33 @@ export interface ExerciseSet {
   imageUrl?: string;
 }
 
-export interface ExerciseRoutine {
+export interface BaseExercise {
   id: string;
   name: string;
-  difficulty: 'beginner' | 'intermediate' | 'advanced';
-  duration: number; // in minutes
+  difficulty: 'beginner' | 'intermediate' | 'advanced' | string;
+  duration: number;
   calories: number;
   imageUrl: string;
   description: string;
-  sets: ExerciseSet[];
   category: string;
 }
 
-export type Exercise = ExerciseRoutine;
+export interface ExerciseRoutine extends BaseExercise {
+  sets: ExerciseSet[];
+  rounds?: never;
+}
+
+export interface WorkoutRoutine extends BaseExercise {
+  rounds: {
+    id: string;
+    exercises: ExerciseRoutine[];
+  }[];
+  sets?: any;
+}
+
+export type Exercise = ExerciseRoutine | WorkoutRoutine;
+
+// Type guard to check if an exercise is a WorkoutRoutine
+export function isWorkoutRoutine(exercise: Exercise): exercise is WorkoutRoutine {
+  return 'rounds' in exercise && Array.isArray((exercise as WorkoutRoutine).rounds);
+}
