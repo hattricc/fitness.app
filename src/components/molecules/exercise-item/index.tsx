@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, IconButton, Stack, Paper } from '@mui/material';
 import { PlayArrow } from '@mui/icons-material';
-import { ExerciseRoutine } from '../../types/exercise';
+import { ExerciseRoutine } from '../../../types/exercise';
 
 interface ExerciseItemProps {
   exercise: ExerciseRoutine;

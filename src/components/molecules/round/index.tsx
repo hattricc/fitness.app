@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Divider } from '@mui/material';
-import ExerciseItem from './exercise-item';
-import { ExerciseRoutine } from '../../types/exercise';
+import ExerciseItem from '../exercise-item';
+import { ExerciseRoutine } from '../../../types/exercise';
 
 interface RoundProps {
   roundNumber: number;

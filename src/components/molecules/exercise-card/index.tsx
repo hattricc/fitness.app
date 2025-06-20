@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Card, CardContent, Typography, Chip, Stack } from '@mui/material';
 import { AccessTime, Whatshot, Star } from '@mui/icons-material';
+
 interface ExerciseCardProps {
   exercise: {
     id: string;

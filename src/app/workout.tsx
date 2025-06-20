@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Container, Typography, Button, IconButton, Chip } from '@mui/material';
 import { ArrowBack, PlayArrow } from '@mui/icons-material';
-import { ExerciseCard } from '../components/molecules';
+import ExerciseCard from '../components/molecules/exercise-card';
 import { WorkoutRoutine, ExerciseRoutine } from '../types/exercise';
 
 // Mock data - in a real app, this would come from an API
