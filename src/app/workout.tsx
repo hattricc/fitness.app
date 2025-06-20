@@ -267,7 +267,7 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
 
       {/* Start Workout Button */}
       {workout.rounds.length > 0 && workout.rounds[0].exercises.length > 0 && (
-        <Box sx={{ position: 'fixed', bottom: 16, left: 0, right: 0, px: 2, zIndex: 1 }}>
+        <Box sx={{ position: 'fixed', bottom: 70, left: 0, right: 0, px: 2, zIndex: 1 }}>
           <Button
             variant="contained"
             color="primary"
@@ -284,7 +284,7 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
             }}
           >
-            Start Workout
+            Comenzar rutina
           </Button>
         </Box>
       )}

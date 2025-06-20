@@ -44,18 +44,18 @@ const DifficultyFilter: React.FC<DifficultyFilterProps> = ({ value, onChange }) 
         value={value}
         exclusive
         onChange={handleChange}
-        aria-label="difficulty level"
+        aria-label="nivel de dificultad"
       >
-        <ToggleButton value="beginner" aria-label="beginner">
+        <ToggleButton value="principiante" aria-label="principiante">
           Principiante
         </ToggleButton>
-        <ToggleButton value="intermediate" aria-label="intermediate">
+        <ToggleButton value="intermedio" aria-label="intermedio">
           Intermedio
         </ToggleButton>
-        <ToggleButton value="advanced" aria-label="advanced">
+        <ToggleButton value="avanzado" aria-label="avanzado">
           Avanzado
         </ToggleButton>
-        <ToggleButton value="all" aria-label="all">
+        <ToggleButton value="todo" aria-label="todo">
           Todo
         </ToggleButton>
       </StyledToggleButtonGroup>

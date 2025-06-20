@@ -27,15 +27,15 @@ const DifficultyChip = styled(Chip)(({ theme }) => ({
   right: theme.spacing(1),
   fontWeight: 'bold',
   textTransform: 'capitalize',
-  '&.beginner': {
+  '&.principiante': {
     backgroundColor: '#4caf50',
     color: '#fff',
   },
-  '&.intermediate': {
+  '&.intermedio': {
     backgroundColor: '#ff9800',
     color: '#fff',
   },
-  '&.advanced': {
+  '&.avanzado': {
     backgroundColor: '#f44336',
     color: '#fff',
   },

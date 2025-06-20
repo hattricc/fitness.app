@@ -19,7 +19,7 @@ const WorkoutList: React.FC<WorkoutListProps> = ({
 }) => {
   const filteredWorkouts = useMemo(() => {
     return workouts.filter(
-      (workout) => difficulty === 'all' || workout.difficulty === difficulty
+      (workout) => difficulty === 'todo' || workout.difficulty === difficulty
     );
   }, [difficulty, workouts]);
 
@@ -31,7 +31,7 @@ const WorkoutList: React.FC<WorkoutListProps> = ({
     <Container maxWidth="sm" sx={{ pb: 10 }}>
       <Box sx={{ my: 3 }}>
         <Typography variant="h5" component="h1" gutterBottom>
-          Workouts
+          Rutinas
         </Typography>
         <DifficultyFilter
           value={difficulty}
@@ -41,12 +41,12 @@ const WorkoutList: React.FC<WorkoutListProps> = ({
 
       {filteredWorkouts.length === 0 ? (
         <Typography variant="body1" textAlign="center" sx={{ mt: 4 }}>
-          No workouts found for the selected difficulty level.
+          No hay rutinas para el nivel de dificultad seleccionado.
         </Typography>
       ) : (
         <Box>
           <Typography variant="h6" gutterBottom>
-            {difficulty === 'all' ? 'All Workouts' : `${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} Workouts`}
+            {difficulty === 'todo' ? 'Todas las rutinas' : `Rutinas de ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}`}
           </Typography>
           {filteredWorkouts.map((workout) => (
             <WorkoutCard
