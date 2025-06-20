@@ -97,7 +97,7 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({ workout, onClick }) => {
             </Box>
             <Box sx={{ textAlign: 'right' }}>
               <Typography variant="caption" display="block">
-                {totalExercises} exercises • {workout.duration} min
+                {totalExercises} ejercicios • {workout.duration} min
               </Typography>
               <Typography variant="caption" display="block">
                 {workout.calories} kcal

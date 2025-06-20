@@ -47,7 +47,12 @@ function App() {
       <CssBaseline />
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Header />
-        <Box component="main" sx={{ flexGrow: 1, p: 2, pb: 8 }}>
+        <Box component="main" sx={{ 
+          flexGrow: 1, 
+          p: 2, 
+          pb: 8,
+          pt: { xs: 9, sm: 10 } // Add padding top to account for fixed header
+        }}>
           <Routes>
             <Route
               path="/"

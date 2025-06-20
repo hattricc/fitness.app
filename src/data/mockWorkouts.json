@@ -1,12 +1,12 @@
 [
     {
       "id": "1",
-      "name": "Morning Stretch",
+      "name": "Rutina de stretching",
       "difficulty": "principiante",
       "duration": 15,
       "calories": 120,
       "imageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop",
-      "description": "Gentle stretches to start your day right",
+      "description": "Estira tu cuello y tus hombros",
       "category": "Stretching",
       "rounds": [
         {
@@ -14,18 +14,18 @@
           "exercises": [
             {
               "id": "e1",
-              "name": "Neck Stretch",
+              "name": "Estira tu cuello",
               "duration": 30,
               "calories": 10,
               "imageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop",
-              "description": "Gently tilt your head from side to side",
+              "description": "Gira tu cuello de lado a lado",
               "difficulty": "principiante",
               "category": "Stretching",
               "sets": [
                 {
                   "id": "s1",
                   "name": "Set 1",
-                  "description": "Neck stretch set 1",
+                  "description": "Estira tu cuello",
                   "duration": 30,
                   "rest": 10,
                   "videoUrl": ""
@@ -34,18 +34,18 @@
             },
             {
               "id": "e2",
-              "name": "Shoulder Rolls",
+              "name": "Gira tus hombros",
               "duration": 30,
               "calories": 15,
               "imageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop",
-              "description": "Roll your shoulders forward and backward",
+              "description": "Gira tus hombros hacia adelante y hacia atrás",
               "difficulty": "principiante",
               "category": "Stretching",
               "sets": [
                 {
                   "id": "s2",
                   "name": "Set 1",
-                  "description": "Shoulder rolls set 1",
+                  "description": "Gira tus hombros",
                   "duration": 30,
                   "rest": 10,
                   "videoUrl": ""
@@ -58,12 +58,12 @@
     },
     {
       "id": "2",
-      "name": "Full Body Workout",
+      "name": "Rutina de fuerza",
       "difficulty": "intermedio",
       "duration": 45,
       "calories": 300,
       "imageUrl": "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop",
-      "description": "Complete full body workout for all fitness levels",
+      "description": "Rutina de fuerza para todos los niveles de fitness",
       "category": "Full Body",
       "rounds": [
         {

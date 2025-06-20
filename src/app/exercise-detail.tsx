@@ -193,14 +193,6 @@ const ExerciseDetail: React.FC<ExerciseDetailProps> = ({ exercise: propExercise,
             />
           </Stack>
 
-          <PrimaryButton 
-            variant="contained" 
-            color="primary"
-            onClick={handleStartWorkout}
-            startIcon={<PlayArrow />}
-          >
-            Start Workout
-          </PrimaryButton>
         </CardContent>
       </Card>
     </Container>

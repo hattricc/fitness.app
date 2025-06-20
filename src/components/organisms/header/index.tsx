@@ -9,12 +9,17 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ title = 'Fitness App', onMenuClick }) => {
   return (
-    <AppBar position="static" elevation={0} sx={{ 
-      backgroundColor: 'background.paper',
-      color: 'text.primary',
-      borderBottom: '1px solid',
-      borderColor: 'divider'
-    }}>
+    <AppBar 
+      position="fixed" 
+      elevation={0} 
+      sx={{ 
+        backgroundColor: 'background.paper',
+        color: 'text.primary',
+        borderBottom: '1px solid',
+        borderColor: 'divider',
+        zIndex: (theme) => theme.zIndex.drawer + 1
+      }}
+    >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <IconButton

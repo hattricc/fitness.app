@@ -48,7 +48,7 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, onPlay }) => {
         </Typography>
         <Stack direction="row" spacing={2} sx={{ mt: 0.5 }}>
           <Typography variant="body2" color="text.secondary">
-            {exercise.duration} sec
+            {exercise.duration} seg
           </Typography>
           <Typography variant="body2" color="text.secondary">
             • {exercise.sets?.length || 3} sets
