@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Box, Container, Typography } from '@mui/material';
-import DifficultyFilter from '../components/molecules/filter';
+import DifficultyFilter from '../components/molecules/difficulty-filter';
 import WorkoutCard from '../components/molecules/workout-card';
 import { WorkoutRoutine } from '../types/exercise';
 
