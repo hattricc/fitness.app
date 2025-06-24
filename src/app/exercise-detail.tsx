@@ -10,9 +10,10 @@ import {
   CardMedia,
   Stack,
   styled,
-  Button
+  Button,
+  Modal
 } from '@mui/material';
-import { ArrowBack, PlayArrow, AccessTime, Whatshot, Star, Person } from '@mui/icons-material';
+import { ArrowBack, PlayArrow, AccessTime, Whatshot, Star, Person, Close } from '@mui/icons-material';
 import { Exercise, ExerciseRoutine } from '../types/exercise';
 
 const InfoItem = ({ icon, text }: { icon: React.ReactNode, text: string }) => (
@@ -42,9 +43,17 @@ const PlayButton = styled(IconButton)({
   backgroundColor: 'rgba(123, 31, 162, 0.8)',
   color: 'white',
   padding: 16,
+  zIndex: 2, // Ensure it's above the image
   '&:hover': {
-    backgroundColor: 'rgba(123, 31, 162, 0.9)',
+    backgroundColor: 'rgba(156, 39, 176, 0.9)',
+    transform: 'translate(-50%, -50%) scale(1.1)',
+    transition: 'all 0.2s ease-in-out',
   },
+  '& .MuiSvgIcon-root': {
+    fontSize: '3rem',
+  },
+  boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+  border: '2px solid white',
 });
 
 const DifficultyChip = styled(Box)(({ theme }) => ({
@@ -81,6 +90,8 @@ const ExerciseDetail: React.FC<ExerciseDetailProps> = ({ exercise: propExercise,
   const { id } = useParams<{ id: string }>();
   const [exercise, setExercise] = useState<Exercise | ExerciseRoutine | null>(propExercise || null);
   const [loading, setLoading] = useState(!propExercise);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const videoUrl = exercise?.sets?.[0]?.videoUrl || '';
 
   useEffect(() => {
     if (!propExercise && id) {
@@ -153,19 +164,48 @@ const ExerciseDetail: React.FC<ExerciseDetailProps> = ({ exercise: propExercise,
       </Box>
 
       <VideoContainer>
-        <CardMedia
-          component="img"
-          height="100%"
-          image={exercise.imageUrl}
-          alt={exercise.name}
-          sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        />
-        <PlayButton size="large">
-          <PlayArrow sx={{ fontSize: 48 }} />
-        </PlayButton>
+        <Box sx={{ 
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          '&:hover .play-button': {
+            transform: 'translate(-50%, -50%) scale(1.1)',
+          }
+        }}>
+          <CardMedia
+            component="img"
+            height="100%"
+            image={exercise.imageUrl}
+            alt={exercise.name}
+            sx={{ 
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'cover',
+              position: 'relative',
+              zIndex: 1
+            }}
+          />
+          {videoUrl && (
+            <PlayButton 
+              className="play-button"
+              size="large" 
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsVideoOpen(true);
+              }}
+              sx={{
+                '&:hover': {
+                  backgroundColor: 'rgba(156, 39, 176, 0.95)',
+                }
+              }}
+            >
+              <PlayArrow />
+            </PlayButton>
+          )}
+        </Box>
         <DifficultyChip>
           <Star sx={{ fontSize: 16 }} />
-          <span>4.8</span>
+          <span>4.4</span>
         </DifficultyChip>
       </VideoContainer>
 

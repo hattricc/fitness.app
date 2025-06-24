@@ -3,12 +3,12 @@ import { WorkoutRoutine } from '../types/exercise';
 const mockWorkouts: Record<string, WorkoutRoutine> = {
   '1': {
     id: '1',
-    name: 'Rutina de stretching',
+    name: 'Tren Inferior',
     difficulty: 'principiante',
     duration: 15,
     calories: 120,
     imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop',
-    description: 'Estira tu cuello y tus hombros',
+    description: 'Tren Inferior',
     category: 'Stretching',
     rounds: [
       {
@@ -16,18 +16,18 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
         exercises: [
           {
             id: 'e1',
-            name: 'Estira tu cuello',
+            name: 'Barra de Máquina Smith',
             duration: 30,
             calories: 10,
-            imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop',
-            description: 'Gira tu cuello de lado a lado',
+            imageUrl: 'https://eresfitness.com/wp-content/uploads/2020/12/Press-de-hombros-sentado-en-maquina-Smith.webp',
+            description: 'Barra de Máquina Smith',
             difficulty: 'principiante',
-            category: 'Stretching',
+            category: 'tren-inferior',
             sets: [
               { 
                 id: 's1', 
                 name: 'Set 1', 
-                description: 'Estira tu cuello', 
+                description: 'Barra de Máquina Smith', 
                 duration: 30, 
                 rest: 10, 
                 videoUrl: '' 
@@ -36,18 +36,18 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
           },
           {
             id: 'e2',
-            name: 'Gira tus hombros',
+            name: 'Prensa en máquina',
             duration: 30,
             calories: 15,
-            imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop',
-            description: 'Gira tus hombros hacia adelante y hacia atrás',
+            imageUrl: 'https://eresfitness.com/wp-content/uploads/2020/12/Press-de-pierna-en-maquina.webp',
+            description: 'Prensa en máquina',
             difficulty: 'principiante',
-            category: 'Stretching',
+            category: 'tren-inferior',
             sets: [
               { 
                 id: 's2', 
                 name: 'Set 1', 
-                description: 'Gira tus hombros', 
+                description: 'Prensa en máquina', 
                 duration: 30, 
                 rest: 10, 
                 videoUrl: '' 

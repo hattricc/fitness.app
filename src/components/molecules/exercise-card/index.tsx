@@ -98,7 +98,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, ml: 'auto' }}>
               <Star fontSize="small" color="warning" />
               <Typography variant="body2" color="text.secondary">
-                4.8
+                4.5
               </Typography>
             </Box>
           )}
