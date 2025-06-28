@@ -16,8 +16,13 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, onPlay }) => {
   const handlePlayClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (videoUrl) {
+      e.preventDefault();
       setIsVideoOpen(true);
-    } else {
+    }
+  };
+
+  const handleItemClick = () => {
+    if (!videoUrl) {
       onPlay(exercise);
     }
   };
@@ -38,7 +43,7 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, onPlay }) => {
             backgroundColor: 'action.hover',
           },
         }}
-        onClick={() => onPlay(exercise)}
+        onClick={handleItemClick}
       >
         <Box
           sx={{
@@ -73,7 +78,9 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, onPlay }) => {
                 '&:hover': {
                   backgroundColor: 'rgba(0, 0, 0, 0.7)',
                 },
+                pointerEvents: 'auto', // Ensure the button catches the click
               }}
+              onMouseDown={e => e.stopPropagation()} // Prevent parent's onClick when clicking the play button
             >
               <PlayArrow />
             </IconButton>
@@ -84,7 +91,7 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, onPlay }) => {
             {exercise.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {exercise.duration} sec • {exercise.calories} cal
+            {exercise.duration} seg
           </Typography>
         </Box>
       </Paper>

@@ -221,11 +221,11 @@ const ExerciseDetail: React.FC<ExerciseDetailProps> = ({ exercise: propExercise,
           <Stack direction="row" spacing={3} sx={{ mt: 2, mb: 3, justifyContent: 'space-between' }}>
             <InfoItem 
               icon={<AccessTime color="primary" />} 
-              text={`${exercise.duration} Seconds`} 
+              text={`${exercise.duration} Segundos`} 
             />
             <InfoItem 
               icon={<Whatshot color="primary" />} 
-              text={`${exercise.sets?.length || 3} Rep`} 
+              text={`${exercise.sets?.length || 3} Repeticiones`} 
             />
             <InfoItem 
               icon={<Person color="primary" />} 

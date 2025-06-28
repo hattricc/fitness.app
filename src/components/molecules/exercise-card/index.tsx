@@ -83,25 +83,32 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <AccessTime fontSize="small" color="action" />
             <Typography variant="body2" color="text.secondary">
-              {exercise.duration} sec
+              {exercise.duration} seg
+            </Typography>
+          </Box>
+
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <Whatshot fontSize="small" color="action" />
+            <Typography variant="body2" color="text.secondary">
+              {exercise.calories} repeticiones
             </Typography>
           </Box>
           
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+          {/* <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <Whatshot fontSize="small" color="action" />
             <Typography variant="body2" color="text.secondary">
               {exercise.calories} cal
             </Typography>
-          </Box>
+          </Box> */}
           
-          {showDetails && (
+          {/* {showDetails && (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, ml: 'auto' }}>
               <Star fontSize="small" color="warning" />
               <Typography variant="body2" color="text.secondary">
                 4.5
               </Typography>
             </Box>
-          )}
+          )} */}
         </Stack>
       </CardContent>
     </Card>

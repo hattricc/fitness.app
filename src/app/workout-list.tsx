@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { Box, Container, Typography } from '@mui/material';
-import DifficultyFilter from '../components/molecules/difficulty-filter';
 import WorkoutCard from '../components/molecules/workout-card';
 import { WorkoutRoutine } from '../types/exercise';
+import CategoryFilter from 'components/molecules/category-filter';
 
 interface WorkoutListProps {
   difficulty: string;
@@ -19,21 +19,33 @@ const WorkoutList: React.FC<WorkoutListProps> = ({
 }) => {
   const filteredWorkouts = useMemo(() => {
     return workouts.filter(
-      (workout) => difficulty === 'todo' || workout.difficulty === difficulty
+      (workout) => difficulty === 'all' || workout.difficulty === difficulty
     );
   }, [difficulty, workouts]);
+
+  // Group workouts by tag
+  const workoutsByTag = useMemo(() => {
+    return filteredWorkouts.reduce<Record<string, WorkoutRoutine[]>>((acc, workout) => {
+      const tag = workout.tag || 'Sin etiqueta';
+      if (!acc[tag]) {
+        acc[tag] = [];
+      }
+      acc[tag].push(workout);
+      return acc;
+    }, {});
+  }, [filteredWorkouts]);
 
   const handleWorkoutClick = (workout: WorkoutRoutine) => {
     onSelectWorkout(workout);
   };
 
   return (
-    <Container maxWidth="sm" sx={{ pb: 10 }}>
+    <Container maxWidth="md" sx={{ py: 4 }}>
       <Box sx={{ my: 3 }}>
         <Typography variant="h5" component="h1" gutterBottom>
-          Rutinas
+          Programas
         </Typography>
-        <DifficultyFilter
+        <CategoryFilter
           value={difficulty}
           onChange={onDifficultyChange}
         />
@@ -41,19 +53,28 @@ const WorkoutList: React.FC<WorkoutListProps> = ({
 
       {filteredWorkouts.length === 0 ? (
         <Typography variant="body1" textAlign="center" sx={{ mt: 4 }}>
-          No hay rutinas para el nivel de dificultad seleccionado.
+          No hay programas para la categoría seleccionada.
         </Typography>
       ) : (
         <Box>
           <Typography variant="h6" gutterBottom>
-            {difficulty === 'todo' ? 'Todas las rutinas' : `Rutinas de ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}`}
+            {difficulty === 'all' ? 'Todos los programas' : `Programas de ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}`}
           </Typography>
-          {filteredWorkouts.map((workout) => (
-            <WorkoutCard
-              key={workout.id}
-              workout={workout}
-              onClick={handleWorkoutClick}
-            />
+          {Object.entries(workoutsByTag).map(([tag, tagWorkouts]) => (
+            <Box key={tag} sx={{ mb: 4 }}>
+              <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2, color: 'primary.main' }}>
+                {tag}
+              </Typography>
+              <Box sx={{ display: 'grid', gap: 2 }}>
+                {tagWorkouts.map((workout: WorkoutRoutine) => (
+                  <WorkoutCard
+                    key={workout.id}
+                    workout={workout}
+                    onClick={handleWorkoutClick}
+                  />
+                ))}
+              </Box>
+            </Box>
           ))}
         </Box>
       )}

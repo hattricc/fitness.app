@@ -23,12 +23,12 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
   },
 }));
 
-interface DifficultyFilterProps {
+interface CategoryFilterProps {
   value: string;
   onChange: (value: string) => void;
 }
 
-const DifficultyFilter: React.FC<DifficultyFilterProps> = ({ value, onChange }) => {
+const CategoryFilter: React.FC<CategoryFilterProps> = ({ value, onChange }) => {
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
     newValue: string,
@@ -44,23 +44,20 @@ const DifficultyFilter: React.FC<DifficultyFilterProps> = ({ value, onChange }) 
         value={value}
         exclusive
         onChange={handleChange}
-        aria-label="nivel de dificultad"
+        aria-label="categoria"
       >
-        <ToggleButton value="principiante" aria-label="principiante">
-          Principiante
+        <ToggleButton value="gimnasio" aria-label="gimnasio">
+          Gimnasio
         </ToggleButton>
-        <ToggleButton value="intermedio" aria-label="intermedio">
-          Intermedio
+        <ToggleButton value="exteriores" aria-label="exteriores">
+          Exteriores
         </ToggleButton>
-        <ToggleButton value="avanzado" aria-label="avanzado">
-          Avanzado
-        </ToggleButton>
-        <ToggleButton value="todo" aria-label="todo">
-          Todo
+        <ToggleButton value="all" aria-label="all">
+          Todos
         </ToggleButton>
       </StyledToggleButtonGroup>
     </Box>
   );
 };
 
-export default DifficultyFilter;
+export default CategoryFilter;

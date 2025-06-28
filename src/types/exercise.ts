@@ -11,6 +11,7 @@ export interface ExerciseSet {
 export interface BaseExercise {
   id: string;
   name: string;
+  tag?: string;
   difficulty: 'beginner' | 'intermediate' | 'advanced' | string;
   duration: number;
   calories: number;

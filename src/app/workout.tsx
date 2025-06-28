@@ -26,7 +26,6 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
   };
 
   const handleStartWorkout = () => {
-    // Navigate to the first exercise in the first round
     if (workout?.rounds[0]?.exercises[0]) {
       onSelectExercise(workout.rounds[0].exercises[0]);
     }
@@ -55,7 +54,7 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
 
       {/* Workout Header */}
       <Box sx={{ mb: 3, textAlign: 'center' }}>
-        <Typography variant="h5" gutterBottom>{workout.name}</Typography>
+        {/* <Typography variant="h5" gutterBottom>{workout.name}</Typography> */}
         <Typography variant="body1" color="text.secondary" gutterBottom>
           {workout.description}
         </Typography>
@@ -64,11 +63,11 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
             label={`${workout.duration} min`} 
             variant="outlined"
           />
-          <Chip 
+          {/* <Chip 
             label={`${workout.calories} cal`} 
             variant="outlined"
             color="error"
-          />
+          /> */}
           <Chip 
             label={workout.difficulty}
             variant="outlined"
@@ -79,9 +78,9 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
 
       {/* Workout Rounds */}
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h6" gutterBottom>
+        {/* <Typography variant="h6" gutterBottom>
           Workout Plan
-        </Typography>
+        </Typography> */}
         
         {workout.rounds.map((round) => (
           <Box key={round.id} sx={{ mb: 3 }}>

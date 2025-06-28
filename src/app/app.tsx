@@ -9,7 +9,7 @@ import WorkoutList from './workout-list';
 import Workout from './workout';
 import ExerciseDetail from './exercise-detail';
 import { Exercise, WorkoutRoutine } from '../types/exercise';
-import mockWorkouts from '../data/mockWorkouts.json';
+import { getAllWorkouts } from '../data/mockWorkout';
 
 // Create a dark theme
 const darkTheme = createTheme({
@@ -37,7 +37,7 @@ function App() {
   const navigate = useNavigate();
   const [difficulty, setDifficulty] = useState<string>('all');
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
-  const [workouts] = useState<WorkoutRoutine[]>(mockWorkouts);
+  const [workouts] = useState<WorkoutRoutine[]>(getAllWorkouts());
 
   const handleVideoEnd = () => {
     setHasIntroEnded(true);
