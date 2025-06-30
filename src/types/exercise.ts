@@ -18,6 +18,7 @@ export interface BaseExercise {
   imageUrl: string;
   description: string;
   category: string;
+  categoryName: string;
 }
 
 export interface ExerciseRoutine extends BaseExercise {

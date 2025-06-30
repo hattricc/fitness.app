@@ -11,6 +11,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
     imageUrl: 'https://i.ytimg.com/vi/ECKQX0583z4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAgwY1fWquWuK3TCq2EdmlFNU4luA',
     description: 'Tren Inferior',
     category: 'tren-inferior',
+    categoryName: 'Tren Inferior',
     rounds: [
       {
         id: 'r1',
@@ -24,6 +25,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
             description: 'Barra de Máquina Smith',
             difficulty: 'gimnasio',
             category: 'tren-inferior',
+            categoryName: 'Tren Inferior',
             sets: [
               { 
                 id: 's1', 
@@ -31,7 +33,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
                 description: 'Barra de Máquina Smith', 
                 duration: 30, 
                 rest: 10, 
-                videoUrl: '' 
+                videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' 
               }
             ]
           },
@@ -44,10 +46,19 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
             description: 'Prensa en máquina',
             difficulty: 'gimnasio',
             category: 'tren-inferior',
+            categoryName: 'Tren Inferior',
             sets: [
               { 
                 id: 's2', 
-                name: 'Set 1', 
+                name: 'Set 1',
+                description: 'Prensa en máquina',
+                duration: 30,
+                rest: 10,
+                videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
+              },
+              { 
+                id: 's3', 
+                name: 'Set 2', 
                 description: 'Prensa en máquina', 
                 duration: 30, 
                 rest: 10, 
@@ -69,6 +80,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
     imageUrl: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop',
     description: 'Rutina de fuerza para todos los niveles de fitness',
     category: 'Full Body',
+    categoryName: 'Full Body',
     rounds: [
       {
         id: 'r1',
@@ -82,6 +94,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
             description: 'Basic push-up exercise',
             difficulty: 'exteriores',
             category: 'Strength',
+            categoryName: 'Fuerza',
             sets: [
               { 
                 id: 's3',
@@ -110,6 +123,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
             description: 'Bodyweight squats',
             difficulty: 'exteriores',
             category: 'Strength',
+            categoryName: 'Fuerza',
             sets: [
               { 
                 id: 's5',
@@ -143,6 +157,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
     imageUrl: 'https://images.unsplash.com/photo-1534258936925-c58bed479fcb?w=800&auto=format&fit=crop',
     description: 'Rutina completa con mancuernas y barras',
     category: 'gimnasio',
+    categoryName: 'Gimnasio',
     rounds: [
       {
         id: 'r1',
@@ -156,6 +171,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
             description: 'Press de banca con barra',
             difficulty: 'gimnasio',
             category: 'pecho',
+            categoryName: 'Pecho',
             sets: [
               { id: 's5', name: 'Set 1', description: '12 repeticiones', duration: 45, rest: 60, videoUrl: '' },
               { id: 's6', name: 'Set 2', description: '10 repeticiones', duration: 45, rest: 60, videoUrl: '' }
@@ -170,6 +186,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
             description: 'Peso muerto convencional',
             difficulty: 'gimnasio',
             category: 'piernas',
+            categoryName: 'Piernas',
             sets: [
               { id: 's7', name: 'Set 1', description: '10 repeticiones', duration: 50, rest: 60, videoUrl: '' },
               { id: 's8', name: 'Set 2', description: '8 repeticiones', duration: 50, rest: 60, videoUrl: '' }
@@ -189,6 +206,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
     imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop',
     description: 'Enfoque en la parte superior del cuerpo usando máquinas',
     category: 'gimnasio',
+    categoryName: 'Gimnasio',
     rounds: [
       {
         id: 'r2',
@@ -202,6 +220,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
             description: 'Ejercicio de espalda en máquina',
             difficulty: 'gimnasio',
             category: 'espalda',
+            categoryName: 'Espalda',
             sets: [
               { id: 's9', name: 'Set 1', description: '12 repeticiones', duration: 40, rest: 45, videoUrl: '' },
               { id: 's10', name: 'Set 2', description: '10 repeticiones', duration: 40, rest: 45, videoUrl: '' }
@@ -216,6 +235,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
             description: 'Press de hombros en máquina sentado',
             difficulty: 'gimnasio',
             category: 'hombros',
+            categoryName: 'Hombros',
             sets: [
               { id: 's11', name: 'Set 1', description: '12 repeticiones', duration: 35, rest: 45, videoUrl: '' }
             ]
@@ -230,6 +250,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
     tag: 'Día 2',
     difficulty: 'exteriores',
     duration: 30,
+    categoryName: 'Exteriores',
     calories: 250,
     imageUrl: 'https://images.unsplash.com/photo-1571019614242-cf63a5601a96?w=800&auto=format&fit=crop',
     description: 'Rutina completa usando solo el peso corporal en parque',
@@ -247,6 +268,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
             description: 'Dominadas en barra de parque',
             difficulty: 'exteriores',
             category: 'superior',
+            categoryName: 'Superior',
             sets: [
               { id: 's12', name: 'Set 1', description: 'Máximas repeticiones', duration: 45, rest: 60, videoUrl: '' },
               { id: 's13', name: 'Set 2', description: 'Máximas repeticiones', duration: 45, rest: 60, videoUrl: '' }
@@ -261,6 +283,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
             description: 'Fondos en banco del parque',
             difficulty: 'exteriores',
             category: 'superior',
+            categoryName: 'Superior',
             sets: [
               { id: 's14', name: 'Set 1', description: '15 repeticiones', duration: 35, rest: 45, videoUrl: '' }
             ]
@@ -279,6 +302,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
     imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop',
     description: 'Entrenamiento de cardio intenso en exteriores',
     category: 'exteriores',
+    categoryName: 'Exteriores',
     rounds: [
       {
         id: 'r4',
@@ -292,6 +316,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
             description: 'Sprints cortos de 30 segundos',
             difficulty: 'exteriores',
             category: 'cardio',
+            categoryName: 'Cardio',
             sets: [
               { id: 's15', name: 'Set 1', description: '6 sprints de 30s', duration: 240, rest: 30, videoUrl: '' }
             ]
@@ -305,6 +330,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
             description: 'Subida de escaleras',
             difficulty: 'exteriores',
             category: 'cardio',
+            categoryName: 'Cardio',
             sets: [
               { id: 's16', name: 'Set 1', description: '10 minutos continuos', duration: 600, rest: 60, videoUrl: '' }
             ]

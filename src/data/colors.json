@@ -1,0 +1,30 @@
+{
+  "primary": {
+    "main": "#E57952",
+    "light": "#FFA07A",
+    "dark": "#CC6A48",
+    "contrastText": "#FFFFFF"
+  },
+  "secondary": {
+    "main": "#9BB9F1",
+    "light": "#C1D1F5",
+    "dark": "#7BA3ED"
+  },
+  "background": {
+    "default": "#FFFFFF",
+    "paper": "#363B5F"
+  },
+  "text": {
+    "primary": "#FFFFFF",
+    "secondary": "#1B1B1B",
+    "disabled": "rgba(255, 255, 255, 0.5)"
+  },
+  "action": {
+    "active": "#E57952",
+    "hover": "rgba(155, 185, 241, 0.7)",
+    "selected": "rgba(0, 0, 0, 0.16)",
+    "disabled": "rgba(255, 255, 255, 0.3)",
+    "disabledBackground": "rgba(255, 255, 255, 0.12)"
+  },
+  "divider": "rgba(255, 255, 255, 0.12)"
+}

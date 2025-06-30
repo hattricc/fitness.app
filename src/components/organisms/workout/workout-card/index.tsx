@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardMedia, Typography, CardActionArea, Box, Chip, styled } from '@mui/material';
-import { WorkoutRoutine } from '../../../types/exercise';
+import { WorkoutRoutine } from '../../../../types/exercise';
 import { useNavigate } from 'react-router-dom';
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -10,6 +10,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
   overflow: 'hidden',
   boxShadow: theme.shadows[2],
   transition: 'transform 0.2s, box-shadow 0.2s',
+  backgroundColor: theme.palette.background.paper,
   '&:hover': {
     transform: 'translateY(-4px)',
     boxShadow: theme.shadows[6],
@@ -17,17 +18,17 @@ const StyledCard = styled(Card)(({ theme }) => ({
 }));
 
 const WorkoutImage = styled(CardMedia)({
-  height: 160,
+  height: 260,
   position: 'relative',
 });
 
-const DifficultyChip = styled(Chip)(({ theme }) => ({
+const CategoryChip = styled(Chip)(({ theme }) => ({
   position: 'absolute',
   top: theme.spacing(1),
   right: theme.spacing(1),
   fontWeight: 'bold',
   textTransform: 'capitalize',
-  '&.principiante': {
+  '&.tren-inferior': {
     backgroundColor: '#4caf50',
     color: '#fff',
   },
@@ -63,10 +64,12 @@ interface WorkoutCardProps {
 const WorkoutCard: React.FC<WorkoutCardProps> = ({ workout, onClick }) => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     onClick(workout);
     navigate(`/workout/${workout.id}`);
   };
+  
 
   // Calculate total exercises in the workout
   const totalExercises = workout.rounds.reduce(
@@ -81,14 +84,16 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({ workout, onClick }) => {
           image={workout.imageUrl || 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop'} 
           title={workout.name}
         >
-          <DifficultyChip 
-            label={workout.difficulty} 
-            className={workout.difficulty} 
-            size="small"
-          />
+          {/* <Box sx={{ position: 'absolute', top: 8, right: 18, display: 'flex', gap: 1 }}>
+            <CategoryChip 
+              label={workout.categoryName} 
+              className={workout.categoryName} 
+              size="small"
+            />
+          </Box> */}
           <WorkoutInfo>
             <Box>
-              <Typography variant="subtitle2" fontWeight="bold">
+              <Typography variant="h6" fontWeight="bold" sx={{ color: 'white' }}>
                 {workout.name}
               </Typography>
               <Typography variant="caption" display="block">

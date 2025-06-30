@@ -7,14 +7,14 @@ interface HeaderProps {
   onMenuClick?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ title = 'Fitness App', onMenuClick }) => {
+const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez', onMenuClick }) => {
   return (
     <AppBar 
       position="fixed" 
       elevation={0} 
       sx={{ 
         backgroundColor: 'background.paper',
-        color: 'text.primary',
+        color: 'text.secondary',
         borderBottom: '1px solid',
         borderColor: 'divider',
         zIndex: (theme) => theme.zIndex.drawer + 1

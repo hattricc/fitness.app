@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { Box, Container, Typography } from '@mui/material';
-import WorkoutCard from '../components/molecules/workout-card';
+import WorkoutCard from '../components/organisms/workout/workout-card';
 import { WorkoutRoutine } from '../types/exercise';
-import CategoryFilter from 'components/molecules/category-filter';
+import WorkoutListHeader from '../components/organisms/workout/workout-list-header';
 
 interface WorkoutListProps {
   difficulty: string;
@@ -40,16 +40,16 @@ const WorkoutList: React.FC<WorkoutListProps> = ({
   };
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
-      <Box sx={{ my: 3 }}>
-        <Typography variant="h5" component="h1" gutterBottom>
-          Programas
-        </Typography>
-        <CategoryFilter
-          value={difficulty}
-          onChange={onDifficultyChange}
-        />
-      </Box>
+    <Container maxWidth={false} disableGutters sx={{
+      py: 4,
+      width: '100%',
+      maxWidth: '100%',
+      px: 2
+    }}>
+      <WorkoutListHeader
+        difficulty={difficulty}
+        onDifficultyChange={onDifficultyChange}
+      />
 
       {filteredWorkouts.length === 0 ? (
         <Typography variant="body1" textAlign="center" sx={{ mt: 4 }}>
@@ -57,12 +57,13 @@ const WorkoutList: React.FC<WorkoutListProps> = ({
         </Typography>
       ) : (
         <Box>
-          <Typography variant="h6" gutterBottom>
+          {/* <Typography variant="h5" gutterBottom textAlign="center">
             {difficulty === 'all' ? 'Todos los programas' : `Programas de ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}`}
-          </Typography>
+          </Typography> */}
+
           {Object.entries(workoutsByTag).map(([tag, tagWorkouts]) => (
             <Box key={tag} sx={{ mb: 4 }}>
-              <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2, color: 'primary.main' }}>
+              <Typography variant="h6" sx={{ mb: 2, textAlign: 'center' }}>
                 {tag}
               </Typography>
               <Box sx={{ display: 'grid', gap: 2 }}>

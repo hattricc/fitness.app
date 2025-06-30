@@ -3,22 +3,29 @@ import { ToggleButton, ToggleButtonGroup, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
+  backgroundColor: 'transparent',
   '& .MuiToggleButtonGroup-grouped': {
     margin: theme.spacing(0.5),
     border: 0,
-    borderRadius: theme.shape.borderRadius,
+    borderRadius: '20px !important',
+    color: theme.palette.text.secondary,
     '&.Mui-selected': {
-      color: theme.palette.primary.contrastText,
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.text.primary,
       '&:hover': {
-        backgroundColor: theme.palette.primary.dark,
+        backgroundColor: theme.palette.action.hover,
       },
     },
     '&:not(:first-of-type)': {
-      borderRadius: theme.shape.borderRadius,
+      borderRadius: '20px !important',
+      marginLeft: theme.spacing(1),
     },
     '&:first-of-type': {
-      borderRadius: theme.shape.borderRadius,
+      borderRadius: '20px !important',
+    },
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+      color: theme.palette.text.primary,
     },
   },
 }));
@@ -38,6 +45,12 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ value, onChange }) => {
     }
   };
 
+  const categories = [
+    { value: 'gimnasio', label: 'Gimnasio' },
+    { value: 'exteriores', label: 'Exteriores' },
+    { value: 'all', label: 'Todos' },
+  ];
+
   return (
     <Box sx={{ my: 2, display: 'flex', justifyContent: 'center' }}>
       <StyledToggleButtonGroup
@@ -46,15 +59,15 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ value, onChange }) => {
         onChange={handleChange}
         aria-label="categoria"
       >
-        <ToggleButton value="gimnasio" aria-label="gimnasio">
-          Gimnasio
-        </ToggleButton>
-        <ToggleButton value="exteriores" aria-label="exteriores">
-          Exteriores
-        </ToggleButton>
-        <ToggleButton value="all" aria-label="all">
-          Todos
-        </ToggleButton>
+        {categories.map((category) => (
+          <ToggleButton 
+            key={category.value} 
+            value={category.value} 
+            aria-label={category.value}
+          >
+            {category.label}
+          </ToggleButton>
+        ))}
       </StyledToggleButtonGroup>
     </Box>
   );

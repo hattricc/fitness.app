@@ -1,10 +1,11 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Container, Typography, Button, IconButton, Chip } from '@mui/material';
-import { ArrowBack, PlayArrow } from '@mui/icons-material';
 import ExerciseCard from '../components/molecules/exercise-card';
 import { ExerciseRoutine } from '../types/exercise';
 import { getWorkoutById } from '../data/mockWorkout';
+import WorkoutHeader from '../components/organisms/workout/workout-header';
+import StartWorkoutButton from 'components/atoms/start-workout-button/start-workout-button';
 
 interface WorkoutProps {
   onSelectExercise: (exercise: ExerciseRoutine) => void;
@@ -41,16 +42,14 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
   }
 
   return (
-    <Container maxWidth="sm" sx={{ pb: 10, pt: 2 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-        <IconButton onClick={handleBack} sx={{ mr: 1 }}>
-          <ArrowBack />
-        </IconButton>
-        <Typography variant="h6" sx={{ flexGrow: 1, textAlign: 'center' }}>
-          {workout.name}
-        </Typography>
-        <Box sx={{ width: 40 }} /> {/* Spacer for alignment */}
-      </Box>
+    <Container maxWidth={false} disableGutters sx={{ 
+      pb: 10, 
+      pt: 4,
+      width: '100%',
+      maxWidth: '100%',
+      px: 2 
+    }}>
+      <WorkoutHeader workout={workout} />
 
       {/* Workout Header */}
       <Box sx={{ mb: 3, textAlign: 'center' }}>
@@ -61,7 +60,7 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, my: 2 }}>
           <Chip 
             label={`${workout.duration} min`} 
-            variant="outlined"
+            color="secondary"
           />
           {/* <Chip 
             label={`${workout.calories} cal`} 
@@ -70,7 +69,6 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
           /> */}
           <Chip 
             label={workout.difficulty}
-            variant="outlined"
             color="primary"
           />
         </Box>
@@ -84,7 +82,7 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
         
         {workout.rounds.map((round) => (
           <Box key={round.id} sx={{ mb: 3 }}>
-            <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: 'medium' }}>
+            <Typography variant="h5" sx={{ mb: 1, fontWeight: 'medium', textAlign: 'center' }}>
               Round {round.id.replace('r', '')}
             </Typography>
             {round.exercises.map((exercise) => (
@@ -105,25 +103,8 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
 
       {/* Start Workout Button */}
       {workout.rounds.length > 0 && workout.rounds[0].exercises.length > 0 && (
-        <Box sx={{ position: 'fixed', bottom: 70, left: 0, right: 0, px: 2, zIndex: 1 }}>
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            size="large"
-            startIcon={<PlayArrow />}
-            onClick={handleStartWorkout}
-            sx={{
-              borderRadius: 2,
-              py: 1.5,
-              textTransform: 'none',
-              fontSize: '1.1rem',
-              fontWeight: 'bold',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-            }}
-          >
-            Comenzar rutina
-          </Button>
+        <Box sx={{ position: 'fixed', bottom: 20, left: 0, right: 0, px: 2, zIndex: 1 }}>
+          <StartWorkoutButton  onClick={handleStartWorkout} />
         </Box>
       )}
     </Container>

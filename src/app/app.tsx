@@ -1,35 +1,16 @@
 import { useState, useRef } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
+import './app.css';
 import Header from '../components/organisms/header';
-import Footer from '../components/organisms/footer';
 import WorkoutList from './workout-list';
 import Workout from './workout';
 import ExerciseDetail from './exercise-detail';
 import { Exercise, WorkoutRoutine } from '../types/exercise';
 import { getAllWorkouts } from '../data/mockWorkout';
-
-// Create a dark theme
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: '#9c27b0',
-    },
-    secondary: {
-      main: '#f50057',
-    },
-    background: {
-      default: '#121212',
-      paper: '#1e1e1e',
-    },
-  },
-  typography: {
-    fontFamily: 'Roboto, Arial, sans-serif',
-  },
-});
+import { darkTheme } from '../data/theme';
 
 function App() {
   const [hasIntroEnded, setHasIntroEnded] = useState(true);
@@ -50,83 +31,67 @@ function App() {
 
   // Show intro video if it hasn't ended yet
   if (!hasIntroEnded) {
-    return (
-      <Box
-        sx={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'black',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: 9999,
-        }}
+    return <Box className="intro-video-container">
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        onEnded={handleVideoEnd}
+        className="video-player"
       >
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          onEnded={handleVideoEnd}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain',
-          }}
-        >
-          {/* Replace with your actual video path */}
-          <source src="/videos/intro.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </Box>
-    );
+        {/* Replace with your actual video path */}
+        <source src="/videos/intro.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </Box>
   }
+
+  const routes = [
+    {
+      path: '/',
+      element: (
+        <WorkoutList
+          difficulty={difficulty}
+          onDifficultyChange={setDifficulty}
+          onSelectWorkout={(workout) => {
+            navigate(`/workout/${workout.id}`);
+          }}
+          workouts={workouts}
+        />
+      ),
+    },
+    {
+      path: '/workout/:id',
+      element: <Workout onSelectExercise={handleExerciseSelect} />,
+    },
+    {
+      path: '/exercise/:id',
+      element: (
+        <ExerciseDetail
+          exercise={selectedExercise}
+          onBack={() => navigate(-1)}
+        />
+      ),
+    },
+  ];
 
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <Box className="app-container">
         <Header />
-        <Box component="main" sx={{ 
-          flexGrow: 1, 
-          p: 2, 
-          pb: 8,
-          pt: { xs: 9, sm: 10 } // Add padding top to account for fixed header
-        }}>
+        <Box component="main" className="main-content">
           <Routes>
-            <Route
-              path="/"
-              element={
-                <WorkoutList
-                  difficulty={difficulty}
-                  onDifficultyChange={setDifficulty}
-                  onSelectWorkout={(workout) => {
-                    navigate(`/workout/${workout.id}`);
-                  }}
-                  workouts={workouts}
-                />
-              }
-            />
-            <Route
-              path="/workout/:id"
-              element={
-                <Workout onSelectExercise={handleExerciseSelect} />
-              }
-            />
-            <Route
-              path="/exercise/:id"
-              element={
-                <ExerciseDetail 
-                  exercise={selectedExercise} 
-                  onBack={() => navigate(-1)} 
-                />
-              }
-            />
+            {routes.map((route, index) => (
+              <Route
+                key={index}
+                path={route.path}
+                element={route.element}
+              />
+            ))}
           </Routes>
         </Box>
-        <Footer />
+        {/* <Footer /> */}
       </Box>
     </ThemeProvider>
   );
