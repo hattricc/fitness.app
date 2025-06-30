@@ -58,9 +58,60 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           transform: 'translateY(-2px)',
           boxShadow: 6,
         },
+        display: 'flex',
+        flexDirection: 'row',
+        height: 160
       }}
     >
-      <Box sx={{ position: 'relative', height: 160 }}>
+      <Box sx={{
+        width: '70%',
+        p: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between'
+      }}>
+        <Box>
+          <Typography variant="h6" component="h3" gutterBottom fontWeight="bold" sx={{ color: 'text.primary' }}>
+            {exercise.name}
+          </Typography>
+
+          {showDetails && (
+            <Typography variant="body2" color="text.primary" paragraph>
+              {exercise.description || 'No description available'}
+            </Typography>
+          )}
+        </Box>
+
+        <Stack direction="row" spacing={2} sx={{ mt: 1 }}>
+          <Chip
+            icon={<AccessTime fontSize="small" />}
+            label={`${exercise.duration}s`}
+            size="small"
+            variant="outlined"
+          />
+          <Chip
+            icon={<Whatshot fontSize="small" />}
+            label={`${exercise.calories} cal`}
+            size="small"
+            variant="outlined"
+          />
+          <Chip
+            icon={<Star fontSize="small" />}
+            label={exercise.difficulty}
+            size="small"
+            variant="outlined"
+          />
+        </Stack>
+      </Box>
+
+      <Box sx={{
+        width: '30%',
+        position: 'relative',
+        minHeight: '100%',
+        '&:hover .play-button': {
+          opacity: 1,
+        }
+      }}>
         <Box
           component="img"
           src={exercise.imageUrl}
@@ -71,7 +122,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
             objectFit: 'cover',
           }}
         />
-        <Box sx={{ position: 'absolute', top: 12, right: 12, display: 'flex', gap: 1 }}>
+        <Box sx={{ position: 'absolute', top: 8, right: 8, display: 'flex', gap: 1 }}>
           <IconButton
             size="small"
             onClick={(e) => {
@@ -103,41 +154,124 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
             }}
           />
         </Box>
+        {videoUrl && (
+          <Box
+            className="play-button"
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              borderRadius: '50%',
+              width: 48,
+              height: 48,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              opacity: 0.8,
+              transition: 'opacity 0.2s',
+              '&:hover': {
+                opacity: 1,
+              },
+            }}
+          >
+            <PlayArrow sx={{ color: 'white', fontSize: 32 }} />
+          </Box>
+        )}
       </Box>
 
-      <CardContent>
-        <Typography variant="h6" component="h3" gutterBottom fontWeight="bold" sx={{ color: 'text.primary' }}>
-          {exercise.name}
-        </Typography>
-
-        {showDetails && (
-          <Typography variant="body2" color="text.primary" paragraph>
-            {exercise.description || 'No description available'}
+      <CardContent sx={{ display: 'none' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+          <AccessTime fontSize="small" color="action" />
+          <Typography variant="body2" color="text.primary">
+            {exercise.duration} seg
           </Typography>
-        )}
+        </Box>
 
-        <Stack direction="row" spacing={2} sx={{ mt: 1 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-            <AccessTime fontSize="small" color="action" />
-            <Typography variant="body2" color="text.primary">
-              {exercise.duration} seg
-            </Typography>
-          </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+          <Whatshot fontSize="small" color="action" />
+          <Typography variant="body2" color="text.primary">
+            {exercise.calories} repeticiones
+          </Typography>
+        </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-            <Whatshot fontSize="small" color="action" />
-            <Typography variant="body2" color="text.primary">
-              {exercise.calories} repeticiones
-            </Typography>
-          </Box>
-
-          {/* <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+        {/* <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <Whatshot fontSize="small" color="action" />
             <Typography variant="body2" color="text.secondary">
               {exercise.calories} cal
             </Typography>
           </Box> */}
 
+        {/* {showDetails && (
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, ml: 'auto' }}>
+              <Star fontSize="small" color="warning" />
+              <Typography variant="body2" color="text.secondary">
+                4.5
+              </Typography>
+            </Box>
+          )} */}
+      </CardContent>
+
+      {/* Video Modal */ }
+  <Modal
+    open={isVideoOpen}
+    onClose={handleCloseVideo}
+    aria-labelledby="exercise-video-modal"
+    sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      outline: 'none',
+    }}
+  >
+    <Box
+      sx={{
+        position: 'relative',
+        width: '90vw',
+        maxWidth: '800px',
+        maxHeight: '90vh',
+        bgcolor: 'background.paper',
+        borderRadius: 2,
+        boxShadow: 24,
+        outline: 'none',
+        overflow: 'hidden',
+      }}
+    >
+      <IconButton
+        onClick={handleCloseVideo}
+        sx={{
+          position: 'absolute',
+          right: 8,
+          top: 8,
+          color: 'white',
+          zIndex: 1,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          '&:hover': {
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          },
+        }}
+      >
+        <Close />
+      </IconButton>
+      {videoUrl && (
+        <video
+          autoPlay
+          controls
+          style={{
+            width: '100%',
+            height: 'auto',
+            maxHeight: '90vh',
+            display: 'block',
+          }}
+          src={videoUrl}
+        />
+      )}
+    </Box>
+  </Modal>
+           </Typography>
+          </Box> */}
+          
           {/* {showDetails && (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, ml: 'auto' }}>
               <Star fontSize="small" color="warning" />
@@ -148,7 +282,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           )} */}
         </Stack>
       </CardContent>
-
+      
       {/* Video Modal */}
       <Modal
         open={isVideoOpen}
@@ -161,7 +295,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           outline: 'none',
         }}
       >
-        <Box
+        <Box 
           sx={{
             position: 'relative',
             width: '90vw',
@@ -201,8 +335,29 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
                 display: 'block',
               }}
               src={videoUrl}
-            />
+            >
+              Your browser does not support the video tag.
+            </video>
           )}
+        </Box>
+      </Modal>
+    </Card>
+  );
+};
+
+export default ExerciseCard;
+
+          {videoUrl && (
+            <video
+              autoPlay
+              controls
+              style={{
+                width: '100%',
+                height: 'auto',
+                maxHeight: '90vh',
+                display: 'block',
+              }}
+              src={videoUrl}
         </Box>
       </Modal>
     </Card>

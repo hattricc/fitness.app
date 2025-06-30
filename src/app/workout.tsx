@@ -101,12 +101,11 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
         ))}
       </Box>
 
-      {/* Start Workout Button */}
-      {workout.rounds.length > 0 && workout.rounds[0].exercises.length > 0 && (
+      {/* {workout.rounds.length > 0 && workout.rounds[0].exercises.length > 0 && (
         <Box sx={{ position: 'fixed', bottom: 20, left: 0, right: 0, px: 2, zIndex: 1 }}>
           <StartWorkoutButton  onClick={handleStartWorkout} />
         </Box>
-      )}
+      )} */}
     </Container>
   );
 };
