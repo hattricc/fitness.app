@@ -213,76 +213,6 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           )} */}
       </CardContent>
 
-      {/* Video Modal */ }
-  <Modal
-    open={isVideoOpen}
-    onClose={handleCloseVideo}
-    aria-labelledby="exercise-video-modal"
-    sx={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      outline: 'none',
-    }}
-  >
-    <Box
-      sx={{
-        position: 'relative',
-        width: '90vw',
-        maxWidth: '800px',
-        maxHeight: '90vh',
-        bgcolor: 'background.paper',
-        borderRadius: 2,
-        boxShadow: 24,
-        outline: 'none',
-        overflow: 'hidden',
-      }}
-    >
-      <IconButton
-        onClick={handleCloseVideo}
-        sx={{
-          position: 'absolute',
-          right: 8,
-          top: 8,
-          color: 'white',
-          zIndex: 1,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          '&:hover': {
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          },
-        }}
-      >
-        <Close />
-      </IconButton>
-      {videoUrl && (
-        <video
-          autoPlay
-          controls
-          style={{
-            width: '100%',
-            height: 'auto',
-            maxHeight: '90vh',
-            display: 'block',
-          }}
-          src={videoUrl}
-        />
-      )}
-    </Box>
-  </Modal>
-           </Typography>
-          </Box> */}
-          
-          {/* {showDetails && (
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, ml: 'auto' }}>
-              <Star fontSize="small" color="warning" />
-              <Typography variant="body2" color="text.secondary">
-                4.5
-              </Typography>
-            </Box>
-          )} */}
-        </Stack>
-      </CardContent>
-      
       {/* Video Modal */}
       <Modal
         open={isVideoOpen}
@@ -295,7 +225,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           outline: 'none',
         }}
       >
-        <Box 
+        <Box
           sx={{
             position: 'relative',
             width: '90vw',
@@ -335,29 +265,8 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
                 display: 'block',
               }}
               src={videoUrl}
-            >
-              Your browser does not support the video tag.
-            </video>
+            />
           )}
-        </Box>
-      </Modal>
-    </Card>
-  );
-};
-
-export default ExerciseCard;
-
-          {videoUrl && (
-            <video
-              autoPlay
-              controls
-              style={{
-                width: '100%',
-                height: 'auto',
-                maxHeight: '90vh',
-                display: 'block',
-              }}
-              src={videoUrl}
         </Box>
       </Modal>
     </Card>

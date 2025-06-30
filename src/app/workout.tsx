@@ -18,9 +18,9 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
   // Get the workout data based on the ID
   const workout = id ? getWorkoutById(id) : null;
 
-  const handleBack = () => {
-    navigate(-1);
-  };
+  // const handleBack = () => {
+  //   navigate(-1);
+  // };
 
   const handleExerciseClick = (exercise: ExerciseRoutine) => {
     onSelectExercise(exercise);
@@ -36,7 +36,7 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
     return (
       <Container maxWidth="sm" sx={{ py: 4, textAlign: 'center' }}>
         <Typography variant="h6">Workout not found</Typography>
-        <Button onClick={handleBack} sx={{ mt: 2 }}>Go Back</Button>
+        {/* <Button onClick={handleBack} sx={{ mt: 2 }}>Go Back</Button> */}
       </Container>
     );
   }

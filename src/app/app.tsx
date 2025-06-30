@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -49,6 +49,7 @@ function App() {
   const routes = [
     {
       path: '/',
+      title: 'Programas',
       element: (
         <WorkoutList
           difficulty={difficulty}
@@ -62,10 +63,12 @@ function App() {
     },
     {
       path: '/workout/:id',
+      title: 'Rutina',
       element: <Workout onSelectExercise={handleExerciseSelect} />,
     },
     {
       path: '/exercise/:id',
+      title: selectedExercise?.name || 'Ejercicio',
       element: (
         <ExerciseDetail
           exercise={selectedExercise}
@@ -75,11 +78,21 @@ function App() {
     },
   ];
 
+  // Get the current route to determine the title
+  const location = useLocation();
+  const currentRoute = routes.find(route => {
+    // Handle root path
+    if (route.path === '/' && location.pathname === '/') return true;
+    // Handle other paths
+    return location.pathname.startsWith(route.path) && route.path !== '/';
+  });
+  const pageTitle = currentRoute?.title || 'FitnessApp';
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Box className="app-container">
-        <Header />
+        <Header title={pageTitle} />
         <Box component="main" className="main-content">
           <Routes>
             {routes.map((route, index) => (
