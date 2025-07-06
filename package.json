@@ -34,7 +34,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && pnpm run postbuild",
+    "postbuild": "node scripts/upload-sitemap.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
