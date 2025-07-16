@@ -1,0 +1,450 @@
+[
+  {
+    "category": "Explicaciones",
+    "subcategory": "General",
+    "id": "exp-001",
+    "name": "Introducción",
+    "url": "https://www.youtube.com/shorts/paBNx6zShiA"
+  },
+  {
+    "category": "Explicaciones",
+    "subcategory": "General",
+    "id": "exp-002",
+    "name": "Ejercicio 0603",
+    "url": "https://www.youtube.com/watch?v=jUFHNPid35s"
+  },
+  {
+    "category": "Explicaciones",
+    "subcategory": "Empujes",
+    "id": "exp-003",
+    "name": "Técnica de empujes",
+    "url": "https://www.youtube.com/watch?v=Aed7G5EWIQU"
+  },
+  {
+    "category": "Explicaciones",
+    "subcategory": "Complementos",
+    "id": "exp-004",
+    "name": "Técnica de complementos",
+    "url": "https://www.youtube.com/watch?v=Cdt8B8o7I0g"
+  },
+  {
+    "category": "Explicaciones",
+    "subcategory": "Tren inferior",
+    "id": "exp-005",
+    "name": "Técnica de tren inferior",
+    "url": "https://www.youtube.com/watch?v=D-CeeXsw_Xw"
+  },
+  {
+    "category": "Explicaciones",
+    "subcategory": "General",
+    "id": "exp-006",
+    "name": "Final",
+    "url": "https://www.youtube.com/watch?v=EFw-v5Smv6Q"
+  },
+  {
+    "category": "Jalones",
+    "subcategory": "Espalda",
+    "id": "jal-001",
+    "name": "Jalón vertical con cable",
+    "url": "https://www.youtube.com/shorts/YPrfgCLjL5s"
+  },
+  {
+    "category": "Jalones",
+    "subcategory": "Espalda",
+    "id": "jal-002",
+    "name": "Jalón horizontal con cable",
+    "url": "https://www.youtube.com/shorts/IxZo5dalN1E"
+  },
+  {
+    "category": "Jalones",
+    "subcategory": "Espalda",
+    "id": "jal-003",
+    "name": "Jalón horizontal con máquina",
+    "url": "https://www.youtube.com/shorts/Tf5JFndBvAw"
+  },
+  {
+    "category": "Jalones",
+    "subcategory": "Espalda",
+    "id": "jal-004",
+    "name": "Jalón en apertura horizontal con máquina",
+    "url": "https://www.youtube.com/shorts/d4Ivxd3FLB8"
+  },
+  {
+    "category": "Jalones",
+    "subcategory": "Espalda baja",
+    "id": "jal-005",
+    "name": "Jalón lumbar",
+    "url": "https://www.youtube.com/shorts/aIjle4JuFNw"
+  },
+  {
+    "category": "Empujes",
+    "subcategory": "Pecho",
+    "id": "emp-001",
+    "name": "Empuje con barra en banca plana",
+    "url": "https://www.youtube.com/shorts/UtFS5uP7JlQ"
+  },
+  {
+    "category": "Empujes",
+    "subcategory": "Pecho",
+    "id": "emp-002",
+    "name": "Empuje con barra en banca inclinada",
+    "url": "https://www.youtube.com/shorts/0lJTi7JSXwk"
+  },
+  {
+    "category": "Empujes",
+    "subcategory": "Hombros",
+    "id": "emp-003",
+    "name": "Empuje medio en máquina",
+    "url": "https://www.youtube.com/shorts/645TYPACKmE"
+  },
+  {
+    "category": "Empujes",
+    "subcategory": "Hombros",
+    "id": "emp-004",
+    "name": "Empuje alto en máquina",
+    "url": "https://www.youtube.com/shorts/qgKS_sYm7WE"
+  },
+  {
+    "category": "Empujes",
+    "subcategory": "Pecho",
+    "id": "emp-005",
+    "name": "Empuje en apertura con mancuernas en banca inclinada y brazos a 90 grados",
+    "url": "https://www.youtube.com/shorts/crgEDJbb7-I"
+  },
+  {
+    "category": "Empujes",
+    "subcategory": "Pecho",
+    "id": "emp-006",
+    "name": "Empuje en apertura con mancuernas en banca inclinada y brazos a 45 grados",
+    "url": "https://www.youtube.com/shorts/1_6ymAJ8Ppc"
+  },
+  {
+    "category": "Empujes",
+    "subcategory": "Pecho",
+    "id": "emp-007",
+    "name": "Empuje medio en apertura con máquina",
+    "url": "https://www.youtube.com/shorts/fqJp5xfNWA0"
+  },
+  {
+    "category": "Complementos",
+    "subcategory": "Hombros",
+    "id": "com-001",
+    "name": "Elevaciones laterales para hombros",
+    "url": "https://www.youtube.com/shorts/T1P_H57mQI8"
+  },
+  {
+    "category": "Complementos",
+    "subcategory": "Hombros",
+    "id": "com-002",
+    "name": "Elevaciones frontales alternadas para hombros",
+    "url": "https://www.youtube.com/shorts/4oWxLU5HXrY"
+  },
+  {
+    "category": "Complementos",
+    "subcategory": "Brazos",
+    "id": "com-003",
+    "name": "Curl de bíceps con barra curva",
+    "url": "https://www.youtube.com/shorts/EKOc9gXoGo8"
+  },
+  {
+    "category": "Complementos",
+    "subcategory": "Brazos",
+    "id": "com-004",
+    "name": "Curl de bíceps con mancuernas",
+    "url": "https://www.youtube.com/shorts/d9jxm-eKLuo"
+  },
+  {
+    "category": "Complementos",
+    "subcategory": "Brazos",
+    "id": "com-005",
+    "name": "Jalones de tríceps con cable",
+    "url": "https://www.youtube.com/shorts/PIN59gR-0i4"
+  },
+  {
+    "category": "Tren inferior",
+    "subcategory": "Piernas",
+    "id": "tri-001",
+    "name": "Sentadilla en barra guiada",
+    "url": "https://www.youtube.com/shorts/fdsHKwM62Ug"
+  },
+  {
+    "category": "Tren inferior",
+    "subcategory": "Piernas",
+    "id": "tri-002",
+    "name": "Prensa horizontal en máquina de poleas",
+    "url": "https://www.youtube.com/shorts/RPDoyjapY-Q"
+  },
+  {
+    "category": "Tren inferior",
+    "subcategory": "Cuádriceps",
+    "id": "tri-003",
+    "name": "Extensiones en máquina para cuádriceps",
+    "url": "https://www.youtube.com/shorts/BgiPsB9pPG8"
+  },
+  {
+    "category": "Tren inferior",
+    "subcategory": "Isquiotibiales",
+    "id": "tri-004",
+    "name": "Flexiones en máquina para femorales",
+    "url": "https://www.youtube.com/shorts/cxXEQlnlyfc"
+  },
+  {
+    "category": "Tren inferior",
+    "subcategory": "Glúteos",
+    "id": "tri-005",
+    "name": "Empujes de cadera en máquina regulable",
+    "url": "https://www.youtube.com/shorts/64T3PWKNUc0"
+  },
+  {
+    "category": "Tren inferior",
+    "subcategory": "Aductores",
+    "id": "tri-006",
+    "name": "Aductores en máquina",
+    "url": "https://www.youtube.com/shorts/9RX2qVkETH4"
+  },
+  {
+    "category": "Tren inferior",
+    "subcategory": "Abductores",
+    "id": "tri-007",
+    "name": "Abductores en máquina",
+    "url": "https://www.youtube.com/shorts/I3AVpybwDXU"
+  },
+  {
+    "category": "Tren inferior",
+    "subcategory": "Pantorrillas",
+    "id": "tri-008",
+    "name": "Pantorrillas en máquina sentado",
+    "url": "https://www.youtube.com/shorts/YnVumHCL9GU"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Core",
+    "id": "ext-001",
+    "name": "Plancha",
+    "url": "https://www.youtube.com/shorts/ButERC3M9J4"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Core",
+    "id": "ext-002",
+    "name": "Plancha baja",
+    "url": "https://www.youtube.com/shorts/xAC8WJMfOlk"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Core",
+    "id": "ext-003",
+    "name": "Transiciones de plancha alta a plancha baja",
+    "url": "https://www.youtube.com/shorts/gSjhN7n9DvE"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Espalda",
+    "id": "ext-004",
+    "name": "Flexiones dorsales",
+    "url": "https://www.youtube.com/shorts/_04Eh6rG_tY"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Espalda",
+    "id": "ext-005",
+    "name": "Flexiones dorsales con apertura",
+    "url": "https://www.youtube.com/shorts/UDjYMMncaMU"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Pecho",
+    "id": "ext-006",
+    "name": "Flexiones pectorales",
+    "url": "https://www.youtube.com/shorts/yWM-JdNDmmk"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Pecho",
+    "id": "ext-007",
+    "name": "Flexiones con apoyo en las rodillas",
+    "url": "https://www.youtube.com/shorts/Y1n-WGtBMWQ"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Movilidad",
+    "id": "ext-008",
+    "name": "Transiciones de plancha a cuadrúpedos",
+    "url": "https://www.youtube.com/shorts/gro4Rw8GT8o"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Movilidad",
+    "id": "ext-009",
+    "name": "Retroceso a cuadrúpedo y adelanto con piernas alternadas",
+    "url": "https://www.youtube.com/shorts/-nyLES_h8HA"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Glúteos",
+    "id": "ext-010",
+    "name": "Elevaciones de caderas con apoyos opuestos",
+    "url": "https://www.youtube.com/shorts/BzDVPPFR_f0"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Glúteos",
+    "id": "ext-011",
+    "name": "Elevaciones de caderas con paso hacia atrás",
+    "url": "https://www.youtube.com/shorts/xNRW-qtnNi0"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Glúteos",
+    "id": "ext-012",
+    "name": "Retroceso y paso adelante con transición de caderas",
+    "url": "https://www.youtube.com/shorts/hBxAcVUOIOE"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Cardio",
+    "id": "ext-013",
+    "name": "Retroceso y saltito",
+    "url": "https://www.youtube.com/shorts/124jqt6LjuQ"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Cardio",
+    "id": "ext-014",
+    "name": "Retroceso y patada con saltito",
+    "url": "https://www.youtube.com/shorts/GQHNhz7dHOU"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Movilidad",
+    "id": "ext-015",
+    "name": "Transiciones laterales",
+    "url": "https://www.youtube.com/shorts/TCaLx6y9y0g"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Cardio",
+    "id": "ext-016",
+    "name": "Transiciones laterales con despegue vertical",
+    "url": "https://www.youtube.com/shorts/P8H8OQLnA7g"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Movilidad",
+    "id": "ext-017",
+    "name": "Transiciones laterales con las piernas separadas",
+    "url": "https://www.youtube.com/shorts/n3Vh7vp7hCU"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Movilidad",
+    "id": "ext-018",
+    "name": "Inclinación hacia adelante y retorno",
+    "url": "https://www.youtube.com/shorts/NzHs4am8UBA"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Movilidad",
+    "id": "ext-019",
+    "name": "Inclinación hacia adelante con despegue",
+    "url": "https://www.youtube.com/shorts/ZqXeGmoZ26c"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Cardio",
+    "id": "ext-020",
+    "name": "Burpee",
+    "url": "https://www.youtube.com/shorts/ZwqYLeRM_zU"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Core",
+    "id": "ext-021",
+    "name": "Inclinación con caminata hasta plancha",
+    "url": "https://www.youtube.com/shorts/l3xPW_-zIsA"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Piernas",
+    "id": "ext-022",
+    "name": "Sentadilla profunda",
+    "url": "https://www.youtube.com/shorts/KxdPondrwZ0"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Movilidad",
+    "id": "ext-023",
+    "name": "Gateo alternado estático",
+    "url": "https://www.youtube.com/shorts/eY1gowSZWaQ"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Movilidad",
+    "id": "ext-024",
+    "name": "Desplazamiento cuadrúpedo",
+    "url": "https://www.youtube.com/shorts/LNrpVtzw-ws"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Piernas",
+    "id": "ext-025",
+    "name": "Estocadas",
+    "url": "https://www.youtube.com/shorts/koHMGnK_lVU"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Estiramientos",
+    "id": "ext-026",
+    "name": "Torsión de espalda boca abajo",
+    "url": "https://www.youtube.com/shorts/jHLNONVp7QQ"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Estiramientos",
+    "id": "ext-027",
+    "name": "Torsión de espalda boca arriba",
+    "url": "https://www.youtube.com/shorts/XI5A8EJWKt4"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Estiramientos",
+    "id": "ext-028",
+    "name": "Estiramiento glúteo",
+    "url": "https://www.youtube.com/shorts/wT-J5YZoN2Y"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Espalda",
+    "id": "ext-029",
+    "name": "Colgarse",
+    "url": "https://www.youtube.com/shorts/rpuG1P--oHw"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Espalda",
+    "id": "ext-030",
+    "name": "Colgarse versión sencilla",
+    "url": "https://www.youtube.com/shorts/DkfqSNYIcps"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Estiramientos",
+    "id": "ext-031",
+    "name": "Estiramiento dorsal",
+    "url": "https://www.youtube.com/shorts/8i0c-ueCS8I"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Estiramientos",
+    "id": "ext-032",
+    "name": "Estiramiento femoral sentado",
+    "url": "https://www.youtube.com/shorts/BxKI9Wb4gg4"
+  },
+  {
+    "category": "Exteriores",
+    "subcategory": "Estiramientos",
+    "id": "ext-033",
+    "name": "Estiramiento lumbar sentado",
+    "url": "https://www.youtube.com/shorts/JEkYXL4Caj0"
+  }
+]
