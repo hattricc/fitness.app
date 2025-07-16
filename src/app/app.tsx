@@ -12,6 +12,9 @@ import { Exercise, WorkoutRoutine } from '../types/exercise';
 import { getAllWorkouts } from '../data/mockWorkout';
 import { darkTheme } from '../data/theme';
 import SplashScreen from '../components/molecules/splash-screen/SplashScreen';
+import LoginForm from '../components/organisms/login';
+import SignUpForm from '../components/organisms/signup';
+import ResetPasswordForm from '../components/organisms/reset-password';
 
 function App() {
   const [showApp, setShowApp] = useState(false);
@@ -77,6 +80,18 @@ function App() {
       element: selectedExercise ? (
         <ExerciseDetail exercise={selectedExercise} onBack={() => navigate(-1)} />
       ) : null,
+    },
+    {
+      path: "/login",
+      element: <LoginForm theme={darkTheme} />,
+    },
+    {
+      path: "/signup",
+      element: <SignUpForm theme={darkTheme} />,
+    },
+    {
+      path: "/reset-password",
+      element: <ResetPasswordForm theme={darkTheme} />,
     },
   ];
 

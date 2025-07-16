@@ -22,12 +22,13 @@
     "noUncheckedSideEffectImports": true,
 
     /* Paths */
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "app/*": ["app/*"],
-      "components/*": ["components/*"],
-      "hooks/*": ["hooks/*"],
-      "types/*": ["types/*"]
+      "@/*": ["./src/*"],
+      "app/*": ["./src/app/*"],
+      "components/*": ["./src/components/*"],
+      "hooks/*": ["./src/hooks/*"],
+      "types/*": ["./src/types/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"]

@@ -110,6 +110,7 @@ const ExerciseDetail: React.FC<ExerciseDetailProps> = ({ exercise: propExercise,
               calories: 50,
               imageUrl: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop',
               category: 'Cardio',
+              categoryName: 'Cardio',
               sets: [
                 { id: 's1', name: 'Set 1', duration: 45, rest: 15, description: 'Jumping jacks set 1' },
                 { id: 's2', name: 'Set 2', duration: 45, rest: 15, description: 'Jumping jacks set 2' },
