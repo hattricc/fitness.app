@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import './app.css';
 import Header from '../components/organisms/header';
+import Home from './home';
 import WorkoutList from './workout-list';
 import Workout from './workout';
 import ExerciseDetail from './exercise-detail';
@@ -24,6 +25,10 @@ function App() {
   const [difficulty, setDifficulty] = useState<string>('all');
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
   const [workouts] = useState<WorkoutRoutine[]>(getAllWorkouts());
+
+  const handleWorkoutSelect = (workout: WorkoutRoutine) => {
+    navigate(`/workout/${workout.id}`);
+  };
 
   const handleSplashAndCarouselComplete = () => {
     setShowApp(true);
@@ -69,7 +74,11 @@ function App() {
   const routes = [
     {
       path: "/",
-      element: <WorkoutList difficulty={difficulty} onDifficultyChange={setDifficulty} onSelectWorkout={(workout) => navigate(`/workout/${workout.id}`)} workouts={workouts} />,
+      element: <Home />,
+    },
+    {
+      path: "/workouts",
+      element: <WorkoutList difficulty={difficulty} onDifficultyChange={setDifficulty} onSelectWorkout={handleWorkoutSelect} workouts={workouts} />,
     },
     {
       path: "/workout/:id",

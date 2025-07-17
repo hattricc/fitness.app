@@ -1,6 +1,24 @@
-import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Box } from '@mui/material';
-import { ArrowBack as ArrowBackIcon, Search as SearchIcon, Notifications as NotificationsIcon, AccountCircle as AccountIcon } from '@mui/icons-material';
+import React, { useState } from 'react';
+import { 
+  AppBar, 
+  Toolbar, 
+  Typography, 
+  IconButton, 
+  Box, 
+  Menu, 
+  MenuItem, 
+  ListItemIcon, 
+  ListItemText,
+  Divider
+} from '@mui/material';
+import { 
+  ArrowBack as ArrowBackIcon, 
+  Search as SearchIcon, 
+  Notifications as NotificationsIcon, 
+  AccountCircle as AccountIcon,
+  Login as LoginIcon,
+  PersonAdd as PersonAddIcon
+} from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 interface HeaderProps {
@@ -11,6 +29,21 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    handleClose();
+  };
   return (
     <AppBar 
       position="fixed" 
@@ -47,9 +80,71 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
           <IconButton size="large" color="inherit" aria-label="notifications">
             <NotificationsIcon />
           </IconButton>
-          <IconButton size="large" color="inherit" aria-label="account">
+          <IconButton
+            size="large"
+            color="inherit"
+            aria-label="account"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
+          >
             <AccountIcon />
           </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={open}
+            onClose={handleClose}
+            PaperProps={{
+              elevation: 0,
+              sx: {
+                overflow: 'visible',
+                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.1))',
+                mt: 1.5,
+                '& .MuiAvatar-root': {
+                  width: 32,
+                  height: 32,
+                  ml: -0.5,
+                  mr: 1,
+                },
+                '&:before': {
+                  content: '""',
+                  display: 'block',
+                  position: 'absolute',
+                  top: 0,
+                  right: 14,
+                  width: 10,
+                  height: 10,
+                  bgcolor: 'background.paper',
+                  transform: 'translateY(-50%) rotate(45deg)',
+                  zIndex: 0,
+                },
+              },
+            }}
+          >
+            <MenuItem onClick={() => handleNavigation('/login')}>
+              <ListItemIcon>
+                <LoginIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>Iniciar sesión</ListItemText>
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={() => handleNavigation('/signup')}>
+              <ListItemIcon>
+                <PersonAddIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>Crear cuenta</ListItemText>
+            </MenuItem>
+          </Menu>
         </Box>
       </Toolbar>
     </AppBar>
