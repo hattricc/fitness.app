@@ -10,6 +10,7 @@ import WorkoutList from './workout-list';
 import Workout from './workout';
 import ExerciseDetail from './exercise-detail';
 import Articles from './articles';
+import WeeklyChallenge from './weekly-challenge';
 import { Exercise, WorkoutRoutine } from '../types/exercise';
 import { getAllWorkouts } from '../data/mockWorkout';
 import { darkTheme } from '../data/theme';
@@ -106,6 +107,10 @@ function App() {
     {
       path: "/articles",
       element: <Articles />,
+    },
+    {
+      path: "/weekly-challenge",
+      element: <WeeklyChallenge />,
     },
   ];
 

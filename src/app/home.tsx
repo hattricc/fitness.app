@@ -143,6 +143,7 @@ const Home = () => {
             <Button 
               variant="contained" 
               size="small" 
+              onClick={() => navigate('/weekly-challenge')}
               sx={{ 
                 alignSelf: 'flex-start',
                 bgcolor: 'white',
