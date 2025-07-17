@@ -9,6 +9,7 @@ import Home from './home';
 import WorkoutList from './workout-list';
 import Workout from './workout';
 import ExerciseDetail from './exercise-detail';
+import Articles from './articles';
 import { Exercise, WorkoutRoutine } from '../types/exercise';
 import { getAllWorkouts } from '../data/mockWorkout';
 import { darkTheme } from '../data/theme';
@@ -101,6 +102,10 @@ function App() {
     {
       path: "/reset-password",
       element: <ResetPasswordForm theme={darkTheme} />,
+    },
+    {
+      path: "/articles",
+      element: <Articles />,
     },
   ];
 

@@ -8,9 +8,11 @@ import {
   CardMedia, 
   useTheme,
   useMediaQuery,
-  Stack
+  Stack,
+  Chip
 } from '@mui/material';
 import Footer from '../components/organisms/footer';
+import { type Article } from '../data/mockArticles';
 import {
   FitnessCenter as WorkoutIcon,
   Timeline as ProgressIcon,
@@ -31,11 +33,35 @@ const Home = () => {
     { id: 3, title: 'HIIT Cardio', category: 'Cardio', duration: '20 min', image: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=500&auto=format&fit=crop' },
   ];
 
-  // Mock data for articles
+  // Import articles from mock data
   const articles = [
-    { id: 1, title: '5 Tips for Better Sleep', category: 'Wellness', image: 'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=500&auto=format&fit=crop' },
-    { id: 2, title: 'Meal Prep Guide', category: 'Nutrition', image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=500&auto=format&fit=crop' },
-    { id: 3, title: 'Morning Routine', category: 'Lifestyle', image: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=500&auto=format&fit=crop' },
+    {
+      id: '1',
+      title: '10 Minute Morning Yoga Flow',
+      description: 'Start your day with this energizing yoga sequence to wake up your body and mind.',
+      category: 'Yoga',
+      duration: 10,
+      videoId: 'v7AYKMP6rOE',
+      image: 'https://img.youtube.com/vi/v7AYKMP6rOE/hqdefault.jpg'
+    },
+    {
+      id: '2',
+      title: 'Perfect Push-up Form',
+      description: 'Learn the proper form for push-ups to maximize results and prevent injury.',
+      category: 'Strength',
+      duration: 5,
+      videoId: 'IODxDxX7oi4',
+      image: 'https://img.youtube.com/vi/IODxDxX7oi4/hqdefault.jpg'
+    },
+    {
+      id: '3',
+      title: 'Meal Prep for Weight Loss',
+      description: 'Simple and healthy meal prep ideas to support your weight loss goals.',
+      category: 'Nutrition',
+      duration: 8,
+      videoId: 'pKSPbD0BECM',
+      image: 'https://img.youtube.com/vi/pKSPbD0BECM/hqdefault.jpg'
+    }
   ];
 
   const quickActions = [
@@ -186,24 +212,63 @@ const Home = () => {
         <Box sx={{ mb: 4 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
             <Typography variant="h6" fontWeight="bold">Articles & Tips</Typography>
-            <Button size="small" sx={{ textTransform: 'none' }}>See All</Button>
+            <Button 
+              size="small" 
+              sx={{ textTransform: 'none' }}
+              onClick={() => navigate('/articles')}
+            >
+              See All
+            </Button>
           </Box>
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', sm: 'repeat(3, 1fr)' }, gap: 2 }}>
-            {articles.map((article) => (
-              <Card key={article.id} sx={{ borderRadius: 2, overflow: 'hidden' }}>
-                <CardMedia
-                  component="img"
-                  height="100"
-                  image={article.image}
-                  alt={article.title}
-                  sx={{ width: '100%', objectFit: 'cover' }}
-                />
+            {articles.slice(0, 3).map((article: Article) => (
+              <Card 
+                key={article.id} 
+                sx={{ 
+                  borderRadius: 2, 
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: (theme) => theme.shadows[8],
+                  },
+                }}
+                onClick={() => window.open(`https://www.youtube.com/watch?v=${article.videoId}`, '_blank')}
+              >
+                <Box sx={{ position: 'relative', paddingTop: '56.25%' }}>
+                  <CardMedia
+                    component="img"
+                    image={`https://img.youtube.com/vi/${article.videoId}/hqdefault.jpg`}
+                    alt={article.title}
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                  />
+                  <Chip
+                    label={article.category}
+                    color="primary"
+                    size="small"
+                    sx={{
+                      position: 'absolute',
+                      top: 8,
+                      right: 8,
+                      backgroundColor: 'primary.main',
+                      color: 'primary.contrastText',
+                    }}
+                  />
+                </Box>
                 <CardContent sx={{ p: 1.5 }}>
-                  <Typography variant="caption" color="primary" fontWeight="medium">
-                    {article.category}
-                  </Typography>
-                  <Typography variant="body2" fontWeight="medium">
+                  <Typography variant="subtitle2" fontWeight="bold" gutterBottom noWrap>
                     {article.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" noWrap>
+                    {article.description}
                   </Typography>
                 </CardContent>
               </Card>
