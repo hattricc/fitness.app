@@ -2,17 +2,18 @@ import { useNavigate } from 'react-router-dom';
 import { 
   Box, 
   Typography, 
-  Button, 
   Card, 
   CardContent, 
   CardMedia, 
   useTheme,
   useMediaQuery,
   Stack,
-  Chip
+  Chip,
+  Button
 } from '@mui/material';
 import Footer from '../components/organisms/footer';
 import { type Article } from '../data/mockArticles';
+import QuickActions from '../components/molecules/quick-actions/QuickActions';
 import {
   FitnessCenter as WorkoutIcon,
   Timeline as ProgressIcon,
@@ -65,10 +66,10 @@ const Home = () => {
   ];
 
   const quickActions = [
-    { icon: <WorkoutIcon sx={{ fontSize: 28 }} />, label: 'Workout', path: '/workouts' },
-    { icon: <ProgressIcon sx={{ fontSize: 28 }} />, label: 'Progress', path: '/progress' },
-    { icon: <NutritionIcon sx={{ fontSize: 28 }} />, label: 'Nutrition', path: '/nutrition' },
-    { icon: <CommunityIcon sx={{ fontSize: 28 }} />, label: 'Community', path: '/community' },
+    { id: 'workout', icon: <WorkoutIcon />, label: 'Entrenamiento', onClick: () => navigate('/workouts') },
+    { id: 'progress', icon: <ProgressIcon />, label: 'Progreso', onClick: () => navigate('/progress') },
+    { id: 'nutrition', icon: <NutritionIcon />, label: 'Nutrición', onClick: () => navigate('/nutrition') },
+    // { id: 'community', icon: <CommunityIcon />, label: 'Community', onClick: () => navigate('/community') },
   ];
 
   return (
@@ -80,45 +81,20 @@ const Home = () => {
     }}>
       <Box sx={{ flexGrow: 1, px: 2 }}>
         {/* Header */}
-        <Box sx={{ mb: 4 }}>
+        <Box sx={{ mb: 4, mt: 6 }}>
           <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
-            Hi, Luis
+            Hola, Luis
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            What would you like to do today?
+            ¿Qué te gustaría hacer hoy?
           </Typography>
         </Box>
 
         {/* Quick Actions */}
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', sm: 'repeat(4, 1fr)' }, gap: 2, mb: 4 }}>
-          {quickActions.map((action, index) => (
-            <Button
-              key={index}
-              fullWidth
-              variant="outlined"
-              sx={{
-                p: 2,
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                borderRadius: 2,
-                textTransform: 'none',
-                color: 'text.primary',
-                borderColor: 'divider',
-                '&:hover': {
-                  borderColor: 'primary.main',
-                  backgroundColor: 'action.hover',
-                },
-              }}
-              onClick={() => navigate(action.path)}
-            >
-              <Box sx={{ color: 'primary.main', mb: 1 }}>{action.icon}</Box>
-              <Typography variant="body2" fontWeight="medium">
-                {action.label}
-              </Typography>
-            </Button>
-          ))}
+        <Box sx={{ mb: 4 }}>
+          <QuickActions 
+            actions={quickActions}
+          />
         </Box>
 
         {/* Weekly Challenge Banner */}

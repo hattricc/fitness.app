@@ -1,60 +1,61 @@
 import React from 'react';
-import { Card, CardMedia, Typography, CardActionArea, Box, Chip, styled } from '@mui/material';
+// import { Card, CardMedia, Typography, CardActionArea, Box, Chip, styled } from '@mui/material';
 import { WorkoutRoutine } from '../../../../types/exercise';
 import { useNavigate } from 'react-router-dom';
+import { ExerciseCard } from '../../../../components/molecules';
 
-const StyledCard = styled(Card)(({ theme }) => ({
-  width: '100%',
-  borderRadius: theme.spacing(2),
-  marginBottom: theme.spacing(2),
-  overflow: 'hidden',
-  boxShadow: theme.shadows[2],
-  transition: 'transform 0.2s, box-shadow 0.2s',
-  backgroundColor: theme.palette.background.paper,
-  '&:hover': {
-    transform: 'translateY(-4px)',
-    boxShadow: theme.shadows[6],
-  },
-}));
+// const StyledCard = styled(Card)(({ theme }) => ({
+//   width: '100%',
+//   borderRadius: theme.spacing(2),
+//   marginBottom: theme.spacing(2),
+//   overflow: 'hidden',
+//   boxShadow: theme.shadows[2],
+//   transition: 'transform 0.2s, box-shadow 0.2s',
+//   backgroundColor: theme.palette.background.paper,
+//   '&:hover': {
+//     transform: 'translateY(-4px)',
+//     boxShadow: theme.shadows[6],
+//   },
+// }));
 
-const WorkoutImage = styled(CardMedia)({
-  height: 260,
-  position: 'relative',
-});
+// const WorkoutImage = styled(CardMedia)({
+//   height: 260,
+//   position: 'relative',
+// });
 
-const CategoryChip = styled(Chip)(({ theme }) => ({
-  position: 'absolute',
-  top: theme.spacing(1),
-  right: theme.spacing(1),
-  fontWeight: 'bold',
-  textTransform: 'capitalize',
-  '&.tren-inferior': {
-    backgroundColor: '#4caf50',
-    color: '#fff',
-  },
-  '&.intermedio': {
-    backgroundColor: '#ff9800',
-    color: '#fff',
-  },
-  '&.avanzado': {
-    backgroundColor: '#f44336',
-    color: '#fff',
-  },
-}));
+// const CategoryChip = styled(Chip)(({ theme }) => ({
+//   position: 'absolute',
+//   top: theme.spacing(1),
+//   right: theme.spacing(1),
+//   fontWeight: 'bold',
+//   textTransform: 'capitalize',
+//   '&.tren-inferior': {
+//     backgroundColor: '#4caf50',
+//     color: '#fff',
+//   },
+//   '&.intermedio': {
+//     backgroundColor: '#ff9800',
+//     color: '#fff',
+//   },
+//   '&.avanzado': {
+//     backgroundColor: '#f44336',
+//     color: '#fff',
+//   },
+// }));
 
-const WorkoutInfo = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  bottom: theme.spacing(1),
-  left: theme.spacing(1),
-  right: theme.spacing(1),
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  backgroundColor: 'rgba(0, 0, 0, 0.7)',
-  color: '#fff',
-  padding: theme.spacing(1, 2),
-  borderRadius: theme.spacing(1),
-}));
+// const WorkoutInfo = styled(Box)(({ theme }) => ({
+//   position: 'absolute',
+//   bottom: theme.spacing(1),
+//   left: theme.spacing(1),
+//   right: theme.spacing(1),
+//   display: 'flex',
+//   justifyContent: 'space-between',
+//   alignItems: 'center',
+//   backgroundColor: 'rgba(0, 0, 0, 0.7)',
+//   color: '#fff',
+//   padding: theme.spacing(1, 2),
+//   borderRadius: theme.spacing(1),
+// }));
 
 interface WorkoutCardProps {
   workout: WorkoutRoutine;
@@ -69,49 +70,12 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({ workout, onClick }) => {
     onClick(workout);
     navigate(`/workout/${workout.id}`);
   };
-  
-
-  // Calculate total exercises in the workout
-  const totalExercises = workout.rounds.reduce(
-    (total, round) => total + (round.exercises?.length || 0), 
-    0
-  );
 
   return (
-    <StyledCard onClick={handleClick}>
-      <CardActionArea>
-        <WorkoutImage 
-          image={workout.imageUrl || 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop'} 
-          title={workout.name}
-        >
-          {/* <Box sx={{ position: 'absolute', top: 8, right: 18, display: 'flex', gap: 1 }}>
-            <CategoryChip 
-              label={workout.categoryName} 
-              className={workout.categoryName} 
-              size="small"
-            />
-          </Box> */}
-          <WorkoutInfo>
-            <Box>
-              <Typography variant="h6" fontWeight="bold" sx={{ color: 'white' }}>
-                {workout.name}
-              </Typography>
-              <Typography variant="caption" display="block">
-                {workout.description}
-              </Typography>
-            </Box>
-            <Box sx={{ textAlign: 'right' }}>
-              <Typography variant="caption" display="block">
-                {totalExercises} ejercicios • {workout.duration} min
-              </Typography>
-              {/* <Typography variant="caption" display="block">
-                {workout.calories} kcal
-              </Typography> */}
-            </Box>
-          </WorkoutInfo>
-        </WorkoutImage>
-      </CardActionArea>
-    </StyledCard>
+    <ExerciseCard
+      exercise={workout}
+      onClick={handleClick}
+    />
   );
 };
 
