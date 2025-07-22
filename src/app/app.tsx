@@ -18,6 +18,7 @@ import SplashScreen from '../components/molecules/splash-screen/SplashScreen';
 import LoginForm from '../components/organisms/login';
 import SignUpForm from '../components/organisms/signup';
 import ResetPasswordForm from '../components/organisms/reset-password';
+import Progress from './progress';
 
 function App() {
   const [showApp, setShowApp] = useState(false);
@@ -112,6 +113,10 @@ function App() {
       path: "/weekly-challenge",
       element: <WeeklyChallenge />,
     },
+    {
+      path: "/progress",
+      element: <Progress />,
+    }
   ];
 
   return (
