@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Container, Typography, Button, IconButton, Chip } from '@mui/material';
-import ExerciseCard from '../components/molecules/exercise-card';
+import { ExerciseVideo } from '../components/molecules';
 import { ExerciseRoutine } from '../types/exercise';
 import { getWorkoutById } from '../data/mockWorkout';
 import WorkoutHeader from '../components/organisms/workout/workout-header';
@@ -91,7 +91,7 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
                 onClick={() => handleExerciseClick(exercise)}
                 sx={{ mb: 2, cursor: 'pointer' }}
               >
-                <ExerciseCard
+                <ExerciseVideo
                   exercise={exercise}
                   onClick={() => {}}
                 />

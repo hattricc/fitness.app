@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
 import { Box, Container, Typography } from '@mui/material';
-import WorkoutCard from '../components/organisms/workout/workout-card';
+// import WorkoutCard from '../components/organisms/workout/workout-card';
 import { WorkoutRoutine } from '../types/exercise';
 import WorkoutListHeader from '../components/organisms/workout/workout-list-header';
+import { ExerciseCard } from '../components/molecules';
 
 interface WorkoutListProps {
   difficulty: string;
@@ -68,9 +69,8 @@ const WorkoutList: React.FC<WorkoutListProps> = ({
               </Typography>
               <Box sx={{ display: 'grid', gap: 2 }}>
                 {tagWorkouts.map((workout: WorkoutRoutine) => (
-                  <WorkoutCard
-                    key={workout.id}
-                    workout={workout}
+                  <ExerciseCard
+                    exercise={workout}
                     onClick={handleWorkoutClick}
                   />
                 ))}

@@ -25,7 +25,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
   onClick = () => { },
   showDetails = true
 }) => {
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  // const [isVideoOpen, setIsVideoOpen] = useState(false);
   const videoUrl = exercise.sets?.[0]?.videoUrl || '';
 
   const handleCardClick = (e: React.MouseEvent) => {
@@ -33,23 +33,23 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
     console.log('videoUrl', videoUrl);
 
-    if (videoUrl) {
-      setIsVideoOpen(true);
-    } else {
+    // if (videoUrl) {
+    //   // setIsVideoOpen(true);
+    // } else {
       onClick(exercise);
-    }
+    // }
   };
 
-  const handleCloseVideo = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIsVideoOpen(false);
-  };
+  // const handleCloseVideo = (e: React.MouseEvent) => {
+  //   e.stopPropagation();
+  //   setIsVideoOpen(false);
+  // };
 
   return (
     <Card
       onClick={handleCardClick}
       sx={{
-        borderRadius: 2,
+        borderRadius: 8,
         boxShadow: 3,
         overflow: 'hidden',
         cursor: 'pointer',
@@ -65,10 +65,12 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
     >
       <Box sx={{
         width: '70%',
-        p: 2,
+        p: 4,
+        pr: 6,
+        pl: 6,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between'
+        justifyContent: 'center'
       }}>
         <Box>
           <Typography variant="h6" component="h3" gutterBottom fontWeight="bold" sx={{ color: 'text.primary' }}>
@@ -82,10 +84,10 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           )}
         </Box>
 
-        <Stack direction="row" spacing={2} sx={{ mt: 1 }}>
+        <Stack direction="row" spacing={1} sx={{ mt: 1.5, flexWrap: 'wrap', rowGap: 1 }}>
           <Chip
             icon={<AccessTime fontSize="small" />}
-            label={`${exercise.duration}s`}
+            label={`${exercise.duration} seg`}
             size="small"
             variant="outlined"
           />
@@ -120,6 +122,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
             width: '100%',
             height: '100%',
             objectFit: 'cover',
+            borderRadius: 8,
           }}
         />
         <Box sx={{ position: 'absolute', top: 8, right: 8, display: 'flex', gap: 1 }}>
@@ -127,9 +130,9 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
             size="small"
             onClick={(e) => {
               e.stopPropagation();
-              if (videoUrl) {
-                setIsVideoOpen(true);
-              }
+              // if (videoUrl) {
+              //   setIsVideoOpen(true);
+              // }
             }}
             sx={{
               backgroundColor: 'rgba(0, 0, 0, 0.6)',
@@ -214,7 +217,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
       </CardContent>
 
       {/* Video Modal */}
-      <Modal
+      {/* <Modal
         open={isVideoOpen}
         onClose={handleCloseVideo}
         aria-labelledby="exercise-video-modal"
@@ -268,7 +271,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
             />
           )}
         </Box>
-      </Modal>
+      </Modal> */}
     </Card>
   );
 };
