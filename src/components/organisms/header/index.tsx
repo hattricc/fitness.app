@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   AppBar, 
   Toolbar, 
@@ -17,9 +17,25 @@ import {
   Notifications as NotificationsIcon, 
   AccountCircle as AccountIcon,
   Login as LoginIcon,
-  PersonAdd as PersonAddIcon
+  PersonAdd as PersonAddIcon,
+  Home as HomeIcon,
+  FitnessCenter as WorkoutIcon,
+  Article as ArticleIcon,
+  EmojiEvents as ChallengeIcon
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
+
+// Map of routes to their corresponding titles and icons
+const routeConfig = {
+  '/': { title: 'Inicio', icon: <HomeIcon /> },
+  '/workouts': { title: 'Programas' },
+  '/workout/': { title: 'Detalles del Programa' },
+  '/articles': { title: 'Artículos' },
+  '/weekly-challenge': { title: 'Reto Semanal' },
+  '/login': { title: 'Iniciar Sesión' },
+  '/signup': { title: 'Registrarse' },
+  '/reset-password': { title: 'Restablecer Contraseña' },
+};
 
 interface HeaderProps {
   title?: string;
@@ -28,7 +44,25 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [titleState, setTitleState] = useState('Inicio');
   const isHomePage = location.pathname === '/';
+
+  // Update title and icon when route changes
+  useEffect(() => {
+    // Find the best matching route
+    let matchedRoute = Object.entries(routeConfig).find(([path]) => 
+      location.pathname === path || 
+      (path !== '/' && location.pathname.startsWith(path))
+    );
+
+    if (matchedRoute) {
+      const [_, config] = matchedRoute;
+      setTitleState(config.title);
+    } else {
+      // Default title if no match found
+      setTitleState('Luis Suarez');
+    }
+  }, [location.pathname]);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -69,9 +103,11 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
               <ArrowBackIcon />
             </IconButton>
           )}
-          <Typography variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
-            {title}
-          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Typography variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
+              {titleState}
+            </Typography>
+          </Box>
         </Box>
         <Box>
           <IconButton size="large" color="inherit" aria-label="search">

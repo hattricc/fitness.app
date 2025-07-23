@@ -12,7 +12,7 @@ export const darkTheme = createTheme({
         divider: colors.divider,
     },
     shape: {
-        borderRadius: 18,
+        // borderRadius: 18,
     },
     typography: {
         fontFamily: 'Roboto, Arial, sans-serif',

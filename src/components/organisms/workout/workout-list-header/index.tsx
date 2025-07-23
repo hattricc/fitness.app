@@ -13,10 +13,6 @@ const WorkoutListHeader: React.FC<WorkoutListProps> = ({
 }) => {
     return (
         <Box sx={{ my: 3 }}>
-            {/* TODO realmente necesito un titulo? */}
-            <Typography variant="h4" component="h1" gutterBottom textAlign="center">
-                Programas
-            </Typography>
             <CategoryFilter
                 value={difficulty}
                 onChange={onDifficultyChange}

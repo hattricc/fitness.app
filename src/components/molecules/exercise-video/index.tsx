@@ -1,9 +1,12 @@
-import React from 'react';
-import { Box, Card, Typography, Chip, Stack } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Card, Typography, Chip, Stack, IconButton } from '@mui/material';
 import { AccessTime, Whatshot, Star, PlayArrow } from '@mui/icons-material';
+import { ExerciseRoutine } from '@/types/exercise';
+import CloseIcon from '@mui/icons-material/Close';
+import { Modal } from '@mui/material';
 
 interface ExerciseVideoProps {
-  exercise: {
+  exercise:   ExerciseRoutine;
     id: string;
     name: string;
     difficulty: string;
@@ -14,29 +17,46 @@ interface ExerciseVideoProps {
     description: string;
     category: string;
     categoryName: string;
-    sets?: Array<{
-      id: string;
-      videoUrl?: string;
-      [key: string]: any;
-    }>;
+    videoUrl?: string;
     rounds?: any[];
-  };
-  onClick?: (exercise: any) => void;
 }
 
 const ExerciseVideo: React.FC<ExerciseVideoProps> = ({
   exercise,
-  onClick = () => { }
 }) => {
   // videoUrl is available for future video playback functionality
   // const videoUrl = exercise.sets?.[0]?.videoUrl || '';
 
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+
   const handleCardClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     console.log('exercise', exercise);
-    console.log('onClick', onClick);
-    onClick(exercise);
+    handleExerciseClick(exercise);
   };
+
+  const handleExerciseClick = (exercise: ExerciseRoutine) => {
+    // Get the video URL from the first set of the exercise
+    const videoUrl = exercise.videoUrl;
+    if (videoUrl) {
+      setSelectedVideo(videoUrl);
+    }
+  };
+
+  const handleCloseVideo = () => {
+    setSelectedVideo(null);
+  };
+
+  // Extract YouTube video ID from URL
+  const getYouTubeEmbedUrl = (url: string) => {
+    if (!url) return '';
+    // Handle different YouTube URL formats
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    const videoId = (match && match[2].length === 11) ? match[2] : null;
+    return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1` : '';
+  };
+
 
   return (
     <Card
@@ -190,9 +210,82 @@ const ExerciseVideo: React.FC<ExerciseVideoProps> = ({
               textOverflow: 'ellipsis',
             }}
           >
-            {exercise.repetitions || 0} repeticiones
+            {/* {exercise.repetitions || 0} repeticiones */}
+            0 repeticiones
           </Typography>
         </Box>
+
+        
+      {/* Video Modal */}
+      <Modal
+        open={!!selectedVideo}
+        onClose={handleCloseVideo}
+        aria-labelledby="video-modal-title"
+        aria-describedby="video-modal-description"
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          outline: 'none',
+        }}
+      >
+        <Box sx={{
+          position: 'relative',
+          width: '90%',
+          maxWidth: '800px',
+          bgcolor: 'background.paper',
+          borderRadius: 2,
+          boxShadow: 24,
+          p: 2,
+          outline: 'none',
+        }}>
+          <IconButton
+            onClick={handleCloseVideo}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: 'text.primary',
+              zIndex: 1,
+              backgroundColor: 'rgba(255, 255, 255, 0.7)',
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              },
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+          
+          <Box sx={{
+            position: 'relative',
+            width: '100%',
+            paddingTop: '56.25%', // 16:9 aspect ratio
+            borderRadius: 1,
+            overflow: 'hidden',
+          }}>
+            {selectedVideo && (
+              <iframe
+                width="100%"
+                height="100%"
+                src={getYouTubeEmbedUrl(selectedVideo)}
+                title="Exercise Video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  border: 'none',
+                }}
+              />
+            )}
+          </Box>
+        </Box>
+      </Modal>
+
       </Box>
     </Card>
   );

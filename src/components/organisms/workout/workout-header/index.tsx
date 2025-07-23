@@ -11,7 +11,7 @@ const WorkoutImage = styled('div')<{ image: string }>(({ theme, image }) => ({
     backgroundImage: `url(${image})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    borderRadius: theme.shape.borderRadius,
+    borderRadius: 18,
     overflow: 'hidden',
     '&::before': {
         content: '""',

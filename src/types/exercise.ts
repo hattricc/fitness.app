@@ -19,10 +19,11 @@ export interface BaseExercise {
   description: string;
   category: string;
   categoryName: string;
+  videoUrl?: string;
 }
 
 export interface ExerciseRoutine extends BaseExercise {
-  sets: ExerciseSet[];
+  // sets: ExerciseSet[];
   rounds?: never;
 }
 
@@ -31,7 +32,6 @@ export interface WorkoutRoutine extends BaseExercise {
     id: string;
     exercises: ExerciseRoutine[];
   }[];
-  sets?: any;
 }
 
 export type Exercise = ExerciseRoutine | WorkoutRoutine;

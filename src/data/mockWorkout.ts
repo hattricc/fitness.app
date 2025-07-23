@@ -1,354 +1,102 @@
-import { WorkoutRoutine } from '../types/exercise';
+import { WorkoutRoutine, ExerciseRoutine, ExerciseSet } from '../types/exercise';
+import exercisesData from './exercises.json';
 
-const mockWorkouts: Record<string, WorkoutRoutine> = {
-  '1': {
-    id: '1',
-    name: 'Tren Inferior',
-    tag: 'Día 1',
-    difficulty: 'gimnasio',
-    duration: 15,
-    calories: 120,
-    imageUrl: 'https://i.ytimg.com/vi/ECKQX0583z4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAgwY1fWquWuK3TCq2EdmlFNU4luA',
-    description: 'Tren Inferior',
-    category: 'tren-inferior',
-    categoryName: 'Tren Inferior',
-    rounds: [
-      {
-        id: 'r1',
-        exercises: [
-          {
-            id: 'e1',
-            name: 'Barra de Máquina Smith',
-            duration: 30,
-            calories: 10,
-            imageUrl: 'https://eresfitness.com/wp-content/uploads/2020/12/Press-de-hombros-sentado-en-maquina-Smith.webp',
-            description: 'Barra de Máquina Smith',
-            difficulty: 'gimnasio',
-            category: 'tren-inferior',
-            categoryName: 'Tren Inferior',
-            sets: [
-              { 
-                id: 's1', 
-                name: 'Set 1', 
-                description: 'Barra de Máquina Smith', 
-                duration: 30, 
-                rest: 10, 
-                videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' 
-              }
-            ]
-          },
-          {
-            id: 'e2',
-            name: 'Prensa en máquina',
-            duration: 30,
-            calories: 15,
-            imageUrl: 'https://eresfitness.com/wp-content/uploads/2020/12/Press-de-pierna-en-maquina.webp',
-            description: 'Prensa en máquina',
-            difficulty: 'gimnasio',
-            category: 'tren-inferior',
-            categoryName: 'Tren Inferior',
-            sets: [
-              { 
-                id: 's2', 
-                name: 'Set 1',
-                description: 'Prensa en máquina',
-                duration: 30,
-                rest: 10,
-                videoUrl: 'https://www.youtube.com/shorts/xNRW-qtnNi0'
-              },
-              { 
-                id: 's3', 
-                name: 'Set 2', 
-                description: 'Prensa en máquina', 
-                duration: 30, 
-                rest: 10, 
-                videoUrl: '' 
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  '2': {
-    id: '2',
-    name: 'Rutina de fuerza',
-    tag: 'Día 2',
-    difficulty: 'exteriores',
-    duration: 45,
-    calories: 300,
-    imageUrl: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop',
-    description: 'Rutina de fuerza para todos los niveles de fitness',
-    category: 'Full Body',
-    categoryName: 'Full Body',
-    rounds: [
-      {
-        id: 'r1',
-        exercises: [
-          {
-            id: 'e3',
-            name: 'Push-ups',
-            duration: 45,
-            calories: 50,
-            imageUrl: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop',
-            description: 'Basic push-up exercise',
-            difficulty: 'exteriores',
-            category: 'Strength',
-            categoryName: 'Fuerza',
-            sets: [
-              { 
-                id: 's3',
-                name: 'Set 1',
-                duration: 45,
-                rest: 30,
-                description: 'Push-ups set 1',
-                videoUrl: ''
-              },
-              { 
-                id: 's4',
-                name: 'Set 2',
-                duration: 45,
-                rest: 30,
-                description: 'Push-ups set 2',
-                videoUrl: ''
-              }
-            ]
-          },
-          {
-            id: 'e4',
-            name: 'Squats',
-            duration: 45,
-            calories: 60,
-            imageUrl: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop',
-            description: 'Bodyweight squats',
-            difficulty: 'exteriores',
-            category: 'Strength',
-            categoryName: 'Fuerza',
-            sets: [
-              { 
-                id: 's5',
-                name: 'Set 1',
-                duration: 45,
-                rest: 30,
-                description: 'Squats set 1',
-                videoUrl: ''
-              },
-              { 
-                id: 's6',
-                name: 'Set 2',
-                duration: 45,
-                rest: 30,
-                description: 'Squats set 2',
-                videoUrl: ''
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  '3': {
-    id: '3',
-    name: 'Rutina de Peso Libre',
-    tag: 'Día 3',
-    difficulty: 'gimnasio',
-    duration: 40,
-    calories: 280,
-    imageUrl: 'https://images.unsplash.com/photo-1534258936925-c58bed479fcb?w=800&auto=format&fit=crop',
-    description: 'Rutina completa con mancuernas y barras',
-    category: 'gimnasio',
-    categoryName: 'Gimnasio',
-    rounds: [
-      {
-        id: 'r1',
-        exercises: [
-          {
-            id: 'e5',
-            name: 'Press de Banca',
-            duration: 45,
-            calories: 80,
-            imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop',
-            description: 'Press de banca con barra',
-            difficulty: 'gimnasio',
-            category: 'pecho',
-            categoryName: 'Pecho',
-            sets: [
-              { id: 's5', name: 'Set 1', description: '12 repeticiones', duration: 45, rest: 60, videoUrl: '' },
-              { id: 's6', name: 'Set 2', description: '10 repeticiones', duration: 45, rest: 60, videoUrl: '' }
-            ]
-          },
-          {
-            id: 'e6',
-            name: 'Peso Muerto',
-            duration: 50,
-            calories: 90,
-            imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop',
-            description: 'Peso muerto convencional',
-            difficulty: 'gimnasio',
-            category: 'piernas',
-            categoryName: 'Piernas',
-            sets: [
-              { id: 's7', name: 'Set 1', description: '10 repeticiones', duration: 50, rest: 60, videoUrl: '' },
-              { id: 's8', name: 'Set 2', description: '8 repeticiones', duration: 50, rest: 60, videoUrl: '' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  '4': {
-    id: '4',
-    name: 'Máquinas Superiores',
-    tag: 'Día 1',
-    difficulty: 'gimnasio',
-    duration: 35,
-    calories: 220,
-    imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop',
-    description: 'Enfoque en la parte superior del cuerpo usando máquinas',
-    category: 'gimnasio',
-    categoryName: 'Gimnasio',
-    rounds: [
-      {
-        id: 'r2',
-        exercises: [
-          {
-            id: 'e7',
-            name: 'Remo en Máquina',
-            duration: 40,
-            calories: 70,
-            imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop',
-            description: 'Ejercicio de espalda en máquina',
-            difficulty: 'gimnasio',
-            category: 'espalda',
-            categoryName: 'Espalda',
-            sets: [
-              { id: 's9', name: 'Set 1', description: '12 repeticiones', duration: 40, rest: 45, videoUrl: '' },
-              { id: 's10', name: 'Set 2', description: '10 repeticiones', duration: 40, rest: 45, videoUrl: '' }
-            ]
-          },
-          {
-            id: 'e8',
-            name: 'Press de Hombros en Máquina',
-            duration: 35,
-            calories: 60,
-            imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop',
-            description: 'Press de hombros en máquina sentado',
-            difficulty: 'gimnasio',
-            category: 'hombros',
-            categoryName: 'Hombros',
-            sets: [
-              { id: 's11', name: 'Set 1', description: '12 repeticiones', duration: 35, rest: 45, videoUrl: '' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  '5': {
-    id: '5',
-    name: 'Entrenamiento en Parque',
-    tag: 'Día 2',
-    difficulty: 'exteriores',
-    duration: 30,
-    categoryName: 'Exteriores',
-    calories: 250,
-    imageUrl: 'https://images.unsplash.com/photo-1571019614242-cf63a5601a96?w=800&auto=format&fit=crop',
-    description: 'Rutina completa usando solo el peso corporal en parque',
-    category: 'exteriores',
-    rounds: [
-      {
-        id: 'r3',
-        exercises: [
-          {
-            id: 'e9',
-            name: 'Dominadas',
-            duration: 45,
-            calories: 70,
-            imageUrl: 'https://images.unsplash.com/photo-1594381898411-846e7d193883?w=800&auto=format&fit=crop',
-            description: 'Dominadas en barra de parque',
-            difficulty: 'exteriores',
-            category: 'superior',
-            categoryName: 'Superior',
-            sets: [
-              { id: 's12', name: 'Set 1', description: 'Máximas repeticiones', duration: 45, rest: 60, videoUrl: '' },
-              { id: 's13', name: 'Set 2', description: 'Máximas repeticiones', duration: 45, rest: 60, videoUrl: '' }
-            ]
-          },
-          {
-            id: 'e10',
-            name: 'Fondos en Banco',
-            duration: 35,
-            calories: 60,
-            imageUrl: 'https://images.unsplash.com/photo-1594381898411-846e7d193883?w=800&auto=format&fit=crop',
-            description: 'Fondos en banco del parque',
-            difficulty: 'exteriores',
-            category: 'superior',
-            categoryName: 'Superior',
-            sets: [
-              { id: 's14', name: 'Set 1', description: '15 repeticiones', duration: 35, rest: 45, videoUrl: '' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  '6': {
-    id: '6',
-    name: 'Cardio al Aire Libre',
-    tag: 'Día 3',
-    difficulty: 'exteriores',
-    duration: 45,
-    calories: 400,
-    imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop',
-    description: 'Entrenamiento de cardio intenso en exteriores',
-    category: 'exteriores',
-    categoryName: 'Exteriores',
-    rounds: [
-      {
-        id: 'r4',
-        exercises: [
-          {
-            id: 'e11',
-            name: 'Sprints',
-            duration: 60,
-            calories: 120,
-            imageUrl: 'https://images.unsplash.com/photo-1571019614242-cf63a5601a96?w=800&auto=format&fit=crop',
-            description: 'Sprints cortos de 30 segundos',
-            difficulty: 'exteriores',
-            category: 'cardio',
-            categoryName: 'Cardio',
-            sets: [
-              { id: 's15', name: 'Set 1', description: '6 sprints de 30s', duration: 240, rest: 30, videoUrl: '' }
-            ]
-          },
-          {
-            id: 'e12',
-            name: 'Escaleras',
-            duration: 30,
-            calories: 80,
-            imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop',
-            description: 'Subida de escaleras',
-            difficulty: 'exteriores',
-            category: 'cardio',
-            categoryName: 'Cardio',
-            sets: [
-              { id: 's16', name: 'Set 1', description: '10 minutos continuos', duration: 600, rest: 60, videoUrl: '' }
-            ]
-          }
-        ]
-      }
-    ]
+interface ExerciseData {
+  category: string;
+  subcategory: string;
+  id: string;
+  name: string;
+  url: string;
+}
+
+// Type assertion for exercises data
+const exercises = exercisesData as ExerciseData[];
+
+// Group exercises by category
+const exercisesByCategory = exercises.reduce((acc, exercise) => {
+  if (!acc[exercise.category]) {
+    acc[exercise.category] = [];
   }
+  acc[exercise.category].push(exercise);
+  return acc;
+}, {} as Record<string, ExerciseData[]>);
+
+// Create a workout routine from exercises in a category
+const createWorkoutRoutine = (category: string): WorkoutRoutine => {
+  const categoryExercises = exercisesByCategory[category] || [];
+  
+  // Create exercise routines from the exercises
+  const exerciseRoutines: ExerciseRoutine[] = categoryExercises.map((ex, index) => ({
+    id: `ex-${category.toLowerCase().replace(/\s+/g, '-')}-${index}`,
+    name: ex.name,
+    tag: ex.subcategory,
+    difficulty: 'intermediate',
+    duration: 30,
+    calories: 10,
+    imageUrl: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop',
+    description: ex.name,
+    category: ex.category.toLowerCase().replace(/\s+/g, '-'),
+    categoryName: ex.category,
+    videoUrl: ex.url || '',
+    // sets: [
+    //   {
+    //     id: `s-${ex.id}-1`,
+    //     name: 'Set 1',
+    //     description: ex.name,
+    //     duration: 30,
+    //     rest: 10,
+    //     videoUrl: ex.url || ''
+    //   },
+    //   {
+    //     id: `s-${ex.id}-2`,
+    //     name: 'Set 2',
+    //     description: ex.name,
+    //     duration: 30,
+    //     rest: 10,
+    //     videoUrl: ex.url || ''
+    //   }
+    // ]
+  }));
+
+  return {
+    id: `wr-${category.toLowerCase().replace(/\s+/g, '-')}`,
+    name: category,
+    tag: category,
+    difficulty: 'intermediate',
+    duration: exerciseRoutines.length * 5, // 5 minutes per exercise
+    calories: exerciseRoutines.length * 30, // 30 calories per exercise
+    imageUrl: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop',
+    description: `Workout routine for ${category}`,
+    category: category.toLowerCase().replace(/\s+/g, '-'),
+    categoryName: category,
+    rounds: [
+      {
+        id: 'r1',
+        exercises: exerciseRoutines
+      }
+    ]
+  };
 };
 
+// Create workout routines for each category
+const workoutRoutines: WorkoutRoutine[] = Object.keys(exercisesByCategory).map(
+  category => createWorkoutRoutine(category)
+);
+
+// Create a map of workout routines by ID for easy lookup
+const workouts: Record<string, WorkoutRoutine> = workoutRoutines.reduce((acc, routine) => {
+  acc[routine.id] = routine;
+  return acc;
+}, {} as Record<string, WorkoutRoutine>);
+
 export const getWorkoutById = (id: string): WorkoutRoutine | undefined => {
-  return mockWorkouts[id];
+  return workouts[id];
 };
 
 export const getAllWorkouts = (): WorkoutRoutine[] => {
-  return Object.values(mockWorkouts);
+  return Object.values(workouts);
 };
 
-export const mockWorkout = mockWorkouts['1']; // Default export for backward compatibility
+export const mockWorkout = workoutRoutines[0]; // Default export for backward compatibility
 
-export default mockWorkouts;
+export default workoutRoutines;
