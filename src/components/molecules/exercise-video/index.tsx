@@ -8,6 +8,7 @@ interface ExerciseVideoProps {
     name: string;
     difficulty: string;
     duration: number;
+    repetitions: number;
     calories: number;
     imageUrl: string;
     description: string;
@@ -32,6 +33,8 @@ const ExerciseVideo: React.FC<ExerciseVideoProps> = ({
 
   const handleCardClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    console.log('exercise', exercise);
+    console.log('onClick', onClick);
     onClick(exercise);
   };
 
@@ -131,6 +134,7 @@ const ExerciseVideo: React.FC<ExerciseVideoProps> = ({
                 height: 24,
                 '& .MuiChip-label': {
                   px: 1,
+                  color: 'text.secondary',
                 },
                 '& .MuiSvgIcon-root': {
                   fontSize: '0.9rem',
@@ -177,6 +181,17 @@ const ExerciseVideo: React.FC<ExerciseVideoProps> = ({
               }}
             />*/}
           </Stack>
+        </Box>
+
+
+        <Box>
+          <Typography
+            sx={{
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {exercise.repetitions || 0} repeticiones
+          </Typography>
         </Box>
       </Box>
     </Card>

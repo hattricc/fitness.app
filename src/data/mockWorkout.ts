@@ -54,7 +54,7 @@ const mockWorkouts: Record<string, WorkoutRoutine> = {
                 description: 'Prensa en máquina',
                 duration: 30,
                 rest: 10,
-                videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
+                videoUrl: 'https://www.youtube.com/shorts/xNRW-qtnNi0'
               },
               { 
                 id: 's3', 
