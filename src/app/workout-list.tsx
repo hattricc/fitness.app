@@ -64,7 +64,7 @@ const WorkoutList: React.FC<WorkoutListProps> = ({
 
           {Object.entries(workoutsByTag).map(([tag, tagWorkouts]) => (
             <Box key={tag} sx={{ mb: 4 }}>
-              <Typography variant="h6" sx={{ mb: 2, textAlign: 'center' }}>
+              <Typography variant="h5" sx={{ mb: 2 }}>
                 {tag}
               </Typography>
               <Box sx={{ display: 'grid', gap: 2 }}>

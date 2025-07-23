@@ -6,7 +6,6 @@ import { ExerciseVideo } from '../components/molecules';
 import { ExerciseRoutine } from '../types/exercise';
 import { getWorkoutById } from '../data/mockWorkout';
 import WorkoutHeader from '../components/organisms/workout/workout-header';
-import StartWorkoutButton from 'components/atoms/start-workout-button/start-workout-button';
 
 interface WorkoutProps {
   onSelectExercise: (exercise: ExerciseRoutine) => void;
@@ -69,30 +68,8 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
       maxWidth: '100%',
       px: 2 
     }}>
-      <WorkoutHeader workout={workout} />
-
       {/* Workout Header */}
-      <Box sx={{ mb: 3, textAlign: 'center' }}>
-        {/* <Typography variant="h5" gutterBottom>{workout.name}</Typography> */}
-        <Typography variant="body1" color="text.secondary" gutterBottom>
-          {workout.description}
-        </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, my: 2 }}>
-          <Chip 
-            label={`${workout.duration} min`} 
-            color="secondary"
-          />
-          {/* <Chip 
-            label={`${workout.calories} cal`} 
-            variant="outlined"
-            color="error"
-          /> */}
-          <Chip 
-            label={workout.difficulty}
-            color="primary"
-          />
-        </Box>
-      </Box>
+      <WorkoutHeader workout={workout} />
 
       {/* Workout Rounds */}
       <Box sx={{ mb: 4 }}>

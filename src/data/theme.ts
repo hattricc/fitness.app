@@ -11,6 +11,9 @@ export const darkTheme = createTheme({
         action: colors.action,
         divider: colors.divider,
     },
+    shape: {
+        borderRadius: 18,
+    },
     typography: {
         fontFamily: 'Roboto, Arial, sans-serif',
         h1: {

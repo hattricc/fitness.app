@@ -42,7 +42,7 @@ interface ExerciseCard1Props {
   onClick?: () => void;
 }
 
-const ExerciseCard1: React.FC<ExerciseCard1Props> = ({
+const ExerciseCardHeader: React.FC<ExerciseCard1Props> = ({
   imageUrl,
   name,
   description,
@@ -76,4 +76,4 @@ const ExerciseCard1: React.FC<ExerciseCard1Props> = ({
   );
 };
 
-export default ExerciseCard1;
+export default ExerciseCardHeader;

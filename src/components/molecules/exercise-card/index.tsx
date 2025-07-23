@@ -64,7 +64,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
       }}
     >
       <Box sx={{
-        width: '70%',
+        width: '60%',
         p: 4,
         pr: 6,
         pl: 6,
@@ -107,7 +107,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
       </Box>
 
       <Box sx={{
-        width: '30%',
+        width: '40%',
         position: 'relative',
         minHeight: '100%',
         '&:hover .play-button': {
