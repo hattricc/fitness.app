@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Typography, styled, keyframes } from '@mui/material';
+import { Box, Button, Typography, styled, keyframes, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const fadeIn = keyframes`
@@ -20,10 +21,24 @@ const CarouselContainer = styled(Box)({
   justifyContent: 'space-between',
   animation: `${fadeIn} 0.5s ease-in`,
   backgroundColor: '#121212', // Fallback background color
+  boxSizing: 'border-box',
+  backgroundRepeat: 'no-repeat',
+});
+
+const CloseButton = styled(IconButton)({
+  position: 'absolute',
+  top: 16,
+  right: 16,
+  color: 'white',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  '&:hover': {
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+  },
+  zIndex: 10,
 });
 
 const Slide = styled(motion.div)({
-  position: 'absolute',
+  position: 'relative',
   width: '100%',
   height: '100%',
   backgroundSize: 'cover',
@@ -33,6 +48,21 @@ const Slide = styled(motion.div)({
   justifyContent: 'space-between',
   padding: '40px 20px',
   boxSizing: 'border-box',
+  backgroundRepeat: 'no-repeat',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
+    zIndex: 1,
+  },
+  '& > *': {
+    position: 'relative',
+    zIndex: 2,
+  },
 });
 
 const LogoContainer = styled(Box)({
@@ -53,7 +83,7 @@ const TextContainer = styled(Box)({
   backgroundColor: 'rgba(0, 0, 0, 0.7)',
   borderRadius: 20,
   padding: '24px',
-  margin: '0 20px',
+  margin: '20px 0px',
   color: 'white',
   textAlign: 'center',
   backdropFilter: 'blur(10px)',
@@ -66,11 +96,25 @@ const Title = styled(Typography)({
   color: 'white',
 });
 
-const Description = styled(Typography)({
-  marginBottom: '24px',
-  opacity: 0.9,
-  fontSize: '1rem',
-  color: 'rgba(255, 255, 255, 0.9)',
+// const Description = styled(Typography)({
+//   marginBottom: '24px',
+//   opacity: 0.9,
+//   fontSize: '1rem',
+//   color: 'rgba(255, 255, 255, 0.9)',
+// });
+
+const PreviousButton = styled(Button)({
+  backgroundColor: '#E57952', // Using primary color from your theme
+  color: 'white',
+  borderRadius: 50,
+  padding: '12px 40px',
+  fontWeight: 'bold',
+  textTransform: 'none',
+  margin: '0 auto',
+  marginBottom: '40px',
+  '&:hover': {
+    backgroundColor: '#CC6A48', // Darker shade for hover
+  },
 });
 
 const NextButton = styled(Button)({
@@ -105,7 +149,7 @@ const Dot = styled(Box)<{ active: boolean }>(({ active }) => ({
 interface SlideData {
   id: number;
   title: string;
-  description: string;
+  // description: string;
   backgroundImage: string;
   backgroundColor?: string;
 }
@@ -114,30 +158,41 @@ interface SlideData {
 const slides: SlideData[] = [
   {
     id: 1,
-    title: 'Bienvenido a Luis Suarez',
-    description: 'El mejor entrenador de fitness.',
-    backgroundImage: 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)',
+    title: 'Bienvenido a Entrenamiento e Integración',
+    // description: 'El mejor entrenador de fitness.',
+    // backgroundImage: 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)',
+    backgroundImage: '',
     backgroundColor: '#1a1a1a',
   },
   {
     id: 2,
-    title: 'Sigue tu progreso',
-    description: 'Registra tus entrenamientos y observa cómo mejoras con el tiempo.',
-    backgroundImage: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)',
-    backgroundColor: '#2a2a2a',
+    title: 'Aquí encontrarás una guía de ejercicios y rutinas físicas',
+    // description: 'Registra tus entrenamientos y observa cómo mejoras con el tiempo.',
+    // backgroundImage: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)',
+    backgroundImage: 'url(/images/welcome/bienvenida-2.jpg)',
   },
   {
     id: 3,
-    title: 'Ejercicios',
-    description: 'Accede a una amplia variedad de ejercicios adaptados a tus necesidades.',
-    backgroundImage: 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)',
-    backgroundColor: '#1a1a1a',
+    title: 'Adaptables a tus requerimientos personales',
+    // description: 'Accede a una amplia variedad de ejercicios adaptados a tus necesidades.',
+    // backgroundImage: 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)',
+    backgroundImage: 'url(/images/welcome/bienvenida-3.jpg)',
+    backgroundColor: 'transparent',
   },
   {
     id: 4,
-    title: '¡Comencemos!',
-    description: 'Crea tu perfil y comienza tu viaje de fitness hoy mismo.',
-    backgroundImage: 'linear-gradient(135deg, #E57952 0%, #CC6A48 100%)',
+    title: 'Y acompañamiento integral en el proceso más importante de tu vida',
+    // description: 'Crea tu perfil y comienza tu viaje de fitness hoy mismo.',
+    // backgroundImage: 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)',
+    backgroundImage: 'url(/images/welcome/bienvenida-4.jpg)',
+    backgroundColor: '#E57952',
+  },
+  {
+    id: 5,
+    title: 'Cultivar tu salud',
+    // description: 'Crea tu perfil y comienza tu viaje de fitness hoy mismo.',
+    // backgroundImage: 'linear-gradient(135deg, #E57952 0%, #CC6A48 100%)',
+    backgroundImage: 'url(/images/welcome/bienvenida-5.jpg)',
     backgroundColor: '#E57952',
   },
 ];
@@ -158,19 +213,33 @@ const IntroCarousel: React.FC<IntroCarouselProps> = ({ onComplete }) => {
     }
   };
 
+  const previousSlide = () => {
+    if (currentSlide > 0) {
+      setCurrentSlide(currentSlide - 1);
+      // } else {
+      //   onComplete();
+      // }
+    }
+  };
+
   const variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
+    enter: {
       opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
     },
-    exit: (direction: number) => ({
-      x: direction < 0 ? 1000 : -1000,
+    center: {
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: [0.4, 0, 0.2, 1] as any
+      }
+    },
+    exit: {
       opacity: 0,
-    }),
+      transition: {
+        duration: 0.3,
+        ease: [0.4, 0, 0.2, 1] as any
+      }
+    },
   };
 
   // Log for debugging
@@ -190,18 +259,20 @@ const IntroCarousel: React.FC<IntroCarouselProps> = ({ onComplete }) => {
           animate="center"
           exit="exit"
           transition={{
-            x: { type: 'spring', stiffness: 300, damping: 30 },
-            opacity: { duration: 0.2 },
+            opacity: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
           }}
           style={{
-            background: slides[currentSlide].backgroundImage,
+            backgroundImage: slides[currentSlide].backgroundImage,
             backgroundColor: slides[currentSlide].backgroundColor,
           }}
         >
+          <CloseButton onClick={onComplete} aria-label="close">
+            <CloseIcon />
+          </CloseButton>
           <LogoContainer>
-            <LogoImage 
-              src="/images/logo.png"
-              alt="FitTrack Logo"
+            <LogoImage
+              src="/images/logo/logo-blanco.png"
+              alt="Logo"
               onError={(e) => {
                 console.error('Failed to load logo');
                 const target = e.target as HTMLImageElement;
@@ -209,33 +280,43 @@ const IntroCarousel: React.FC<IntroCarouselProps> = ({ onComplete }) => {
               }}
             />
           </LogoContainer>
-          
+
           <Box>
             <TextContainer>
               <Title variant="h4">{slides[currentSlide].title}</Title>
-              <Description variant="body1">
+              {/* <Description variant="body1">
                 {slides[currentSlide].description}
-              </Description>
+              </Description> */}
             </TextContainer>
-            
+
             <DotsContainer>
               {slides.map((_, index) => (
-                <Dot 
-                  key={index} 
-                  active={index === currentSlide} 
+                <Dot
+                  key={index}
+                  active={index === currentSlide}
                   onClick={() => setCurrentSlide(index)}
                 />
               ))}
             </DotsContainer>
-            
-            <NextButton 
-              variant="contained" 
-              onClick={nextSlide}
-              fullWidth
-              size="large"
-            >
-              {currentSlide === slides.length - 1 ? 'Comenzar' : 'Siguiente'}
-            </NextButton>
+
+            <Box>
+              <PreviousButton
+                variant="contained"
+                onClick={previousSlide}
+                fullWidth
+                size="large"
+              >
+                Anterior
+              </PreviousButton>
+              <NextButton
+                variant="contained"
+                onClick={nextSlide}
+                fullWidth
+                size="large"
+              >
+                {currentSlide === slides.length - 1 ? '¡Comencemos!' : 'Siguiente'}
+              </NextButton>
+            </Box>
           </Box>
         </Slide>
       </AnimatePresence>

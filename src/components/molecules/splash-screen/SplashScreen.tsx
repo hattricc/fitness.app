@@ -91,7 +91,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onAnimationEnd }) => {
   return (
     <SplashContainer className="splash-container">
       <LogoImage 
-        src="/images/logo-2.png"
+        src="/images/logo/logo-2.png"
         alt="Fitness App Logo"
         onError={(e) => {
           console.error('Failed to load logo image');
