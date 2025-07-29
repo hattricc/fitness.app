@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button, Typography, styled, keyframes, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const fadeIn = keyframes`
@@ -115,6 +116,7 @@ const PreviousButton = styled(Button)({
   '&:hover': {
     backgroundColor: '#CC6A48', // Darker shade for hover
   },
+  width: '20%',
 });
 
 const NextButton = styled(Button)({
@@ -129,6 +131,7 @@ const NextButton = styled(Button)({
   '&:hover': {
     backgroundColor: '#CC6A48', // Darker shade for hover
   },
+  width: '80%',
 });
 
 const DotsContainer = styled(Box)({
@@ -154,44 +157,33 @@ interface SlideData {
   backgroundColor?: string;
 }
 
-// Using solid colors as fallback if images don't load
 const slides: SlideData[] = [
   {
     id: 1,
     title: 'Bienvenido a Entrenamiento e Integración',
-    // description: 'El mejor entrenador de fitness.',
-    // backgroundImage: 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)',
     backgroundImage: '',
-    backgroundColor: '#1a1a1a',
+    backgroundColor: '#1B1B1B',
   },
   {
     id: 2,
     title: 'Aquí encontrarás una guía de ejercicios y rutinas físicas',
-    // description: 'Registra tus entrenamientos y observa cómo mejoras con el tiempo.',
-    // backgroundImage: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)',
     backgroundImage: 'url(/images/welcome/bienvenida-2.jpg)',
   },
   {
     id: 3,
     title: 'Adaptables a tus requerimientos personales',
-    // description: 'Accede a una amplia variedad de ejercicios adaptados a tus necesidades.',
-    // backgroundImage: 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)',
     backgroundImage: 'url(/images/welcome/bienvenida-3.jpg)',
     backgroundColor: 'transparent',
   },
   {
     id: 4,
     title: 'Y acompañamiento integral en el proceso más importante de tu vida',
-    // description: 'Crea tu perfil y comienza tu viaje de fitness hoy mismo.',
-    // backgroundImage: 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)',
     backgroundImage: 'url(/images/welcome/bienvenida-4.jpg)',
     backgroundColor: '#E57952',
   },
   {
     id: 5,
     title: 'Cultivar tu salud',
-    // description: 'Crea tu perfil y comienza tu viaje de fitness hoy mismo.',
-    // backgroundImage: 'linear-gradient(135deg, #E57952 0%, #CC6A48 100%)',
     backgroundImage: 'url(/images/welcome/bienvenida-5.jpg)',
     backgroundColor: '#E57952',
   },
@@ -206,20 +198,20 @@ const IntroCarousel: React.FC<IntroCarouselProps> = ({ onComplete }) => {
   const [imagesLoaded, setImagesLoaded] = useState<Record<number, boolean>>({});
 
   const nextSlide = () => {
-    if (currentSlide < slides.length - 1) {
-      setCurrentSlide(currentSlide + 1);
-    } else {
+    if (currentSlide == slides.length - 1) {
       onComplete();
+      return;
     }
+
+    setCurrentSlide(currentSlide + 1);
   };
 
   const previousSlide = () => {
-    if (currentSlide > 0) {
-      setCurrentSlide(currentSlide - 1);
-      // } else {
-      //   onComplete();
-      // }
+    if (currentSlide <= 0) {
+      return;
     }
+
+    setCurrentSlide(currentSlide - 1);
   };
 
   const variants = {
@@ -299,20 +291,33 @@ const IntroCarousel: React.FC<IntroCarouselProps> = ({ onComplete }) => {
               ))}
             </DotsContainer>
 
-            <Box>
-              <PreviousButton
-                variant="contained"
-                onClick={previousSlide}
-                fullWidth
-                size="large"
-              >
-                Anterior
-              </PreviousButton>
+            <Box sx={
+              {
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '16px',
+              }
+            }>
+              {currentSlide > 0 && (
+                <PreviousButton
+                  variant="contained"
+                  onClick={previousSlide}
+                  fullWidth
+                  size="large"
+                >
+                  <ChevronLeftIcon />
+                </PreviousButton>
+              )}
               <NextButton
                 variant="contained"
                 onClick={nextSlide}
                 fullWidth
                 size="large"
+                sx={
+                  {
+                    width: currentSlide === 0 ? '100%' : '80%',
+                  }
+                }
               >
                 {currentSlide === slides.length - 1 ? '¡Comencemos!' : 'Siguiente'}
               </NextButton>
