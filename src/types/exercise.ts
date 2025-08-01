@@ -40,3 +40,19 @@ export type Exercise = ExerciseRoutine | WorkoutRoutine;
 export function isWorkoutRoutine(exercise: Exercise): exercise is WorkoutRoutine {
   return 'rounds' in exercise && Array.isArray((exercise as WorkoutRoutine).rounds);
 }
+
+export interface ICourse {
+  id: string;
+  title: string;
+  tag?: string;
+  difficulty: 'beginner' | 'intermediate' | 'advanced' | string;
+  duration: number;
+  calories: number;
+  image: string;
+  description: string;
+  category: string;
+  categoryName: string;
+  videoUrl?: string;
+}
+
+export type Course = ICourse;

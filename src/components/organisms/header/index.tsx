@@ -27,7 +27,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 // Map of routes to their corresponding titles and icons
 const routeConfig = {
-  '/': { title: 'Inicio', icon: <HomeIcon /> },
+  '/': { title: 'Hola, Luis', icon: <HomeIcon /> },
   '/workouts': { title: 'Programas' },
   '/workout/': { title: 'Detalles del Programa' },
   '/articles': { title: 'Artículos' },
@@ -80,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
   };
   return (
     <AppBar 
-      position="fixed" 
+      // position="fixed" 
       elevation={0} 
       sx={{ 
         color: 'text.secondary',
