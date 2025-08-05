@@ -15,7 +15,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
   showDetails = true
 }) => {
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   const videoUrl = exercise.videoUrl || '';
 
   const handleCardClick = (e: React.MouseEvent) => {
@@ -42,7 +42,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
         display: 'flex',
         flexDirection: isDesktop ? 'column' : 'row',
         height: isDesktop ? 'auto' : 160,
-        width: '95%',
+        width: isDesktop ? '95%' : '100%',
         maxWidth: '100%',
       }}
     >
@@ -74,34 +74,16 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           display: 'flex', 
           gap: 1 
         }}>
-          <IconButton
-            size="small"
-            onClick={(e) => {
-              e.stopPropagation();
-              // Info button click handler
-            }}
-            sx={{
-              backgroundColor: 'rgba(0, 0, 0, 0.6)',
-              color: 'white',
-              '&:hover': {
-                backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              },
-              p: 0.5,
-              width: 24,
-              height: 24
-            }}
-          >
-            <InfoOutlined fontSize="small" />
-          </IconButton>
-          <Chip
-            label={exercise.categoryName}
+
+          {exercise.category && <Chip
+            label={exercise.category}
             color="primary"
             size="small"
             sx={{
               fontWeight: 'bold',
               textTransform: 'capitalize',
             }}
-          />
+          />}
         </Box>
         {videoUrl && (
           <Box
@@ -134,8 +116,8 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
       <Box sx={{
         width: isDesktop ? '100%' : '60%',
         p: isDesktop ? 3 : 4,
-        pr: isDesktop ? 3 : 6,
-        pl: isDesktop ? 3 : 6,
+        pr: isDesktop ? 3 : 2 ,
+        pl: isDesktop ? 3 : 2,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -145,32 +127,37 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
             {exercise.name}
           </Typography>
 
-          {showDetails && (
+          {showDetails && exercise.description && (
             <Typography variant="body2" color="text.primary" paragraph>
-              {exercise.description || 'No description available'}
+              {exercise.description}
             </Typography>
           )}
         </Box>
 
-        <Stack direction="row" spacing={1} sx={{ mt: 1.5, flexWrap: 'wrap', rowGap: 1 }}>
-          <Chip
+        <Stack 
+          display="flex"
+          direction="row" 
+          spacing={0} 
+          sx={{ mt: 1.5, flexWrap: 'wrap', rowGap: 1 }}
+          >
+          {exercise.duration && <Chip
             icon={<AccessTime fontSize="small" />}
-            label={`${exercise.duration} seg`}
+            label={`${exercise.duration}`}
             size="small"
             variant="outlined"
-          />
-          <Chip
+          />}
+          {exercise.calories && <Chip
             icon={<Whatshot fontSize="small" />}
             label={`${exercise.calories} cal`}
             size="small"
             variant="outlined"
-          />
-          <Chip
+          />}
+          {exercise.difficulty && <Chip
             icon={<Star fontSize="small" />}
             label={exercise.difficulty}
             size="small"
             variant="outlined"
-          />
+          />}
         </Stack>
       </Box>
     </Card>

@@ -12,14 +12,20 @@ export interface BaseExercise {
   id: string;
   name: string;
   tag?: string;
-  difficulty: 'beginner' | 'intermediate' | 'advanced' | string;
-  duration: number;
-  calories: number;
+  difficulty?: 'beginner' | 'intermediate' | 'advanced' | string;
+  duration?: string;
+  calories?: number;
   imageUrl: string;
-  description: string;
+  description?: string;
   category: string;
-  categoryName: string;
   videoUrl?: string;
+  modules?: {
+    id: string;
+    name: string;
+    description: string;
+    imageUrl: string;
+    videoUrl: string;
+  }[];
 }
 
 export interface ExerciseRoutine extends BaseExercise {
@@ -41,18 +47,5 @@ export function isWorkoutRoutine(exercise: Exercise): exercise is WorkoutRoutine
   return 'rounds' in exercise && Array.isArray((exercise as WorkoutRoutine).rounds);
 }
 
-export interface ICourse {
-  id: string;
-  title: string;
-  tag?: string;
-  difficulty: 'beginner' | 'intermediate' | 'advanced' | string;
-  duration: number;
-  calories: number;
-  image: string;
-  description: string;
-  category: string;
-  categoryName: string;
-  videoUrl?: string;
-}
 
-export type Course = ICourse;
+export type Course = BaseExercise;

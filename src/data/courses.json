@@ -1,0 +1,102 @@
+[
+    {
+        "id": "wr-jalones",
+        "name": "Ejercicios de gimnasio",
+        "description": "Descripción del curso 1",
+        "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500&auto=format&fit=crop",
+        "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+        "category": "Fitness",
+        "duration": "30 seg",
+        "modules": [
+            {
+                "id": "exp-001",
+                "category": "Explicaciones",
+                "subcategory": "General",
+                "name": "Introducción",
+                "url": "https://www.youtube.com/shorts/paBNx6zShiA"
+            },
+            {
+                "id": "exp-001",
+                "category": "Explicaciones",
+                "subcategory": "General",
+                "name": "Introducción",
+                "url": "https://www.youtube.com/shorts/paBNx6zShiA"
+            }
+        ]
+    },
+    {
+        "id": "course-002",
+        "name": "Modelo de Rutina",
+        "description": "Descripción del curso 2",
+        "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500&auto=format&fit=crop",
+        "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+        "category": "Fitness",
+        "duration": "30 seg",
+        "modules": [
+            {
+                "id": "exp-001",
+                "category": "Explicaciones",
+                "subcategory": "General",
+                "name": "Introducción",
+                "url": "https://www.youtube.com/shorts/paBNx6zShiA"
+            },
+            {
+                "id": "exp-001",
+                "category": "Explicaciones",
+                "subcategory": "General",
+                "name": "Introducción",
+                "url": "https://www.youtube.com/shorts/paBNx6zShiA"
+            }
+        ]
+    },
+    {
+        "id": "course-003",
+        "name": "Movilidad y Entrenamiento al aire libre",
+        "description": "Descripción del curso 3",
+        "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500&auto=format&fit=crop",
+        "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+        "category": "Fitness",
+        "duration": "30 seg",
+        "modules": [
+            {
+                "id": "exp-001",
+                "category": "Explicaciones",
+                "subcategory": "General",
+                "name": "Introducción",
+                "url": "https://www.youtube.com/shorts/paBNx6zShiA"
+            },
+            {
+                "id": "exp-001",
+                "category": "Explicaciones",
+                "subcategory": "General",
+                "name": "Introducción",
+                "url": "https://www.youtube.com/shorts/paBNx6zShiA"
+            }
+        ]
+    },
+    {
+        "id": "course-004",
+        "name": "Kung Fu consciente",
+        "description": "Descripción del curso 4",
+        "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500&auto=format&fit=crop",
+        "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+        "category": "Fitness",
+        "duration": "30 seg",
+        "modules": [
+            {
+                "id": "exp-001",
+                "category": "Explicaciones",
+                "subcategory": "General",
+                "name": "Introducción",
+                "url": "https://www.youtube.com/shorts/paBNx6zShiA"
+            },
+            {
+                "id": "exp-001",
+                "category": "Explicaciones",
+                "subcategory": "General",
+                "name": "Introducción",
+                "url": "https://www.youtube.com/shorts/paBNx6zShiA"
+            }
+        ]
+    }
+]

@@ -31,7 +31,7 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
   if (!workout) {
     return (
       <Container maxWidth="sm" sx={{ py: 4, textAlign: 'center' }}>
-        <Typography variant="h6">Workout not found</Typography>
+        <Typography variant="h6">Rutina no encontrada</Typography>
         {/* <Button onClick={handleBack} sx={{ mt: 2 }}>Go Back</Button> */}
       </Container>
     );
@@ -52,6 +52,9 @@ const Workout: React.FC<WorkoutProps> = ({ onSelectExercise }) => {
 
         {workout.rounds.map((round) => (
           <Box key={round.id} sx={{ mb: 3 }}>
+
+
+            {/* TODO DEBO CONVERTIR LOS ROUNDS POR TEMAS PARA PODER HACER ACORDEONES */}
             <Typography variant="h5" sx={{ mb: 2, fontWeight: 'medium' }}>
               Round {round.id.replace('r', '')}
             </Typography>

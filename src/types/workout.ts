@@ -2,7 +2,7 @@ export interface WorkoutRoutine {
   id: string;
   name: string;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
-  duration: number; // in minutes
+  duration: string; // in minutes
   exercises: string[]; // array of exercise IDs
   image?: string;
   description?: string;

@@ -8,105 +8,48 @@ import {
   Card
 } from '@mui/material';
 import Footer from '../components/organisms/footer';
-import QuickActions from '../components/molecules/quick-actions/QuickActions';
 import {
-  FitnessCenter as WorkoutIcon,
-  Timeline as ProgressIcon,
-  Restaurant as NutritionIcon,
   EmojiEvents as ChallengeIcon
 } from '@mui/icons-material';
 import { ExerciseCard } from '../components/molecules';
 import { ExerciseRoutine } from '@/types/exercise';
+import coursesData from '../data/courses.json';
+
 
 const Home = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  // Mock data for recommendations
-  const recommendations: ExerciseRoutine[] = [
-    {
-      id: 'wr-jalones',
-      name: 'Full Body Workout', 
-      category: 'Strength', 
-      duration: 30, 
-      imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&auto=format&fit=crop',
-      difficulty: 'Beginner',
-      calories: 0,
-      description: 'Full Body Workout',
-      categoryName: 'Strength',
-      videoUrl: 'https://www.youtube.com/watch?v=IODxDxX7oi4'
-    },
-    {
-      id: '2',
-      name: 'Yoga Flow', 
-      category: 'Flexibility', 
-      duration: 25, 
-      imageUrl: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500&auto=format&fit=crop',
-      difficulty: 'Beginner',
-      calories: 0,
-      description: 'Yoga Flow',
-      categoryName: 'Flexibility',
-      videoUrl: 'https://www.youtube.com/watch?v=v7AYKMP6rOE'
-    },
-    {
-      id: '3',
-      name: 'HIIT Cardio', 
-      category: 'Cardio', 
-      duration: 20, 
-      imageUrl: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=500&auto=format&fit=crop',
-      difficulty: 'Beginner',
-      calories: 0,
-      description: 'HIIT Cardio',
-      categoryName: 'Cardio',
-      videoUrl: 'https://www.youtube.com/watch?v=pKSPbD0BECM'
-    },
-  ];
-
-
-  const quickActions = [
-    { id: 'workout', icon: <WorkoutIcon />, label: 'Entrenamiento', onClick: () => navigate('/workouts') },
-    { id: 'progress', icon: <ProgressIcon />, label: 'Progreso', onClick: () => navigate('/progress') },
-    { id: 'nutrition', icon: <NutritionIcon />, label: 'Nutrición', onClick: () => navigate('/nutrition') },
-    // { id: 'community', icon: <CommunityIcon />, label: 'Community', onClick: () => navigate('/community') },
-  ];
+  const courses = coursesData as unknown as ExerciseRoutine[];
 
   return (
     <Box sx={{ 
-      pb: isMobile ? '56px' : 0, // Space for footer on mobile
+      pb: isMobile ? '56px' : 0,
       minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
       mt: 8
     }}>
-      <Box sx={{ flexGrow: 1, px: 2 }}>
+      <Box sx={{ flexGrow: 1 }}>
         {/* Header */}
         <Box>
           <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
-          ¿Qué te gustaría hacer hoy?
-          </Typography>
-          {/* <Typography variant="body1" color="text.secondary">
             ¿Qué te gustaría hacer hoy?
-          </Typography> */}
+          </Typography>
         </Box>
 
-        {/* Quick Actions */}
-        {/* <Box sx={{ mb: 4 }}>
-          <QuickActions 
-            actions={quickActions}
-          />
-        </Box> */}
-
-        
-        {/* Recommendations Section */}
         <Box sx={{ mb: 4 }}>
-          {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-            <Typography variant="h6" fontWeight="bold">Recommendations</Typography>
-            <Button size="small" sx={{ textTransform: 'none' }}>See All</Button>
-          </Box> */}
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(4, 1fr)' }, gap: 0 }}>
-            {recommendations.map((item) => (
-              <ExerciseCard exercise={item} onClick={() => navigate(`/workout/${item.id}`)} />
+          <Box sx={{ 
+            display: 'grid', 
+            gridTemplateColumns: { xs: '1fr', sm: 'repeat(4, 1fr)' }, 
+            gap: 0, 
+            '& > *': {
+              mb: { xs: 2, sm: 0 }
+            }
+          }}>
+            {courses.map((item) => (
+              <ExerciseCard key={item.id} exercise={item} onClick={() => navigate(`/workout/${item.id}`)} />
             ))}
           </Box>
         </Box>

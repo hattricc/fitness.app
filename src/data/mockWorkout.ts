@@ -1,4 +1,4 @@
-import { WorkoutRoutine, ExerciseRoutine, ExerciseSet } from '../types/exercise';
+import { WorkoutRoutine, ExerciseRoutine } from '../types/exercise';
 import exercisesData from './exercises.json';
 
 interface ExerciseData {
@@ -90,7 +90,9 @@ const workouts: Record<string, WorkoutRoutine> = workoutRoutines.reduce((acc, ro
 }, {} as Record<string, WorkoutRoutine>);
 
 export const getWorkoutById = (id: string): WorkoutRoutine | undefined => {
-  return workouts[id];
+  // TODO QUITAR ESE OR
+  console.log(workouts);
+  return workouts[id] || workouts[0];
 };
 
 export const getAllWorkouts = (): WorkoutRoutine[] => {
