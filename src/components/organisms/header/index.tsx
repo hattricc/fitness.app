@@ -83,9 +83,10 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
       // position="fixed" 
       elevation={0} 
       sx={{ 
-        color: 'text.secondary',
+        color: 'text.primary',
         borderBottom: '1px solid',
         borderColor: 'divider',
+        backgroundColor: '#1B1B1B',
         zIndex: (theme) => theme.zIndex.drawer + 1
       }}
     >
@@ -104,7 +105,7 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
             </IconButton>
           )}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Typography variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
+            <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', color: 'white' }}>
               {titleState}
             </Typography>
           </Box>

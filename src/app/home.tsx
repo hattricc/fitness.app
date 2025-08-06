@@ -34,12 +34,12 @@ const Home = () => {
       <Box sx={{ flexGrow: 1 }}>
         {/* Header */}
         <Box>
-          <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
+          <Typography variant="h5" component="h1" fontWeight="bold" gutterBottom>
             ¿Qué te gustaría hacer hoy?
           </Typography>
         </Box>
 
-        <Box sx={{ mb: 4 }}>
+        <Box sx={{ mb: 2 }}>
           <Box sx={{ 
             display: 'grid', 
             gridTemplateColumns: { xs: '1fr', sm: 'repeat(4, 1fr)' }, 
@@ -57,20 +57,20 @@ const Home = () => {
         {/* Weekly Challenge Banner */}
         <Card 
           sx={{ 
-            mb: 4, 
-            borderRadius: 3,
-            background: 'linear-gradient(135deg, #6A11CB 0%, #2575FC 100%)',
+            borderRadius: 8,
+            // background: 'linear-gradient(135deg, #6A11CB 0%, #2575FC 100%)',
+            background: '#1B1B1B',
             color: 'white',
             position: 'relative',
             overflow: 'hidden',
-            height: 120
+            height: 160
           }}
         >
           <Box sx={{ p: 3, position: 'relative', zIndex: 1, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <Typography variant="overline" sx={{ opacity: 0.8, display: 'flex', alignItems: 'center', mb: 0.5 }}>
               <ChallengeIcon sx={{ mr: 0.5, fontSize: 16 }} /> Weekly Challenge
             </Typography>
-            <Typography variant="h6" fontWeight="bold" gutterBottom>
+            <Typography variant="h6" fontWeight="bold" color='white' gutterBottom>
               Plank with Hip Twist
             </Typography>
             <Button 

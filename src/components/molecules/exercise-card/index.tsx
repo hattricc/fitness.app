@@ -12,16 +12,13 @@ interface ExerciseCardProps {
 const ExerciseCard: React.FC<ExerciseCardProps> = ({
   exercise,
   onClick = () => { },
-  showDetails = true
+  showDetails = false
 }) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
-  const videoUrl = exercise.videoUrl || '';
 
   const handleCardClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-
-    console.log('videoUrl', videoUrl);
 
     onClick(exercise);
   };
@@ -44,13 +41,14 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
         height: isDesktop ? 'auto' : 160,
         width: isDesktop ? '95%' : '100%',
         maxWidth: '100%',
+        backgroundColor: '#1B1B1B'
       }}
     >
       {/* Image Section */}
       <Box 
         sx={{
           width: isDesktop ? '100%' : '40%',
-          height: isDesktop ? 200 : '100%',
+          height: isDesktop ? 350 : '100%',
           position: 'relative',
           '&:hover .play-button': {
             opacity: 1,
@@ -69,15 +67,14 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
         />
         <Box sx={{ 
           position: 'absolute', 
-          top: 8, 
-          right: 8, 
+          top: 16,
+          right: 16, 
           display: 'flex', 
           gap: 1 
         }}>
 
           {exercise.category && <Chip
             label={exercise.category}
-            color="primary"
             size="small"
             sx={{
               fontWeight: 'bold',
@@ -85,31 +82,6 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
             }}
           />}
         </Box>
-        {videoUrl && (
-          <Box
-            className="play-button"
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              borderRadius: '50%',
-              width: 48,
-              height: 48,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              opacity: 0.8,
-              transition: 'opacity 0.2s',
-              '&:hover': {
-                opacity: 1,
-              },
-            }}
-          >
-            <PlayArrow sx={{ color: 'white', fontSize: 32 }} />
-          </Box>
-        )}
       </Box>
 
       {/* Content Section */}
@@ -120,7 +92,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
         pl: isDesktop ? 3 : 2,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'center'
       }}>
         <Box>
           <Typography variant="h6" component="h3" gutterBottom fontWeight="bold" sx={{ color: 'text.primary' }}>
