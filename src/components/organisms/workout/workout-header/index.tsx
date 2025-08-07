@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Box, CardActionArea } from '@mui/material';
-import { WorkoutRoutine } from '../../../../types/exercise';
 import { styled } from '@mui/material/styles';
+import { Course } from '../../../../types/course';
 
 const WorkoutImage = styled('div')<{ image: string }>(({ theme, image }) => ({
     position: 'relative',
@@ -38,7 +38,7 @@ const WorkoutInfo = styled('div')(({ theme }) => ({
 }));
 
 interface WorkoutHeaderProps {
-    workout: WorkoutRoutine;
+    workout: Course;
 }
 
 const WorkoutHeader: React.FC<WorkoutHeaderProps> = ({ workout }) => {
@@ -55,7 +55,7 @@ const WorkoutHeader: React.FC<WorkoutHeaderProps> = ({ workout }) => {
                     </Box>
                     <Box sx={{ textAlign: 'right' }}>
                         <Typography variant="body2" display="block">
-                            {workout.rounds[0].exercises.length} ejercicios • {workout.duration} min
+                            {workout.modules.length} módulos • {workout.duration}
                         </Typography>
                     </Box>
                 </WorkoutInfo>

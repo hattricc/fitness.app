@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { 
-  Box, 
-  Typography, 
+import {
+  Box,
+  Typography,
   useTheme,
   useMediaQuery,
   Button,
@@ -24,7 +24,7 @@ const Home = () => {
   const courses = coursesData as unknown as ExerciseRoutine[];
 
   return (
-    <Box sx={{ 
+    <Box sx={{
       pb: isMobile ? '56px' : 0,
       minHeight: '100vh',
       display: 'flex',
@@ -32,33 +32,29 @@ const Home = () => {
       mt: 8
     }}>
       <Box sx={{ flexGrow: 1 }}>
-        {/* Header */}
         <Box>
           <Typography variant="h5" component="h1" fontWeight="bold" gutterBottom>
             ¿Qué te gustaría hacer hoy?
           </Typography>
         </Box>
 
-        <Box sx={{ mb: 2 }}>
-          <Box sx={{ 
-            display: 'grid', 
-            gridTemplateColumns: { xs: '1fr', sm: 'repeat(4, 1fr)' }, 
-            gap: 0, 
-            '& > *': {
-              mb: { xs: 2, sm: 0 }
-            }
-          }}>
-            {courses.map((item) => (
-              <ExerciseCard key={item.id} exercise={item} onClick={() => navigate(`/workout/${item.id}`)} />
-            ))}
-          </Box>
+        <Box sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', sm: 'repeat(4, 1fr)' },
+          gap: 0,
+          '& > *': {
+            mb: { xs: 2, sm: 0 }
+          },
+          mb: 2
+        }}>
+          {courses.map((item) => (
+            <ExerciseCard key={item.id} exercise={item} onClick={() => navigate(`/workout/${item.id}`)} />
+          ))}
         </Box>
 
-        {/* Weekly Challenge Banner */}
-        <Card 
-          sx={{ 
+        <Card
+          sx={{
             borderRadius: 8,
-            // background: 'linear-gradient(135deg, #6A11CB 0%, #2575FC 100%)',
             background: '#1B1B1B',
             color: 'white',
             position: 'relative',
@@ -73,11 +69,11 @@ const Home = () => {
             <Typography variant="h6" fontWeight="bold" color='white' gutterBottom>
               Plank with Hip Twist
             </Typography>
-            <Button 
-              variant="contained" 
-              size="small" 
+            <Button
+              variant="contained"
+              size="small"
               onClick={() => navigate('/weekly-challenge')}
-              sx={{ 
+              sx={{
                 alignSelf: 'flex-start',
                 bgcolor: 'white',
                 color: 'primary.main',
@@ -92,7 +88,7 @@ const Home = () => {
               Start Now
             </Button>
           </Box>
-          <Box 
+          <Box
             component="img"
             src="https://images.unsplash.com/photo-1571019614242-c6c2d118d3bc?w=300&auto=format&fit=crop"
             sx={{

@@ -12,7 +12,7 @@ import ExerciseDetail from './exercise-detail';
 import Articles from './articles';
 import WeeklyChallenge from './weekly-challenge';
 import { Exercise, WorkoutRoutine } from '../types/exercise';
-import { getAllWorkouts } from '../data/mockWorkout';
+import { getAllWorkouts } from '../data/getWorkout';
 import { darkTheme } from '../data/theme';
 import SplashScreen from '../components/molecules/splash-screen/SplashScreen';
 import LoginForm from '../components/organisms/login';
