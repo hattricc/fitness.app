@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, keyframes, styled } from '@mui/material';
-import IntroCarousel from '../intro-carousel/IntroCarousel';
+import IntroCarousel from '../../organisms/intro-carousel/IntroCarousel';
 
 const fadeOut = keyframes`
   from { opacity: 1; }
