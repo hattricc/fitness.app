@@ -52,7 +52,7 @@ const Home = () => {
           ))}
         </Box>
 
-        <Card
+        {/* <Card
           sx={{
             borderRadius: 8,
             background: '#1B1B1B',
@@ -102,7 +102,7 @@ const Home = () => {
               objectFit: 'cover'
             }}
           />
-        </Card>
+        </Card> */}
       </Box>
 
       {/* Footer - Only visible on mobile */}

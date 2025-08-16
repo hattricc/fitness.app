@@ -1,11 +1,15 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Container, Typography } from '@mui/material';
-import ExerciseClass from '../components/molecules/exercise-class';
+import ExerciseClass from '../components/organisms/exercise-class';
 import { getWorkoutById } from '../data/getWorkout';
 import WorkoutHeader from '../components/organisms/workout/workout-header';
 
-const Workout: React.FC = () => {
+interface WorkoutClassProps {
+  withPrefix: boolean;
+}
+
+const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
   const { id } = useParams<{ id: string }>();
   const workout = id ? getWorkoutById(id) : null;
 
@@ -33,7 +37,7 @@ const Workout: React.FC = () => {
         {workout.modules.map((module, index) => (
           <>
             <Typography variant="h5" sx={{ mb: 2, fontWeight: 'medium' }}>
-              Módulo {index + 1}: {module.name}
+              {withPrefix && `Módulo ${index + 1}: `}{module.name}
             </Typography>
             <Box
               key={module.id}

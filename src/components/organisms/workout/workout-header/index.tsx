@@ -10,7 +10,7 @@ const WorkoutImage = styled('div')<{ image: string }>(({ theme, image }) => ({
     paddingTop: '35%',
     backgroundImage: `url(${image})`,
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    backgroundPosition: 'center 35%',
     borderRadius: 18,
     overflow: 'hidden',
     '&::before': {

@@ -10,19 +10,43 @@
         "modules": [
             {
                 "id": "exp-001",
-                "category": "Explicaciones",
+                "category": "Jalones",
                 "subcategory": "General",
                 "duration": "1 hora",
-                "name": "Introducción 1",
-                "url": "https://www.youtube.com/shorts/paBNx6zShiA"
-            },
-            {
-                "id": "exp-002",
-                "category": "Explicaciones",
-                "subcategory": "General",
-                "duration": "1 hora",
-                "name": "Introducción 2",
-                "url": "https://www.youtube.com/shorts/paBNx6zShiA"
+                "name": "Parte 1: Jalones",
+                "url": "https://www.youtube.com/shorts/paBNx6zShiA",
+                "exercises": [
+                    {
+                        "name": "Parte 1: Jalones",
+                        "url": "https://www.youtube.com/shorts/paBNx6zShiA",
+                        "duration": "1 hora",
+                        "repetitions": 1
+                    },
+                    {
+                        "name": "Parte 2: Empujones",
+                        "url": "https://www.youtube.com/shorts/paBNx6zShiA",
+                        "duration": "1 hora",
+                        "repetitions": 1
+                    },
+                    {
+                        "name": "Parte 3: Complementos",
+                        "url": "https://www.youtube.com/shorts/paBNx6zShiA",
+                        "duration": "1 hora",
+                        "repetitions": 1
+                    },
+                    {
+                        "name": "Parte 4: Tren Inferior",
+                        "url": "https://www.youtube.com/shorts/paBNx6zShiA",
+                        "duration": "1 hora",
+                        "repetitions": 1
+                    },
+                    {
+                        "name": "Parte 5: Recomendaciones",
+                        "url": "https://www.youtube.com/shorts/paBNx6zShiA",
+                        "duration": "1 hora",
+                        "repetitions": 1
+                    }
+                ]
             }
         ]
     },
@@ -39,14 +63,14 @@
                 "id": "exp-001",
                 "category": "Explicaciones",
                 "subcategory": "General",
-                "name": "Introducción",
+                "name": "Parte 1",
                 "url": "https://www.youtube.com/shorts/paBNx6zShiA"
             },
             {
                 "id": "exp-001",
                 "category": "Explicaciones",
                 "subcategory": "General",
-                "name": "Introducción",
+                "name": "Parte 2",
                 "url": "https://www.youtube.com/shorts/paBNx6zShiA"
             }
         ]
