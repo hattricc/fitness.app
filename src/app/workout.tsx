@@ -36,7 +36,7 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
         {/* TODO DEBO CONVERTIR LOS ROUNDS POR TEMAS PARA PODER HACER ACORDEONES */}
         {workout.modules.map((module, index) => (
           <>
-            <Typography variant="h5" sx={{ mb: 2, fontWeight: 'medium' }}>
+            <Typography variant="h5" sx={{ mb: 2, fontWeight: '700', fontSize: '2rem' }}>
               {withPrefix && `Módulo ${index + 1}: `}{module.name}
             </Typography>
             <Box

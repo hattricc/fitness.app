@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  AppBar, 
-  Toolbar, 
-  Typography, 
-  IconButton, 
-  Box, 
-  Menu, 
-  MenuItem, 
-  ListItemIcon, 
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Box,
+  Menu,
+  MenuItem,
+  ListItemIcon,
   ListItemText,
   Divider
 } from '@mui/material';
-import { 
-  ArrowBack as ArrowBackIcon, 
-  Search as SearchIcon, 
-  Notifications as NotificationsIcon, 
+import {
+  ArrowBack as ArrowBackIcon,
+  Search as SearchIcon,
+  Notifications as NotificationsIcon,
   AccountCircle as AccountIcon,
   Login as LoginIcon,
   PersonAdd as PersonAddIcon,
@@ -50,8 +50,8 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
   // Update title and icon when route changes
   useEffect(() => {
     // Find the best matching route
-    let matchedRoute = Object.entries(routeConfig).find(([path]) => 
-      location.pathname === path || 
+    let matchedRoute = Object.entries(routeConfig).find(([path]) =>
+      location.pathname === path ||
       (path !== '/' && location.pathname.startsWith(path))
     );
 
@@ -79,14 +79,15 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
     handleClose();
   };
   return (
-    <AppBar 
+    <AppBar
       // position="fixed" 
-      elevation={0} 
-      sx={{ 
-        color: 'text.primary',
+      elevation={0}
+      sx={{
+        color: 'text.secondary',
         borderBottom: '1px solid',
         borderColor: 'divider',
-        backgroundColor: '#1B1B1B',
+        // backgroundColor: '#1B1B1B',
+        backgroundColor: '#ffffff',
         zIndex: (theme) => theme.zIndex.drawer + 1
       }}
     >
@@ -104,19 +105,21 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
               <ArrowBackIcon />
             </IconButton>
           )}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', color: 'white' }}>
-              {titleState}
-            </Typography>
-          </Box>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', color: '#1B1B1B' }}>
+            {titleState}
+          </Typography>
         </Box>
         <Box>
-          <IconButton size="large" color="inherit" aria-label="search">
+          {/* <IconButton size="large" color="inherit" aria-label="search">
             <SearchIcon />
-          </IconButton>
+          </IconButton> */}
+
           <IconButton size="large" color="inherit" aria-label="notifications">
             <NotificationsIcon />
           </IconButton>
+
           <IconButton
             size="large"
             color="inherit"
