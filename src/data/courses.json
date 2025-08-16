@@ -2,7 +2,7 @@
     {
         "id": "wr-jalones",
         "name": "Ejercicios de gimnasio",
-        "description": "Descripción del curso 1",
+        "description": "",
         "imageUrl": "/images/welcome/bienvenida-2.jpg",
         "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
         "category": "Fitness",
@@ -13,7 +13,7 @@
                 "category": "Jalones",
                 "subcategory": "General",
                 "duration": "1 hora",
-                "name": "Parte 1: Jalones",
+                "name": "Ejercicios de gimnasio",
                 "url": "https://www.youtube.com/shorts/paBNx6zShiA",
                 "exercises": [
                     {

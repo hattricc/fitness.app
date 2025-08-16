@@ -1,3 +1,11 @@
+export interface Exercise {
+    id: string;
+    category: string;
+    subcategory: string;
+    duration: string;
+    name: string;
+    url: string;
+}
 
 export interface Module {
     id: string;
@@ -6,6 +14,7 @@ export interface Module {
     duration: string;
     name: string;
     url: string;
+    exercises: Exercise[];
 }
 
 export interface Course {

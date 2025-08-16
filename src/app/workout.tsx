@@ -44,7 +44,7 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
               sx={{ mb: 2, cursor: 'pointer' }}
             >
               <ExerciseClass
-                exercise={module}
+                module={module}
               />
             </Box>
           </>
