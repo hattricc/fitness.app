@@ -5,13 +5,13 @@ import { Course } from '../../../../types/course';
 
 const WorkoutImage = styled('div')<{ image: string }>(({ theme, image }) => ({
     position: 'relative',
-    marginTop: 40,
+    // marginTop: 40,
     marginBottom: 40,
     paddingTop: '35%',
     backgroundImage: `url(${image})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center 35%',
-    borderRadius: 18,
+    borderRadius: 42,
     overflow: 'hidden',
     '&::before': {
         content: '""',
@@ -20,15 +20,15 @@ const WorkoutImage = styled('div')<{ image: string }>(({ theme, image }) => ({
         left: 0,
         right: 0,
         bottom: 0,
-        background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)',
-    },
+        background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%)',
+    }
 }));
 
 const WorkoutInfo = styled('div')(({ theme }) => ({
     position: 'absolute',
     bottom: 0,
-    left: 0,
-    right: 0,
+    left: '1rem',
+    right: '1rem',
     padding: theme.spacing(2),
     color: theme.palette.common.white,
     display: 'flex',

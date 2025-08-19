@@ -80,7 +80,8 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
   };
   return (
     <AppBar
-      // position="fixed" 
+      // position="fixed"
+      position="relative"
       elevation={0}
       sx={{
         color: 'text.secondary',
@@ -88,6 +89,7 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
         borderColor: 'divider',
         // backgroundColor: '#1B1B1B',
         backgroundColor: '#ffffff',
+        padding: '12px 0',
         zIndex: (theme) => theme.zIndex.drawer + 1
       }}
     >

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import { ExpandMore } from '@mui/icons-material';
 import ExerciseClass from '../components/organisms/exercise-class';
 import { getWorkoutById } from '../data/getWorkout';
 import WorkoutHeader from '../components/organisms/workout/workout-header';
@@ -12,6 +13,11 @@ interface WorkoutClassProps {
 const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
   const { id } = useParams<{ id: string }>();
   const workout = id ? getWorkoutById(id) : null;
+  const [expandedModule, setExpandedModule] = useState<string | false>(false);
+
+  const handleAccordionChange = (moduleId: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    setExpandedModule(isExpanded ? moduleId : false);
+  };
 
   if (!workout) {
     return (
@@ -35,19 +41,38 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
 
         {/* TODO DEBO CONVERTIR LOS ROUNDS POR TEMAS PARA PODER HACER ACORDEONES */}
         {workout.modules.map((module, index) => (
-          <>
-            <Typography variant="h5" sx={{ mb: 2, fontWeight: '700', fontSize: '2rem' }}>
-              {withPrefix && `Módulo ${index + 1}: `}{module.name}
-            </Typography>
-            <Box
-              key={module.id}
-              sx={{ mb: 2, cursor: 'pointer' }}
+          <Accordion
+            key={module.id}
+            expanded={expandedModule === module.id}
+            onChange={handleAccordionChange(module.id)}
+            sx={{
+              mb: 2,
+              '&:before': {
+                display: 'none',
+              },
+              backgroundColor: '#ffffff',
+              borderRadius: 2,
+              boxShadow: 2,
+              py: 2,
+              px: 3
+            }}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMore />}
+              sx={{
+                '& .MuiAccordionSummary-content': {
+                  margin: 0,
+                },
+              }}
             >
-              <ExerciseClass
-                module={module}
-              />
-            </Box>
-          </>
+              <Typography variant="h5" sx={{ fontWeight: '700', fontSize: '2rem' }}>
+                {withPrefix && `Módulo ${index + 1}: `}{module.name}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails sx={{ pt: 0 }}>
+              <ExerciseClass module={module} />
+            </AccordionDetails>
+          </Accordion>
         ))}
       </Box>
       {/* ))} */}
