@@ -13,7 +13,7 @@ interface WorkoutClassProps {
 const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
   const { id } = useParams<{ id: string }>();
   const workout = id ? getWorkoutById(id) : null;
-  const [expandedModule, setExpandedModule] = useState<string | false>(false);
+  const [expandedModule, setExpandedModule] = useState<string | false>(workout?.modules[0]?.id || false);
 
   const handleAccordionChange = (moduleId: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpandedModule(isExpanded ? moduleId : false);
@@ -36,10 +36,8 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
     }}>
       <WorkoutHeader workout={workout} />
 
-      {/* {workout.map((course) => ( */}
       <Box key={workout.id} sx={{ mb: 3 }}>
 
-        {/* TODO DEBO CONVERTIR LOS ROUNDS POR TEMAS PARA PODER HACER ACORDEONES */}
         {workout.modules.map((module, index) => (
           <Accordion
             key={module.id}
@@ -70,7 +68,10 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ pt: 0 }}>
-              <ExerciseClass module={module} />
+              <ExerciseClass 
+                module={module} 
+                isLocked={true}
+              />
             </AccordionDetails>
           </Accordion>
         ))}

@@ -1,4 +1,4 @@
-
+import { CSSProperties } from 'react';
 
 export const ModalStyles = {
   display: 'flex',
@@ -39,7 +39,7 @@ export const ModalCloseButtonStyles = {
   },
 }
 
-export const ModalVideoStyles = {
+export const ModalVideoStyles: CSSProperties = {
   position: 'absolute',
   top: 0,
   left: 0,
