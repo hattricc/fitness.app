@@ -3,7 +3,8 @@ import { Box, Typography, Card, Chip } from '@mui/material';
 import { PlayArrow, AccessTime } from '@mui/icons-material';
 import LockIcon from '@mui/icons-material/Lock';
 import { Exercise } from '@/types/course';
-import { CardStylesSquared, ExerciseDurationStyles, ExerciseNameStyles, ExerciseRepetitionsStyles, PlayArrowBoxStyles, TextContainerStyles } from './styles';
+import { YouTubeHelper } from '../../../data/youtube-helper';
+import { CardStylesSquared, ExerciseNameStyles, ChipContainerStyles, PlayArrowBoxStyles, TextContainerStyles } from './styles';
 
 interface ExerciseItemProps {
   exercise: Exercise;
@@ -30,7 +31,7 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, setSelectedVideo,
 
         <Box
           component="img"
-          src={exercise.url ? `https://img.youtube.com/vi/${exercise.url.split('v=')[1]}/mqdefault.jpg` : '/images/exercises/exercises-exteriores.jpg'}
+          src={exercise.url ? YouTubeHelper.getThumbnailUrl(exercise.url, 'mqdefault') || '/images/exercises/exercises-exteriores.jpg' : '/images/exercises/exercises-exteriores.jpg'}
           alt={exercise.name}
           sx={{
             width: 60,
@@ -52,9 +53,9 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, setSelectedVideo,
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mt: 1, mr: 1 }}>
-          <Chip
-            label="3 sets"
+        <Box sx={ChipContainerStyles}>
+          {exercise.sets && <Chip
+            label={exercise.sets + ' sets'}
             size="small"
             variant="outlined"
             sx={{
@@ -68,9 +69,9 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, setSelectedVideo,
                 fontSize: '0.75rem',
               },
             }}
-          />
-          <Chip
-            label="8-10 reps"
+          />}
+          {exercise.repetitions && <Chip
+            label={exercise.repetitions + ' reps'}
             size="small"
             variant="outlined"
             sx={{
@@ -84,9 +85,9 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, setSelectedVideo,
                 fontSize: '0.75rem',
               },
             }}
-          />
+          />}
           <Chip
-            label="2-3 min"
+            label={exercise.duration}
             size="small"
             variant="outlined"
             sx={{

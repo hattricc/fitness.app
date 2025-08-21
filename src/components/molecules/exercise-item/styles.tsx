@@ -1,3 +1,4 @@
+import { JoinFullSharp } from "@mui/icons-material";
 
 
 
@@ -95,11 +96,21 @@ export const PlayArrowBoxStylesRounded = createPlayArrowBoxStyles({ borderRadius
 
 
 export const TextContainerStyles = {
-    width: '60%',
+    width: '30%',
     p: 3,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between'
+}
+
+export const ChipContainerStyles = {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: 2,
+    flexWrap: 'wrap',
+    mt: 1, 
+    mr: 1,
+    width: '60%'
 }
 
 

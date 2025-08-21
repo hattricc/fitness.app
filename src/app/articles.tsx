@@ -11,6 +11,7 @@ import {
   useTheme,
 } from '@mui/material';
 import { ArrowBack as ArrowBackIcon } from '@mui/icons-material';
+import { YouTubeHelper } from '../data/youtube-helper';
 import { articles } from '../data/mockArticles';
 
 export default function Articles() {
@@ -32,7 +33,7 @@ export default function Articles() {
           <iframe
             width="100%"
             height="100%"
-            src={`https://www.youtube.com/embed/${selectedArticle}?autoplay=1`}
+            src={YouTubeHelper.getEmbedUrl(YouTubeHelper.getWatchUrl(selectedArticle), true) || ''}
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -77,7 +78,7 @@ export default function Articles() {
               <Box sx={{ position: 'relative', paddingTop: '56.25%' }}>
                 <CardMedia
                   component="img"
-                  image={`https://img.youtube.com/vi/${article.videoId}/hqdefault.jpg`}
+                  image={YouTubeHelper.getThumbnailUrl(YouTubeHelper.getWatchUrl(article.videoId), 'hqdefault') || ''}
                   alt={article.title}
                   sx={{
                     position: 'absolute',

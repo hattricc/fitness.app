@@ -2,9 +2,11 @@ export interface Exercise {
     id: string;
     category: string;
     subcategory: string;
-    duration: string;
+    duration: string | undefined;
     name: string;
     url: string;
+    sets: string | undefined;
+    repetitions: string | undefined;
 }
 
 export interface Module {

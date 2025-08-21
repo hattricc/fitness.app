@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Container, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
+import LockIcon from '@mui/icons-material/Lock';
 import ExerciseClass from '../components/organisms/exercise-class';
 import { getWorkoutById } from '../data/getWorkout';
 import WorkoutHeader from '../components/organisms/workout/workout-header';
@@ -35,6 +36,23 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
       px: 2
     }}>
       <WorkoutHeader workout={workout} />
+
+      <Box sx={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        gap: 1, 
+        mb: 2, 
+        p: 2, 
+        backgroundColor: 'rgba(255, 193, 7, 0.1)', 
+        borderRadius: 2,
+        border: '1px solid rgba(255, 193, 7, 0.3)',
+        color: 'warning.main'
+      }}>
+        <LockIcon sx={{ color: 'warning.main', fontSize: 20 }} />
+        <Typography variant="body2" color="warning.main" fontWeight="medium">
+          Sé parte de la suscripción básica para ver todas las clases.
+        </Typography>
+      </Box>
 
       <Box key={workout.id} sx={{ mb: 3 }}>
 

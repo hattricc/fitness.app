@@ -1,7 +1,7 @@
 [
     {
-        "id": "wr-jalones",
-        "name": "Ejercicios de gimnasio",
+        "id": "guia-movimientos-basicos",
+        "name": "Guía de movimientos básicos",
         "description": "",
         "imageUrl": "/images/welcome/bienvenida-2.jpg",
         "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
@@ -13,38 +13,33 @@
                 "category": "Jalones",
                 "subcategory": "General",
                 "duration": "1 hora",
-                "name": "Ejercicios de gimnasio",
+                "name": "Guía de movimientos básicos",
                 "url": "https://www.youtube.com/shorts/paBNx6zShiA",
                 "exercises": [
                     {
                         "name": "Parte 1: Jalones",
-                        "url": "https://www.youtube.com/shorts/paBNx6zShiA",
-                        "duration": "1 hora",
-                        "repetitions": 1
+                        "url": "https://youtu.be/nyC_9PdCPVE?si=XtMmu_hUrqhe5gsJ",
+                        "duration": "3 min"
                     },
                     {
                         "name": "Parte 2: Empujones",
-                        "url": "https://www.youtube.com/shorts/paBNx6zShiA",
-                        "duration": "1 hora",
-                        "repetitions": 1
+                        "url": "https://youtu.be/myxBE3JWLLY?si=UGgoWgpuXgdLTAHm",
+                        "duration": "4 min"
                     },
                     {
                         "name": "Parte 3: Complementos",
-                        "url": "https://www.youtube.com/shorts/paBNx6zShiA",
-                        "duration": "1 hora",
-                        "repetitions": 1
+                        "url": "https://youtu.be/NBGYQ2E6ef8?si=K5B-6cjntUqlcdPr",
+                        "duration": "4 min"
                     },
                     {
                         "name": "Parte 4: Tren Inferior",
-                        "url": "https://www.youtube.com/shorts/paBNx6zShiA",
-                        "duration": "1 hora",
-                        "repetitions": 1
+                        "url": "https://youtu.be/xR9VgqKAz_8?si=C60bRECedJvHF3QZ",
+                        "duration": "6 min"
                     },
                     {
                         "name": "Parte 5: Recomendaciones",
-                        "url": "https://www.youtube.com/shorts/paBNx6zShiA",
-                        "duration": "1 hora",
-                        "repetitions": 1
+                        "url": "https://youtu.be/YO1BsJIuids?si=EmuMtcv4gRknLm5J",
+                        "duration": "4 min"
                     }
                 ]
             }
@@ -61,17 +56,43 @@
         "modules": [
             {
                 "id": "exp-001",
-                "category": "Explicaciones",
+                "category": "Jalones",
                 "subcategory": "General",
-                "name": "Parte 1",
-                "url": "https://www.youtube.com/shorts/paBNx6zShiA"
-            },
-            {
-                "id": "exp-001",
-                "category": "Explicaciones",
-                "subcategory": "General",
-                "name": "Parte 2",
-                "url": "https://www.youtube.com/shorts/paBNx6zShiA"
+                "duration": "1 hora",
+                "name": "Guía de movimientos básicos",
+                "url": "https://www.youtube.com/shorts/paBNx6zShiA",
+                "exercises": [
+                    {
+                        "name": "Parte 1: Jalones",
+                        "url": "https://youtu.be/nyC_9PdCPVE?si=XtMmu_hUrqhe5gsJ",
+                        "duration": "1 hora",
+                        "repetitions": 1
+                    },
+                    {
+                        "name": "Parte 2: Empujones",
+                        "url": "https://youtu.be/myxBE3JWLLY?si=UGgoWgpuXgdLTAHm",
+                        "duration": "1 hora",
+                        "repetitions": 1
+                    },
+                    {
+                        "name": "Parte 3: Complementos",
+                        "url": "https://youtu.be/NBGYQ2E6ef8?si=K5B-6cjntUqlcdPr",
+                        "duration": "1 hora",
+                        "repetitions": 1
+                    },
+                    {
+                        "name": "Parte 4: Tren Inferior",
+                        "url": "https://youtu.be/xR9VgqKAz_8?si=C60bRECedJvHF3QZ",
+                        "duration": "1 hora",
+                        "repetitions": 1
+                    },
+                    {
+                        "name": "Parte 5: Recomendaciones",
+                        "url": "https://youtu.be/YO1BsJIuids?si=EmuMtcv4gRknLm5J",
+                        "duration": "1 hora",
+                        "repetitions": 1
+                    }
+                ]
             }
         ]
     },
