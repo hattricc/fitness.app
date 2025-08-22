@@ -48,7 +48,7 @@
     {
         "id": "course-002",
         "name": "Modelo de Rutina",
-        "description": "Descripción del curso 2",
+        "description": "",
         "imageUrl": "./images/welcome/bienvenida-3.jpg",
         "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
         "category": "Fitness",
@@ -59,38 +59,133 @@
                 "category": "Jalones",
                 "subcategory": "General",
                 "duration": "1 hora",
-                "name": "Guía de movimientos básicos",
+                "name": "Día 1",
                 "url": "https://www.youtube.com/shorts/paBNx6zShiA",
                 "exercises": [
                     {
-                        "name": "Parte 1: Jalones",
+                        "name": "Ejercicio 1",
                         "url": "https://youtu.be/nyC_9PdCPVE?si=XtMmu_hUrqhe5gsJ",
-                        "duration": "1 hora",
-                        "repetitions": 1
+                        "sets": "3",
+                        "repetitions": "8-10",
+                        "duration": "1 min"
                     },
                     {
-                        "name": "Parte 2: Empujones",
+                        "name": "Ejercicio 2",
                         "url": "https://youtu.be/myxBE3JWLLY?si=UGgoWgpuXgdLTAHm",
-                        "duration": "1 hora",
-                        "repetitions": 1
+                        "sets": "3",
+                        "repetitions": "8-10",
+                        "duration": "1 min"
                     },
                     {
-                        "name": "Parte 3: Complementos",
+                        "name": "Ejercicio 3",
                         "url": "https://youtu.be/NBGYQ2E6ef8?si=K5B-6cjntUqlcdPr",
-                        "duration": "1 hora",
-                        "repetitions": 1
+                        "sets": "3",
+                        "repetitions": "10-12",
+                        "duration": "1 min"
                     },
                     {
-                        "name": "Parte 4: Tren Inferior",
+                        "name": "Ejercicio 4",
                         "url": "https://youtu.be/xR9VgqKAz_8?si=C60bRECedJvHF3QZ",
-                        "duration": "1 hora",
-                        "repetitions": 1
+                        "sets": "3",
+                        "repetitions": "10-12",
+                        "duration": "1 min"
                     },
                     {
-                        "name": "Parte 5: Recomendaciones",
+                        "name": "Ejercicio 5",
                         "url": "https://youtu.be/YO1BsJIuids?si=EmuMtcv4gRknLm5J",
-                        "duration": "1 hora",
-                        "repetitions": 1
+                        "sets": "3",
+                        "repetitions": "10-15",
+                        "duration": "1 min"
+                    }
+                ]
+            },
+            {
+                "id": "exp-002",
+                "category": "Jalones",
+                "subcategory": "General",
+                "duration": "1 hora",
+                "name": "Día 2",
+                "url": "https://www.youtube.com/shorts/paBNx6zShiA",
+                "exercises": [
+                    {
+                        "name": "Ejercicio 1",
+                        "url": "https://youtu.be/nyC_9PdCPVE?si=XtMmu_hUrqhe5gsJ",
+                        "sets": "3",
+                        "repetitions": "8-10",
+                        "duration": "1 min"
+                    },
+                    {
+                        "name": "Ejercicio 2",
+                        "url": "https://youtu.be/myxBE3JWLLY?si=UGgoWgpuXgdLTAHm",
+                        "sets": "3",
+                        "repetitions": "8-10",
+                        "duration": "1 min"
+                    },
+                    {
+                        "name": "Ejercicio 3",
+                        "url": "https://youtu.be/NBGYQ2E6ef8?si=K5B-6cjntUqlcdPr",
+                        "sets": "3",
+                        "repetitions": "10-12",
+                        "duration": "1 min"
+                    },
+                    {
+                        "name": "Ejercicio 4",
+                        "url": "https://youtu.be/xR9VgqKAz_8?si=C60bRECedJvHF3QZ",
+                        "sets": "3",
+                        "repetitions": "10-12",
+                        "duration": "1 min"
+                    },
+                    {
+                        "name": "Ejercicio 5",
+                        "url": "https://youtu.be/YO1BsJIuids?si=EmuMtcv4gRknLm5J",
+                        "sets": "3",
+                        "repetitions": "10-15",
+                        "duration": "1 min"
+                    }
+                ]
+            },
+            {
+                "id": "exp-003",
+                "category": "Jalones",
+                "subcategory": "General",
+                "duration": "1 hora",
+                "name": "Día 3",
+                "url": "https://www.youtube.com/shorts/paBNx6zShiA",
+                "exercises": [
+                    {
+                        "name": "Ejercicio 1",
+                        "url": "https://youtu.be/nyC_9PdCPVE?si=XtMmu_hUrqhe5gsJ",
+                        "sets": "3",
+                        "repetitions": "8-10",
+                        "duration": "1 min"
+                    },
+                    {
+                        "name": "Ejercicio 2",
+                        "url": "https://youtu.be/myxBE3JWLLY?si=UGgoWgpuXgdLTAHm",
+                        "sets": "3",
+                        "repetitions": "8-10",
+                        "duration": "1 min"
+                    },
+                    {
+                        "name": "Ejercicio 3",
+                        "url": "https://youtu.be/NBGYQ2E6ef8?si=K5B-6cjntUqlcdPr",
+                        "sets": "3",
+                        "repetitions": "10-12",
+                        "duration": "1 min"
+                    },
+                    {
+                        "name": "Ejercicio 4",
+                        "url": "https://youtu.be/xR9VgqKAz_8?si=C60bRECedJvHF3QZ",
+                        "sets": "3",
+                        "repetitions": "10-12",
+                        "duration": "1 min"
+                    },
+                    {
+                        "name": "Ejercicio 5",
+                        "url": "https://youtu.be/YO1BsJIuids?si=EmuMtcv4gRknLm5J",
+                        "sets": "3",
+                        "repetitions": "10-15",
+                        "duration": "1 min"
                     }
                 ]
             }

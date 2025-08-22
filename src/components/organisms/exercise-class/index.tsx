@@ -19,8 +19,7 @@ const ExerciseClass: React.FC<ExerciseClassProps> = ({
 }) => {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
-  // Debug logging
-  console.log('ExerciseClass isLocked:', isLocked);
+  console.log('module:', module);
 
   const handleCloseVideo = () => {
     setTimeout(() => {
