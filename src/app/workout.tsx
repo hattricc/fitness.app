@@ -33,7 +33,6 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
       pt: 4,
       width: '100%',
       maxWidth: '100%',
-      px: 2
     }}>
       <WorkoutHeader workout={workout} />
 

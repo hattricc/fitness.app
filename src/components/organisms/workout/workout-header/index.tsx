@@ -11,7 +11,7 @@ const WorkoutImage = styled('div')<{ image: string }>(({ theme, image }) => ({
     backgroundImage: `url(${image})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center 35%',
-    borderRadius: 42,
+    borderRadius: 36,
     overflow: 'hidden',
     '&::before': {
         content: '""',
@@ -34,7 +34,6 @@ const WorkoutInfo = styled('div')(({ theme }) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
 }));
 
 interface WorkoutHeaderProps {
@@ -55,7 +54,7 @@ const WorkoutHeader: React.FC<WorkoutHeaderProps> = ({ workout }) => {
                     </Box>
                     <Box sx={{ textAlign: 'right' }}>
                         <Typography variant="body2" display="block">
-                            {workout.modules.length} módulos • {workout.duration}
+                            {workout.modules.length} {workout.modules.length === 1 ? 'módulo' : 'módulos'} {workout.duration && ('• ' + workout.duration)}
                         </Typography>
                     </Box>
                 </WorkoutInfo>
