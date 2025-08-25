@@ -32,8 +32,8 @@ const ExerciseClass: React.FC<ExerciseClassProps> = ({
   };
 
   const handleExerciseClick = (videoUrl: string, exerciseIndex: number) => {
-    const isExerciseLocked = false; // First two items (index 0 and 1) are unlocked, rest are locked
-    /* const isExerciseLocked = exerciseIndex >= 2; // First two items (index 0 and 1) are unlocked, rest are locked */
+    // const isExerciseLocked = false; // First two items (index 0 and 1) are unlocked, rest are locked
+    const isExerciseLocked = exerciseIndex >= 2; // First two items (index 0 and 1) are unlocked, rest are locked
     
     
     if (!isExerciseLocked) {
@@ -44,9 +44,8 @@ const ExerciseClass: React.FC<ExerciseClassProps> = ({
   return (
     <>
       {module.exercises.map((exercise, index) => {
-        /* const isExerciseLocked = index >= 2; // First two items (index 0 and 1) are unlocked, rest are locked
-         */
-        const isExerciseLocked = false; // First two items (index 0 and 1) are unlocked, rest are locked
+        const isExerciseLocked = index >= 2; // First two items (index 0 and 1) are unlocked, rest are locked
+        // const isExerciseLocked = false; // First two items (index 0 and 1) are unlocked, rest are locked
         
         return (
           <Box key={index} sx={{ position: 'relative' }}>
