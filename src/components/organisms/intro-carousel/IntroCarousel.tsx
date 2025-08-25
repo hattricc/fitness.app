@@ -78,29 +78,29 @@ const LogoImage = styled('img')({
 const slides: SlideData[] = [
   {
     id: 1,
-    title: 'Bienvenido a Entrenamiento e Integración',
+    title: '¡Hoy es un gran día para entrenar!',
     backgroundImage: '',
     backgroundColor: '#1B1B1B',
   },
   {
     id: 2,
-    title: 'Aquí encontrarás una guía de ejercicios y rutinas físicas',
+    title: 'Todo lo que necesitas...',
     backgroundImage: 'url(/images/welcome/bienvenida-2.jpg)',
   },
   {
     id: 3,
-    title: 'Adaptables a tus requerimientos personales',
+    title: 'Está justo en frente tuyo',
     backgroundImage: 'url(/images/welcome/bienvenida-3.jpg)',
     backgroundColor: 'transparent',
   },
-  {
-    id: 4,
-    title: 'Y acompañamiento integral en el proceso más importante de tu vida',
-    backgroundImage: 'url(/images/welcome/bienvenida-4.jpg)',
-  },
+  // {
+  //   id: 4,
+  //   title: 'Y acompañamiento integral en el proceso más importante de tu vida',
+  //   backgroundImage: 'url(/images/welcome/bienvenida-4.jpg)',
+  // },
   {
     id: 5,
-    title: 'Cultivar tu salud',
+    title: '¡Comencemos!',
     backgroundImage: 'url(/images/welcome/bienvenida-5.jpg)',
     // backgroundColor: '#E57952',
   },
@@ -133,6 +133,7 @@ const IntroCarousel: React.FC<IntroCarouselProps> = ({ onComplete }) => {
           <CloseButton onClick={onComplete} aria-label="close">
             <CloseIcon />
           </CloseButton>
+          
           <LogoContainer>
             <LogoImage
               src="/images/logo/logo-blanco.png"

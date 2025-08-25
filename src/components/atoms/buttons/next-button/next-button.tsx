@@ -21,6 +21,10 @@ const NextButton = forwardRef<
     margin: '0 auto',
     marginBottom: '40px',
     width: '85%',
+    transition: 'opacity 0.2s ease-in-out',
+    '&:hover': {
+      opacity: 0.8,
+    },
   });
 
   return (
