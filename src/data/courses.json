@@ -1,7 +1,7 @@
 [
     {
         "id": "guia-movimientos-basicos",
-        "name": "Guía de movimientos básicos",
+        "name": "Cursos",
         "description": "",
         "imageUrl": "/images/welcome/bienvenida-2.jpg",
         "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
@@ -12,7 +12,7 @@
                 "category": "Jalones",
                 "subcategory": "General",
                 "duration": "1 hora",
-                "name": "Guía de movimientos básicos",
+                "name": "Cursos",
                 "url": "https://www.youtube.com/shorts/paBNx6zShiA",
                 "exercises": [
                     {
@@ -46,7 +46,7 @@
     },
     {
         "id": "course-002",
-        "name": "Modelo de Rutina",
+        "name": "Rutinas",
         "description": "",
         "imageUrl": "./images/welcome/bienvenida-3.jpg",
         "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
@@ -191,7 +191,7 @@
     },
     {
         "id": "course-003",
-        "name": "Movilidad y Entrenamiento al aire libre",
+        "name": "Entrenamiento en casa",
         "description": "Descripción del curso 3",
         "imageUrl": "./images/exercises/exercises-exteriores.jpg",
         "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
@@ -215,7 +215,7 @@
     },
     {
         "id": "course-004",
-        "name": "Kung Fu consciente",
+        "name": "Kung Fu",
         "description": "Descripción del curso 4",
         "imageUrl": "./images/welcome/bienvenida-5.jpg",
         "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",

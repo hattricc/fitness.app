@@ -148,7 +148,7 @@ const Home = () => {
           xs: '1fr',
           md: 'repeat(4, 1fr)'
         },
-        gap: 2,
+        gap: 1,
         '& > *': {
           width: '100%',
           mb: { xs: 2, md: 0 }
