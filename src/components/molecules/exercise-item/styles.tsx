@@ -96,8 +96,9 @@ export const PlayArrowBoxStylesRounded = createPlayArrowBoxStyles({ borderRadius
 
 
 export const TextContainerStyles = {
-    width: '30%',
-    p: 3,
+    width: '80%',
+    px: 0,
+    py: 2,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between'

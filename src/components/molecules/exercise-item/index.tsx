@@ -29,7 +29,7 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, setSelectedVideo,
         sx={{ ...CardStylesSquared, ...sx, position: 'relative' }}
       >
 
-        <Box
+        {/* <Box
           component="img"
           src={exercise.url ? YouTubeHelper.getThumbnailUrl(exercise.url, 'mqdefault') || '/images/exercises/exercises-exteriores.jpg' : '/images/exercises/exercises-exteriores.jpg'}
           alt={exercise.name}
@@ -40,7 +40,7 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, setSelectedVideo,
             objectFit: 'cover',
             backgroundColor: 'rgba(255, 255, 255, 0.1)',
           }}
-        />
+        /> */}
 
         <Box sx={TextContainerStyles}>
           <Typography
@@ -53,7 +53,7 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, setSelectedVideo,
           </Typography>
         </Box>
 
-        <Box sx={ChipContainerStyles}>
+        {/* <Box sx={ChipContainerStyles}>
           {exercise.sets && <Chip
             label={exercise.sets + ' sets'}
             size="small"
@@ -102,21 +102,8 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, setSelectedVideo,
               },
             }}
           />
-          {/* <Chip
-              icon={<AccessTime fontSize="small" />}
-              label={exercise.duration}
-              size="small"
-              variant="outlined"
-              sx={ExerciseDurationStyles}
-            /> */}
-          {/* <Typography
-              sx={ExerciseRepetitionsStyles}
-            > */}
-          {/* {exercise.repetitions || 0} repeticiones */}
-          {/* 1 repetición */}
-          {/* </Typography> */}
 
-        </Box>
+        </Box> */}
 
         <Box sx={{
           position: 'absolute',

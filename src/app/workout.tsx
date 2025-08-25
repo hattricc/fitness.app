@@ -68,7 +68,7 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
               borderRadius: 2,
               boxShadow: 2,
               py: 2,
-              px: 3
+              px: 1
             }}
           >
             <AccordionSummary
