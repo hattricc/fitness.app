@@ -47,26 +47,24 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        p: 3,
-        backgroundColor: theme.palette.background.default,
+        p: 1,
+        backgroundColor: '#1B1B1B',
+        borderRadius: 6,
       }}
     >
       <Box
         sx={{
           width: '100%',
           maxWidth: 400,
-          bgcolor: theme.palette.background.paper,
-          borderRadius: 2,
-          p: 4,
-          boxShadow: 3,
+          p: 2,
         }}
       >
         {/* Header */}
         <Box textAlign="center" mb={4}>
-          <Typography variant="h4" component="h1" fontWeight="  bold" gutterBottom>
+          <Typography variant="h4" component="h1" fontWeight="bold" color='text.primary' gutterBottom>
             ¡Bienvenido de vuelta!
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" color="text.primary">
             Inicia sesión para continuar con FitnessApp
           </Typography>
         </Box>
@@ -76,7 +74,7 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
           <Stack spacing={3}>
             <TextField
               fullWidth
-              label="Email or Username"
+              label="Usuario o correo"
               name="email"
               type="email"
               value={formData.email}
@@ -88,7 +86,7 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
             
             <TextField
               fullWidth
-              label="Password"
+              label="Contraseña"
               name="password"
               type={showPassword ? 'text' : 'password'}
               value={formData.password}
@@ -149,13 +147,11 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
         {/* Social Login Buttons */}
         <SocialLoginButtons
           onGoogleLogin={() => console.log('Google login clicked')}
-          onFacebookLogin={() => console.log('Facebook login clicked')}
-          onBiometricLogin={() => console.log('Biometric login clicked')}
         />
 
         {/* Sign up link */}
         <Box textAlign="center" mt={2}>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.primary">
             ¿No tienes una cuenta?{' '}
             <MuiLink 
               component="button" 

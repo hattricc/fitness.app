@@ -17,7 +17,7 @@ export default function SocialLoginButtons({
   const theme = useTheme();
   return (
     <Stack spacing={2} mb={3}>
-      <Button
+      {onGoogleLogin && <Button
         variant="outlined"
         startIcon={<Google color="primary" />}
         fullWidth
@@ -34,10 +34,10 @@ export default function SocialLoginButtons({
           },
         }}
       >
-        Continue with Google
-      </Button>
+        Continuar con Google
+      </Button>}
       
-      <Button
+      {onFacebookLogin && <Button
         variant="outlined"
         startIcon={<Facebook color="primary" />}
         fullWidth
@@ -54,10 +54,10 @@ export default function SocialLoginButtons({
           },
         }}
       >
-        Continue with Facebook
-      </Button>
+        Continuar con Facebook
+      </Button>}
       
-      <Button
+      {onBiometricLogin && <Button
         variant="outlined"
         fullWidth
         onClick={onBiometricLogin}
@@ -73,8 +73,8 @@ export default function SocialLoginButtons({
           },
         }}
       >
-        Use Biometric
-      </Button>
+        Usar Biometria
+      </Button>}
     </Stack>
   );
 }

@@ -27,7 +27,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 // Map of routes to their corresponding titles and icons
 const routeConfig = {
-  '/': { title: 'Hola, Luis', icon: <HomeIcon /> },
+  '/': { title: 'Inicio', icon: <HomeIcon /> },
   '/workouts': { title: 'Programas' },
   '/workout/': { title: 'Cursos' },
   '/articles': { title: 'Artículos' },
@@ -88,13 +88,13 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
         borderBottom: '1px solid',
         borderColor: 'divider',
         // backgroundColor: '#1B1B1B',
-        backgroundColor: '#ffffff',
+        backgroundColor: 'background.default',
         padding: '12px 0',
         zIndex: (theme) => theme.zIndex.drawer + 1
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex' }}>
           {!isHomePage && (
             <IconButton
               size="large"
@@ -108,11 +108,9 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
             </IconButton>
           )}
         </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', color: '#1B1B1B' }}>
-            {titleState}
-          </Typography>
-        </Box>
+        <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', color: '#1B1B1B' }}>
+          {titleState}
+        </Typography>
         <Box>
           {/* <IconButton size="large" color="inherit" aria-label="search">
             <SearchIcon />
@@ -152,6 +150,7 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
                 overflow: 'visible',
                 filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.1))',
                 mt: 1.5,
+                bgcolor: '#1B1B1B',
                 '& .MuiAvatar-root': {
                   width: 32,
                   height: 32,
@@ -166,23 +165,39 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
                   right: 14,
                   width: 10,
                   height: 10,
-                  bgcolor: 'background.paper',
+                  bgcolor: '#1B1B1B',
                   transform: 'translateY(-50%) rotate(45deg)',
                   zIndex: 0,
                 },
               },
             }}
           >
-            <MenuItem onClick={() => handleNavigation('/login')}>
+            <MenuItem
+              onClick={() => handleNavigation('/login')}
+              sx={{
+                color: '#ffffff',
+                '&:hover': {
+                  backgroundColor: '#333333',
+                }
+              }}
+            >
               <ListItemIcon>
-                <LoginIcon fontSize="small" />
+                <LoginIcon fontSize="small" sx={{ color: '#ffffff' }} />
               </ListItemIcon>
               <ListItemText>Iniciar sesión</ListItemText>
             </MenuItem>
-            <Divider />
-            <MenuItem onClick={() => handleNavigation('/signup')}>
+            <Divider sx={{ backgroundColor: '#333333' }} />
+            <MenuItem
+              onClick={() => handleNavigation('/signup')}
+              sx={{
+                color: '#ffffff',
+                '&:hover': {
+                  backgroundColor: '#333333',
+                }
+              }}
+            >
               <ListItemIcon>
-                <PersonAddIcon fontSize="small" />
+                <PersonAddIcon fontSize="small" sx={{ color: '#ffffff' }} />
               </ListItemIcon>
               <ListItemText>Crear cuenta</ListItemText>
             </MenuItem>

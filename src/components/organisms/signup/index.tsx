@@ -45,27 +45,25 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        p: 3,
-        backgroundColor: theme.palette.background.default,
+        p: 1,
+        backgroundColor: '#1B1B1B',
+        borderRadius: 6,
       }}
     >
       <Box
         sx={{
           width: '100%',
           maxWidth: 400,
-          bgcolor: theme.palette.background.paper,
-          borderRadius: 2,
-          p: 4,
-          boxShadow: 3,
+          p: 2,
         }}
       >
         {/* Header */}
         <Box textAlign="center" mb={4}>
-          <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
+          <Typography variant="h4" component="h1" fontWeight="bold" color="text.primary" gutterBottom>
             ¡Comencemos!
           </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Registrate para continuar con FitnessApp
+          <Typography variant="body1" color="text.primary">
+            Registrate para continuar con Luis Suarez
           </Typography>
         </Box>
 
@@ -98,7 +96,7 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
 
             <TextField
               fullWidth
-              label="Email or Username"
+              label="Usuario o Correo"
               name="email"
               type="email"
               value={formData.email}
@@ -107,10 +105,10 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
               variant="outlined"
               size="medium"
             />
-            
+
             <TextField
               fullWidth
-              label="Password"
+              label="Contraseña"
               name="password"
               type={showPassword ? 'text' : 'password'}
               value={formData.password}
@@ -131,7 +129,7 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
                 ),
               }}
             />
-            
+
             <Button
               fullWidth
               variant="contained"
@@ -159,19 +157,17 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
         {/* Social Login Buttons */}
         <SocialLoginButtons
           onGoogleLogin={() => console.log('Google login clicked')}
-          onFacebookLogin={() => console.log('Facebook login clicked')}
-          onBiometricLogin={() => console.log('Biometric login clicked')}
         />
-        
+
 
         {/* Sign up link */}
         <Box textAlign="center" mt={2}>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.primary">
             ¿Ya tienes una cuenta?{' '}
-            <MuiLink 
-              component="button" 
-              type="button" 
-              color={theme.palette.primary.main} 
+            <MuiLink
+              component="button"
+              type="button"
+              color={theme.palette.primary.main}
               fontWeight="medium"
               onClick={() => navigate('/login')}
             >
