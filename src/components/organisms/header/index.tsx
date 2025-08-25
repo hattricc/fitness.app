@@ -29,7 +29,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const routeConfig = {
   '/': { title: 'Hola, Luis', icon: <HomeIcon /> },
   '/workouts': { title: 'Programas' },
-  '/workout/': { title: 'Detalles del Programa' },
+  '/workout/': { title: 'Cursos' },
   '/articles': { title: 'Artículos' },
   '/weekly-challenge': { title: 'Reto Semanal' },
   '/login': { title: 'Iniciar Sesión' },

@@ -30,11 +30,10 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
   return (
     <Container maxWidth={false} disableGutters sx={{
       pb: 10,
-      pt: 4,
       width: '100%',
       maxWidth: '100%',
     }}>
-      <WorkoutHeader workout={workout} />
+      {/* <WorkoutHeader workout={workout} /> */}
 
       <Box sx={{ 
         display: 'flex', 
