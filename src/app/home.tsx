@@ -5,7 +5,9 @@ import {
   useTheme,
   useMediaQuery,
   Button,
-  Card
+  Card,
+  Modal,
+  IconButton
 } from '@mui/material';
 import Footer from '../components/organisms/footer';
 import {
@@ -14,12 +16,17 @@ import {
 import { ExerciseCard } from '../components/molecules';
 import { ExerciseRoutine } from '@/types/exercise';
 import coursesData from '../data/courses.json';
-
+import { Close as CloseIcon } from '@mui/icons-material';
+import React from 'react';
 
 const Home = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const courses = coursesData as unknown as ExerciseRoutine[];
 
@@ -29,9 +36,106 @@ const Home = () => {
       minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
-      mt: 8
+      flexGrow: 1
     }}>
-      <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ mb: 3, textAlign: 'center' }}>
+          <Button
+            variant="contained"
+            onClick={() => {
+              handleOpen();
+              setTimeout(handleClose, 26500);
+            }}
+            sx={{
+              backgroundColor: '#1B1B1B',
+              color: 'white',
+              borderRadius: 4,
+              px: 4,
+              py: 1.5,
+              textTransform: 'none',
+              fontWeight: 'bold',
+              fontSize: '1.1rem',
+              '&:hover': {
+                backgroundColor: '#333',
+                opacity: 0.9,
+              },
+              transition: 'all 0.3s ease',
+              minWidth: '40%',
+              width: 'fit-content'
+            }}
+          >
+          ¡Bienvenido Luis!
+          </Button>
+        </Box>
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="welcome-video-modal"
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            outline: 'none',
+            zIndex: 10005,
+            '& .MuiBackdrop-root': {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            },
+          }}
+        >
+          <Box sx={{
+            position: 'relative',
+            width: '100%',
+            maxWidth: '400px',
+            maxHeight: '90vh',
+            mx: 2,
+            bgcolor: '#1B1B1B',
+            borderRadius: 2,
+            boxShadow: 24,
+            p: 1,
+            outline: 'none',
+          }}>
+            <IconButton
+              onClick={handleClose}
+              sx={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+                color: 'white',
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                },
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+            <Box sx={{
+              position: 'relative',
+              width: '100%',
+              paddingTop: '177.78%', // 9:16 aspect ratio
+              height: 0,
+              overflow: 'hidden',
+            }}>
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/MonVZibsRp0?autoplay=1"
+                title="Video de bienvenida"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  border: 'none',
+                }}
+              />
+            </Box>
+          </Box>
+        </Modal>
+
         <Box>
           <Typography variant="h5" component="h1" fontWeight="bold" gutterBottom>
             ¿Qué te gustaría hacer hoy?
@@ -103,7 +207,6 @@ const Home = () => {
             }}
           />
         </Card> */}
-      </Box>
 
       {/* Footer - Only visible on mobile */}
       {isMobile && <Footer />}
