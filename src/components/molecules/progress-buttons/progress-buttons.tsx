@@ -87,9 +87,9 @@ const ProgressButtons: React.FC<ProgressButtonsProps> = ({ onComplete, slides, c
                     height: '7rem'
                 }
             }>
-                {currentSlide > 0 && (
+                {/* {currentSlide > 0 && (
                     <PreviousButton onClick={previousSlide} />
-                )}
+                )} */}
 
                 <NextButton
                     onClick={nextSlide}

@@ -97,13 +97,12 @@ const slides: SlideData[] = [
     id: 4,
     title: 'Y acompañamiento integral en el proceso más importante de tu vida',
     backgroundImage: 'url(/images/welcome/bienvenida-4.jpg)',
-    backgroundColor: '#E57952',
   },
   {
     id: 5,
     title: 'Cultivar tu salud',
     backgroundImage: 'url(/images/welcome/bienvenida-5.jpg)',
-    backgroundColor: '#E57952',
+    // backgroundColor: '#E57952',
   },
 ];
 
@@ -127,7 +126,7 @@ const IntroCarousel: React.FC<IntroCarouselProps> = ({ onComplete }) => {
             opacity: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
           }}
           style={{
-            backgroundImage: slides[currentSlide].backgroundImage,
+            // backgroundImage: slides[currentSlide].backgroundImage,
             backgroundColor: slides[currentSlide].backgroundColor,
           }}
         >
