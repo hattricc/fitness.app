@@ -38,125 +38,136 @@ const Home = () => {
       flexDirection: 'column',
       flexGrow: 1
     }}>
-        <Box sx={{ mb: 3, textAlign: 'center' }}>
-          <Button
-            variant="contained"
-            onClick={() => {
-              handleOpen();
-              setTimeout(handleClose, 26500);
-            }}
-            sx={{
-              backgroundColor: '#1B1B1B',
-              color: 'white',
-              borderRadius: 4,
-              px: 4,
-              py: 1.5,
-              textTransform: 'none',
-              fontWeight: 'bold',
-              fontSize: '1.1rem',
-              '&:hover': {
-                backgroundColor: '#333',
-                opacity: 0.9,
-              },
-              transition: 'all 0.3s ease',
-              minWidth: '40%',
-              width: 'fit-content'
-            }}
-          >
-          ¡Bienvenido Luis!
-          </Button>
-        </Box>
-
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="welcome-video-modal"
+      <Box sx={{ mb: 3, textAlign: 'center' }}>
+        <Button
+          variant="contained"
+          onClick={() => {
+            handleOpen();
+            setTimeout(handleClose, 26500);
+          }}
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            outline: 'none',
-            zIndex: 10005,
-            '& .MuiBackdrop-root': {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            backgroundColor: '#1B1B1B',
+            color: 'white',
+            borderRadius: 4,
+            px: 4,
+            py: 1.5,
+            textTransform: 'none',
+            fontWeight: 'bold',
+            fontSize: '1.1rem',
+            '&:hover': {
+              backgroundColor: '#333',
+              opacity: 0.9,
             },
+            transition: 'all 0.3s ease',
+            minWidth: '40%',
+            width: 'fit-content'
           }}
         >
+          ¡Bienvenido Luis!
+        </Button>
+      </Box>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="welcome-video-modal"
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          outline: 'none',
+          zIndex: 10005,
+          '& .MuiBackdrop-root': {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          },
+        }}
+      >
+        <Box sx={{
+          position: 'relative',
+          width: '100%',
+          maxWidth: '400px',
+          maxHeight: '90vh',
+          mx: 2,
+          bgcolor: '#1B1B1B',
+          borderRadius: 2,
+          boxShadow: 24,
+          p: 1,
+          outline: 'none',
+        }}>
+          <IconButton
+            onClick={handleClose}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: 'white',
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.3)',
+              },
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
           <Box sx={{
             position: 'relative',
             width: '100%',
-            maxWidth: '400px',
-            maxHeight: '90vh',
-            mx: 2,
-            bgcolor: '#1B1B1B',
-            borderRadius: 2,
-            boxShadow: 24,
-            p: 1,
-            outline: 'none',
+            paddingTop: '177.78%', // 9:16 aspect ratio
+            height: 0,
+            overflow: 'hidden',
           }}>
-            <IconButton
-              onClick={handleClose}
-              sx={{
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/MonVZibsRp0?autoplay=1"
+              title="Video de bienvenida"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              style={{
                 position: 'absolute',
-                right: 8,
-                top: 8,
-                color: 'white',
-                backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.3)',
-                },
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                border: 'none',
               }}
-            >
-              <CloseIcon />
-            </IconButton>
-            <Box sx={{
-              position: 'relative',
-              width: '100%',
-              paddingTop: '177.78%', // 9:16 aspect ratio
-              height: 0,
-              overflow: 'hidden',
-            }}>
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/MonVZibsRp0?autoplay=1"
-                title="Video de bienvenida"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  border: 'none',
-                }}
-              />
-            </Box>
+            />
           </Box>
-        </Modal>
-
-        <Box>
-          <Typography variant="h5" component="h1" fontWeight="bold" gutterBottom>
-            ¿Qué te gustaría hacer hoy?
-          </Typography>
         </Box>
+      </Modal>
 
-        <Box sx={{
-          display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: 'repeat(4, 1fr)' },
-          gap: 0,
+      <Box>
+        <Typography variant="h5" component="h1" fontWeight="bold" gutterBottom>
+          ¿Qué te gustaría hacer hoy?
+        </Typography>
+      </Box>
+
+      <Box sx={{
+        display: 'grid',
+        gridTemplateColumns: {
+          xs: '1fr',
+          md: 'repeat(4, 1fr)'
+        },
+        gap: 2,
+        '& > *': {
+          width: '100%',
+          mb: { xs: 2, md: 0 }
+        },
+        '@media (min-width: 900px)': {
+          gap: 3,
           '& > *': {
-            mb: { xs: 2, sm: 0 }
-          },
-          mb: 2
-        }}>
-          {courses.map((item) => (
-            <ExerciseCard key={item.id} exercise={item} onClick={() => navigate(`/workout/${item.id}`)} />
-          ))}
-        </Box>
+            maxWidth: '280px',
+            margin: '0 auto'
+          }
+        },
+        mb: 2
+      }}>
+        {courses.map((item) => (
+          <ExerciseCard key={item.id} exercise={item} onClick={() => navigate(`/workout/${item.id}`)} />
+        ))}
+      </Box>
 
-        {/* <Card
+      {/* <Card
           sx={{
             borderRadius: 8,
             background: '#1B1B1B',

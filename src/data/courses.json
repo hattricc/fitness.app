@@ -6,7 +6,6 @@
         "imageUrl": "/images/welcome/bienvenida-2.jpg",
         "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
         "category": "Fitness",
-        "duration": "1 hora",
         "modules": [
             {
                 "id": "exp-001",
@@ -52,7 +51,6 @@
         "imageUrl": "./images/welcome/bienvenida-3.jpg",
         "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
         "category": "Fitness",
-        "duration": "1 hora",
         "modules": [
             {
                 "id": "exp-001",
@@ -198,7 +196,6 @@
         "imageUrl": "./images/exercises/exercises-exteriores.jpg",
         "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
         "category": "Fitness",
-        "duration": "1 hora",
         "modules": [
             {
                 "id": "exp-001",
@@ -223,7 +220,6 @@
         "imageUrl": "./images/welcome/bienvenida-5.jpg",
         "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
         "category": "Fitness",
-        "duration": "1 hora",
         "modules": [
             {
                 "id": "exp-001",
