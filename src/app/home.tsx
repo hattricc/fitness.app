@@ -209,7 +209,7 @@ const Home = () => {
         </Card> */}
 
       {/* Footer - Only visible on mobile */}
-      {isMobile && <Footer />}
+      {/* {isMobile && <Footer />} */}
     </Box>
   );
 };
