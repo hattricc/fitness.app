@@ -9,19 +9,15 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
-  Divider
+  Divider,
 } from '@mui/material';
 import {
   ArrowBack as ArrowBackIcon,
-  Search as SearchIcon,
   Notifications as NotificationsIcon,
   AccountCircle as AccountIcon,
   Login as LoginIcon,
   PersonAdd as PersonAddIcon,
   Home as HomeIcon,
-  FitnessCenter as WorkoutIcon,
-  Article as ArticleIcon,
-  EmojiEvents as ChallengeIcon
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -29,11 +25,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const routeConfig = {
   '/': { title: 'Inicio', icon: <HomeIcon /> },
   '/workouts': { title: 'Programas' },
-  '/workout/:courseId': { 
+  '/workout/:courseId': {
     title: (params: { courseId: string }) => {
-      // Default title if course is not found
-      return 'Curso';
-    } 
+      return params.courseId;
+    }
   },
   '/articles': { title: 'Artículos' },
   '/weekly-challenge': { title: 'Reto Semanal' },
@@ -46,11 +41,11 @@ interface HeaderProps {
   title?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
+const Header: React.FC<HeaderProps> = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [titleState, setTitleState] = useState('Inicio');
-  const [courses, setCourses] = useState<Array<{id: string, name: string}>>([]);
+  const [courses, setCourses] = useState<Array<{ id: string, name: string }>>([]);
   const isHomePage = location.pathname === '/';
 
   // Load courses data
@@ -72,13 +67,13 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
       newTitle = course ? course.name : 'Curso';
     } else {
       // Handle static routes
-      const route = Object.entries(routeConfig).find(([route]) => 
+      const route = Object.entries(routeConfig).find(([route]) =>
         route === path || (route.includes(':') && new RegExp(`^${route.replace(/:[^/]+/g, '([^/]+)')}$`).test(path))
       );
-      
+
       if (route) {
         const routeInfo = route[1];
-        newTitle = typeof routeInfo.title === 'function' 
+        newTitle = typeof routeInfo.title === 'function'
           ? routeInfo.title({ courseId: path.split('/').pop() || '' })
           : routeInfo.title;
       }
@@ -117,23 +112,38 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
           {!isHomePage && (
             <IconButton
-              size="large"
               edge="start"
               color="inherit"
-              aria-label="go back"
+              aria-label="back"
+              onClick={() => window.history.back()}
               sx={{ mr: 2 }}
-              onClick={() => navigate(-1)}
             >
               <ArrowBackIcon />
             </IconButton>
           )}
+
+          {/* Logo */}
+          <Box
+            component="img"
+            src="/images/logo/logo.png"
+            alt="Logo"
+            sx={{
+              height: 40,
+              mr: 2,
+              cursor: 'pointer',
+              display: { sm: 'block' },
+            }}
+            onClick={() => navigate('/')}
+          />
+
+          <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', color: '#1B1B1B' }}>
+            {titleState}
+          </Typography>
         </Box>
-        <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', color: '#1B1B1B' }}>
-          {titleState}
-        </Typography>
+        
         <Box>
           {/* <IconButton size="large" color="inherit" aria-label="search">
             <SearchIcon />
