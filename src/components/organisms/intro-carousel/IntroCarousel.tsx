@@ -52,7 +52,7 @@ const Slide = styled(motion.div)({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
+    backgroundColor: 'rgba(0, 0, 0, 0.1)', // Semi-transparent black overlay
     zIndex: 1,
   },
   '& > *': {
@@ -79,30 +79,22 @@ const slides: SlideData[] = [
   {
     id: 1,
     title: '¡Hoy es un gran día para entrenar!',
-    backgroundImage: '',
-    backgroundColor: '#1B1B1B',
+    backgroundColor: '#1A1A1A'
   },
   {
     id: 2,
     title: 'Todo lo que necesitas...',
-    backgroundImage: 'url(/images/welcome/bienvenida-2.jpg)',
+    backgroundColor: '#1A1A1A'
   },
   {
     id: 3,
     title: 'Está justo en frente tuyo',
-    backgroundImage: 'url(/images/welcome/bienvenida-3.jpg)',
-    backgroundColor: 'transparent',
+    backgroundColor: '#1A1A1A'
   },
-  // {
-  //   id: 4,
-  //   title: 'Y acompañamiento integral en el proceso más importante de tu vida',
-  //   backgroundImage: 'url(/images/welcome/bienvenida-4.jpg)',
-  // },
   {
     id: 5,
     title: '¡Comencemos!',
-    backgroundImage: 'url(/images/welcome/bienvenida-5.jpg)',
-    // backgroundColor: '#E57952',
+    backgroundColor: '#E57952',
   },
 ];
 
@@ -126,7 +118,7 @@ const IntroCarousel: React.FC<IntroCarouselProps> = ({ onComplete }) => {
             opacity: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
           }}
           style={{
-            // backgroundImage: slides[currentSlide].backgroundImage,
+            backgroundImage: slides[currentSlide].backgroundImage,
             backgroundColor: slides[currentSlide].backgroundColor,
           }}
         >

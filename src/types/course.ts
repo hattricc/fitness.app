@@ -3,6 +3,7 @@ export interface Exercise {
     category: string;
     subcategory: string;
     duration: string | undefined;
+    rest: string | undefined;
     name: string;
     url: string;
     sets: string | undefined;

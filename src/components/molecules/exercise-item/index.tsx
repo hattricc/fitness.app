@@ -3,7 +3,6 @@ import { Box, Typography, Card, Chip } from '@mui/material';
 import { PlayArrow, AccessTime } from '@mui/icons-material';
 import LockIcon from '@mui/icons-material/Lock';
 import { Exercise } from '@/types/course';
-import { YouTubeHelper } from '../../../data/youtube-helper';
 import { CardStylesSquared, ExerciseNameStyles, ChipContainerStyles, PlayArrowBoxStyles, TextContainerStyles } from './styles';
 
 interface ExerciseItemProps {
@@ -51,59 +50,71 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, setSelectedVideo,
           >
             {exercise.name}
           </Typography>
+
+          <Box sx={ChipContainerStyles}>
+            {exercise.sets && <Chip
+              label={exercise.sets + ' series'}
+              size="small"
+              variant="outlined"
+              sx={{
+                borderRadius: 2,
+                bgcolor: 'background.default',
+                borderColor: 'divider',
+                height: 24,
+                '& .MuiChip-label': {
+                  color: 'text.secondary',
+                  fontSize: '0.75rem',
+                },
+              }}
+            />}
+            {exercise.repetitions && <Chip
+              label={exercise.repetitions + ' reps'}
+              size="small"
+              variant="outlined"
+              sx={{
+                borderRadius: 2,
+                bgcolor: 'background.default',
+                borderColor: 'divider',
+                height: 24,
+                '& .MuiChip-label': {
+                  color: 'text.secondary',
+                  fontSize: '0.75rem',
+                },
+              }}
+            />}
+            {exercise.duration && <Chip
+              label={exercise.duration}
+              size="small"
+              variant="outlined"
+              sx={{
+                borderRadius: 2,
+                bgcolor: 'background.default',
+                borderColor: 'divider',
+                height: 24,
+                '& .MuiChip-label': {
+                  color: 'text.secondary',
+                  fontSize: '0.75rem',
+                },
+              }}
+            />}
+            {exercise.rest && <Chip
+              label={exercise.rest + ' descanso'}
+              size="small"
+              variant="outlined"
+              sx={{
+                borderRadius: 2,
+                bgcolor: 'background.default',
+                borderColor: 'divider',
+                height: 24,
+                '& .MuiChip-label': {
+                  color: 'text.secondary',
+                  fontSize: '0.75rem',
+                },
+              }}
+            />}
+          </Box>
+
         </Box>
-
-        {/* <Box sx={ChipContainerStyles}>
-          {exercise.sets && <Chip
-            label={exercise.sets + ' sets'}
-            size="small"
-            variant="outlined"
-            sx={{
-              borderRadius: 2,
-              bgcolor: 'background.default',
-              borderColor: 'divider',
-              height: 24,
-              '& .MuiChip-label': {
-                px: 1,
-                color: 'text.secondary',
-                fontSize: '0.75rem',
-              },
-            }}
-          />}
-          {exercise.repetitions && <Chip
-            label={exercise.repetitions + ' reps'}
-            size="small"
-            variant="outlined"
-            sx={{
-              borderRadius: 2,
-              bgcolor: 'background.default',
-              borderColor: 'divider',
-              height: 24,
-              '& .MuiChip-label': {
-                px: 1,
-                color: 'text.secondary',
-                fontSize: '0.75rem',
-              },
-            }}
-          />}
-          <Chip
-            label={exercise.duration}
-            size="small"
-            variant="outlined"
-            sx={{
-              borderRadius: 2,
-              bgcolor: 'background.default',
-              borderColor: 'divider',
-              height: 24,
-              '& .MuiChip-label': {
-                px: 1,
-                color: 'text.secondary',
-                fontSize: '0.75rem',
-              },
-            }}
-          />
-
-        </Box> */}
 
         <Box sx={{
           position: 'absolute',

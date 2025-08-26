@@ -14,7 +14,7 @@ interface WorkoutClassProps {
 const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
   const { id } = useParams<{ id: string }>();
   const workout = id ? getWorkoutById(id) : null;
-  const [expandedModule, setExpandedModule] = useState<string | false>(workout?.modules[0]?.id || false);
+  const [expandedModule, setExpandedModule] = useState<string | false>(false);
 
   const handleAccordionChange = (moduleId: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpandedModule(isExpanded ? moduleId : false);

@@ -12,7 +12,7 @@
                 "category": "Jalones",
                 "subcategory": "General",
                 "duration": "1 hora",
-                "name": "Cursos",
+                "name": "Guía de Movimientos básicos",
                 "url": "https://www.youtube.com/shorts/paBNx6zShiA",
                 "exercises": [
                     {
@@ -61,39 +61,39 @@
                 "url": "https://www.youtube.com/shorts/paBNx6zShiA",
                 "exercises": [
                     {
-                        "name": "Ejercicio 1",
+                        "name": "Press de banca",
                         "url": "https://youtu.be/nyC_9PdCPVE?si=XtMmu_hUrqhe5gsJ",
-                        "sets": "3",
-                        "repetitions": "8-10",
-                        "duration": "1 min"
+                        "sets": "4",
+                        "repetitions": "12",
+                        "rest": "60 seg"
                     },
                     {
                         "name": "Ejercicio 2",
                         "url": "https://youtu.be/myxBE3JWLLY?si=UGgoWgpuXgdLTAHm",
-                        "sets": "3",
-                        "repetitions": "8-10",
-                        "duration": "1 min"
+                        "sets": "4",
+                        "repetitions": "12",
+                        "rest": "60 seg"
                     },
                     {
                         "name": "Ejercicio 3",
                         "url": "https://youtu.be/NBGYQ2E6ef8?si=K5B-6cjntUqlcdPr",
-                        "sets": "3",
-                        "repetitions": "10-12",
-                        "duration": "1 min"
+                        "sets": "4",
+                        "repetitions": "12",
+                        "rest": "60 seg"
                     },
                     {
                         "name": "Ejercicio 4",
                         "url": "https://youtu.be/xR9VgqKAz_8?si=C60bRECedJvHF3QZ",
-                        "sets": "3",
-                        "repetitions": "10-12",
-                        "duration": "1 min"
+                        "sets": "4",
+                        "repetitions": "12",
+                        "rest": "60 seg"
                     },
                     {
                         "name": "Ejercicio 5",
                         "url": "https://youtu.be/YO1BsJIuids?si=EmuMtcv4gRknLm5J",
-                        "sets": "3",
-                        "repetitions": "10-15",
-                        "duration": "1 min"
+                        "sets": "4",
+                        "repetitions": "12",
+                        "rest": "60 seg"
                     }
                 ]
             },

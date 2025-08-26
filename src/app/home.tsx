@@ -46,7 +46,7 @@ const Home = () => {
             setTimeout(handleClose, 26500);
           }}
           sx={{
-            backgroundColor: '#1B1B1B',
+            backgroundColor: '#E57952',
             color: 'white',
             borderRadius: 4,
             px: 4,
@@ -55,7 +55,6 @@ const Home = () => {
             fontWeight: 'bold',
             fontSize: '1.1rem',
             '&:hover': {
-              backgroundColor: '#333',
               opacity: 0.9,
             },
             transition: 'all 0.3s ease',
@@ -63,7 +62,7 @@ const Home = () => {
             width: 'fit-content'
           }}
         >
-          ¡Bienvenido Luis!
+          Mensaje de Bienvenida
         </Button>
       </Box>
 

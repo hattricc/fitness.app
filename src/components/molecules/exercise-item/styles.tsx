@@ -96,21 +96,16 @@ export const PlayArrowBoxStylesRounded = createPlayArrowBoxStyles({ borderRadius
 
 
 export const TextContainerStyles = {
-    width: '80%',
-    px: 0,
+    width: '100%',
     py: 2,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between'
 }
 
 export const ChipContainerStyles = {
     display: 'flex',
-    justifyContent: 'center',
-    gap: 2,
+    gap: 1,
     flexWrap: 'wrap',
-    mt: 1, 
-    mr: 1,
     width: '60%'
 }
 

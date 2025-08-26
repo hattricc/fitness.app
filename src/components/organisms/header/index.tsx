@@ -29,7 +29,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const routeConfig = {
   '/': { title: 'Inicio', icon: <HomeIcon /> },
   '/workouts': { title: 'Programas' },
-  '/workout/': { title: 'Cursos' },
+  '/workout/:courseId': { 
+    title: (params: { courseId: string }) => {
+      // Default title if course is not found
+      return 'Curso';
+    } 
+  },
   '/articles': { title: 'Artículos' },
   '/weekly-challenge': { title: 'Reto Semanal' },
   '/login': { title: 'Iniciar Sesión' },
@@ -45,24 +50,42 @@ const Header: React.FC<HeaderProps> = ({ title = 'Luis Suarez' }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [titleState, setTitleState] = useState('Inicio');
+  const [courses, setCourses] = useState<Array<{id: string, name: string}>>([]);
   const isHomePage = location.pathname === '/';
+
+  // Load courses data
+  useEffect(() => {
+    import('../../../data/courses.json').then(data => {
+      setCourses(data.default || data);
+    });
+  }, []);
 
   // Update title and icon when route changes
   useEffect(() => {
-    // Find the best matching route
-    let matchedRoute = Object.entries(routeConfig).find(([path]) =>
-      location.pathname === path ||
-      (path !== '/' && location.pathname.startsWith(path))
-    );
+    const path = location.pathname;
+    let newTitle = 'Inicio';
 
-    if (matchedRoute) {
-      const [_, config] = matchedRoute;
-      setTitleState(config.title);
+    // Check for dynamic course route
+    if (path.startsWith('/workout/')) {
+      const courseId = path.split('/workout/')[1];
+      const course = courses.find(c => c.id === courseId);
+      newTitle = course ? course.name : 'Curso';
     } else {
-      // Default title if no match found
-      setTitleState('Luis Suarez');
+      // Handle static routes
+      const route = Object.entries(routeConfig).find(([route]) => 
+        route === path || (route.includes(':') && new RegExp(`^${route.replace(/:[^/]+/g, '([^/]+)')}$`).test(path))
+      );
+      
+      if (route) {
+        const routeInfo = route[1];
+        newTitle = typeof routeInfo.title === 'function' 
+          ? routeInfo.title({ courseId: path.split('/').pop() || '' })
+          : routeInfo.title;
+      }
     }
-  }, [location.pathname]);
+
+    setTitleState(newTitle);
+  }, [location.pathname, courses]);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
