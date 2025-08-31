@@ -43,7 +43,7 @@ const Home = () => {
           variant="contained"
           onClick={() => {
             handleOpen();
-            setTimeout(handleClose, 26500);
+            setTimeout(handleClose, 30000 + 1500);
           }}
           sx={{
             backgroundColor: '#E57952',
@@ -118,7 +118,7 @@ const Home = () => {
             <iframe
               width="100%"
               height="100%"
-              src="https://www.youtube.com/embed/MonVZibsRp0?autoplay=1"
+              src="https://www.youtube.com/embed/UsiYtN0oAEY?autoplay=1"
               title="Video de bienvenida"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen

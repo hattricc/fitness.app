@@ -19,6 +19,7 @@ import LoginForm from '../components/organisms/login';
 import SignUpForm from '../components/organisms/signup';
 import ResetPasswordForm from '../components/organisms/reset-password';
 import Progress from './progress';
+import { AuthProvider } from '@/contexts/auth/AuthContext';
 
 function App() {
   const [showApp, setShowApp] = useState(false);
@@ -120,19 +121,21 @@ function App() {
   ];
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        <Header />
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <Routes>
-            {routes.map((route, index) => (
-              <Route key={index} path={route.path} element={route.element} />
-            ))}
-          </Routes>
+    <AuthProvider>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+          <Header />
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Routes>
+              {routes.map((route, index) => (
+                <Route key={index} path={route.path} element={route.element} />
+              ))}
+            </Routes>
+          </Box>
         </Box>
-      </Box>
-    </ThemeProvider>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 
