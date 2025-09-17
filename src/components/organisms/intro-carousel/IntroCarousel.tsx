@@ -142,7 +142,7 @@ const IntroCarousel: React.FC<IntroCarouselProps> = ({ onComplete }) => {
             onComplete={onComplete} 
             slides={slides} 
             currentSlide={currentSlide} 
-            setCurrentSlide={setCurrentSlide} 
+            setCurrentSlide={setCurrentSlide}
           />
 
         </Slide>

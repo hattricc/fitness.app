@@ -93,8 +93,11 @@ const ProgressButtons: React.FC<ProgressButtonsProps> = ({ onComplete, slides, c
 
                 <NextButton
                     onClick={nextSlide}
-                    currentSlide={currentSlide}
-                    slidesLength={slides.length}
+                    sx={{
+                        backgroundColor: currentSlide === slides.length - 1 ? '#E57952' : 'white',
+                        color: currentSlide === slides.length - 1 ? 'white' : '#1B1B1B',
+                    }}
+                    text={currentSlide === slides.length - 1 ? '¡Comencemos!' : 'Siguiente'}
                 />
             </Box>
         </Box>

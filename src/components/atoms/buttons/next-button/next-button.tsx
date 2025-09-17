@@ -1,4 +1,4 @@
-import { Button, styled } from "@mui/material";
+import { Button, styled, SxProps, Theme } from "@mui/material";
 import { forwardRef, ComponentProps } from "react";
 
 const StyledButton = styled(Button)({
@@ -10,7 +10,7 @@ const StyledButton = styled(Button)({
   textTransform: 'none',
   margin: '0 auto',
   marginBottom: '40px',
-  width: '85%',
+  width: '100%',
   transition: 'opacity 0.2s ease-in-out',
   '&:hover': {
     backgroundColor: 'white',
@@ -25,29 +25,22 @@ const StyledButton = styled(Button)({
 const NextButton = forwardRef<HTMLButtonElement, 
   Omit<ComponentProps<"button">, "className"> & {
     onClick: () => void;
-    currentSlide: number;
-    slidesLength: number;
     color?: string;
+    text?: string;
+    sx?: SxProps<Theme>;
   }
->(({ children, onClick, currentSlide, slidesLength, color, ...props }, ref) => {
+>(({ children, onClick, color, text, sx, ...props }, ref) => {
   return (
     <StyledButton
       ref={ref}
       onClick={onClick}
-      disabled={currentSlide === slidesLength - 1}
-      sx={{
-        width: currentSlide === 0 ? '100%' : '80%',
-        backgroundColor: currentSlide === slidesLength - 1 ? '#E57952' : 'white',
-        '&:hover': {
-          backgroundColor: currentSlide === slidesLength - 1 ? '#E57952' : 'white',
-        },
-      }}
+      sx={sx}
       variant="contained"
       fullWidth
       size="large"
       {...props}
     >
-      {children || (currentSlide === slidesLength - 1 ? '¡Comencemos!' : 'Siguiente')}
+      {children || text || 'Click'}
     </StyledButton>
   );
 });
