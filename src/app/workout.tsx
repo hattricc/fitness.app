@@ -6,6 +6,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import ExerciseClass from '../components/organisms/exercise-class';
 import { getWorkoutById } from '../data/getWorkout';
 import WorkoutHeader from '../components/organisms/workout/workout-header';
+import ReactMarkdown from 'react-markdown';
 
 interface WorkoutClassProps {
   withPrefix: boolean;
@@ -84,10 +85,12 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ pt: 0 }}>
-              <ExerciseClass 
-                module={module} 
-                isLocked={true}
-              />
+              
+              <Typography component="div" variant="body1" sx={{ fontSize: '1.25rem', color: '#000000', whiteSpace: 'pre-wrap' }}>
+                <ReactMarkdown>{module.note?.replace(/\\n/g, '\n') || ''}</ReactMarkdown>
+              </Typography>
+              
+              <ExerciseClass module={module} isLocked={true} />
             </AccordionDetails>
           </Accordion>
         ))}

@@ -186,6 +186,15 @@
                         "duration": "1 min"
                     }
                 ]
+            },
+            {
+                "id": "rut-004",
+                "category": "Recuperación",
+                "subcategory": "General",
+                "duration": "1 hora",
+                "name": "Día 4",
+                "exercises": [],
+                "note": "Recuperación (descanso) y reiniciar el ciclo al día siguiente\\n\\n**Nota importante:**\\nEsta rutina es una estandarización básica.\\nPara ajustar el programa de manera personalizada agende una cita."
             }
         ]
     },
@@ -194,29 +203,15 @@
         "name": "Entrenamiento en casa",
         "description": "Descripción del curso 3",
         "imageUrl": "./images/exercises/exercises-exteriores.jpg",
-        "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
-        "category": "Fitness",
-        "modules": [
-            {
-                "id": "exp-001",
-                "category": "Explicaciones",
-                "subcategory": "General",
-                "name": "Introducción",
-                "url": "https://www.youtube.com/shorts/paBNx6zShiA"
-            },
-            {
-                "id": "exp-001",
-                "category": "Explicaciones",
-                "subcategory": "General",
-                "name": "Introducción",
-                "url": "https://www.youtube.com/shorts/paBNx6zShiA"
-            }
-        ]
+        "url": "https://www.youtube.com/shorts/iQIPJDG92Yg",
+        "directLink": true,
+        "category": "Casa",
+        "modules": []
     },
     {
-        "id": "course-004",
-        "name": "Kung Fu",
-        "description": "Descripción del curso 4",
+        "id": "category-004",
+        "name": "Acerca de mí",
+        "description": "Datos de Luis Suarez",
         "imageUrl": "./images/welcome/bienvenida-5.jpg",
         "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
         "category": "Fitness",

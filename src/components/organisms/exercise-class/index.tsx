@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import { Box, IconButton, Typography, Chip } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
-import { Modal } from '@mui/material';
-import { ModalBoxStyles, ModalCloseButtonStyles, ModalStyles, ModalVideoBoxStyles, ModalVideoStyles } from './styles';
-import { Module } from '@/types/course';
-import { YouTubeHelper } from '../../../data/youtube-helper';
+import { Box } from '@mui/material';
 import ExerciseItem from '../../molecules/exercise-item';
+import YouTubeModal from '../../molecules/youtube-modal';
+import { Module } from '@/types/course';
 
 interface ExerciseClassProps {
   module: Module;
@@ -27,14 +23,9 @@ const ExerciseClass: React.FC<ExerciseClassProps> = ({
     }, 100);
   };
 
-  const getYouTubeEmbedUrl = (url: string) => {
-    return YouTubeHelper.getEmbedUrl(url, true) || '';
-  };
-
   const handleExerciseClick = (videoUrl: string, exerciseIndex: number) => {
     // const isExerciseLocked = false; // First two items (index 0 and 1) are unlocked, rest are locked
     const isExerciseLocked = exerciseIndex >= 2; // First two items (index 0 and 1) are unlocked, rest are locked
-    
     
     if (!isExerciseLocked) {
       setSelectedVideo(videoUrl);
@@ -70,32 +61,11 @@ const ExerciseClass: React.FC<ExerciseClassProps> = ({
         );
       })}
 
-      {selectedVideo && (
-        <Modal
-          open={!!selectedVideo}
-          aria-labelledby="video-modal-title"
-          aria-describedby="video-modal-description"
-          sx={ModalStyles}
-        >
-          <Box sx={ModalBoxStyles}>
-            <IconButton onClick={handleCloseVideo} sx={ModalCloseButtonStyles}>
-              <CloseIcon />
-            </IconButton>
-
-            <Box sx={ModalVideoBoxStyles}>
-              {selectedVideo && (
-                <iframe
-                  width="100%" height="100%" allowFullScreen
-                  src={getYouTubeEmbedUrl(selectedVideo)}
-                  title="Exercise Video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  style={ModalVideoStyles}
-                />
-              )}
-            </Box>
-          </Box>
-        </Modal>
-      )}
+      <YouTubeModal
+        open={!!selectedVideo}
+        url={selectedVideo}
+        onClose={handleCloseVideo}
+      />
     </>
   );
 };

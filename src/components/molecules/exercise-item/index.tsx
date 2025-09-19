@@ -21,6 +21,17 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, setSelectedVideo,
     }
   };
 
+  const chipStyles = {
+    borderRadius: 2,
+    bgcolor: 'background.default',
+    borderColor: 'divider',
+    height: 24,
+    '& .MuiChip-label': {
+      color: 'text.secondary',
+      fontSize: '0.75rem',
+    },
+  }
+
   return (
     <>
       <Card
@@ -56,61 +67,25 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, setSelectedVideo,
               label={exercise.sets + ' series'}
               size="small"
               variant="outlined"
-              sx={{
-                borderRadius: 2,
-                bgcolor: 'background.default',
-                borderColor: 'divider',
-                height: 24,
-                '& .MuiChip-label': {
-                  color: 'text.secondary',
-                  fontSize: '0.75rem',
-                },
-              }}
+              sx={chipStyles}
             />}
             {exercise.repetitions && <Chip
               label={exercise.repetitions + ' reps'}
               size="small"
               variant="outlined"
-              sx={{
-                borderRadius: 2,
-                bgcolor: 'background.default',
-                borderColor: 'divider',
-                height: 24,
-                '& .MuiChip-label': {
-                  color: 'text.secondary',
-                  fontSize: '0.75rem',
-                },
-              }}
+              sx={chipStyles}
             />}
             {exercise.duration && <Chip
               label={exercise.duration}
               size="small"
               variant="outlined"
-              sx={{
-                borderRadius: 2,
-                bgcolor: 'background.default',
-                borderColor: 'divider',
-                height: 24,
-                '& .MuiChip-label': {
-                  color: 'text.secondary',
-                  fontSize: '0.75rem',
-                },
-              }}
+              sx={chipStyles}
             />}
             {exercise.rest && <Chip
               label={exercise.rest + ' descanso'}
               size="small"
               variant="outlined"
-              sx={{
-                borderRadius: 2,
-                bgcolor: 'background.default',
-                borderColor: 'divider',
-                height: 24,
-                '& .MuiChip-label': {
-                  color: 'text.secondary',
-                  fontSize: '0.75rem',
-                },
-              }}
+              sx={chipStyles}
             />}
           </Box>
 

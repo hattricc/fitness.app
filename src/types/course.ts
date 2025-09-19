@@ -18,6 +18,7 @@ export interface Module {
     name: string;
     url: string;
     exercises: Exercise[];
+    note: React.ReactNode;
 }
 
 export interface Course {

@@ -18,7 +18,8 @@ export interface BaseExercise {
   imageUrl: string;
   description?: string;
   category: string;
-  videoUrl?: string;
+  url?: string;
+  directLink?: boolean;
   modules?: {
     id: string;
     name: string;

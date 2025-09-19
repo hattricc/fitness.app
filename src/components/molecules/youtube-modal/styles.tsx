@@ -5,26 +5,26 @@ export const ModalStyles = {
   alignItems: 'center',
   justifyContent: 'center',
   outline: 'none',
-  zIndex: 1000,
+  zIndex: 10005,
 }
 
 export const ModalBoxStyles = {
   position: 'relative',
-  width: '90%',
+  width: '90dvw',
   maxWidth: '800px',
+  height: '90dvh',
   bgcolor: '#1B1B1B',
-  borderRadius: 6,
   boxShadow: 24,
-  p: 2,
+  // p: 2,
   outline: 'none',
 }
 
 export const ModalVideoBoxStyles = {
-    position: 'relative',
-    width: '100%',
-    paddingTop: '56.25%', // 16:9 aspect ratio
-    borderRadius: 1,
-    overflow: 'hidden',
+  position: 'relative',
+  width: '100%',
+  paddingTop: '177.77%', // 16:9 = 56.25%, 9:16 = 177.77%
+  borderRadius: 1,
+  overflow: 'hidden',
 }
 
 export const ModalCloseButtonStyles = {
@@ -32,7 +32,7 @@ export const ModalCloseButtonStyles = {
   right: 8,
   top: 8,
   color: 'text.primary',
-  zIndex: 1000,
+  zIndex: 10006,
   backgroundColor: 'rgba(255, 255, 255, 0.7)',
   '&:hover': {
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
