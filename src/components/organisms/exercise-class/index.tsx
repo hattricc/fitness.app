@@ -2,20 +2,16 @@ import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import ExerciseItem from '../../molecules/exercise-item';
 import YouTubeModal from '../../molecules/youtube-modal';
-import { Module } from '@/types/course';
+import { Exercise, Module } from '@/types/course';
 
 interface ExerciseClassProps {
   module: Module;
-  isLocked?: boolean;
 }
 
 const ExerciseClass: React.FC<ExerciseClassProps> = ({
   module,
-  isLocked = true,
 }) => {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
-
-  console.log('module:', module);
 
   const handleCloseVideo = () => {
     setTimeout(() => {
@@ -23,11 +19,8 @@ const ExerciseClass: React.FC<ExerciseClassProps> = ({
     }, 100);
   };
 
-  const handleExerciseClick = (videoUrl: string, exerciseIndex: number) => {
-    // const isExerciseLocked = false; // First two items (index 0 and 1) are unlocked, rest are locked
-    const isExerciseLocked = exerciseIndex >= 2; // First two items (index 0 and 1) are unlocked, rest are locked
-    
-    if (!isExerciseLocked) {
+  const handleExerciseClick = (videoUrl: string, exercise: Exercise) => {
+    if (!exercise.locked) {
       setSelectedVideo(videoUrl);
     }
   };
@@ -35,14 +28,13 @@ const ExerciseClass: React.FC<ExerciseClassProps> = ({
   return (
     <>
       {module.exercises.map((exercise, index) => {
-        const isExerciseLocked = index >= 2; // First two items (index 0 and 1) are unlocked, rest are locked
-        // const isExerciseLocked = false; // First two items (index 0 and 1) are unlocked, rest are locked
-        
+        const isExerciseLocked = exercise.locked;
+
         return (
           <Box key={index} sx={{ position: 'relative' }}>
             <ExerciseItem 
               exercise={exercise}
-              setSelectedVideo={(videoUrl: string) => handleExerciseClick(videoUrl, index)}
+              setSelectedVideo={(videoUrl: string) => handleExerciseClick(videoUrl, exercise)}
               isExerciseLocked={isExerciseLocked}
               sx={{
                 borderRadius: () => {

@@ -8,6 +8,7 @@ export interface Exercise {
     url: string;
     sets: string | undefined;
     repetitions: string | undefined;
+    locked: boolean;
 }
 
 export interface Module {

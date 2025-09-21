@@ -47,7 +47,7 @@ export const darkTheme = createTheme({
             color: colors.text.primary,
         },
         body2: {
-            color: colors.text.primary,
+            color: colors.text.secondary,
         },
         button: {
             textTransform: 'none',

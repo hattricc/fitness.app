@@ -11,6 +11,7 @@ import { ExerciseRoutine } from '@/types/exercise';
 import coursesData from '../data/courses.json';
 import React from 'react';
 import YouTubeModal from '../components/molecules/youtube-modal';
+import Footer from '@/components/organisms/footer';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -81,41 +82,44 @@ const Home = () => {
   }
 
   return (
-    <Box sx={homeBoxStyle}>
-      <Box sx={{ mb: 3, textAlign: 'center' }}>
-        <Button
-          variant="contained"
-          onClick={() => {
-            handleOpenModal('https://www.youtube.com/embed/UsiYtN0oAEY?autoplay=1');
-            setTimeout(handleCloseModal, 30000 + 1500);
-          }}
-          sx={welcomeButtonStyle}
-        >
-          Mensaje de Bienvenida
-        </Button>
+    <>
+      <Box sx={homeBoxStyle}>
+        <Box sx={{ mb: 3, textAlign: 'center' }}>
+          <Button
+            variant="contained"
+            onClick={() => {
+              handleOpenModal('https://www.youtube.com/embed/UsiYtN0oAEY?autoplay=1');
+              setTimeout(handleCloseModal, 30000 + 1500);
+            }}
+            sx={welcomeButtonStyle}
+          >
+            Mensaje de Bienvenida
+          </Button>
+        </Box>
+
+        <Box>
+          <Typography variant="h5" component="h1" fontWeight="bold" gutterBottom>
+            ¿Qué te gustaría hacer hoy?
+          </Typography>
+        </Box>
+
+        <Box sx={boxExerciseCardStyle}>
+          {courses.map((item) => (
+            <ExerciseCard key={item.id} exercise={item} onClick={() => goToCourse(item)} />
+          ))}
+        </Box>
+
+        {open && <YouTubeModal
+          open={open}
+          url={selectedVideo || null}
+          onClose={handleCloseModal}
+        />}
+
+        {/* Footer - Only visible on mobile */}
+        {/* {isMobile && <Footer />} */}
+        <Footer />
       </Box>
-
-      <Box>
-        <Typography variant="h5" component="h1" fontWeight="bold" gutterBottom>
-          ¿Qué te gustaría hacer hoy?
-        </Typography>
-      </Box>
-
-      <Box sx={boxExerciseCardStyle}>
-        {courses.map((item) => (
-          <ExerciseCard key={item.id} exercise={item} onClick={() => goToCourse(item)} />
-        ))}
-      </Box>
-
-      {open && <YouTubeModal
-        open={open}
-        url={selectedVideo || null}
-        onClose={handleCloseModal}
-      />}
-
-      {/* Footer - Only visible on mobile */}
-      {/* {isMobile && <Footer />} */}
-    </Box>
+    </>
   );
 };
 

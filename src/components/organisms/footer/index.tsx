@@ -1,68 +1,58 @@
+import { Typography, Box, Link, Stack } from '@mui/material';
+import { Instagram, EmailOutlined, WhatsApp } from '@mui/icons-material';
 import React from 'react';
-import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
-import { Home as HomeIcon, FitnessCenter as WorkoutIcon, BarChart as ProgressIcon, Person as ProfileIcon } from '@mui/icons-material';
-import { useNavigate, useLocation } from 'react-router-dom';
 
 const Footer: React.FC = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [value, setValue] = React.useState(0);
+    const links = [
+        {
+            Icon: <Instagram fontSize="small" color="inherit" />,
+            Link: "https://instagram.com/luissuarezf4f",
+            Text: "@luissuarezf4f",
+        },
+        {
+            Icon: <EmailOutlined fontSize="small" color="inherit" />,
+            Link: "mailto:luissuarezf4f@gmail.com",
+            Text: "luissuarezf4f@gmail.com",
+        },
+        {
+            Icon: <WhatsApp fontSize="small" color="inherit" />,
+            Link: "https://wa.me/59170870099",
+            Text: "+591 70870099",
+        }
+    ] 
 
-  React.useEffect(() => {
-    // Update the active tab based on the current route
-    const path = location.pathname;
-    if (path === '/') setValue(0);
-    else if (path.startsWith('/workouts')) setValue(1);
-    else if (path.startsWith('/progress')) setValue(2);
-    else if (path.startsWith('/profile')) setValue(3);
-  }, [location]);
+    return (
+        <Box>
+            <Typography variant="body2" sx={{ mb: 1 }}>
+                Contactos
+            </Typography>
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-    // Navigate based on the selected tab
-    switch(newValue) {
-      case 0: navigate('/'); break;
-      case 1: navigate('/workouts'); break;
-      case 2: navigate('/progress'); break;
-      case 3: navigate('/profile'); break;
-      default: navigate('/');
-    }
-  };
+            <Box component="nav" sx={{ display: 'flex', flexDirection: 'column', mt: 1, mb: 1 }}>
+                {links.map((link, index) => (
+                    <Stack direction="row" alignItems="center" spacing={1} color="text.secondary" key={index}>
+                        {link.Icon}
+                        <Link href={link.Link} target="_blank" rel="noopener noreferrer" underline="always" color="inherit" sx={{ whiteSpace: 'pre' }}>
+                            {link.Text}      ↗
+                        </Link>
+                    </Stack>
+                ))}
+            </Box>
+            <hr />
 
-  return (
-    <Paper 
-      sx={{ 
-        position: 'fixed', 
-        bottom: 0, 
-        left: 0, 
-        right: 0, 
-        zIndex: 1000,
-        borderTop: '1px solid',
-        borderColor: 'divider',
-        backgroundColor: 'background.paper'
-      }} 
-      elevation={3}
-    >
-      <BottomNavigation
-        value={value}
-        onChange={handleChange}
-        showLabels
-        sx={{
-          '& .MuiBottomNavigationAction-root': {
-            color: 'text.secondary',
-            '&.Mui-selected': {
-              color: 'primary.main',
-            },
-          },
-        }}
-      >
-        <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-        <BottomNavigationAction label="Workouts" icon={<WorkoutIcon />} />
-        <BottomNavigationAction label="Progress" icon={<ProgressIcon />} />
-        <BottomNavigationAction label="Profile" icon={<ProfileIcon />} />
-      </BottomNavigation>
-    </Paper>
-  );
+            <Typography variant="body2" sx={{ mt: 1, mb: 1 }}>
+                Luis Suarez – Entrenamiento e Integración
+            </Typography>
+            <hr />
+
+            <Typography variant="body2" sx={{ mt: 1, mb: 1 }}>
+                © 2025 Luis Suarez – Entrenamiento e Integración. Todos los derechos reservados.
+            </Typography>
+
+            <Typography variant="body2" sx={{ mt: 1 }}>
+                Desarrollado por Raiden Makio
+            </Typography>
+        </Box>
+    );
 };
 
 export default Footer;

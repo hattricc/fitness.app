@@ -5,7 +5,6 @@ import { ExpandMore } from '@mui/icons-material';
 import LockIcon from '@mui/icons-material/Lock';
 import ExerciseClass from '../components/organisms/exercise-class';
 import { getWorkoutById } from '../data/getWorkout';
-import WorkoutHeader from '../components/organisms/workout/workout-header';
 import ReactMarkdown from 'react-markdown';
 
 interface WorkoutClassProps {
@@ -20,6 +19,29 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
   const handleAccordionChange = (moduleId: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpandedModule(isExpanded ? moduleId : false);
   };
+
+  const boxLockInfoStyles = {
+    display: 'flex', 
+    alignItems: 'center', 
+    gap: 1, 
+    mb: 2, 
+    p: 2, 
+    backgroundColor: 'rgba(255, 193, 7, 0.1)', 
+    borderRadius: 2,
+    border: '1px solid rgba(255, 193, 7, 0.3)',
+    color: 'warning.main'
+  }
+  const accordionStyles = {
+    mb: 2,
+    '&:before': {
+      display: 'none',
+    },
+    backgroundColor: '#ffffff',
+    borderRadius: 2,
+    boxShadow: 2,
+    py: 2,
+    px: 0
+  }
 
   if (!workout) {
     return (
@@ -36,17 +58,7 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
     }}>
       {/* <WorkoutHeader workout={workout} /> */}
 
-      <Box sx={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        gap: 1, 
-        mb: 2, 
-        p: 2, 
-        backgroundColor: 'rgba(255, 193, 7, 0.1)', 
-        borderRadius: 2,
-        border: '1px solid rgba(255, 193, 7, 0.3)',
-        color: 'warning.main'
-      }}>
+      <Box sx={boxLockInfoStyles}>
         <LockIcon sx={{ color: 'warning.main', fontSize: 20 }} />
         <Typography variant="body2" color="warning.main" fontWeight="medium">
           Sé parte de la suscripción básica para ver todas las clases.
@@ -60,17 +72,7 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
             key={module.id}
             expanded={expandedModule === module.id}
             onChange={handleAccordionChange(module.id)}
-            sx={{
-              mb: 2,
-              '&:before': {
-                display: 'none',
-              },
-              backgroundColor: '#ffffff',
-              borderRadius: 2,
-              boxShadow: 2,
-              py: 2,
-              px: 1
-            }}
+            sx={accordionStyles}
           >
             <AccordionSummary
               expandIcon={<ExpandMore />}
@@ -84,18 +86,18 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
                 {withPrefix && `Módulo ${index + 1}: `}{module.name}
               </Typography>
             </AccordionSummary>
+
             <AccordionDetails sx={{ pt: 0 }}>
-              
               <Typography component="div" variant="body1" sx={{ fontSize: '1.25rem', color: '#000000', whiteSpace: 'pre-wrap' }}>
+                {/* TODO revisar replace error */}
                 <ReactMarkdown>{module.note?.replace(/\\n/g, '\n') || ''}</ReactMarkdown>
               </Typography>
               
-              <ExerciseClass module={module} isLocked={true} />
+              <ExerciseClass module={module} />
             </AccordionDetails>
           </Accordion>
         ))}
       </Box>
-      {/* ))} */}
     </Container>
   );
 };
