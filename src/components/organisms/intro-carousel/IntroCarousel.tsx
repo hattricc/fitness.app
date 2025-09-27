@@ -77,11 +77,6 @@ const LogoImage = styled('img')({
 
 const slides: SlideData[] = [
   {
-    id: 1,
-    title: '¡Hoy es un gran día para entrenar!',
-    backgroundColor: '#1A1A1A'
-  },
-  {
     id: 2,
     title: 'Todo lo que necesitas...',
     backgroundColor: '#1A1A1A'

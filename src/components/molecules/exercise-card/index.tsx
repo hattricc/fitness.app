@@ -27,7 +27,6 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
     <Card
       onClick={handleCardClick}
       sx={{
-        // borderRadius: 8,
         borderRadius: 6,
         boxShadow: 3,
         overflow: 'hidden',
@@ -39,7 +38,6 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
         },
         display: 'flex',
         flexDirection: isDesktop ? 'column' : 'row',
-        // height: isDesktop ? 'auto' : 160,
         height: isDesktop ? 'auto' : 90,
         width: isDesktop ? '95%' : '100%',
         maxWidth: '100%',
@@ -89,9 +87,8 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
       {/* Content Section */}
       <Box sx={{
         width: isDesktop ? '100%' : '60%',
-        p: isDesktop ? 3 : 4,
         pr: isDesktop ? 3 : 2,
-        pl: isDesktop ? 3 : 6,
+        pl: isDesktop ? 3 : 4,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center'

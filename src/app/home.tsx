@@ -49,7 +49,6 @@ const Home = () => {
       xs: '1fr',
       md: 'repeat(4, 1fr)'
     },
-    gap: 1,
     '& > *': {
       width: '100%',
       mb: { xs: 2, md: 0 }
@@ -61,7 +60,7 @@ const Home = () => {
         margin: '0 auto'
       }
     },
-    mb: 2
+    mb: 1
   }
 
   const homeBoxStyle = {
@@ -76,9 +75,13 @@ const Home = () => {
   const courses = coursesData as unknown as ExerciseRoutine[];
 
   const goToCourse = (item: ExerciseRoutine) => {
-    return item.directLink
-      ? handleOpenModal(item.url)
-      : navigate(`/workout/${item.id}`);
+    const pdfUrl = (item as any)?.pdfUrl as string | undefined;
+    if (item.directLink) return handleOpenModal(item.url);
+    if (pdfUrl) {
+      window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    return navigate(`/workout/${item.id}`);
   }
 
   return (

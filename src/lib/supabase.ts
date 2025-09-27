@@ -15,6 +15,8 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   },
 });
 
+console.log(supabase)
+
 // Types
 export type User = {
   id: string;
