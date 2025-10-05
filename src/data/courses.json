@@ -3,6 +3,7 @@
         "id": "guia-movimientos-basicos",
         "name": "Cursos",
         "description": "",
+        "showInfo": true,
         "imageUrl": "/images/welcome/bienvenida-2.jpg",
         "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
         "category": "Fitness",
@@ -46,7 +47,10 @@
     },
     {
         "id": "category-002",
-        "name": "Rutinas",
+        "name": "Rutina",
+        "title": "Rutina básica de gimnasio",
+        "showTitle": true,
+        "showInfo": false,
         "description": "",
         "imageUrl": "./images/welcome/bienvenida-3.jpg",
         "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
@@ -65,7 +69,7 @@
                         "url": "https://youtu.be/UtFS5uP7JlQ",
                         "sets": "4",
                         "repetitions": "12",
-                        "rest": "60 seg",
+                        "rest": "1 min",
                         "locked": false
                     },
                     {
@@ -73,7 +77,7 @@
                         "url": "https://youtu.be/qgKS_sYm7WE",
                         "sets": "4",
                         "repetitions": "12",
-                        "rest": "60 seg",
+                        "rest": "1 min",
                         "locked": false
                     },
                     {
@@ -81,24 +85,24 @@
                         "url": "https://youtu.be/fqJp5xfNWA0",
                         "sets": "4",
                         "repetitions": "12",
-                        "rest": "60 seg",
-                        "locked": true
+                        "rest": "1 min",
+                        "locked": false
                     },
                     {
                         "name": "Complemento elevaciones frontales alternadas para hombros",
                         "url": "https://youtu.be/4oWxLU5HXrY",
                         "sets": "4",
                         "repetitions": "12",
-                        "rest": "60 seg",
-                        "locked": true
+                        "rest": "1 min",
+                        "locked": false
                     },
                     {
                         "name": "Complemento curl de bíceps con mancuernas",
                         "url": "https://youtu.be/d9jxm-eKLuo",
                         "sets": "4",
                         "repetitions": "12",
-                        "rest": "60 seg",
-                        "locked": true
+                        "rest": "1 min",
+                        "locked": false
                     }
                 ]
             },
@@ -113,42 +117,42 @@
                     {
                         "name": "Tren inferior sentadilla en barra guiada",
                         "url": "https://youtu.be/fdsHKwM62Ug",
-                        "sets": "3",
-                        "repetitions": "8-10",
-                        "duration": "1 min",
-                        "locked": true
+                        "sets": "4",
+                        "repetitions": "12",
+                        "rest": "1 min",
+                        "locked": false
                     },
                     {
                         "name": "Tren inferior extensiones en máquina para cuádriceps",
                         "url": "https://youtu.be/BgiPsB9pPG8",
-                        "sets": "3",
-                        "repetitions": "8-10",
-                        "duration": "1 min",
-                        "locked": true
+                        "sets": "4",
+                        "repetitions": "12",
+                        "rest": "1 min",
+                        "locked": false
                     },
                     {
                         "name": "Tren inferior flexiones en máquina para femorales",
                         "url": "https://youtu.be/cxXEQlnlyfc",
-                        "sets": "3",
-                        "repetitions": "10-12",
-                        "duration": "1 min",
-                        "locked": true
+                        "sets": "4",
+                        "repetitions": "12",
+                        "rest": "1 min",
+                        "locked": false
                     },
                     {
                         "name": "Tren inferior aductores en máquina",
                         "url": "https://youtu.be/9RX2qVkETH4",
-                        "sets": "3",
-                        "repetitions": "10-12",
-                        "duration": "1 min",
-                        "locked": true
+                        "sets": "4",
+                        "repetitions": "12",
+                        "rest": "1 min",
+                        "locked": false
                     },
                     {
                         "name": "Tren inferior abductores en máquina",
                         "url": "https://youtu.be/I3AVpybwDXU",
-                        "sets": "3",
+                        "sets": "4",
                         "repetitions": "10-15",
-                        "duration": "1 min",
-                        "locked": true
+                        "rest": "1 min",
+                        "locked": false
                     }
                 ]
             },
@@ -163,42 +167,42 @@
                     {
                         "name": "Jalón vertical con cable",
                         "url": "https://youtu.be/YPrfgCLjL5s",
-                        "sets": "3",
-                        "repetitions": "8-10",
-                        "duration": "1 min",
-                        "locked": true
+                        "sets": "4",
+                        "repetitions": "12",
+                        "rest": "1 min",
+                        "locked": false
                     },
                     {
                         "name": "Jalón horizontal con máquina",
                         "url": "https://youtu.be/Tf5JFndBvAw",
-                        "sets": "3",
-                        "repetitions": "8-10",
-                        "duration": "1 min",
-                        "locked": true
+                        "sets": "4",
+                        "repetitions": "12",
+                        "rest": "1 min",
+                        "locked": false
                     },
                     {
                         "name": "Jalón en apertura horizontal con máquina",
                         "url": "https://youtu.be/d4Ivxd3FLB8",
-                        "sets": "3",
-                        "repetitions": "10-12",
-                        "duration": "1 min",
-                        "locked": true
+                        "sets": "4",
+                        "repetitions": "12",
+                        "rest": "1 min",
+                        "locked": false
                     },
                     {
                         "name": "Complemento elevaciones laterales para hombros",
                         "url": "https://youtu.be/T1P_H57mQI8",
-                        "sets": "3",
-                        "repetitions": "10-12",
-                        "duration": "1 min",
-                        "locked": true
+                        "sets": "4",
+                        "repetitions": "12",
+                        "rest": "1 min",
+                        "locked": false
                     },
                     {
                         "name": "Complemento jalones de tríceps con cable",
                         "url": "https://youtu.be/PIN59gR-0i4",
-                        "sets": "3",
+                        "sets": "4",
                         "repetitions": "10-15",
-                        "duration": "1 min",
-                        "locked": true
+                        "rest": "1 min",
+                        "locked": false
                     }
                 ]
             },
@@ -209,7 +213,7 @@
                 "duration": "1 hora",
                 "name": "Día 4",
                 "exercises": [],
-                "note": "Recuperación (descanso) y reiniciar el ciclo al día siguiente\\n\\n**Nota importante:**\\nEsta rutina es una estandarización básica.\\nPara ajustar el programa de manera personalizada agende una cita."
+                "note": "Recuperación (descanso) y reiniciar el ciclo al día siguiente\\n\\n**Nota importante:**\\nEsta rutina es una estandarización básica.\\nPara ajustar el programa de manera personalizada agenda una cita."
             }
         ]
     },
@@ -228,9 +232,8 @@
         "name": "Combate Sagrado",
         "description": "Datos de Luis Suarez",
         "imageUrl": "./images/welcome/bienvenida-5.jpg",
-        "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
         "category": "Fitness",
-        "pdfUrl": "./pdf/combate-sagrado.pdf",
+        "urlPage": "/combate-sagrado",
         "modules": []
     }
 ]

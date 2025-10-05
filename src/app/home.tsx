@@ -81,6 +81,10 @@ const Home = () => {
       window.open(pdfUrl, '_blank', 'noopener,noreferrer');
       return;
     }
+    if (item.urlPage) {
+      navigate(item.urlPage);
+      return;
+    }
     return navigate(`/workout/${item.id}`);
   }
 

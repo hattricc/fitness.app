@@ -21,6 +21,7 @@ export interface BaseExercise {
   url?: string;
   pdfUrl?: string;
   directLink?: boolean;
+  urlPage?: string;
   modules?: {
     id: string;
     name: string;

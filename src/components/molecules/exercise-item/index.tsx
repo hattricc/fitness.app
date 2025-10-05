@@ -63,14 +63,14 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, setSelectedVideo,
           </Typography>
 
           <Box sx={ChipContainerStyles}>
-            {exercise.sets && <Chip
-              label={exercise.sets + ' series'}
+            {exercise.repetitions && <Chip
+              label={exercise.repetitions + ' reps'}
               size="small"
               variant="outlined"
               sx={chipStyles}
             />}
-            {exercise.repetitions && <Chip
-              label={exercise.repetitions + ' reps'}
+            {exercise.sets && <Chip
+              label={exercise.sets + ' series'}
               size="small"
               variant="outlined"
               sx={chipStyles}

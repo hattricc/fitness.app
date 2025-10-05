@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Container, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
-import { ExpandMore } from '@mui/icons-material';
-import LockIcon from '@mui/icons-material/Lock';
+import { ExpandMore, InfoOutline } from '@mui/icons-material';
 import ExerciseClass from '../components/organisms/exercise-class';
 import { getWorkoutById } from '../data/getWorkout';
 import ReactMarkdown from 'react-markdown';
@@ -11,7 +10,7 @@ interface WorkoutClassProps {
   withPrefix: boolean;
 }
 
-const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
+const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false }) => {
   const { id } = useParams<{ id: string }>();
   const workout = id ? getWorkoutById(id) : null;
   const [expandedModule, setExpandedModule] = useState<string | false>(false);
@@ -21,14 +20,16 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
   };
 
   const boxLockInfoStyles = {
-    display: 'flex', 
-    alignItems: 'center', 
-    gap: 1, 
-    mb: 2, 
-    p: 2, 
+    display: 'flex',
+    alignItems: 'center',
+    gap: 1,
+    mb: 2,
+    p: 2,
     backgroundColor: 'rgba(255, 193, 7, 0.1)', 
+    border: '1px solid rgba(255, 193, 7, 0.3)', 
+    // backgroundColor: 'rgba(2, 136, 209, 0.1)',
+    // border: '1px solid rgba(2, 136, 209, 0.3)',
     borderRadius: 2,
-    border: '1px solid rgba(255, 193, 7, 0.3)',
     color: 'warning.main'
   }
   const accordionStyles = {
@@ -56,14 +57,28 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
       width: '100%',
       maxWidth: '100%',
     }}>
+      {workout.showTitle && workout.title != "" && (
+        <Typography variant="h5" sx={{ fontWeight: '700', fontSize: '2rem' }}>
+          {workout.title}
+        </Typography>
+      )}
+
       {/* <WorkoutHeader workout={workout} /> */}
 
-      <Box sx={boxLockInfoStyles}>
+      {/* <Box sx={boxLockInfoStyles}>
         <LockIcon sx={{ color: 'warning.main', fontSize: 20 }} />
         <Typography variant="body2" color="warning.main" fontWeight="medium">
           Sé parte de la suscripción básica para ver todas las clases.
         </Typography>
-      </Box>
+      </Box> */}
+      {workout.showInfo && (
+        <Box sx={boxLockInfoStyles}>
+          <InfoOutline sx={{ color: 'warning.main', fontSize: 20 }} />
+          <Typography variant="body2" color="warning.main" fontWeight="medium">
+            Más cursos próximamente.
+          </Typography>
+        </Box>
+      )}
 
       <Box key={workout.id} sx={{ mb: 3 }}>
 
@@ -92,7 +107,7 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false}) => {
                 {/* TODO revisar replace error */}
                 <ReactMarkdown>{module.note?.replace(/\\n/g, '\n') || ''}</ReactMarkdown>
               </Typography>
-              
+
               <ExerciseClass module={module} />
             </AccordionDetails>
           </Accordion>

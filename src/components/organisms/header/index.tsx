@@ -13,13 +13,12 @@ import {
 } from '@mui/material';
 import {
   ArrowBack as ArrowBackIcon,
-  Notifications as NotificationsIcon,
-  AccountCircle as AccountIcon,
-  Login as LoginIcon,
-  PersonAdd as PersonAddIcon,
   Home as HomeIcon,
+  WhatsApp,
+  Mail,
 } from '@mui/icons-material';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 // Map of routes to their corresponding titles and icons
 const routeConfig = {
@@ -35,6 +34,7 @@ const routeConfig = {
   '/login': { title: 'Iniciar Sesión' },
   '/signup': { title: 'Registrarse' },
   '/reset-password': { title: 'Restablecer Contraseña' },
+  '/combate-sagrado': { title: 'Combate Sagrado' }
 };
 
 interface HeaderProps {
@@ -143,17 +143,17 @@ const Header: React.FC<HeaderProps> = () => {
             {titleState}
           </Typography>
         </Box>
-        
+
         <Box>
           {/* <IconButton size="large" color="inherit" aria-label="search">
             <SearchIcon />
           </IconButton> */}
 
-          <IconButton size="large" color="inherit" aria-label="notifications">
+          {/*<IconButton size="large" color="inherit" aria-label="notifications">
             <NotificationsIcon />
-          </IconButton>
+          </IconButton>*/}
 
-          <IconButton
+          {/* <IconButton
             size="large"
             color="inherit"
             aria-label="account"
@@ -234,7 +234,98 @@ const Header: React.FC<HeaderProps> = () => {
               </ListItemIcon>
               <ListItemText>Crear cuenta</ListItemText>
             </MenuItem>
+          </Menu> */}
+
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            onClick={handleMenu}
+          >
+            Agenda una cita
+          </Button>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={open}
+            onClose={handleClose}
+            PaperProps={{
+              elevation: 0,
+              sx: {
+                overflow: 'visible',
+                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.1))',
+                mt: 1.5,
+                bgcolor: '#1B1B1B',
+                '& .MuiAvatar-root': {
+                  width: 32,
+                  height: 32,
+                  ml: -0.5,
+                  mr: 1,
+                },
+                '&:before': {
+                  content: '""',
+                  display: 'block',
+                  position: 'absolute',
+                  top: 0,
+                  right: 14,
+                  width: 10,
+                  height: 10,
+                  bgcolor: '#1B1B1B',
+                  transform: 'translateY(-50%) rotate(45deg)',
+                  zIndex: 0,
+                },
+              },
+            }}
+          >
+            <MenuItem
+              component="a"
+              href="https://wa.me/59170870099"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                color: '#ffffff',
+                textDecoration: 'none',
+                '&:hover': {
+                  backgroundColor: '#333333',
+                }
+              }}
+            >
+              <ListItemIcon>
+                <WhatsApp fontSize="small" sx={{ color: '#ffffff' }} />
+              </ListItemIcon>
+              <ListItemText>Whatsapp</ListItemText>
+            </MenuItem>
+            <Divider sx={{ backgroundColor: '#333333' }} />
+            <MenuItem
+              component="a"
+              href="mailto:luissuarezf4f@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                color: '#ffffff',
+                textDecoration: 'none',
+                '&:hover': {
+                  backgroundColor: '#333333',
+                }
+              }}
+            >
+              <ListItemIcon>
+                <Mail fontSize="small" sx={{ color: '#ffffff' }} />
+              </ListItemIcon>
+              <ListItemText>Correo</ListItemText>
+            </MenuItem>
           </Menu>
+
+
         </Box>
       </Toolbar>
     </AppBar>

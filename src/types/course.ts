@@ -27,9 +27,12 @@ export interface Course {
     subcategory: string;
     id: string;
     name: string;
+    title: string;
+    showTitle: boolean;
     url: string;
     description: string;
     imageUrl: string;
     duration: string;
+    showInfo: boolean;
     modules: Module[];
 }

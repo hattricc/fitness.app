@@ -20,6 +20,7 @@ import SignUpForm from '../components/organisms/signup';
 import ResetPasswordForm from '../components/organisms/reset-password';
 import Progress from './progress';
 import { AuthProvider } from '@/contexts/auth/AuthContext';
+import CombateSagrado from './pages/combate-sagrado';
 
 function App() {
   const [showApp, setShowApp] = useState(false);
@@ -117,6 +118,10 @@ function App() {
     {
       path: "/progress",
       element: <Progress />,
+    },
+    {
+      path: "/combate-sagrado",
+      element: <CombateSagrado />,
     }
   ];
 
