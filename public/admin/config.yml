@@ -1,0 +1,56 @@
+backend:
+  name: git-gateway
+  branch: main # ó la rama que uses
+
+media_folder: "public/uploads"       # donde se suben imágenes
+public_folder: "/uploads"
+
+publish_mode: editorial_workflow     # opcional: revisiones antes de publicar
+
+# Colección por archivo: edita un único courses.json
+collections:
+  - name: "coursesFile"
+    label: "Cursos"
+    label_singular: "Curso"
+    files:
+      - name: "courses"
+        label: "Listado de cursos"
+        file: "public/data/courses.cms.json"   # << ver nota abajo
+        format: "json"
+        fields:
+          # Para no romper tu estructura original (array),
+          # guardamos bajo la clave "items" y luego convertimos en build.
+          - name: "items"
+            label: "Cursos"
+            widget: "list"
+            collapsed: true
+            summary: "{{fields.name}} ({{fields.category}})"
+            fields:
+              - { name: "id", label: "ID", widget: "string", hint: "slug único (ej. guia-movimientos-basicos)" }
+              - { name: "name", label: "Nombre", widget: "string" }
+              - { name: "description", label: "Descripción", widget: "text", required: false }
+              - { name: "showInfo", label: "Mostrar info", widget: "boolean", default: true }
+              - { name: "imageUrl", label: "Imagen", widget: "string", required: false }
+              - { name: "url", label: "URL principal", widget: "string", required: false }
+              - { name: "category", label: "Categoría", widget: "string", required: false }
+              - name: "modules"
+                label: "Módulos"
+                widget: "list"
+                collapsed: true
+                summary: "{{fields.name}} ({{fields.category}}/{{fields.subcategory}})"
+                fields:
+                  - { name: "id", label: "ID", widget: "string" }
+                  - { name: "category", label: "Categoría", widget: "string", required: false }
+                  - { name: "subcategory", label: "Subcategoría", widget: "string", required: false }
+                  - { name: "duration", label: "Duración", widget: "string", required: false }
+                  - { name: "name", label: "Nombre", widget: "string" }
+                  - { name: "url", label: "URL", widget: "string", required: false }
+                  - name: "exercises"
+                    label: "Ejercicios"
+                    widget: "list"
+                    collapsed: true
+                    summary: "{{fields.name}} ({{fields.duration}})"
+                    fields:
+                      - { name: "name", label: "Nombre", widget: "string" }
+                      - { name: "url", label: "URL", widget: "string", required: false }
+                      - { name: "duration", label: "Duración", widget: "string", required: false }
