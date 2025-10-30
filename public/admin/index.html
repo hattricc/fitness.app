@@ -1,14 +1,19 @@
 <!doctype html>
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <title>CMS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- 👇 Indica que inicializarás manualmente -->
+    <script>window.CMS_MANUAL_INIT = true;</script>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      // Espera al DOM y luego inicia
+      window.addEventListener('DOMContentLoaded', () => {
+        window.CMS && window.CMS.init();
+      });
+    </script>
     <script src="/admin/extensions.js" defer></script>
-</head>
-
-<body></body>
-
+  </head>
+  <body></body>
 </html>
