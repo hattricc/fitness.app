@@ -1,0 +1,83 @@
+{
+  "items": [
+    {
+      "showInfo": true,
+      "id": "guia-movimientos-basicos",
+      "name": "Cursos",
+      "imageUrl": "/images/welcome/bienvenida-2.jpg",
+      "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+      "category": "Fitness",
+      "modules": [
+        {
+          "id": "exp-001",
+          "category": "Jalones",
+          "subcategory": "General",
+          "duration": "1 hora",
+          "name": "Guía de Movimientos básicos",
+          "url": "https://www.youtube.com/shorts/paBNx6zShiA",
+          "exercises": [
+            {
+              "name": "Parte 1: Jalones",
+              "url": "https://youtu.be/nyC_9PdCPVE?si=XtMmu_hUrqhe5gsJ",
+              "duration": "3 min"
+            },
+            {
+              "name": "Parte 2: Empujones",
+              "url": "https://youtu.be/myxBE3JWLLY?si=UGgoWgpuXgdLTAHm",
+              "duration": "4 min"
+            },
+            {
+              "name": "Parte 3: Complementos",
+              "url": "https://youtu.be/NBGYQ2E6ef8?si=K5B-6cjntUqlcdPr",
+              "duration": "4 min"
+            },
+            {
+              "name": "Parte 4: Tren Inferior",
+              "url": "https://youtu.be/xR9VgqKAz_8?si=C60bRECedJvHF3QZ",
+              "duration": "6 min"
+            },
+            {
+              "name": "Parte 5: Recomendaciones",
+              "url": "https://youtu.be/YO1BsJIuids?si=EmuMtcv4gRknLm5J",
+              "duration": "4 min"
+            }
+          ]
+        },
+        {
+          "id": "exp-002",
+          "category": "Test",
+          "subcategory": "Curso",
+          "duration": "3 horas",
+          "name": "Nuevo Curso de prueba",
+          "exercises": [
+            {
+              "name": "Rutina de ejercicio para PRINCIPIANTES En Casa (20 Minutos) Empieza de cero a hacer ejercicio",
+              "url": "https://www.youtube.com/watch?v=y9-_6xBgJbE&pp=ygUJZWplcmNpY2lv",
+              "duration": "20 min"
+            },
+            {
+              "name": "Rutina de ABDOMEN & CARDIO 🔥 Quema Grasa y Tonifica en Tiempo Récord",
+              "url": "https://www.youtube.com/watch?v=C8NcifEVk0Y&pp=ygUJZWplcmNpY2lv",
+              "duration": "23 min"
+            },
+            {
+              "name": "🔥 RUTINA para ADELGAZAR - Ejercicios para PERDER PESO en CASA 🏠",
+              "url": "https://www.youtube.com/watch?v=WnoCFnIiQHw&pp=ygUJZWplcmNpY2lv",
+              "duration": "26 min"
+            },
+            {
+              "name": "Rutina ABDOMEN en Casa -PRINCIPIANTES-🍫🔥 [10min Ejercicios INTENSOS]",
+              "url": "https://www.youtube.com/watch?v=RPfxeHWm8Oo",
+              "duration": "10 min"
+            },
+            {
+              "name": "Así TRANSFORMA el DEPORTE nuestro CUERPO",
+              "url": "https://www.youtube.com/watch?v=LbD1Cmo3zRQ&pp=ugUEEgJlcw%3D%3D",
+              "duration": "14 min"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
