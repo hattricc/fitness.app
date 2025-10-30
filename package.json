@@ -34,7 +34,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && node scripts/cms-to-array.mjs && vite build",
+    "build": "tsc && vite build && node scripts/cms-to-array.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
