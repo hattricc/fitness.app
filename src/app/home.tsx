@@ -9,6 +9,7 @@ import {
 import { ExerciseCard } from '../components/molecules';
 import { ExerciseRoutine } from '@/types/exercise';
 import coursesData from '../data/courses.json';
+import linksData from '../data/home.json';
 import React from 'react';
 import YouTubeModal from '../components/molecules/youtube-modal';
 import Footer from '@/components/organisms/footer';
@@ -73,6 +74,7 @@ const Home = () => {
 
 
   const courses = coursesData as unknown as ExerciseRoutine[];
+  const links = linksData as unknown as ExerciseRoutine[];
 
   const goToCourse = (item: ExerciseRoutine) => {
     const pdfUrl = (item as any)?.pdfUrl as string | undefined;
@@ -112,6 +114,9 @@ const Home = () => {
 
         <Box sx={boxExerciseCardStyle}>
           {courses.map((item) => (
+            <ExerciseCard key={item.id} exercise={item} onClick={() => goToCourse(item)} />
+          ))}
+          {links.map((item) => (
             <ExerciseCard key={item.id} exercise={item} onClick={() => goToCourse(item)} />
           ))}
         </Box>
