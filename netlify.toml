@@ -32,3 +32,15 @@
   for = "/sitemap.xml"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# Oculta /admin al público
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "same-origin"
+    Permissions-Policy = "geolocation=(), microphone=()"
+    Cache-Control = "no-store"
+    # Si quieres ser estricto con CSP, ajusta dominios que usas:
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://identity.netlify.com https://unpkg.com; connect-src 'self' https://api.netlify.com https://identity.netlify.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:;"

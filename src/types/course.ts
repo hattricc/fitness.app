@@ -34,5 +34,6 @@ export interface Course {
     imageUrl: string;
     duration: string;
     showInfo: boolean;
+    visible?: boolean;
     modules: Module[];
 }

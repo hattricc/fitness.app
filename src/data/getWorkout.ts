@@ -22,8 +22,9 @@ export const loadAllCourses = async (): Promise<Course[]> => {
 
     // Combine and filter out any undefined/null items
     coursesCache = [...coursesArray, ...homeArray].filter(Boolean) as Course[];
+  // Si no trae el campo, lo consideramos visible (retro-compatibilidad)
+    coursesCache = coursesCache.filter(c => c.visible !== false);
 
-    console.log(coursesCache)
     return coursesCache;
   } catch (error) {
     console.error('Error loading course data:', error);

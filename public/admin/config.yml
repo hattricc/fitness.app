@@ -33,6 +33,7 @@ collections:
               - { name: "imageUrl", label: "Imagen", widget: "string", required: false }
               - { name: "url", label: "URL principal", widget: "string", required: false }
               - { name: "category", label: "Categoría", widget: "string", required: false }
+              - { name: "visible", label: "Visible", widget: "boolean", default: true }
               - name: "modules"
                 label: "Módulos"
                 widget: "list"
