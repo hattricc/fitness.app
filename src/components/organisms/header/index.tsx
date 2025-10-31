@@ -17,8 +17,10 @@ import {
   WhatsApp,
   Mail,
 } from '@mui/icons-material';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { loadAllCourses } from '@/data/getWorkout';
 import { Button } from '@/components/ui/button';
+import { ExerciseRoutine } from '@/types/exercise';
 
 // Map of routes to their corresponding titles and icons
 const routeConfig = {
@@ -41,6 +43,7 @@ interface HeaderProps {
   title?: string;
 }
 
+
 const Header: React.FC<HeaderProps> = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,9 +53,16 @@ const Header: React.FC<HeaderProps> = () => {
 
   // Load courses data
   useEffect(() => {
-    import('../../../data/courses.json').then(data => {
-      setCourses(data.default || data);
-    });
+    const loadData = async () => {
+      try {
+        const allCourses = await loadAllCourses();
+        setCourses(allCourses);
+      } catch (error) {
+        console.error('Error loading course data:', error);
+      }
+    };
+
+    loadData();
   }, []);
 
   // Update title and icon when route changes

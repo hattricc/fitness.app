@@ -77,16 +77,21 @@ const Home = () => {
   const links = linksData as unknown as ExerciseRoutine[];
 
   const goToCourse = (item: ExerciseRoutine) => {
+    if (item.directLink) {
+      return handleOpenModal(item.url);
+    }
+    
     const pdfUrl = (item as any)?.pdfUrl as string | undefined;
-    if (item.directLink) return handleOpenModal(item.url);
     if (pdfUrl) {
       window.open(pdfUrl, '_blank', 'noopener,noreferrer');
       return;
     }
+
     if (item.urlPage) {
       navigate(item.urlPage);
       return;
     }
+
     return navigate(`/workout/${item.id}`);
   }
 

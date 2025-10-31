@@ -7,12 +7,14 @@ interface ExerciseCardProps {
   exercise: ExerciseRoutine;
   onClick: (exercise: ExerciseRoutine) => void;
   showDetails?: boolean;
+  isCourse?: boolean;
 }
 
 const ExerciseCard: React.FC<ExerciseCardProps> = ({
   exercise,
   onClick = () => { },
-  showDetails = false
+  showDetails = false,
+  isCourse = true
 }) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));

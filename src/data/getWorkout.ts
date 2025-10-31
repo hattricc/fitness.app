@@ -1,7 +1,47 @@
-import coursesData from './courses.json';
 import { Course } from '@/types/course';
 
-const courses = coursesData as Course[];
+let coursesCache: Course[] | null = null;
+
+// Load all courses from both JSON files
+export const loadAllCourses = async (): Promise<Course[]> => {
+  if (coursesCache) return coursesCache;
+
+  try {
+    const [coursesModule, homeModule] = await Promise.all([
+      import('./courses.json'),
+      import('./home.json')
+    ]);
+
+    // Handle both default and direct imports
+    const coursesData = coursesModule.default || coursesModule;
+    const homeData = homeModule.default || homeModule;
+    
+    // Ensure we have arrays
+    const coursesArray = Array.isArray(coursesData) ? coursesData : [];
+    const homeArray = Array.isArray(homeData) ? homeData : [];
+
+    // Combine and filter out any undefined/null items
+    coursesCache = [...coursesArray, ...homeArray].filter(Boolean) as Course[];
+
+    console.log(coursesCache)
+    return coursesCache;
+  } catch (error) {
+    console.error('Error loading course data:', error);
+    return [];
+  }
+};
+
+// For backward compatibility
+let staticCourses: Course[] = [];
+const loadStaticCourses = async () => {
+  if (staticCourses.length === 0) {
+    staticCourses = await loadAllCourses();
+  }
+  return staticCourses;
+};
+
+// Initialize static courses for immediate use
+loadStaticCourses();
 
 // // Group exercises by category
 // const coursesByCategory = courses.reduce((acc, course) => {
@@ -80,11 +120,11 @@ const courses = coursesData as Course[];
 // }, {} as Record<string, WorkoutRoutine>);
 
 export const getWorkoutById = (id: string): Course | undefined => {
-  return courses.find((course) => course.id === id);
+  return coursesCache?.find((course) => course.id === id);
 };
 
 export const getAllWorkouts = (): Course[] => {
-  return courses;
+  return coursesCache || [];
 };
 
-export default courses;
+export default coursesCache;
