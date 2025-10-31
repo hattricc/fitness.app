@@ -16,21 +16,8 @@
         // Enable manual initialization
         window.CMS_MANUAL_INIT = true;
         
-        // Handle Netlify Identity
+        // Initialize CMS after everything is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            if (window.netlifyIdentity) {
-                // Handle invite tokens in URL
-                if (window.location.hash.includes('invite_token')) {
-                    window.netlifyIdentity.open('signup');
-                }
-                
-                // Reload after login to ensure CMS picks up the session
-                window.netlifyIdentity.on('login', function() {
-                    window.location.reload();
-                });
-            }
-            
-            // Initialize CMS after everything is loaded
             if (window.CMS) {
                 window.CMS.init();
             }
@@ -41,6 +28,7 @@
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     
     <!-- Custom extensions -->
+    <script src="/admin/redirect.js"></script>
     <script src="/admin/extensions.js" defer></script>
 </head>
 <body>

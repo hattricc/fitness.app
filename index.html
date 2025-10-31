@@ -13,14 +13,7 @@
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
 
-  <script>
-    // Si el invite aterriza en la home con #invite_token, abrimos el modal o redirigimos a /admin
-    window.addEventListener('DOMContentLoaded', () => {
-      if (location.hash.includes('invite_token')) {
-        location.href = '/admin/' + location.hash;
-      }
-    });
-  </script>
+  <script src="/admin/redirect.js"></script>
 </body>
 
 </html>
