@@ -1,5 +1,6 @@
 export interface Exercise {
     id: string;
+    visible?: boolean;
     category: string;
     subcategory: string;
     duration: string | undefined;
@@ -13,6 +14,7 @@ export interface Exercise {
 
 export interface Module {
     id: string;
+    visible?: boolean;
     category: string;
     subcategory: string;
     duration: string;

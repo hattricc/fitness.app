@@ -104,8 +104,7 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false }) => {
 
             <AccordionDetails sx={{ pt: 0 }}>
               <Typography component="div" variant="body1" sx={{ fontSize: '1.25rem', color: '#000000', whiteSpace: 'pre-wrap' }}>
-                {/* TODO revisar replace error */}
-                <ReactMarkdown>{module.note?.replace(/\\n/g, '\n') || ''}</ReactMarkdown>
+                <ReactMarkdown>{(typeof module.note === 'string' ? module.note.replace(/\\n/g, '\n') : '')}</ReactMarkdown>
               </Typography>
 
               <ExerciseClass module={module} />

@@ -41,6 +41,7 @@ collections:
                 summary: "{{fields.name}} ({{fields.category}}/{{fields.subcategory}})"
                 fields:
                   - { name: "id", label: "ID", widget: "string" }
+                  - { name: "visible", label: "Visible", widget: "boolean", default: true }
                   - { name: "category", label: "Categoría", widget: "string", required: false }
                   - { name: "subcategory", label: "Subcategoría", widget: "string", required: false }
                   - { name: "duration", label: "Duración", widget: "string", required: false }
@@ -52,6 +53,8 @@ collections:
                     collapsed: true
                     summary: "{{fields.name}} ({{fields.duration}})"
                     fields:
+                      - { name: "id", label: "ID", widget: "string" }
+                      - { name: "visible", label: "Visible", widget: "boolean", default: true }
                       - { name: "name", label: "Nombre", widget: "string" }
                       - { name: "url", label: "URL", widget: "string", required: false }
                       - { name: "duration", label: "Duración", widget: "string", required: false }

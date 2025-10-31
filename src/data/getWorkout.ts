@@ -22,8 +22,19 @@ export const loadAllCourses = async (): Promise<Course[]> => {
 
     // Combine and filter out any undefined/null items
     coursesCache = [...coursesArray, ...homeArray].filter(Boolean) as Course[];
-  // Si no trae el campo, lo consideramos visible (retro-compatibilidad)
-    coursesCache = coursesCache.filter(c => c.visible !== false);
+    
+    // Filter out invisible courses and modules
+    coursesCache = coursesCache
+      .filter(c => c.visible !== false) // Filter invisible courses
+      .map(course => ({
+        ...course,
+        modules: (course.modules || [])
+          .filter(module => module.visible !== false) // Filter invisible modules
+          .map(module => ({
+            ...module,
+            exercises: (module.exercises || []).filter(exercise => exercise.visible !== false) // Filter invisible exercises
+          }))
+      }));
 
     return coursesCache;
   } catch (error) {
