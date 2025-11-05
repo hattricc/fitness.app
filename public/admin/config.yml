@@ -5,7 +5,7 @@ backend:
 media_folder: "public/uploads"       # donde se suben imágenes
 public_folder: "/uploads"
 
-publish_mode: editorial_workflow     # opcional: revisiones antes de publicar
+# publish_mode: editorial_workflow     # opcional: revisiones antes de publicar
 
 # Colección por archivo: edita un único courses.json
 collections:
