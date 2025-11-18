@@ -2,6 +2,13 @@
   "items": [
     {
       "showInfo": true,
+      "visible": true,
+      "id": "10-min-dia",
+      "name": "10 minutos al día",
+      "modules": []
+    },
+    {
+      "showInfo": true,
       "id": "guia-movimientos-basicos",
       "name": "Cursos",
       "imageUrl": "/images/welcome/bienvenida-2.jpg",
@@ -101,13 +108,6 @@
         }
       ],
       "visible": true
-    },
-    {
-      "showInfo": true,
-      "visible": true,
-      "id": "10-min-dia",
-      "name": "10 minutos al día",
-      "modules": []
     }
   ]
 }
