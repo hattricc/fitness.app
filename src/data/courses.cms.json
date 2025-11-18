@@ -101,6 +101,13 @@
         }
       ],
       "visible": true
+    },
+    {
+      "showInfo": true,
+      "visible": true,
+      "id": "10-min-dia",
+      "name": "10 minutos al día",
+      "modules": []
     }
   ]
 }
