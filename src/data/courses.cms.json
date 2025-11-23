@@ -5,7 +5,27 @@
       "visible": true,
       "id": "10-min-dia",
       "name": "10 minutos al día",
-      "modules": []
+      "modules": [
+        {
+          "visible": true,
+          "id": "dmad01",
+          "name": "Rutina A (Fácil)",
+          "url": "https://youtu.be/nyC_9PdCPVE?si=37M2uBfOSPyLiOYv"
+        },
+        {
+          "visible": true,
+          "id": "dmad02",
+          "name": "Rutina B (Intermedio)",
+          "url": "https://youtu.be/nyC_9PdCPVE?si=37M2uBfOSPyLiOYv"
+        },
+        {
+          "visible": true,
+          "id": "dmad03",
+          "name": "Rutina C (Avanzado)",
+          "url": "https://youtu.be/nyC_9PdCPVE?si=37M2uBfOSPyLiOYv",
+          "duration": "10 min"
+        }
+      ]
     },
     {
       "showInfo": true,
