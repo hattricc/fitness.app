@@ -10,20 +10,40 @@
           "visible": true,
           "id": "dmad01",
           "name": "Rutina A (Fácil)",
-          "url": "https://youtu.be/nyC_9PdCPVE?si=37M2uBfOSPyLiOYv"
+          "url": "",
+          "exercises": [
+            {
+              "visible": true,
+              "id": "Ej01",
+              "name": "10 minutos",
+              "url": "https://youtu.be/nyC_9PdCPVE?si=37M2uBfOSPyLiOYv"
+            },
+            {
+              "visible": true,
+              "id": "Tut01",
+              "name": "Tutorial A",
+              "url": "https://youtu.be/nyC_9PdCPVE?si=37M2uBfOSPyLiOYv",
+              "duration": "4 min"
+            }
+          ]
         },
         {
           "visible": true,
           "id": "dmad02",
           "name": "Rutina B (Intermedio)",
-          "url": "https://youtu.be/nyC_9PdCPVE?si=37M2uBfOSPyLiOYv"
+          "url": ""
         },
         {
           "visible": true,
           "id": "dmad03",
           "name": "Rutina C (Avanzado)",
-          "url": "https://youtu.be/nyC_9PdCPVE?si=37M2uBfOSPyLiOYv",
-          "duration": "10 min"
+          "url": "",
+          "duration": ""
+        },
+        {
+          "visible": true,
+          "id": "dmad04",
+          "name": "Rutina D (Experto)"
         }
       ]
     },
