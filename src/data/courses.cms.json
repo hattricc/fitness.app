@@ -8,6 +8,27 @@
       "modules": [
         {
           "visible": true,
+          "id": "DMInicio",
+          "name": "Inicio",
+          "exercises": [
+            {
+              "visible": true,
+              "id": "In01",
+              "name": "Cómo usar las rutinas",
+              "url": "https://www.youtube.com/watch?v=Zs326nJb8H4",
+              "duration": "06:19"
+            },
+            {
+              "visible": true,
+              "id": "In02",
+              "name": "Recomendaciones finales ",
+              "url": "https://www.youtube.com/watch?v=PlZnCQIMU7E",
+              "duration": "01:45"
+            }
+          ]
+        },
+        {
+          "visible": true,
           "id": "dmad01",
           "name": "Rutina A (Fácil)",
           "url": "",
@@ -15,14 +36,14 @@
             {
               "visible": true,
               "id": "Ej01",
-              "name": "¡Empezar!",
+              "name": "¡Comencemos!",
               "url": "https://www.youtube.com/watch?v=dfkb9xi_gqg",
               "duration": "10:16"
             },
             {
               "visible": true,
               "id": "Sil01",
-              "name": "Rutina sin audio",
+              "name": "Rutina sin audio - Solo temporizador",
               "url": "https://www.youtube.com/watch?v=en78taN3u90",
               "duration": "10:16"
             },
@@ -65,13 +86,13 @@
             {
               "visible": true,
               "id": "Ej001",
-              "name": "¡Empezar!",
+              "name": "¡Comencemos!",
               "url": "https://www.youtube.com/watch?v=ckjoK4Q1EuQ",
               "duration": "10:17"
             },
             {
               "visible": true,
-              "name": "Rutina sin audio ",
+              "name": "Rutina sin audio - Solo temporizador",
               "id": "Sil001",
               "url": "https://www.youtube.com/watch?v=9yTF8IP7Bwk",
               "duration": "10:17"
@@ -116,14 +137,14 @@
             {
               "visible": true,
               "id": "Ej0001",
-              "name": "¡Empezar!",
+              "name": "¡Comencemos!",
               "url": "https://www.youtube.com/watch?v=gNAfIZ-eCoc",
               "duration": "10:18"
             },
             {
               "visible": true,
               "id": "Sil0001",
-              "name": "Rutina sin audio ",
+              "name": "Rutina sin audio - Solo temporizador",
               "url": "https://www.youtube.com/watch?v=V-d8XmMeROE",
               "duration": "10:18"
             },
@@ -165,14 +186,14 @@
             {
               "visible": true,
               "id": "Ej00001",
-              "name": "¡Empezar!",
+              "name": "¡Comencemos!",
               "url": "https://www.youtube.com/watch?v=WyybY4y0c1E",
               "duration": "10:16"
             },
             {
               "visible": true,
               "id": "Sil00001",
-              "name": "Rutina sin audio ",
+              "name": "Rutina sin audio - Solo temporizador",
               "url": "https://www.youtube.com/watch?v=W7QvmLITJ8U",
               "duration": "10:16"
             },
@@ -227,35 +248,35 @@
             {
               "name": "Parte 1: Jalones",
               "url": "https://youtu.be/nyC_9PdCPVE?si=XtMmu_hUrqhe5gsJ",
-              "duration": "3 min",
+              "duration": "03:13",
               "visible": true,
               "id": "exp-001-01"
             },
             {
               "name": "Parte 2: Empujones",
               "url": "https://youtu.be/myxBE3JWLLY?si=UGgoWgpuXgdLTAHm",
-              "duration": "4 min",
+              "duration": "03:37",
               "id": "exp-001-02",
               "visible": true
             },
             {
               "name": "Parte 3: Complementos",
               "url": "https://youtu.be/NBGYQ2E6ef8?si=K5B-6cjntUqlcdPr",
-              "duration": "4 min",
+              "duration": "03:49",
               "id": "exp-001-03",
               "visible": true
             },
             {
               "name": "Parte 4: Tren Inferior",
               "url": "https://youtu.be/xR9VgqKAz_8?si=C60bRECedJvHF3QZ",
-              "duration": "6 min",
+              "duration": "05:25",
               "id": "exp-001-04",
               "visible": true
             },
             {
               "name": "Parte 5: Recomendaciones",
               "url": "https://youtu.be/YO1BsJIuids?si=EmuMtcv4gRknLm5J",
-              "duration": "4 min",
+              "duration": "03:49",
               "id": "exp-001-05",
               "visible": true
             }
