@@ -13,6 +13,8 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import SocialLoginButtons from '../../molecules/social-login-buttons';
+import { supabase } from '../../../lib/supabase';
+import { useAuth } from '../../../contexts/auth/AuthContext';
 
 export default function LoginForm({ theme }: { theme?: any } = {}) {
   const navigate = useNavigate();
@@ -22,8 +24,7 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
     password: '',
   });
 
-  console.log(theme);
-  console.log('hola, si entra');
+  const auth = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -42,11 +43,11 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
   return (
     <Box
       sx={{
-        minHeight: '100vh',
+        // minHeight: '100vh',
+        // minHeight: '50vh',
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
+        // flexDirection: 'column',
+        // alignItems: 'center',
         p: 1,
         backgroundColor: '#1B1B1B',
         borderRadius: 6,
@@ -57,6 +58,10 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
           width: '100%',
           maxWidth: 400,
           p: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: '3vh'
         }}
       >
         {/* Header */}
@@ -65,12 +70,12 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
             ¡Bienvenido de vuelta!
           </Typography>
           <Typography variant="body1" color="text.primary">
-            Inicia sesión para continuar con FitnessApp
+            Inicia sesión o regístrate con Google para continuar con FitnessApp
           </Typography>
         </Box>
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit}>
+        {/* <form onSubmit={handleSubmit}>
           <Stack spacing={3}>
             <TextField
               fullWidth
@@ -142,15 +147,23 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
           <Typography variant="body2" color="text.secondary">
             OR
           </Typography>
-        </Divider>
+        </Divider> */}
 
         {/* Social Login Buttons */}
+        {/* <SocialLoginButtons
+          onGoogleLogin={() => supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+              redirectTo: `http://localhost:3000/auth/callback`,
+            },
+          })}
+        /> */}
         <SocialLoginButtons
-          onGoogleLogin={() => console.log('Google login clicked')}
+          onGoogleLogin={auth.signInWithGoogle}
         />
 
         {/* Sign up link */}
-        <Box textAlign="center" mt={2}>
+        {/* <Box textAlign="center" mt={2}>
           <Typography variant="body2" color="text.primary">
             ¿No tienes una cuenta?{' '}
             <MuiLink 
@@ -163,7 +176,7 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
               Registrate
             </MuiLink>
           </Typography>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

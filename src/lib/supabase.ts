@@ -15,14 +15,26 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   },
 });
 
-console.log(supabase)
+// console.log(supabase)
 
-// Types
-export type User = {
-  id: string;
-  email?: string;
-  user_metadata?: {
-    name?: string;
-    avatar_url?: string;
-  };
-};
+// try {
+//   const { data, error } = await supabase.auth.signInWithPassword({
+//     email: "raidenmt96@gmail.com",
+//     password: "2mnb:W66Cx!7b-5",
+//   });
+//   console.log(data)
+//   console.log(error)
+//   console.log(data.session?.access_token);
+// } catch (error) {
+//   console.log(error)
+// }
+
+// // Types
+// export type User = {
+//   id: string;
+//   email?: string;
+//   user_metadata?: {
+//     name?: string;
+//     avatar_url?: string;
+//   };
+// };

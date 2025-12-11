@@ -79,7 +79,7 @@ export const LoginForm = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <Input
+          {/* <Input
             label="Email"
             name="email"
             type="email"
@@ -89,7 +89,7 @@ export const LoginForm = () => {
             error={errors.email}
             disabled={isSubmitting}
             autoComplete="email"
-          />
+          /> */}
 
           <div className="space-y-2">
             <div className="flex items-center justify-between">

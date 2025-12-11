@@ -1,8 +1,9 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { supabase, User } from '@/lib/supabase';
+import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
+import { supabase } from '@/lib/supabase';
+import { UserSession } from '@/lib/userSession';
 
 type AuthContextType = {
-  user: User | null;
+  user: UserSession | null;
   loading: boolean;
   signInWithEmail: (email: string, password: string) => Promise<void>;
   signUpWithEmail: (email: string, password: string) => Promise<void>;
@@ -12,24 +13,50 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+type AuthProviderProps = {
+  children: ReactNode;
+  setSession: (user: UserSession | null) => void;
+};
+
+
+
+export const AuthProvider = ({ children, setSession }: AuthProviderProps) => {
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<UserSession | null>(null);
+
 
   useEffect(() => {
-    // Check active sessions and sets the user
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        const currentUser = session?.user ?? null;
-        setUser(currentUser as User | null);
-        setLoading(false);
+        if (event === 'SIGNED_OUT') {
+          setUser(null);
+          setSession(null);
+          return;
+        }
+
+        if (event === 'SIGNED_IN' && session) {
+          const currentUser = session?.user ?? null;
+          console.log('currentUser', currentUser);
+          setLoading(false);
+
+          const userData: UserSession = {
+            email: currentUser?.email,
+            id: currentUser?.id,
+            role: currentUser?.role,
+            last_sign_in_at: currentUser?.last_sign_in_at,
+            identities: currentUser?.identities || []
+          };
+
+          setUser(userData);
+          setSession(userData);
+        }
       }
     );
 
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [setSession]);
 
   const signInWithEmail = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({
@@ -51,7 +78,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/dashboard`,
+        // redirectTo: `${window.location.origin}/dashboard`,
+        redirectTo: `http://localhost:3000/auth/callback`,
+        // redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
     if (error) throw error;

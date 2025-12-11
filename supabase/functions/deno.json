@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "lib": [
+            "deno.window"
+        ],
+        "strict": true
+    },
+    "lint": {
+        "include": [
+            "**/*.ts"
+        ],
+        "exclude": [
+            "**/generated"
+        ]
+    },
+    "fmt": {
+        "files": {
+            "include": [
+                "**/*.ts"
+            ],
+            "exclude": [
+                "**/generated"
+            ]
+        },
+        "options": {
+            "indentWidth": 2,
+            "singleQuote": true,
+            "semi": true
+        }
+    }
+}

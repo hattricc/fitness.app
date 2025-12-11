@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -21,6 +21,10 @@ import ResetPasswordForm from '../components/organisms/reset-password';
 import Progress from './progress';
 import { AuthProvider } from '@/contexts/auth/AuthContext';
 import CombateSagrado from './pages/combate-sagrado';
+import PagoExitosoPage from './pages/PagoExitosoPage';
+import SubscriptionPage from './pages/SubscriptionPage';
+import { AuthCallback } from '@/components/auth/AuthCallback';
+import { setUserSession, UserSession } from '@/lib/userSession'
 
 function App() {
   const [showApp, setShowApp] = useState(false);
@@ -30,6 +34,18 @@ function App() {
   const [difficulty, setDifficulty] = useState<string>('all');
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
   const [workouts] = useState<WorkoutRoutine[]>(getAllWorkouts());
+
+
+  // const [session, setSession] = useState<any | null>(null);
+  const [user, setUser] = useState<UserSession | null>(null);
+
+  const setSession = useCallback((user: UserSession | null) => {
+    setUserSession(user);
+    setUser(user);
+    console.log('sesion guardada');
+  }, []);
+
+
 
   const handleWorkoutSelect = (workout: WorkoutRoutine) => {
     navigate(`/workout/${workout.id}`);
@@ -48,8 +64,10 @@ function App() {
     navigate(`/exercise/${exercise.id}`);
   };
 
+  const isAuthCallback = location.pathname === '/auth/callback';
+
   // Show splash screen and carousel if app hasn't been shown yet
-  if (!showApp) {
+  if (!showApp && !isAuthCallback) {
     return (
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
@@ -101,7 +119,8 @@ function App() {
     },
     {
       path: "/signup",
-      element: <SignUpForm theme={darkTheme} />,
+      // element: <SignUpForm theme={darkTheme} />,
+      element: <LoginForm theme={darkTheme} />,
     },
     {
       path: "/reset-password",
@@ -122,15 +141,27 @@ function App() {
     {
       path: "/combate-sagrado",
       element: <CombateSagrado />,
+    },
+    {
+      path: "/pago-exitoso",
+      element: <PagoExitosoPage />
+    },
+    {
+      path: "/auth/callback",
+      element: <AuthCallback setSession={setSession} />
     }
   ];
 
   return (
-    <AuthProvider>
+    <AuthProvider setSession={setSession}>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-          <Header />
+          <Header user={user} />
+
+          {/* <SubscriptionPage /> */}
+
+
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             <Routes>
               {routes.map((route, index) => (

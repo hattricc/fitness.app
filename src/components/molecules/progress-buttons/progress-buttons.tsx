@@ -29,11 +29,11 @@ const DotsContainer = styled(Box)({
     gap: '8px',
 });
 
-const Dot = styled(Box)<{ active: boolean }>(({ active }) => ({
+const Dot = styled(Box)<{ active: string }>(({ active }) => ({
     width: '10px',
     height: '10px',
     borderRadius: '50%',
-    backgroundColor: active ? '#E57952' : 'rgba(255, 255, 255, 0.4)',
+    backgroundColor: active === 'active' ? '#E57952' : 'rgba(255, 255, 255, 0.4)',
     transition: 'all 0.3s ease',
 }));
 
@@ -73,7 +73,7 @@ const ProgressButtons: React.FC<ProgressButtonsProps> = ({ onComplete, slides, c
                 {slides.map((_, index) => (
                     <Dot
                         key={index}
-                        active={index === currentSlide}
+                        active={index === currentSlide ? 'active' : ''}
                         onClick={() => setCurrentSlide(index)}
                     />
                 ))}
