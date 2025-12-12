@@ -75,7 +75,7 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
         </Box>
 
         {/* Login Form */}
-        {/* <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <Stack spacing={3}>
             <TextField
               fullWidth
@@ -113,7 +113,7 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
               }}
             />
             
-            <Box sx={{ textAlign: 'right' }}>
+            {/* <Box sx={{ textAlign: 'right' }}>
               <MuiLink 
                 component="button" 
                 type="button" 
@@ -123,7 +123,7 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
               >
                 ¿Olvidaste tu contraseña?
               </MuiLink>
-            </Box>
+            </Box> */}
             
             <Button
               fullWidth
@@ -144,20 +144,12 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
         </form>
 
         <Divider sx={{ my: 3 }}>
-          <Typography variant="body2" color="text.secondary">
-            OR
+          <Typography variant="body2" color="text.primary">
+            O
           </Typography>
-        </Divider> */}
+        </Divider>
 
         {/* Social Login Buttons */}
-        {/* <SocialLoginButtons
-          onGoogleLogin={() => supabase.auth.signInWithOAuth({
-            provider: 'google',
-            options: {
-              redirectTo: `http://localhost:3000/auth/callback`,
-            },
-          })}
-        /> */}
         <SocialLoginButtons
           onGoogleLogin={auth.signInWithGoogle}
         />

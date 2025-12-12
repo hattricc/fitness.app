@@ -1,5 +1,5 @@
 import { Button, Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Stack, useTheme } from '@mui/material';
-import { AccountCircle, Facebook, Google, Login, Person } from '@mui/icons-material';
+import { AccountCircle, Facebook, Google, Login, Payment, Person } from '@mui/icons-material';
 import { Theme } from '@mui/material/styles';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -115,6 +115,23 @@ const UserMenu: React.FC<UserMenuProps> = ({
                         <Divider sx={{ backgroundColor: '#333333' }} />
 
                         <MenuItem
+                            onClick={() => handleNavigation('/login')}
+                            sx={{
+                                color: '#ffffff',
+                                '&:hover': {
+                                    backgroundColor: '#333333',
+                                }
+                            }}
+                        >
+                            <ListItemIcon>
+                                <Payment fontSize="small" sx={{ color: '#ffffff' }} />
+                            </ListItemIcon>
+                            <ListItemText>Inscribirse</ListItemText>
+                        </MenuItem>
+
+                        {/* <Divider sx={{ backgroundColor: '#333333' }} />
+
+                        <MenuItem
                             onClick={() => handleNavigation('/signup')}
                             sx={{
                                 color: '#ffffff',
@@ -127,14 +144,14 @@ const UserMenu: React.FC<UserMenuProps> = ({
                                 <Person fontSize="small" sx={{ color: '#ffffff' }} />
                             </ListItemIcon>
                             <ListItemText>Crear cuenta</ListItemText>
-                        </MenuItem>
+                        </MenuItem> */}
                     </>
                 )}
 
                 {user && (
                     <>
                         <MenuItem
-                            onClick={() => handleNavigation('/signup')}
+                            onClick={() => handleNavigation('/signout')}
                             sx={{
                                 color: '#ffffff',
                                 '&:hover': {

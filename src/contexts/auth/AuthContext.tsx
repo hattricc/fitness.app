@@ -89,6 +89,9 @@ export const AuthProvider = ({ children, setSession }: AuthProviderProps) => {
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
+    setUser(null);
+    setSession(null);
+    return true;
   };
 
   const value = {

@@ -25,6 +25,7 @@ import PagoExitosoPage from './pages/PagoExitosoPage';
 import SubscriptionPage from './pages/SubscriptionPage';
 import { AuthCallback } from '@/components/auth/AuthCallback';
 import { setUserSession, UserSession } from '@/lib/userSession'
+import SignOut from '@/components/organisms/signout/signout';
 
 function App() {
   const [showApp, setShowApp] = useState(false);
@@ -149,6 +150,10 @@ function App() {
     {
       path: "/auth/callback",
       element: <AuthCallback setSession={setSession} />
+    },
+    {
+      path: "/signout",
+      element: <SignOut />
     }
   ];
 
