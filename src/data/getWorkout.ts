@@ -23,16 +23,21 @@ export const loadAllCourses = async (): Promise<Course[]> => {
     // Combine and filter out any undefined/null items
     coursesCache = [...coursesArray, ...homeArray].filter(Boolean) as Course[];
     
-    // Filter out invisible courses and modules
+    // Filter out invisible courses and modules, and apply course.locked to exercises
     coursesCache = coursesCache
-      .filter(c => c.visible !== false) // Filter invisible courses
+      .filter(c => c.visible !== false)
       .map(course => ({
         ...course,
         modules: (course.modules || [])
-          .filter(module => module.visible !== false) // Filter invisible modules
+          .filter(module => module.visible !== false)
           .map(module => ({
             ...module,
-            exercises: (module.exercises || []).filter(exercise => exercise.visible !== false) // Filter invisible exercises
+            exercises: (module.exercises || [])
+              .filter(exercise => exercise.visible !== false)
+              .map(exercise => ({
+                ...exercise,
+                locked: course.locked === true
+              }))
           }))
       }));
 

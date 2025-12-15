@@ -98,16 +98,26 @@ const Home = () => {
   return (
     <>
       <Box sx={homeBoxStyle}>
-        <Box sx={{ mb: 3, textAlign: 'center' }}>
+        <Box sx={{ mb: 3, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
           <Button
             variant="contained"
             onClick={() => {
-              handleOpenModal('https://www.youtube.com/embed/UsiYtN0oAEY?autoplay=1');
-              setTimeout(handleCloseModal, 30000 + 1500);
+              handleOpenModal('https://www.youtube.com/watch?v=T8G37J9bdrY?autoplay=1');
+              setTimeout(handleCloseModal, 85000 + 2000);
             }}
             sx={welcomeButtonStyle}
           >
             Mensaje de Bienvenida
+          </Button>
+
+          <Button
+            variant="contained"
+              onClick={() => {
+              navigate('/combate-sagrado')
+            }}
+            sx={welcomeButtonStyle}
+          >
+            Acerca de mí
           </Button>
         </Box>
 

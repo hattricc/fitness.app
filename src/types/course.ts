@@ -37,5 +37,6 @@ export interface Course {
     duration: string;
     showInfo: boolean;
     visible?: boolean;
+    locked?: boolean;
     modules: Module[];
 }

@@ -127,18 +127,18 @@ function App() {
       path: "/reset-password",
       element: <ResetPasswordForm theme={darkTheme} />,
     },
-    {
-      path: "/articles",
-      element: <Articles />,
-    },
-    {
-      path: "/weekly-challenge",
-      element: <WeeklyChallenge />,
-    },
-    {
-      path: "/progress",
-      element: <Progress />,
-    },
+    // {
+    //   path: "/articles",
+    //   element: <Articles />,
+    // },
+    // {
+    //   path: "/weekly-challenge",
+    //   element: <WeeklyChallenge />,
+    // },
+    // {
+    //   path: "/progress",
+    //   element: <Progress />,
+    // },
     {
       path: "/combate-sagrado",
       element: <CombateSagrado />,

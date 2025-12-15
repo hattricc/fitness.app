@@ -1,7 +1,7 @@
 [
     {
         "id": "category-002",
-        "name": "Rutina básica de gimnasio",
+        "name": "Gimnasio",
         "title": "Rutina básica de gimnasio",
         "showTitle": true,
         "showInfo": false,
@@ -170,24 +170,5 @@
                 "note": "Recuperación (descanso) y reiniciar el ciclo al día siguiente\\n\\n**Nota importante:**\\nEsta rutina es una estandarización básica.\\nPara ajustar el programa de manera personalizada agenda una cita."
             }
         ]
-    },
-    {
-        "id": "course-003",
-        "name": "Entrenamiento en casa",
-        "description": "Descripción del curso 3",
-        "imageUrl": "./images/exercises/exercises-exteriores.jpg",
-        "url": "https://www.youtube.com/shorts/iQIPJDG92Yg",
-        "directLink": true,
-        "category": "Casa",
-        "modules": []
-    },
-    {
-        "id": "category-004",
-        "name": "Combate Sagrado",
-        "description": "Datos de Luis Suarez",
-        "imageUrl": "./images/welcome/bienvenida-5.jpg",
-        "category": "Fitness",
-        "urlPage": "/combate-sagrado",
-        "modules": []
     }
 ]
