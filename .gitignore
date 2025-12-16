@@ -139,3 +139,5 @@ node_modules
 .idea
 dist
 .eslintcache
+
+src/data/courses.json
