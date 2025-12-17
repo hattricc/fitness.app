@@ -227,15 +227,10 @@
             }
           ]
         }
-      ]
+      ],
+      "locked": false
     },
     {
-      "showInfo": false,
-      "id": "guia-movimientos-basicos",
-      "name": "Cursos",
-      "imageUrl": "/images/welcome/bienvenida-2.jpg",
-      "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
-      "category": "Fitness",
       "modules": [
         {
           "id": "exp-001",
@@ -350,7 +345,14 @@
           ]
         }
       ],
-      "visible": true
+      "locked": true,
+      "showInfo": false,
+      "name": "Cursos",
+      "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+      "visible": true,
+      "imageUrl": "/images/welcome/bienvenida-2.jpg",
+      "id": "guia-movimientos-basicos",
+      "category": "Fitness"
     }
   ]
 }
