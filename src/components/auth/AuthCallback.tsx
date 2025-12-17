@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { supabase } from "../../../src/lib/supabase";
-import { setUserSession } from '@/lib/userSession';
 
 export const AuthCallback = ({ setSession }: { setSession: (user: any) => void }) => {
     const navigate = useNavigate();

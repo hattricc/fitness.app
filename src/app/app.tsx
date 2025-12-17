@@ -20,6 +20,7 @@ import PagoExitosoPage from './pages/PagoExitosoPage';
 import { AuthCallback } from '@/components/auth/AuthCallback';
 import { setUserSession, UserSession } from '@/lib/userSession'
 import SignOut from '@/components/organisms/signout/signout';
+import SubscriptionPage from './pages/SubscriptionPage';
 
 function App() {
   const [hasIntroEnded, setHasIntroEnded] = useState(true);
@@ -117,6 +118,10 @@ function App() {
     {
       path: "/pago-exitoso",
       element: <PagoExitosoPage />
+    },
+    {
+      path: "/suscripcion",
+      element: <SubscriptionPage />
     },
     {
       path: "/auth/callback",

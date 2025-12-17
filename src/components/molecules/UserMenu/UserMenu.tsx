@@ -30,8 +30,6 @@ const UserMenu: React.FC<UserMenuProps> = ({
         setAnchorEl(event.currentTarget);
     };
 
-    const theme = useTheme();
-
     const imageUrl = getGoogleAvatarUrl(user);
 
     return (
@@ -115,7 +113,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                         <Divider sx={{ backgroundColor: '#333333' }} />
 
                         <MenuItem
-                            onClick={() => handleNavigation('/login')}
+                            onClick={() => handleNavigation('/suscripcion')}
                             sx={{
                                 color: '#ffffff',
                                 '&:hover': {

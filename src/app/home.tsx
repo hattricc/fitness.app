@@ -94,7 +94,7 @@ const Home = () => {
   }
 
 
-  const courses = coursesData?.items as unknown as ExerciseRoutine[];
+  const courses = coursesData as unknown as ExerciseRoutine[];
   const links = linksData as unknown as ExerciseRoutine[];
 
   const goToCourse = (item: ExerciseRoutine) => {

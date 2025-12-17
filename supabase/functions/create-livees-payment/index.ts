@@ -12,14 +12,33 @@ const LIVEES_LLAVE_RECURSO = Deno.env.get("LIVEES_LLAVE_RECURSO")!;   // "__"
 const LIVEES_POST_URL = Deno.env.get("LIVEES_POST_URL")!;
 // Ej: https://tu-sitio.netlify.app/pago-exitoso
 
+
+const corsHeaders = {
+    "Access-Control-Allow-Origin": "*", // en dev ok. En prod puedes restringir a tu dominio.
+    "Access-Control-Allow-Headers":
+        "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+};
+
 serve(async (req) => {
+    // ✅ Preflight must be handled BEFORE any method checks
+    if (req.method === "OPTIONS") {
+        return new Response(null, { status: 204, headers: corsHeaders });
+    }
+
     if (req.method !== "POST") {
         return new Response("Method not allowed", { status: 405 });
     }
 
+
+    return new Response(JSON.stringify(responsePayload), {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+
     try {
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-            global: { headers: { Authorization: req.headers.get("Authorization")! } },
+            global: { headers: { ...corsHeaders, Authorization: req.headers.get("Authorization")! } },
         });
 
         const {
@@ -28,7 +47,7 @@ serve(async (req) => {
         } = await supabase.auth.getUser();
 
         if (userError || !user) {
-            return new Response("Unauthorized", { status: 401 });
+            return new Response("Unauthorized", { ...corsHeaders, status: 401 });
         }
 
         const body = await req.json();
@@ -39,7 +58,7 @@ serve(async (req) => {
         };
 
         if (!product_id) {
-            return new Response("product_id is required", { status: 400 });
+            return new Response("product_id is required", { ...corsHeaders, status: 400 });
         }
 
         const { data: product, error: productError } = await supabase
@@ -49,7 +68,7 @@ serve(async (req) => {
             .single();
 
         if (productError || !product) {
-            return new Response("Product not found", { status: 404 });
+            return new Response("Product not found", { ...corsHeaders, status: 404 });
         }
 
         // Generar invno único (puedes usar otro formato)
@@ -77,7 +96,7 @@ serve(async (req) => {
 
         if (paymentError || !payment) {
             console.error(paymentError);
-            return new Response("Error creating payment: " + paymentError.message, { status: 500 });
+            return new Response("Error creating payment: " + paymentError.message, { ...corsHeaders, status: 500 });
         }
 
         // Devolvemos todo lo necesario para armar el <form> en el frontend
@@ -97,10 +116,13 @@ serve(async (req) => {
 
         return new Response(JSON.stringify(responsePayload), {
             status: 200,
-            headers: { "Content-Type": "application/json" },
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
     } catch (err) {
         console.error(err);
-        return new Response("Internal server error: " + err.message, { status: 500 });
+        return new Response("Internal server error " + err.message, {
+            status: 500,
+            headers: corsHeaders,
+        });
     }
 });
