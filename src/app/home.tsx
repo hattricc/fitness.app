@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -6,26 +7,46 @@ import {
   useMediaQuery,
   Button,
 } from '@mui/material';
+import SplashScreen from '../components/molecules/splash-screen/SplashScreen';
 import { ExerciseCard } from '../components/molecules';
 import { ExerciseRoutine } from '@/types/exercise';
 import coursesData from '../data/courses.json';
 import linksData from '../data/home.json';
-import React from 'react';
 import YouTubeModal from '../components/molecules/youtube-modal';
 import Footer from '@/components/organisms/footer';
 
 const Home = () => {
+  const [showSplash, setShowSplash] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<string | undefined>(undefined);
+  
   const navigate = useNavigate();
+  const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [open, setOpen] = React.useState(false);
+
+  const handleSplashEnd = () => {
+    setShowSplash(false);
+  };
+
+  // Hide splash screen when navigating away from home
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setShowSplash(false);
+    }
+  }, [location.pathname]);
+
+  if (showSplash) {
+    return (
+      <SplashScreen onAnimationEnd={handleSplashEnd} />
+    );
+  }
 
   const handleOpenModal = (url: string | undefined) => {
     setOpen(true);
     setSelectedVideo(url);
   };
   const handleCloseModal = () => setOpen(false);
-  const [selectedVideo, setSelectedVideo] = React.useState<string | undefined>(undefined);
 
   const welcomeButtonStyle = {
     backgroundColor: '#E57952',

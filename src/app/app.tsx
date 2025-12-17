@@ -9,51 +9,34 @@ import Home from './home';
 import WorkoutList from './workout-list';
 import Workout from './workout';
 import ExerciseDetail from './exercise-detail';
-import Articles from './articles';
-import WeeklyChallenge from './weekly-challenge';
 import { Exercise, WorkoutRoutine } from '../types/exercise';
 import { getAllWorkouts } from '../data/getWorkout';
 import { darkTheme } from '../data/theme';
-import SplashScreen from '../components/molecules/splash-screen/SplashScreen';
 import LoginForm from '../components/organisms/login';
-import SignUpForm from '../components/organisms/signup';
 import ResetPasswordForm from '../components/organisms/reset-password';
-import Progress from './progress';
 import { AuthProvider } from '@/contexts/auth/AuthContext';
 import CombateSagrado from './pages/combate-sagrado';
 import PagoExitosoPage from './pages/PagoExitosoPage';
-import SubscriptionPage from './pages/SubscriptionPage';
 import { AuthCallback } from '@/components/auth/AuthCallback';
 import { setUserSession, UserSession } from '@/lib/userSession'
 import SignOut from '@/components/organisms/signout/signout';
 
 function App() {
-  const [showApp, setShowApp] = useState(false);
   const [hasIntroEnded, setHasIntroEnded] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const navigate = useNavigate();
   const [difficulty, setDifficulty] = useState<string>('all');
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
   const [workouts] = useState<WorkoutRoutine[]>(getAllWorkouts());
-
-
-  // const [session, setSession] = useState<any | null>(null);
   const [user, setUser] = useState<UserSession | null>(null);
 
   const setSession = useCallback((user: UserSession | null) => {
     setUserSession(user);
     setUser(user);
-    console.log('sesion guardada');
   }, []);
-
-
 
   const handleWorkoutSelect = (workout: WorkoutRoutine) => {
     navigate(`/workout/${workout.id}`);
-  };
-
-  const handleSplashAndCarouselComplete = () => {
-    setShowApp(true);
   };
 
   const handleVideoEnd = () => {
@@ -64,18 +47,6 @@ function App() {
     setSelectedExercise(exercise);
     navigate(`/exercise/${exercise.id}`);
   };
-
-  const isAuthCallback = location.pathname === '/auth/callback';
-
-  // Show splash screen and carousel if app hasn't been shown yet
-  if (!showApp && !isAuthCallback) {
-    return (
-      <ThemeProvider theme={darkTheme}>
-        <CssBaseline />
-        <SplashScreen onAnimationEnd={handleSplashAndCarouselComplete} />
-      </ThemeProvider>
-    );
-  }
 
   // Show intro video if it hasn't ended yet
   if (!hasIntroEnded) {

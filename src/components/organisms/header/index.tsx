@@ -87,8 +87,6 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
     setTitleState(newTitle);
   }, [location.pathname, courses]);
 
-  console.log('user', user);
-
   return (
     <AppBar
       // position="fixed"

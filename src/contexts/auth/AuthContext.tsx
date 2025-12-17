@@ -105,7 +105,7 @@ export const AuthProvider = ({ children, setSession }: AuthProviderProps) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 };
