@@ -13,7 +13,6 @@ interface YouTubeModalProps {
 
 const YouTubeModal: React.FC<YouTubeModalProps> = ({ open, url, onClose, title = 'Exercise Video' }) => {
   const embedUrl = url ? YouTubeHelper.getEmbedUrl(url, true) : '';
-  console.log(embedUrl)
 
   return (
     <Modal

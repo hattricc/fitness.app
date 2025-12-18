@@ -1,356 +1,356 @@
-{
-  "items": [
-    {
-      "showInfo": false,
-      "visible": true,
-      "id": "10-min-dia",
-      "name": "10 minutos al día",
-      "modules": [
-        {
-          "visible": true,
-          "id": "DMInicio",
-          "name": "Inicio",
-          "exercises": [
-            {
-              "visible": true,
-              "id": "In01",
-              "name": "Cómo usar las rutinas",
-              "url": "https://www.youtube.com/watch?v=Zs326nJb8H4",
-              "duration": "06:19"
-            },
-            {
-              "visible": true,
-              "id": "In02",
-              "name": "Recomendaciones finales ",
-              "url": "https://www.youtube.com/watch?v=PlZnCQIMU7E",
-              "duration": "01:45"
-            }
-          ]
-        },
-        {
-          "visible": true,
-          "id": "dmad01",
-          "name": "Rutina A (Fácil)",
-          "url": "",
-          "exercises": [
-            {
-              "visible": true,
-              "id": "Ej01",
-              "name": "¡Comencemos!",
-              "url": "https://www.youtube.com/watch?v=dfkb9xi_gqg",
-              "duration": "10:16"
-            },
-            {
-              "visible": true,
-              "id": "Sil01",
-              "name": "Rutina sin audio - Solo temporizador",
-              "url": "https://www.youtube.com/watch?v=en78taN3u90",
-              "duration": "10:16"
-            },
-            {
-              "visible": true,
-              "id": "Tut01",
-              "name": "Tutorial Toques al suelo",
-              "url": "https://www.youtube.com/watch?v=Er9dvX_X1t0",
-              "duration": "01:07"
-            },
-            {
-              "visible": true,
-              "id": "Tut02",
-              "name": "Tutorial Toques a dos manos",
-              "url": "https://www.youtube.com/watch?v=9Kq-bm_wrMo",
-              "duration": "01:53"
-            },
-            {
-              "visible": true,
-              "id": "Tut03",
-              "name": "Tutorial Sentadillas",
-              "url": "https://www.youtube.com/watch?v=8I4LxTcxr2s",
-              "duration": "00:43"
-            },
-            {
-              "visible": true,
-              "id": "Tut04",
-              "name": "Tutorial Plancha ",
-              "url": "https://www.youtube.com/watch?v=G88dCCsJ68w",
-              "duration": "00:46"
-            }
-          ]
-        },
-        {
-          "visible": true,
-          "id": "dmad02",
-          "name": "Rutina B (Intermedio)",
-          "url": "",
-          "exercises": [
-            {
-              "visible": true,
-              "id": "Ej001",
-              "name": "¡Comencemos!",
-              "url": "https://www.youtube.com/watch?v=ckjoK4Q1EuQ",
-              "duration": "10:17"
-            },
-            {
-              "visible": true,
-              "name": "Rutina sin audio - Solo temporizador",
-              "id": "Sil001",
-              "url": "https://www.youtube.com/watch?v=9yTF8IP7Bwk",
-              "duration": "10:17"
-            },
-            {
-              "visible": true,
-              "id": "Tut001",
-              "name": "Tutorial Toques a la silla ",
-              "url": "https://www.youtube.com/watch?v=j8DycKn51Ec",
-              "duration": "00:44"
-            },
-            {
-              "visible": true,
-              "id": "Tut002",
-              "name": "Tutorial Flexiones",
-              "url": "https://www.youtube.com/watch?v=DG6nHuBkB6o",
-              "duration": "00:59"
-            },
-            {
-              "visible": true,
-              "id": "Tut003",
-              "name": "Tutorial Flexiones en O",
-              "url": "https://www.youtube.com/watch?v=-WRLOWN7hJc",
-              "duration": "00:38"
-            },
-            {
-              "visible": true,
-              "id": "Tut004",
-              "name": "Tutorial Burpees",
-              "url": "https://www.youtube.com/watch?v=kTjFQCucE2g",
-              "duration": "01:04"
-            }
-          ]
-        },
-        {
-          "visible": true,
-          "id": "dmad03",
-          "name": "Rutina C (Avanzado)",
-          "url": "",
-          "duration": "",
-          "exercises": [
-            {
-              "visible": true,
-              "id": "Ej0001",
-              "name": "¡Comencemos!",
-              "url": "https://www.youtube.com/watch?v=gNAfIZ-eCoc",
-              "duration": "10:18"
-            },
-            {
-              "visible": true,
-              "id": "Sil0001",
-              "name": "Rutina sin audio - Solo temporizador",
-              "url": "https://www.youtube.com/watch?v=V-d8XmMeROE",
-              "duration": "10:18"
-            },
-            {
-              "visible": true,
-              "id": "Tut0001",
-              "name": "Tutorial Sentadilla Shaolin",
-              "url": "https://www.youtube.com/watch?v=Av4tmn9U9eY",
-              "duration": "01:03"
-            },
-            {
-              "visible": true,
-              "id": "Tut0002",
-              "name": "Tutorial Flexiones en O",
-              "url": "https://www.youtube.com/watch?v=-WRLOWN7hJc",
-              "duration": "00:38"
-            },
-            {
-              "visible": true,
-              "id": "Tut0003",
-              "name": "Tutorial Burpees ",
-              "url": "https://www.youtube.com/watch?v=kTjFQCucE2g",
-              "duration": "01:04"
-            },
-            {
-              "visible": true,
-              "id": "Tut0004",
-              "name": "Tutorial Plancha ",
-              "url": "https://www.youtube.com/watch?v=G88dCCsJ68w",
-              "duration": "00:46"
-            }
-          ]
-        },
-        {
-          "visible": true,
-          "id": "dmad04",
-          "name": "Rutina D (Experto)",
-          "exercises": [
-            {
-              "visible": true,
-              "id": "Ej00001",
-              "name": "¡Comencemos!",
-              "url": "https://www.youtube.com/watch?v=WyybY4y0c1E",
-              "duration": "10:16"
-            },
-            {
-              "visible": true,
-              "id": "Sil00001",
-              "name": "Rutina sin audio - Solo temporizador",
-              "url": "https://www.youtube.com/watch?v=W7QvmLITJ8U",
-              "duration": "10:16"
-            },
-            {
-              "visible": true,
-              "id": "Tut00001",
-              "name": "Tutorial Jalones dorsales básicos ",
-              "url": "https://www.youtube.com/watch?v=3Borr461Wps",
-              "duration": "00:35"
-            },
-            {
-              "visible": true,
-              "id": "Tut00002",
-              "name": "Tutorial Jalones dorsales avanzados",
-              "url": "https://www.youtube.com/watch?v=Intls5Frp-c",
-              "duration": "00:58"
-            },
-            {
-              "visible": true,
-              "id": "Tut00003",
-              "name": "Tutorial Planchas con escaladores ",
-              "url": "https://www.youtube.com/watch?v=FJEU-c34J0c",
-              "duration": "00:24"
-            },
-            {
-              "visible": true,
-              "id": "Tut00004",
-              "name": "Tutorial Cómo hacer un TRX",
-              "url": "https://www.youtube.com/shorts/-KLRlSRjiUo",
-              "duration": "00:59"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "showInfo": false,
-      "id": "guia-movimientos-basicos",
-      "name": "Cursos",
-      "imageUrl": "/images/welcome/bienvenida-2.jpg",
-      "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
-      "category": "Fitness",
-      "modules": [
-        {
-          "id": "exp-001",
-          "category": "Jalones",
-          "subcategory": "General",
-          "duration": "1 hora",
-          "name": "Cómo iniciar en el gimnasio",
-          "url": "https://www.youtube.com/shorts/paBNx6zShiA",
-          "exercises": [
-            {
-              "name": "Parte 1: Jalones",
-              "url": "https://youtu.be/nyC_9PdCPVE?si=XtMmu_hUrqhe5gsJ",
-              "duration": "03:13",
-              "visible": true,
-              "id": "exp-001-01"
-            },
-            {
-              "name": "Parte 2: Empujones",
-              "url": "https://youtu.be/myxBE3JWLLY?si=UGgoWgpuXgdLTAHm",
-              "duration": "03:37",
-              "id": "exp-001-02",
-              "visible": true
-            },
-            {
-              "name": "Parte 3: Complementos",
-              "url": "https://youtu.be/NBGYQ2E6ef8?si=K5B-6cjntUqlcdPr",
-              "duration": "03:49",
-              "id": "exp-001-03",
-              "visible": true
-            },
-            {
-              "name": "Parte 4: Tren Inferior",
-              "url": "https://youtu.be/xR9VgqKAz_8?si=C60bRECedJvHF3QZ",
-              "duration": "05:25",
-              "id": "exp-001-04",
-              "visible": true
-            },
-            {
-              "name": "Parte 5: Recomendaciones",
-              "url": "https://youtu.be/YO1BsJIuids?si=EmuMtcv4gRknLm5J",
-              "duration": "03:49",
-              "id": "exp-001-05",
-              "visible": true
-            }
-          ],
-          "visible": true
-        },
-        {
-          "id": "exp-002",
-          "category": "Test",
-          "subcategory": "Curso",
-          "duration": "3 horas",
-          "name": "Nuevo Curso de prueba",
-          "exercises": [
-            {
-              "url": "https://www.youtube.com/watch?v=y9-_6xBgJbE&pp=ygUJZWplcmNpY2lv",
-              "name": "Rutina de ejercicio para PRINCIPIANTES En Casa (20 Minutos) Empieza de cero a hacer ejercicio",
-              "duration": "20 min",
-              "id": "exp-002-01",
-              "visible": true
-            },
-            {
-              "url": "https://www.youtube.com/watch?v=C8NcifEVk0Y&pp=ygUJZWplcmNpY2lv",
-              "name": "Rutina de ABDOMEN & CARDIO 🔥 Quema Grasa y Tonifica en Tiempo Récord",
-              "duration": "23 min",
-              "id": "exp-002-02",
-              "visible": true
-            },
-            {
-              "url": "https://www.youtube.com/watch?v=WnoCFnIiQHw&pp=ygUJZWplcmNpY2lv",
-              "name": "🔥 RUTINA para ADELGAZAR - Ejercicios para PERDER PESO en CASA 🏠",
-              "duration": "26 min",
-              "id": "exp-002-03",
-              "visible": false
-            },
-            {
-              "url": "https://www.youtube.com/watch?v=RPfxeHWm8Oo",
-              "name": "Rutina ABDOMEN en Casa -PRINCIPIANTES-🍫🔥 [10min Ejercicios INTENSOS]",
-              "duration": "10 min",
-              "id": "exp-002-04",
-              "visible": true
-            },
-            {
-              "url": "https://www.youtube.com/watch?v=LbD1Cmo3zRQ&pp=ugUEEgJlcw%3D%3D",
-              "name": "Así TRANSFORMA el DEPORTE nuestro CUERPO",
-              "duration": "14 min",
-              "id": "exp-002-05",
-              "visible": true
-            }
-          ],
-          "visible": false
-        },
-        {
-          "visible": true,
-          "id": "CC01",
-          "name": "Cursos cortos ",
-          "exercises": [
-            {
-              "visible": true,
-              "id": "BMG",
-              "name": "Buenos modales en el gimnasio ",
-              "url": "https://www.youtube.com/watch?v=Og5o6FlNGgg&t=5s",
-              "duration": "02:25"
-            },
-            {
-              "visible": true,
-              "id": "TRX",
-              "name": "Cómo fabricar un TRX en casa",
-              "url": "https://www.youtube.com/shorts/-KLRlSRjiUo",
-              "duration": "00:59"
-            }
-          ]
-        }
-      ],
-      "visible": true
-    }
-  ]
-}
+[
+  {
+    "showInfo": false,
+    "visible": true,
+    "id": "10-min-dia",
+    "name": "10 minutos al día",
+    "modules": [
+      {
+        "visible": true,
+        "id": "DMInicio",
+        "name": "Inicio",
+        "exercises": [
+          {
+            "visible": true,
+            "id": "In01",
+            "name": "Cómo usar las rutinas",
+            "url": "https://www.youtube.com/watch?v=Zs326nJb8H4",
+            "duration": "06:19"
+          },
+          {
+            "visible": true,
+            "id": "In02",
+            "name": "Recomendaciones finales ",
+            "url": "https://www.youtube.com/watch?v=PlZnCQIMU7E",
+            "duration": "01:45"
+          }
+        ]
+      },
+      {
+        "visible": true,
+        "id": "dmad01",
+        "name": "Rutina A (Fácil)",
+        "url": "",
+        "exercises": [
+          {
+            "visible": true,
+            "id": "Ej01",
+            "name": "¡Comencemos!",
+            "url": "https://www.youtube.com/watch?v=dfkb9xi_gqg",
+            "duration": "10:16"
+          },
+          {
+            "visible": true,
+            "id": "Sil01",
+            "name": "Rutina sin audio - Solo temporizador",
+            "url": "https://www.youtube.com/watch?v=en78taN3u90",
+            "duration": "10:16"
+          },
+          {
+            "visible": true,
+            "id": "Tut01",
+            "name": "Tutorial Toques al suelo",
+            "url": "https://www.youtube.com/watch?v=Er9dvX_X1t0",
+            "duration": "01:07"
+          },
+          {
+            "visible": true,
+            "id": "Tut02",
+            "name": "Tutorial Toques a dos manos",
+            "url": "https://www.youtube.com/watch?v=9Kq-bm_wrMo",
+            "duration": "01:53"
+          },
+          {
+            "visible": true,
+            "id": "Tut03",
+            "name": "Tutorial Sentadillas",
+            "url": "https://www.youtube.com/watch?v=8I4LxTcxr2s",
+            "duration": "00:43"
+          },
+          {
+            "visible": true,
+            "id": "Tut04",
+            "name": "Tutorial Plancha ",
+            "url": "https://www.youtube.com/watch?v=G88dCCsJ68w",
+            "duration": "00:46"
+          }
+        ]
+      },
+      {
+        "visible": true,
+        "id": "dmad02",
+        "name": "Rutina B (Intermedio)",
+        "url": "",
+        "exercises": [
+          {
+            "visible": true,
+            "id": "Ej001",
+            "name": "¡Comencemos!",
+            "url": "https://www.youtube.com/watch?v=ckjoK4Q1EuQ",
+            "duration": "10:17"
+          },
+          {
+            "visible": true,
+            "name": "Rutina sin audio - Solo temporizador",
+            "id": "Sil001",
+            "url": "https://www.youtube.com/watch?v=9yTF8IP7Bwk",
+            "duration": "10:17"
+          },
+          {
+            "visible": true,
+            "id": "Tut001",
+            "name": "Tutorial Toques a la silla ",
+            "url": "https://www.youtube.com/watch?v=j8DycKn51Ec",
+            "duration": "00:44"
+          },
+          {
+            "visible": true,
+            "id": "Tut002",
+            "name": "Tutorial Flexiones",
+            "url": "https://www.youtube.com/watch?v=DG6nHuBkB6o",
+            "duration": "00:59"
+          },
+          {
+            "visible": true,
+            "id": "Tut003",
+            "name": "Tutorial Flexiones en O",
+            "url": "https://www.youtube.com/watch?v=-WRLOWN7hJc",
+            "duration": "00:38"
+          },
+          {
+            "visible": true,
+            "id": "Tut004",
+            "name": "Tutorial Burpees",
+            "url": "https://www.youtube.com/watch?v=kTjFQCucE2g",
+            "duration": "01:04"
+          }
+        ]
+      },
+      {
+        "visible": true,
+        "id": "dmad03",
+        "name": "Rutina C (Avanzado)",
+        "url": "",
+        "duration": "",
+        "exercises": [
+          {
+            "visible": true,
+            "id": "Ej0001",
+            "name": "¡Comencemos!",
+            "url": "https://www.youtube.com/watch?v=gNAfIZ-eCoc",
+            "duration": "10:18"
+          },
+          {
+            "visible": true,
+            "id": "Sil0001",
+            "name": "Rutina sin audio - Solo temporizador",
+            "url": "https://www.youtube.com/watch?v=V-d8XmMeROE",
+            "duration": "10:18"
+          },
+          {
+            "visible": true,
+            "id": "Tut0001",
+            "name": "Tutorial Sentadilla Shaolin",
+            "url": "https://www.youtube.com/watch?v=Av4tmn9U9eY",
+            "duration": "01:03"
+          },
+          {
+            "visible": true,
+            "id": "Tut0002",
+            "name": "Tutorial Flexiones en O",
+            "url": "https://www.youtube.com/watch?v=-WRLOWN7hJc",
+            "duration": "00:38"
+          },
+          {
+            "visible": true,
+            "id": "Tut0003",
+            "name": "Tutorial Burpees ",
+            "url": "https://www.youtube.com/watch?v=kTjFQCucE2g",
+            "duration": "01:04"
+          },
+          {
+            "visible": true,
+            "id": "Tut0004",
+            "name": "Tutorial Plancha ",
+            "url": "https://www.youtube.com/watch?v=G88dCCsJ68w",
+            "duration": "00:46"
+          }
+        ]
+      },
+      {
+        "visible": true,
+        "id": "dmad04",
+        "name": "Rutina D (Experto)",
+        "exercises": [
+          {
+            "visible": true,
+            "id": "Ej00001",
+            "name": "¡Comencemos!",
+            "url": "https://www.youtube.com/watch?v=WyybY4y0c1E",
+            "duration": "10:16"
+          },
+          {
+            "visible": true,
+            "id": "Sil00001",
+            "name": "Rutina sin audio - Solo temporizador",
+            "url": "https://www.youtube.com/watch?v=W7QvmLITJ8U",
+            "duration": "10:16"
+          },
+          {
+            "visible": true,
+            "id": "Tut00001",
+            "name": "Tutorial Jalones dorsales básicos ",
+            "url": "https://www.youtube.com/watch?v=3Borr461Wps",
+            "duration": "00:35"
+          },
+          {
+            "visible": true,
+            "id": "Tut00002",
+            "name": "Tutorial Jalones dorsales avanzados",
+            "url": "https://www.youtube.com/watch?v=Intls5Frp-c",
+            "duration": "00:58"
+          },
+          {
+            "visible": true,
+            "id": "Tut00003",
+            "name": "Tutorial Planchas con escaladores ",
+            "url": "https://www.youtube.com/watch?v=FJEU-c34J0c",
+            "duration": "00:24"
+          },
+          {
+            "visible": true,
+            "id": "Tut00004",
+            "name": "Tutorial Cómo hacer un TRX",
+            "url": "https://www.youtube.com/shorts/-KLRlSRjiUo",
+            "duration": "00:59"
+          }
+        ]
+      }
+    ],
+    "locked": false
+  },
+  {
+    "modules": [
+      {
+        "id": "exp-001",
+        "category": "Jalones",
+        "subcategory": "General",
+        "duration": "1 hora",
+        "name": "Cómo iniciar en el gimnasio",
+        "url": "https://www.youtube.com/shorts/paBNx6zShiA",
+        "exercises": [
+          {
+            "name": "Parte 1: Jalones",
+            "url": "https://youtu.be/nyC_9PdCPVE?si=XtMmu_hUrqhe5gsJ",
+            "duration": "03:13",
+            "visible": true,
+            "id": "exp-001-01"
+          },
+          {
+            "name": "Parte 2: Empujones",
+            "url": "https://youtu.be/myxBE3JWLLY?si=UGgoWgpuXgdLTAHm",
+            "duration": "03:37",
+            "id": "exp-001-02",
+            "visible": true
+          },
+          {
+            "name": "Parte 3: Complementos",
+            "url": "https://youtu.be/NBGYQ2E6ef8?si=K5B-6cjntUqlcdPr",
+            "duration": "03:49",
+            "id": "exp-001-03",
+            "visible": true
+          },
+          {
+            "name": "Parte 4: Tren Inferior",
+            "url": "https://youtu.be/xR9VgqKAz_8?si=C60bRECedJvHF3QZ",
+            "duration": "05:25",
+            "id": "exp-001-04",
+            "visible": true
+          },
+          {
+            "name": "Parte 5: Recomendaciones",
+            "url": "https://youtu.be/YO1BsJIuids?si=EmuMtcv4gRknLm5J",
+            "duration": "03:49",
+            "id": "exp-001-05",
+            "visible": true
+          }
+        ],
+        "visible": true
+      },
+      {
+        "id": "exp-002",
+        "category": "Test",
+        "subcategory": "Curso",
+        "duration": "3 horas",
+        "name": "Nuevo Curso de prueba",
+        "exercises": [
+          {
+            "url": "https://www.youtube.com/watch?v=y9-_6xBgJbE&pp=ygUJZWplcmNpY2lv",
+            "name": "Rutina de ejercicio para PRINCIPIANTES En Casa (20 Minutos) Empieza de cero a hacer ejercicio",
+            "duration": "20 min",
+            "id": "exp-002-01",
+            "visible": true
+          },
+          {
+            "url": "https://www.youtube.com/watch?v=C8NcifEVk0Y&pp=ygUJZWplcmNpY2lv",
+            "name": "Rutina de ABDOMEN & CARDIO 🔥 Quema Grasa y Tonifica en Tiempo Récord",
+            "duration": "23 min",
+            "id": "exp-002-02",
+            "visible": true
+          },
+          {
+            "url": "https://www.youtube.com/watch?v=WnoCFnIiQHw&pp=ygUJZWplcmNpY2lv",
+            "name": "🔥 RUTINA para ADELGAZAR - Ejercicios para PERDER PESO en CASA 🏠",
+            "duration": "26 min",
+            "id": "exp-002-03",
+            "visible": false
+          },
+          {
+            "url": "https://www.youtube.com/watch?v=RPfxeHWm8Oo",
+            "name": "Rutina ABDOMEN en Casa -PRINCIPIANTES-🍫🔥 [10min Ejercicios INTENSOS]",
+            "duration": "10 min",
+            "id": "exp-002-04",
+            "visible": true
+          },
+          {
+            "url": "https://www.youtube.com/watch?v=LbD1Cmo3zRQ&pp=ugUEEgJlcw%3D%3D",
+            "name": "Así TRANSFORMA el DEPORTE nuestro CUERPO",
+            "duration": "14 min",
+            "id": "exp-002-05",
+            "visible": true
+          }
+        ],
+        "visible": false
+      },
+      {
+        "visible": true,
+        "id": "CC01",
+        "name": "Cursos cortos ",
+        "exercises": [
+          {
+            "visible": true,
+            "id": "BMG",
+            "name": "Buenos modales en el gimnasio ",
+            "url": "https://www.youtube.com/watch?v=Og5o6FlNGgg&t=5s",
+            "duration": "02:25"
+          },
+          {
+            "visible": true,
+            "id": "TRX",
+            "name": "Cómo fabricar un TRX en casa",
+            "url": "https://www.youtube.com/shorts/-KLRlSRjiUo",
+            "duration": "00:59"
+          }
+        ]
+      }
+    ],
+    "locked": true,
+    "showInfo": false,
+    "name": "Cursos",
+    "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+    "visible": true,
+    "imageUrl": "/images/welcome/bienvenida-2.jpg",
+    "id": "guia-movimientos-basicos",
+    "category": "Fitness"
+  }
+]

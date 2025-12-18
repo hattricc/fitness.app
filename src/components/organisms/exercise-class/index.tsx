@@ -25,6 +25,8 @@ const ExerciseClass: React.FC<ExerciseClassProps> = ({
     }
   };
 
+  console.log(module);
+
   return (
     <>
       {module.exercises.map((exercise, index) => {

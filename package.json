@@ -36,7 +36,8 @@
     "dev": "vite",
     "build": "tsc && node scripts/cms-to-array.mjs && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:courses": "node scripts/cms-to-array.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

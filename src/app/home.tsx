@@ -15,26 +15,39 @@ import linksData from '../data/home.json';
 import YouTubeModal from '../components/molecules/youtube-modal';
 import Footer from '@/components/organisms/footer';
 
-const Home = () => {
-  const [showSplash, setShowSplash] = useState(true);
+interface HomeProps {
+}
+
+const Home: React.FC<HomeProps> = ({
+}) => {
+  // Check if splash has been shown before using localStorage
+  const [showSplash, setShowSplash] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return !localStorage.getItem('hasSeenSplash');
+    }
+    return true;
+  });
   const [open, setOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<string | undefined>(undefined);
-  
+
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleSplashEnd = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('hasSeenSplash', 'true');
+    }
     setShowSplash(false);
   };
 
-  // Hide splash screen when navigating away from home
+  // Cleanup effect to ensure we don't have memory leaks
   useEffect(() => {
-    if (location.pathname !== '/') {
-      setShowSplash(false);
-    }
-  }, [location.pathname]);
+    return () => {
+      // Any cleanup if needed when component unmounts
+    };
+  }, []);
 
   if (showSplash) {
     return (
@@ -93,7 +106,6 @@ const Home = () => {
     flexGrow: 1
   }
 
-
   const courses = coursesData as unknown as ExerciseRoutine[];
   const links = linksData as unknown as ExerciseRoutine[];
 
@@ -101,7 +113,7 @@ const Home = () => {
     if (item.directLink) {
       return handleOpenModal(item.url);
     }
-    
+
     const pdfUrl = (item as any)?.pdfUrl as string | undefined;
     if (pdfUrl) {
       window.open(pdfUrl, '_blank', 'noopener,noreferrer');
@@ -133,7 +145,7 @@ const Home = () => {
 
           <Button
             variant="contained"
-              onClick={() => {
+            onClick={() => {
               navigate('/combate-sagrado')
             }}
             sx={welcomeButtonStyle}
@@ -150,10 +162,10 @@ const Home = () => {
 
         <Box sx={boxExerciseCardStyle}>
           {courses.map((item) => (
-            <ExerciseCard key={item.id} exercise={item} onClick={() => goToCourse(item)} />
+            <ExerciseCard key={item.id} exercise={item as ExerciseRoutine} onClick={() => goToCourse(item)} />
           ))}
           {links.map((item) => (
-            <ExerciseCard key={item.id} exercise={item} onClick={() => goToCourse(item)} />
+            <ExerciseCard key={item.id} exercise={item as ExerciseRoutine} onClick={() => goToCourse(item)} />
           ))}
         </Box>
 

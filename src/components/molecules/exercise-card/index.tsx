@@ -1,20 +1,17 @@
 import React from 'react';
-import { Box, Card, Typography, Chip, Stack, IconButton, useTheme, useMediaQuery } from '@mui/material';
-import { AccessTime, Whatshot, Star, PlayArrow, InfoOutlined } from '@mui/icons-material';
+import { Box, Card, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { ExerciseRoutine } from '@/types/exercise';
 
 interface ExerciseCardProps {
   exercise: ExerciseRoutine;
   onClick: (exercise: ExerciseRoutine) => void;
   showDetails?: boolean;
-  isCourse?: boolean;
 }
 
 const ExerciseCard: React.FC<ExerciseCardProps> = ({
   exercise,
   onClick = () => { },
-  showDetails = false,
-  isCourse = true
+  showDetails = false
 }) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));

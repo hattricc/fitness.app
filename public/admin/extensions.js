@@ -5,24 +5,34 @@ if (window.CMS) {
         name: 'entry-published',
         handler: async ({ entry }) => {
             try {
-                // Solo procesamos nuestra colección/archivo
                 if (entry?.get('collection') !== 'coursesFile') return;
 
-                // Ejemplo simple de "diff": enviamos todo el contenido
-                const data = entry?.get('data')?.toJS?.() || {};
-                // Puedes calcular un diff más fino si quieres (último curso editado, etc.)
+                // Get the complete data including all fields
+                const data = {
+                    items: entry.getIn(['data', 'items'], []).toJS().map(item => ({
+                        ...item,
+                        // Ensure all top-level fields are included
+                        showInfo: item.showInfo || false,
+                        locked: item.locked || false,
+                        visible: item.visible !== false, // default to true if not set
+                        // Preserve existing modules structure
+                        modules: (item.modules || []).map(module => ({
+                            ...module,
+                            visible: module.visible !== false,
+                            exercises: module.exercises || []
+                        }))
+                    }))
+                };
 
-                await fetch('/.netlify/functions/log-change', {
+                // Send to your API or save to file
+                await fetch('/.netlify/functions/save-courses', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: 'publish',
-                        courseId: null, // si controlas cuál se tocó, envíalo aquí
-                        diff: data
-                    })
+                    body: JSON.stringify(data)
                 });
+
             } catch (e) {
-                console.error('Audit log failed', e);
+                console.error('Error saving course data:', e);
             }
         }
     });

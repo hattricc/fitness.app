@@ -15,7 +15,7 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false }) => {
   const workout = id ? getWorkoutById(id) : null;
   const [expandedModule, setExpandedModule] = useState<string | false>(false);
 
-  const handleAccordionChange = (moduleId: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+  const handleAccordionChange = (moduleId: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
     setExpandedModule(isExpanded ? moduleId : false);
   };
 
