@@ -1,95 +1,119 @@
 // src/app/pages/SubscriptionPage.tsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Box, Typography, Button, Container, Paper, Alert } from '@mui/material';
+import React from 'react';
+import { Box, Typography, Container, List, ListItem, ListItemIcon } from '@mui/material';
+import { Check as CheckIcon } from '@mui/icons-material';
 import { LiveesPayment } from '../../components/molecules/livees-payment/livees-payment';
+import { styled } from '@mui/material/styles';
+
+const PriceContainer = styled(Box)({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  margin: '24px 0',
+  padding: '16px',
+  border: '1px solid #E0E0E0',
+  borderRadius: '8px',
+  backgroundColor: '#FAFAFA',
+});
 
 const SubscriptionPage: React.FC = () => {
-    const [plan, setPlan] = useState<string | null>(null);
-    const [error, setError] = useState<string | null>(null);
-    const navigate = useNavigate();
+  const price = 300;
+  const comparePrice = 400;
 
-    // Mock product ID - replace with your actual product ID from Livees
-    const productId = '20aed83a-e811-42b2-948f-a8d1a22d1bbf';
+  return (
+    <Box sx={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
+      <Container maxWidth="sm" sx={{ py: 4 }}>
+        <Typography variant="h4" component="h1" align="left" sx={{ 
+          color: '#1B1B1B', 
+          mb: 2,
+          fontWeight: 700
+        }}>
+          Acceso Permanente
+        </Typography>
 
-    const handlePaymentSuccess = (data: any) => {
-        console.log('Payment successful:', data);
-        navigate('/pago-exitoso');
-    };
+        <Typography variant="h5" align="left" sx={{ 
+          color: '#363B5F', 
+          mb: 2,
+          fontWeight: 600
+        }}>
+          Por solo el valor de un mes en el gimnasio
+        </Typography>
 
-    const handlePaymentError = (error: any) => {
-        console.error('Payment error:', error);
-        setError('Ocurrió un error al procesar el pago. Por favor, inténtalo de nuevo.');
-    };
+        <Typography variant="body2" sx={{ 
+          color: '#E57952', 
+          mb: 3,
+          fontWeight: 500
+        }}>
+          Tu suscripción no caducará ni requerirá renovación mensual.
+        </Typography>
 
-    return (
-        <Container maxWidth="md" sx={{ py: 4 }}>
-            <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
-                <Typography variant="h4" component="h1" gutterBottom align="center" fontWeight="bold">
-                    Suscripción Premium
-                </Typography>
+        <Box sx={{ my: 3 }}>
+          <Typography variant="h6" sx={{ 
+            color: '#1B1B1B', 
+            mb: 2,
+            fontWeight: 600
+          }}>
+            Beneficios de la suscripción
+          </Typography>
+          <List sx={{ p: 0 }}>
+            {[
+              "Todas las rutinas de entrenamiento.",
+              "Cursos didácticos con explicaciones sencillas.",
+              "Actualizaciones periódicas del material."
+            ].map((item, index) => (
+              <ListItem key={index} sx={{ px: 0, py: 0.5 }}>
+                <ListItemIcon sx={{ minWidth: 32, color: '#E57952' }}>
+                  <CheckIcon fontSize="small" />
+                </ListItemIcon>
+                <Typography variant="body1" sx={{ color: '#1B1B1B' }}>{item}</Typography>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
 
-                <Typography variant="body1" paragraph>
-                    Desbloquea todas las funciones premium con nuestra suscripción mensual.
-                </Typography>
+        <PriceContainer>
+          <Box>
+            <Typography variant="h6" sx={{ color: '#1B1B1B', fontWeight: 600 }}>Acceso de por vida</Typography>
+            <Typography variant="body2" sx={{ color: '#9BB9F1' }}>
+              Un solo pago, para siempre
+            </Typography>
+          </Box>
+          <Box sx={{ textAlign: 'right' }}>
+            <Typography variant="h5" sx={{ color: '#E57952', fontWeight: 700 }}>
+              Bs. {price}
+            </Typography>
+            <Typography variant="body2" sx={{ color: '#9BB9F1', textDecoration: 'line-through' }}>
+              Bs {comparePrice}.00/mes
+            </Typography>
+          </Box>
+        </PriceContainer>
 
-                {error && (
-                    <Alert severity="error" sx={{ mb: 3 }}>
-                        {error}
-                    </Alert>
-                )}
+        <Typography variant="caption" display="block" sx={{ 
+          color: '#9BB9F1', 
+          textAlign: 'left', 
+          mt: 1,
+          mb: 2
+        }}>
+          El costo de un entrenador personal: Bs {comparePrice}.00/mes
+        </Typography>
 
-                <Box sx={{ mt: 4, textAlign: 'center' }}>
-                    <LiveesPayment
-                        productId={productId}
-                        billingInfo={{
-                            customer_name: 'Nombre del Cliente', // Get from user input or auth
-                            customer_email: 'cliente@ejemplo.com', // Get from user input or auth
-                            customer_phone: '1234567890' // Get from user input
-                        }}
-                        invoiceInfo={{
-                            description: 'Suscripción Mensual Premium',
-                            amount: '29.99' // Should match your Livees product price
-                        }}
-                    />
-                </Box>
-
-                <Box sx={{ mt: 4 }}>
-                    <Typography variant="h6" gutterBottom>
-                        Beneficios de la suscripción:
-                    </Typography>
-                    <ul>
-                        <li>Acceso completo a todos los entrenamientos</li>
-                        <li>Planes de entrenamiento personalizados</li>
-                        <li>Soporte prioritario</li>
-                        <li>Sin anuncios</li>
-                    </ul>
-                </Box>
-            </Paper>
-        </Container>
-    );
+        <Box sx={{ mt: 4 }}>
+          <LiveesPayment
+            productId="20aed83a-e811-42b2-948f-a8d1a22d1bbf"
+            billingInfo={{
+              customer_name: 'Nombre del Cliente',
+              customer_email: 'cliente@ejemplo.com',
+              customer_phone: '1234567890'
+            }}
+            invoiceInfo={{
+              description: 'Suscripción de Acceso Permanente',
+              amount: price.toString()
+            }}
+          />
+        </Box>
+      </Container>
+    </Box>
+  );
 };
 
 export default SubscriptionPage;
-
-
-// TODO: 1. Add loading state while payment is being processed
-// TODO: 2. Add form validation for billing information
-// TODO: 3. Fetch subscription plans from an API instead of hardcoding
-// TODO: 4. Add user authentication check and pre-fill user data
-// TODO: 5. Implement different subscription tiers (monthly/yearly)
-// TODO: 6. Add success/error modals instead of just console logs
-// TODO: 7. Add loading skeletons for better UX
-// TODO: 8. Implement i18n for multi-language support
-// TODO: 9. Add terms and conditions checkbox
-// TODO: 10. Add payment method selection if multiple are available
-// TODO: 11. Implement retry logic for failed payments
-// TODO: 12. Add analytics tracking for subscription events
-// TODO: 13. Add test IDs for better testing
-// TODO: 14. Implement responsive design improvements
-// TODO: 15. Add success animation after payment
-// TODO: 16. Add subscription management section for existing subscribers
-// TODO: 17. Implement coupon code functionality
-// TODO: 18. Add FAQ section about billing and subscriptions
-// TODO: 19. Add currency selection if international payments are supported
-// TODO: 20. Implement proper error boundaries

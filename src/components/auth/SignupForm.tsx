@@ -3,8 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/auth/AuthContext';
 import { useAuthForm } from '@/hooks/useAuthForm';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/Input';
+import { Button } from '@/components/ui/MakButton';
+import { Input } from '@/components/ui/MakInput';
 
 export const SignupForm = () => {
   const navigate = useNavigate();

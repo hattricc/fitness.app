@@ -22,6 +22,9 @@ import { setUserSession, UserSession } from '@/lib/userSession'
 import SignOut from '@/components/organisms/signout/signout';
 import SubscriptionPage from './pages/SubscriptionPage';
 
+import { MakModal } from '@/components/molecules/MakModal/MakModal';
+
+
 function App() {
   const [hasIntroEnded, setHasIntroEnded] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -30,6 +33,9 @@ function App() {
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
   const [workouts] = useState<WorkoutRoutine[]>(getAllWorkouts());
   const [user, setUser] = useState<UserSession | null>(null);
+
+  const [openModal, setOpenModal] = useState(false);
+  
 
   const setSession = useCallback((user: UserSession | null) => {
     setUserSession(user);
@@ -120,7 +126,7 @@ function App() {
       element: <PagoExitosoPage />
     },
     {
-      path: "/suscripcion",
+      path: "/subscription",
       element: <SubscriptionPage />
     },
     {
@@ -139,9 +145,7 @@ function App() {
         <CssBaseline />
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
           <Header user={user} />
-
-          {/* <SubscriptionPage /> */}
-
+          <MakModal />
 
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             <Routes>
@@ -150,6 +154,7 @@ function App() {
               ))}
             </Routes>
           </Box>
+          {/* <MakModal initialOpen={openModal} onClose={() => setOpenModal(false)} /> */}
         </Box>
       </ThemeProvider>
     </AuthProvider>

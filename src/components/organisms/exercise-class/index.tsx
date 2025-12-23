@@ -20,9 +20,7 @@ const ExerciseClass: React.FC<ExerciseClassProps> = ({
   };
 
   const handleExerciseClick = (videoUrl: string, exercise: Exercise) => {
-    if (!exercise.locked) {
-      setSelectedVideo(videoUrl);
-    }
+    setSelectedVideo(videoUrl);
   };
 
   console.log(module);

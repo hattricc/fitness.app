@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/auth/AuthContext';
 import { useAuthForm } from '@/hooks/useAuthForm';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/Input';
+import { Button } from '@/components/ui/MakButton';
+import { Input } from '@/components/ui/MakInput';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
 
 export const LoginForm = () => {

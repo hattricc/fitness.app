@@ -20,18 +20,29 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({
 }) => {
-  // Check if splash has been shown before using localStorage
   const [showSplash, setShowSplash] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
-      return !localStorage.getItem('hasSeenSplash');
+      const lastSeen = localStorage.getItem('lastSeenSplash');
+      const now = Date.now();
+      const thirtyMinutes = 60 * 24 * 60 * 1000;
+
+      return !lastSeen || (now - parseInt(lastSeen, 10)) > thirtyMinutes;
     }
     return true;
   });
+
+  const handleCloseSplash = () => {
+    setShowSplash(false);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('lastSeenSplash', Date.now().toString());
+    }
+    setOpen(false);
+  };
+
   const [open, setOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<string | undefined>(undefined);
 
   const navigate = useNavigate();
-  const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -41,6 +52,16 @@ const Home: React.FC<HomeProps> = ({
     }
     setShowSplash(false);
   };
+  
+  const handleOpenModal = (url: string | undefined) => {
+    setOpen(true);
+    setSelectedVideo(url);
+  };
+  const handleCloseModal = () => {
+    setOpen(false);
+    setSelectedVideo(undefined);
+  };
+
 
   // Cleanup effect to ensure we don't have memory leaks
   useEffect(() => {
@@ -54,13 +75,6 @@ const Home: React.FC<HomeProps> = ({
       <SplashScreen onAnimationEnd={handleSplashEnd} />
     );
   }
-
-  const handleOpenModal = (url: string | undefined) => {
-    setOpen(true);
-    setSelectedVideo(url);
-  };
-  const handleCloseModal = () => setOpen(false);
-
   const welcomeButtonStyle = {
     backgroundColor: '#E57952',
     color: 'white',
@@ -136,7 +150,7 @@ const Home: React.FC<HomeProps> = ({
             variant="contained"
             onClick={() => {
               handleOpenModal('https://www.youtube.com/watch?v=T8G37J9bdrY?autoplay=1');
-              setTimeout(handleCloseModal, 85000 + 2000);
+              setTimeout(handleCloseSplash, 85000 + 2000);
             }}
             sx={welcomeButtonStyle}
           >
