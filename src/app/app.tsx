@@ -84,7 +84,7 @@ function App() {
     },
     {
       path: "/workout/:id",
-      element: <Workout onSelectExercise={handleExerciseSelect} />,
+      element: <Workout setOpenModal={setOpenModal} onSelectExercise={handleExerciseSelect} />,
     },
     {
       path: "/exercise/:id",
@@ -145,7 +145,7 @@ function App() {
         <CssBaseline />
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
           <Header user={user} />
-          <MakModal />
+          <MakModal openModal={openModal} setOpenModal={setOpenModal} />
 
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             <Routes>

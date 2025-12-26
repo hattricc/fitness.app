@@ -19,7 +19,7 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenModal
   const handleAccordionChange = (moduleId: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
     setExpandedModule(isExpanded ? moduleId : false);
 
-    if (workout?.locked) {
+    if (workout?.locked && isExpanded) {
       setOpenModal?.(true);
       return;
     }

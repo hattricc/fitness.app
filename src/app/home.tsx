@@ -24,20 +24,13 @@ const Home: React.FC<HomeProps> = ({
     if (typeof window !== 'undefined') {
       const lastSeen = localStorage.getItem('lastSeenSplash');
       const now = Date.now();
-      const thirtyMinutes = 60 * 24 * 60 * 1000;
+      const oneDay = 24 * 60 * 60 * 1000;
 
-      return !lastSeen || (now - parseInt(lastSeen, 10)) > thirtyMinutes;
+      return !lastSeen || (now - parseInt(lastSeen, 10)) > oneDay;
     }
     return true;
   });
 
-  const handleCloseSplash = () => {
-    setShowSplash(false);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('lastSeenSplash', Date.now().toString());
-    }
-    setOpen(false);
-  };
 
   const [open, setOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<string | undefined>(undefined);
@@ -46,13 +39,13 @@ const Home: React.FC<HomeProps> = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const handleSplashEnd = () => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('hasSeenSplash', 'true');
-    }
+  const handleCloseSplash = () => {
     setShowSplash(false);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('lastSeenSplash', Date.now().toString());
+    }
   };
-  
+
   const handleOpenModal = (url: string | undefined) => {
     setOpen(true);
     setSelectedVideo(url);
@@ -72,7 +65,7 @@ const Home: React.FC<HomeProps> = ({
 
   if (showSplash) {
     return (
-      <SplashScreen onAnimationEnd={handleSplashEnd} />
+      <SplashScreen onAnimationEnd={handleCloseSplash} />
     );
   }
   const welcomeButtonStyle = {
@@ -150,7 +143,7 @@ const Home: React.FC<HomeProps> = ({
             variant="contained"
             onClick={() => {
               handleOpenModal('https://www.youtube.com/watch?v=T8G37J9bdrY?autoplay=1');
-              setTimeout(handleCloseSplash, 85000 + 2000);
+              setTimeout(handleCloseModal, 85000 + 2000);
             }}
             sx={welcomeButtonStyle}
           >

@@ -39,10 +39,15 @@ const StyledButton = styled(Button)({
     }
 });
 
-export function MakModal() {
-    const [open, setOpen] = useState(false);
-    const price = 300;
-    const comparePrice = 400;
+interface MakModalProps {
+    openModal: boolean;
+    setOpenModal: (value: boolean) => void;
+}
+
+export function MakModal({ openModal, setOpenModal } : MakModalProps) {
+    // const [open, setOpen] = useState(false);
+    const price = 499;
+    const comparePrice = 700;
     const navigate = useNavigate();
 
     return (
@@ -63,8 +68,8 @@ export function MakModal() {
             </Button> */}
 
             <Dialog
-                open={open}
-                onClose={() => setOpen(false)}
+                open={openModal}
+                onClose={() => setOpenModal(false)}
                 maxWidth="sm"
                 fullWidth
                 PaperProps={{
@@ -85,36 +90,9 @@ export function MakModal() {
                     Acceso Permanente
                 </DialogTitle>
                 <DialogContent>
-                    <Typography variant="h5" align="center" sx={{ color: '#9BB9F1', mb: 2 }}>
-                        Por solo el valor de un mes en el gimnasio
-                    </Typography>
-
                     <Typography variant="body2" align="center" sx={{ color: '#E57952', mb: 3 }}>
                         Tu suscripción no caducará ni requerirá renovación mensual.
                     </Typography>
-
-                    <Box sx={{ my: 3 }}>
-                        <Typography variant="h6" sx={{ color: '#FFFFFF', mb: 2 }}>
-                            Beneficios de la suscripción
-                        </Typography>
-                        <List>
-                            {[
-                                // "Acceso completo a todas las rutinas de entrenamiento.",
-                                // "Cursos didácticos con explicaciones sencillas sobre movimiento y fuerza.",
-                                // "Actualizaciones periódicas de todo el material instructivo."
-                                "Todas las rutinas de entrenamiento.",
-                                "Cursos didácticos con explicaciones sencillas.",
-                                "Actualizaciones periódicas del material."
-                            ].map((item, index) => (
-                                <ListItem key={index} sx={{ px: 0, py: 0.5 }}>
-                                    <ListItemIcon sx={{ minWidth: 32, color: '#E57952' }}>
-                                        <CheckIcon fontSize="small" />
-                                    </ListItemIcon>
-                                    <Typography variant="body1" sx={{ color: '#FFFFFF' }}>{item}</Typography>
-                                </ListItem>
-                            ))}
-                        </List>
-                    </Box>
 
                     <PriceContainer>
                         <Box>
@@ -141,7 +119,7 @@ export function MakModal() {
                         variant="contained"
                         size="large"
                         onClick={() => {
-                            setOpen(false)
+                            setOpenModal(false)
                             navigate('/subscription')
                         }}
                     >

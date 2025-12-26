@@ -3,12 +3,18 @@ import { supabase } from "../../../lib/supabase";
 
 interface LiveesPaymentProps {
     productId: string;
+    onSuccess: () => void;
+    onCancel: () => void;
+    price: number;
     billingInfo?: Record<string, any>;
     invoiceInfo?: Record<string, any>;
 }
 
 export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
     productId,
+    price,
+    onSuccess,
+    onCancel,
     billingInfo = {},
     invoiceInfo = {},
 }) => {
@@ -64,7 +70,8 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
         // Campos obligatorios para Livees
         appendField("_", livees.token_comercio);
         appendField("__", livees.llave_recurso);
-        appendField("MontoTotal", payment.amount);
+        // appendField("MontoTotal", payment.amount);
+        appendField("MontoTotal", price);
         appendField("invno", payment.invno);
         appendField("postURL", livees.postURL);
 

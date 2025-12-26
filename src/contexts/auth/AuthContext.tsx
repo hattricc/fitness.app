@@ -21,11 +21,12 @@ type AuthProviderProps = {
 
 
 export const AuthProvider = ({ children, setSession }: AuthProviderProps) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<UserSession | null>(null);
 
 
   useEffect(() => {
+    setLoading(true);
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (event === 'SIGNED_OUT') {
@@ -59,38 +60,46 @@ export const AuthProvider = ({ children, setSession }: AuthProviderProps) => {
   }, [setSession]);
 
   const signInWithEmail = async (email: string, password: string) => {
+    setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
     if (error) throw error;
+    setLoading(false);
   };
 
   const signUpWithEmail = async (email: string, password: string) => {
+    setLoading(true);
     const { error } = await supabase.auth.signUp({
       email,
       password,
     });
     if (error) throw error;
+    setLoading(false);
   };
 
   const signInWithGoogle = async () => {
+    setLoading(true);
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         // redirectTo: `${window.location.origin}/dashboard`,
-        redirectTo: `http://localhost:3000/auth/callback`,
-        // redirectTo: `${window.location.origin}/auth/callback`,
+        // redirectTo: `http://localhost:3000/auth/callback`,
+        redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
     if (error) throw error;
+    setLoading(false);
   };
 
   const signOut = async () => {
+    setLoading(true);
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
     setUser(null);
     setSession(null);
+    setLoading(false);
     return true;
   };
 

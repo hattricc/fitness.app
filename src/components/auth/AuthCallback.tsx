@@ -9,18 +9,38 @@ export const AuthCallback = ({ setSession }: { setSession: (user: any) => void }
 
     useEffect(() => {
         const handleAuth = async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            const errorDescription = urlParams.get('error_description');
+            if (error) {
+                console.error('OAuth error:', { error, errorDescription });
+                navigate('/login', {
+                    state: {
+                        error: errorDescription || 'Authentication failed. Please try again.'
+                    },
+                    replace: true
+                });
+                return;
+            }
+
+
             try {
                 // This will parse the URL hash and set the session
-                const { data: { session }, error } = await supabase.auth.getSession();
-                console.log(session)
-                
+                const { data: { session }, error: authError } = await supabase.auth.getSession();
+                if (authError) throw authError;
                 if (error) throw error;
-                
+
                 if (session) {
                     setSession(session);
 
-                    console.log('usuario iniciado sesion, redireccionar al inicio')
-                    // Successfully logged in, redirect to home or intended page
+                    const wasOnSubscriptionPage = localStorage.getItem('wasOnSubscriptionPage') === 'true';
+                    localStorage.removeItem('wasOnSubscriptionPage');
+
+                    if (wasOnSubscriptionPage) {
+                        navigate('/subscription', { replace: true });
+                        return;
+                    }
+
                     const urlParams = new URLSearchParams(window.location.search);
                     const next = urlParams.get('next') || '/';
                     navigate(next.startsWith('/') ? next : `/${next}`, { replace: true });
@@ -39,7 +59,7 @@ export const AuthCallback = ({ setSession }: { setSession: (user: any) => void }
         };
 
         handleAuth();
-    }, [navigate]);
+    }, [navigate, setSession]);
 
     return (
         <Box

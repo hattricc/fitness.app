@@ -16,7 +16,16 @@ import SocialLoginButtons from '../../molecules/social-login-buttons';
 import { supabase } from '../../../lib/supabase';
 import { useAuth } from '../../../contexts/auth/AuthContext';
 
-export default function LoginForm({ theme }: { theme?: any } = {}) {
+
+interface LoginFormProps {
+  title?: string;
+  subtitle?: string;
+  inSubscriptionPage?: boolean;
+  onSuccess: () => void;
+  onClose: () => void;
+}
+
+export default function LoginForm({ title, subtitle, inSubscriptionPage = false, onSuccess, onClose }: LoginFormProps) {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -34,10 +43,17 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle login logic here
+  const handleSubmit = (e?: React.FormEvent) => {
+    e?.preventDefault();
+    
     console.log('Login attempt with:', formData);
+    onSuccess();
+  };
+
+  const handleLogin = (login: (e?: React.FormEvent) => void, e?: React.FormEvent) => {
+    localStorage.setItem('wasOnSubscriptionPage', 'true');
+    
+    login(e);
   };
 
   return (
@@ -67,15 +83,15 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
         {/* Header */}
         <Box textAlign="center" mb={4}>
           <Typography variant="h4" component="h1" fontWeight="bold" color='text.primary' gutterBottom>
-            ¡Bienvenido de vuelta!
+            {title || '¡Bienvenido de vuelta!'}
           </Typography>
           <Typography variant="body1" color="text.primary">
-            Inicia sesión o regístrate con Google para continuar con FitnessApp
+            {subtitle || 'Inicia sesión o regístrate con Google para continuar con Luis Suarez F4F'}
           </Typography>
         </Box>
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => handleLogin(handleSubmit, e)}>
           <Stack spacing={3}>
             <TextField
               fullWidth
@@ -88,7 +104,7 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
               variant="outlined"
               size="medium"
             />
-            
+
             <TextField
               fullWidth
               label="Contraseña"
@@ -112,7 +128,7 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
                 ),
               }}
             />
-            
+
             {/* <Box sx={{ textAlign: 'right' }}>
               <MuiLink 
                 component="button" 
@@ -124,7 +140,7 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
                 ¿Olvidaste tu contraseña?
               </MuiLink>
             </Box> */}
-            
+
             <Button
               fullWidth
               variant="contained"
@@ -151,7 +167,7 @@ export default function LoginForm({ theme }: { theme?: any } = {}) {
 
         {/* Social Login Buttons */}
         <SocialLoginButtons
-          onGoogleLogin={auth.signInWithGoogle}
+          onGoogleLogin={() => handleLogin(auth.signInWithGoogle)}
         />
 
         {/* Sign up link */}

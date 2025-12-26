@@ -23,8 +23,6 @@ const ExerciseClass: React.FC<ExerciseClassProps> = ({
     setSelectedVideo(videoUrl);
   };
 
-  console.log(module);
-
   return (
     <>
       {module.exercises.map((exercise, index) => {
