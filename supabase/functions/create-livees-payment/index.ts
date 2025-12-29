@@ -1,22 +1,38 @@
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-
-const allowedOrigins = new Set([
+export const allowedOrigins = new Set([
     "http://localhost:3000",
     "http://localhost:5173",
     "https://luissuarezf4f.com",
+    "https://www.luissuarezf4f.com"  // Added www variant
 ]);
-function corsHeadersFor(req: Request) {
+
+export interface CorsHeaders {
+    "Access-Control-Allow-Origin": string;
+    "Access-Control-Allow-Headers": string;
+    "Access-Control-Allow-Methods": string;
+    "Vary": string;
+}
+
+export function getCorsHeaders(req: Request): CorsHeaders {
     const origin = req.headers.get("origin") ?? "";
+    // const allowOrigin = allowedOrigins.has(origin) ? origin : allowedOrigins.values().next().value;
     const allowOrigin = allowedOrigins.has(origin) ? origin : "*";
+
     return {
         "Access-Control-Allow-Origin": allowOrigin,
-        "Access-Control-Allow-Headers":
-            "authorization, x-client-info, apikey, content-type",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Vary": "Origin",
+        "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+        "Access-Control-Allow-Methods": "POST, OPTIONS, GET, PUT, DELETE",
+        "Vary": "Origin"
     };
+}
+
+export function handleOptionsRequest(req: Request): Response | null {
+    if (req.method === "OPTIONS") {
+        return new Response("ok", { headers: getCorsHeaders(req) });
+    }
+    return null;
 }
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
@@ -30,15 +46,22 @@ const LIVEES_POST_URL = Deno.env.get("LIVEES_POST_URL")!;
 
 
 serve(async (req) => {
-    const corsHeaders = corsHeadersFor(req);
+    const corsHeaders = getCorsHeaders(req);
+
 
     // ✅ Preflight must be handled BEFORE any method checks
     if (req.method === "OPTIONS") {
-        return new Response(null, { status: 204, headers: corsHeaders });
+        return new Response(null, {
+            status: 204,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
     }
 
     if (req.method !== "POST") {
-        return new Response("Method not allowed", { status: 405, corsHeaders });
+        return new Response("Method not allowed", {
+            status: 405,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
     }
 
     try {
@@ -51,7 +74,7 @@ serve(async (req) => {
             LIVEES_POST_URL: !!Deno.env.get("LIVEES_POST_URL"),
         });
 
-        // IMPORTANT: ensure Authorization header exists
+        // IMPORTANT: ensure `Auth`orization header exists
         const authHeader = req.headers.get("Authorization");
         if (!authHeader) {
             console.log("Missing Authorization header");

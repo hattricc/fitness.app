@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { supabase } from "../../../lib/supabase";
 import { useEffect } from "react";
 
@@ -41,6 +41,9 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
 
     const [showPersonalInfoForm, setShowPersonalInfoForm] = useState(true);
 
+    const formRef = useRef<HTMLFormElement | null>(null);
+    const iframeRef = useRef<HTMLIFrameElement | null>(null);
+
     // Inside the LiveesPayment component, add state for the form
     const [formData, setFormData] = useState<BillingFormData>({
         name: '',
@@ -61,9 +64,7 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
         const fetchUserData = async () => {
             try {
                 setShowPersonalInfoForm(false);
-                console.log('Fetching user data...');
                 const { data: { user }, error } = await supabase.auth.getUser();
-                console.log('User data:', user);
 
                 if (error) {
                     console.error('Auth error:', error);
@@ -71,7 +72,6 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                 }
 
                 if (user) {
-                    console.log('User found, updating form data...');
                     const googleIdentity = user.identities?.find(x => x.provider === 'google');
                     const newData = {
                         email: user.email || googleIdentity?.identity_data?.email || '',
@@ -82,7 +82,6 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                         phone: user.phone || formData.phone
                     };
 
-                    console.log('New form data to set:', newData);
                     setFormData(prev => ({
                         ...prev,
                         ...newData
@@ -101,6 +100,31 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
 
         fetchUserData();
     }, []);
+
+    useEffect(() => {
+        return () => {
+            // Cleanup form
+            if (formRef.current && document.body.contains(formRef.current)) {
+                document.body.removeChild(formRef.current);
+            }
+
+            // Cleanup iframe
+            if (iframeRef.current && document.body.contains(iframeRef.current)) {
+                document.body.removeChild(iframeRef.current);
+            }
+        };
+    }, []);
+
+    const closeIframe = () => {
+        if (formRef.current && document.body.contains(formRef.current)) {
+            document.body.removeChild(formRef.current);
+        }
+        if (iframeRef.current && document.body.contains(iframeRef.current)) {
+            document.body.removeChild(iframeRef.current);
+        }
+        setShowIframe(false);
+        onCancel();
+    };
 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -149,15 +173,19 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
 
             if (!data?.livees || !data?.payment) {
                 console.error("Invalid response:", data);
+                console.log(data);
                 setError("Respuesta inválida del servidor.");
                 setLoading(false);
                 return;
             }
 
             const { livees, payment } = data;
+            console.log(livees)
 
             // Paso 2: Crear formulario oculto para enviar a Livees
             const form = document.createElement("form");
+            formRef.current = form; // Store reference
+
             form.method = "POST";
             form.action = "https://www.livees.net/Checkout/api4";
             form.target = "livees_iframe";
@@ -171,22 +199,26 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
             };
 
             // Campos obligatorios para Livees
-            appendField("_", livees.token_comercio);
-            appendField("__", livees.llave_recurso);
+            // appendField("_", livees.token_comercio);
+            // appendField("__", livees.llave_recurso);
+            appendField("_", '24bb5t7gn7iadjmhvdwzxurcf387f468l9s6q6kyfp65do1e0');
+            appendField("__", '201a875dypvxw3h2ug9aeq9knecm64osrzbj602i6d4ltecef');
             // appendField("MontoTotal", payment.amount);
             appendField("amt2", price);
             appendField("invno", payment.invno);
             appendField("postURL", livees.postURL);
-            
+
             appendField("currency", 'BOB');
-            appendField("name", 'Raiden');
-            appendField("lastname", 'Raiden');
+            appendField("name", 'Juan');
+            appendField("lastname", 'Perez');
             appendField("email", 'raiden@gmail.com');
-            appendField("estado_lbl", 'SSS');
-            appendField("phone", '123456789');
+            appendField("estado_lbl", 'Santa Cruz');
+            appendField("phone", '78002780');
+            appendField('zip', '33140');
+            appendField('nombre_factura', 'PEREZ');
+            
 
             // Campos de facturación y/o datos extra
-            console.log('Campos de facturación y/o datos extra', billingInfo)
             Object.entries(billingInfo).forEach(([key, value]) => {
                 console.log(key)
                 console.log(value)
@@ -195,12 +227,12 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
 
             document.body.appendChild(form);
 
-            console.log(form)
             // Paso 3: Crear iframe donde se cargará el checkout
-            console.log('Paso 3: Crear iframe donde se cargará el checkout');
             let iframe = document.getElementById("livees_iframe") as HTMLIFrameElement;
 
             if (!iframe) {
+                iframeRef.current = iframe; // Store reference
+
                 iframe = document.createElement("iframe");
                 iframe.id = "livees_iframe";
                 iframe.name = "livees_iframe";
@@ -210,29 +242,30 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                 iframe.style.transform = "translate(-50%, -50%)";
                 iframe.style.width = "90%";
                 iframe.style.maxWidth = "800px";
-                iframe.style.height = "80vh";
+                iframe.style.height = "70vh";
                 iframe.style.border = "1px solid #ccc";
                 iframe.style.borderRadius = "8px";
                 iframe.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
-                iframe.style.zIndex = "1000";
+                iframe.style.zIndex = "5000";
                 iframe.style.backgroundColor = "white";
                 document.body.appendChild(iframe);
+                iframeRef.current = iframe; // Store reference AFTER creating and appending
             }
 
-            // Add overlay
-            let overlay = document.getElementById("payment-overlay");
-            if (!overlay) {
-                overlay = document.createElement("div");
-                overlay.id = "payment-overlay";
-                overlay.style.position = "fixed";
-                overlay.style.top = "0";
-                overlay.style.left = "0";
-                overlay.style.width = "100%";
-                overlay.style.height = "100%";
-                overlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-                overlay.style.zIndex = "999";
-                document.body.appendChild(overlay);
-            }
+            // // Add overlay
+            // let overlay = document.getElementById("payment-overlay");
+            // if (!overlay) {
+            //     overlay = document.createElement("div");
+            //     overlay.id = "payment-overlay";
+            //     overlay.style.position = "fixed";
+            //     overlay.style.top = "0";
+            //     overlay.style.left = "0";
+            //     overlay.style.width = "100%";
+            //     overlay.style.height = "100%";
+            //     overlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+            //     overlay.style.zIndex = "999";
+            //     document.body.appendChild(overlay);
+            // }
 
             // Enviar formulario
             form.submit();
@@ -265,10 +298,7 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                         allowFullScreen
                     />
                     <button
-                        onClick={() => {
-                            setShowIframe(false);
-                            onCancel();
-                        }}
+                        onClick={closeIframe}
                         className="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-700"
                     >
                         ✕
