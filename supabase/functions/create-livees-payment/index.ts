@@ -1,44 +1,68 @@
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
+
+const allowedOrigins = new Set([
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "https://luissuarezf4f.com",
+]);
+function corsHeadersFor(req: Request) {
+    const origin = req.headers.get("origin") ?? "";
+    const allowOrigin = allowedOrigins.has(origin) ? origin : "*";
+    return {
+        "Access-Control-Allow-Origin": allowOrigin,
+        "Access-Control-Allow-Headers":
+            "authorization, x-client-info, apikey, content-type",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Vary": "Origin",
+    };
+}
+
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY")!;
-
 // Estos valores te los da Livees
 const LIVEES_TOKEN_COMERCIO = Deno.env.get("LIVEES_TOKEN_COMERCIO")!; // "_"
 const LIVEES_LLAVE_RECURSO = Deno.env.get("LIVEES_LLAVE_RECURSO")!;   // "__"
-
 // postURL de éxito (tu página de "pago exitoso")
 const LIVEES_POST_URL = Deno.env.get("LIVEES_POST_URL")!;
 // Ej: https://tu-sitio.netlify.app/pago-exitoso
 
 
-const corsHeaders = {
-    "Access-Control-Allow-Origin": "*", // en dev ok. En prod puedes restringir a tu dominio.
-    "Access-Control-Allow-Headers":
-        "authorization, x-client-info, apikey, content-type",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-};
-
 serve(async (req) => {
+    const corsHeaders = corsHeadersFor(req);
+
     // ✅ Preflight must be handled BEFORE any method checks
     if (req.method === "OPTIONS") {
         return new Response(null, { status: 204, headers: corsHeaders });
     }
 
     if (req.method !== "POST") {
-        return new Response("Method not allowed", { status: 405 });
+        return new Response("Method not allowed", { status: 405, corsHeaders });
     }
 
-
-    return new Response(JSON.stringify(responsePayload), {
-        status: 200,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
-
     try {
+        console.log("Function started");
+        console.log("ENV CHECK", {
+            SUPABASE_URL: !!Deno.env.get("SUPABASE_URL"),
+            SUPABASE_ANON_KEY: !!Deno.env.get("SUPABASE_ANON_KEY"),
+            LIVEES_TOKEN_COMERCIO: !!Deno.env.get("LIVEES_TOKEN_COMERCIO"),
+            LIVEES_LLAVE_RECURSO: !!Deno.env.get("LIVEES_LLAVE_RECURSO"),
+            LIVEES_POST_URL: !!Deno.env.get("LIVEES_POST_URL"),
+        });
+
+        // IMPORTANT: ensure Authorization header exists
+        const authHeader = req.headers.get("Authorization");
+        if (!authHeader) {
+            console.log("Missing Authorization header");
+            return new Response(JSON.stringify({ error: "Missing Authorization header" }), {
+                status: 401,
+                headers: { ...corsHeaders, "Content-Type": "application/json" },
+            });
+        }
+
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-            global: { headers: { ...corsHeaders, Authorization: req.headers.get("Authorization")! } },
+            global: { headers: { ...corsHeaders, Authorization: authHeader } },
         });
 
         const {
@@ -47,10 +71,38 @@ serve(async (req) => {
         } = await supabase.auth.getUser();
 
         if (userError || !user) {
-            return new Response("Unauthorized", { ...corsHeaders, status: 401 });
+            console.log("Unauthorized", userError);
+            return new Response(JSON.stringify({ error: "Unauthorized", details: userError }), {
+                status: 401,
+                headers: { ...corsHeaders, "Content-Type": "application/json" },
+            });
         }
 
-        const body = await req.json();
+
+        let body: any;
+
+        const raw = await req.text();
+        console.log("RAW BODY RECEIVED >>>", raw);
+
+        try {
+            // body = await req.json();
+            body = JSON.parse(raw);
+        } catch (err) {
+            console.log('error parsing body: ', err)
+            return new Response(
+                JSON.stringify({
+                    error: "Invalid JSON body",
+                    details: String(err),
+                    raw, // 👈 esto te muestra exactamente lo que llegó
+                }),
+                {
+                    status: 400,
+                    headers: { ...corsHeaders, "Content-Type": "application/json" },
+                }
+            );
+        }
+        console.log('body received: ', body)
+
         const { product_id, billing_info, invoice_info } = body as {
             product_id: string;
             billing_info?: Record<string, unknown>;
@@ -58,7 +110,11 @@ serve(async (req) => {
         };
 
         if (!product_id) {
-            return new Response("product_id is required", { ...corsHeaders, status: 400 });
+            console.log("product_id is required");
+            return new Response(JSON.stringify({ error: "product_id is required" }), {
+                status: 400,
+                headers: { ...corsHeaders, "Content-Type": "application/json" },
+            });
         }
 
         const { data: product, error: productError } = await supabase
@@ -68,7 +124,11 @@ serve(async (req) => {
             .single();
 
         if (productError || !product) {
-            return new Response("Product not found", { ...corsHeaders, status: 404 });
+            console.log("Product not found", productError);
+            return new Response(JSON.stringify({ error: "Product not found", details: productError }), {
+                status: 404,
+                headers: { ...corsHeaders, "Content-Type": "application/json" },
+            });
         }
 
         // Generar invno único (puedes usar otro formato)
@@ -96,7 +156,10 @@ serve(async (req) => {
 
         if (paymentError || !payment) {
             console.error(paymentError);
-            return new Response("Error creating payment: " + paymentError.message, { ...corsHeaders, status: 500 });
+            return new Response(JSON.stringify({ error: "Error creating payment", details: paymentError }), {
+                status: 500,
+                headers: { ...corsHeaders, "Content-Type": "application/json" },
+            });
         }
 
         // Devolvemos todo lo necesario para armar el <form> en el frontend
@@ -120,9 +183,10 @@ serve(async (req) => {
         });
     } catch (err) {
         console.error(err);
-        return new Response("Internal server error " + err.message, {
+        // ✅ even unexpected errors return JSON + CORS
+        return new Response(JSON.stringify({ error: "Internal server error", details: String(err) }), {
             status: 500,
-            headers: corsHeaders,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
     }
 });

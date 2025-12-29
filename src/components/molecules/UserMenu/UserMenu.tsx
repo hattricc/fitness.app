@@ -113,7 +113,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                         <Divider sx={{ backgroundColor: '#333333' }} />
 
                         <MenuItem
-                            onClick={() => handleNavigation('/suscripcion')}
+                            onClick={() => handleNavigation('/subscription')}
                             sx={{
                                 color: '#ffffff',
                                 '&:hover': {

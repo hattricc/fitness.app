@@ -1,5 +1,5 @@
 // src/app/pages/SubscriptionPage.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Typography, Container, List, ListItem, ListItemIcon, Button, Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { Check as CheckIcon } from '@mui/icons-material';
 import { LiveesPayment } from '../../components/molecules/livees-payment/livees-payment';
@@ -47,29 +47,18 @@ const SubscriptionPage: React.FC = () => {
     setShowAuthModal(false);
     setShowPaymentModal(true);
   };
+
   const subscribe = () => {
-    // alert('subscribe');
-    // TODO RECONOCER SI HA INICIADO SESION
-    // if (!user) {
-    //   console.log('Loading...');
-    //   console.log('user, ', user);
-    //   return; // Wait for auth state to load
-    // }
+    const modalToShow = auth.user ? setShowPaymentModal : setShowAuthModal;
 
-    console.log(auth)
-
-    if (auth.user) {
-      // User is logged in, show payment modal
-      setShowPaymentModal(true);
-      console.log('User is logged in');
-    } else {
-      // User is not logged in, show auth modal
-      setShowAuthModal(true);
-      console.log('User is not logged in');
-    }
-    // TODO SI HA INICIADO SESION, MOSTRAR MODAL DE PAGO DE LIVEES CHECKOUT
-    // TODO SI NO HA INICIADO SESION, MOSTRAR EL LOGIN Y EXPLICAR QUE PARA SUSCRIBIRSE DEBE INICIAR SESION
+    modalToShow(true);
   }
+
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('wasOnSubscriptionPage');
+    };
+  }, []);
 
   return (
     <Box sx={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
@@ -192,6 +181,7 @@ const SubscriptionPage: React.FC = () => {
           <LoginForm
             title="Iniciar sesión requerido"
             subtitle="Para suscribirte, primero debes iniciar sesión o crear una cuenta."
+            inSubscriptionPage={true}
             onSuccess={handleSuccessfulLogin}
             onClose={() => setShowAuthModal(false)}
           />
@@ -203,9 +193,17 @@ const SubscriptionPage: React.FC = () => {
         onClose={() => setShowPaymentModal(false)}
         maxWidth="md"
         fullWidth
+        PaperProps={{
+          sx: {
+            backgroundColor: 'white', 
+            boxShadow: 24, // Add a nice shadow
+            overflow: 'visible',
+            borderRadius: 6,
+          }
+        }}
       >
-        <DialogTitle>Completa tu suscripción</DialogTitle>
-        <DialogContent>
+        {/* <DialogTitle>Completa tu suscripción</DialogTitle> */}
+        <DialogContent sx={{ p: 0, '&.MuiDialogContent-root': { p: 0 } }}>
           <LiveesPayment
             productId="20aed83a-e811-42b2-948f-a8d1a22d1bbf"
             price={price}
@@ -214,6 +212,17 @@ const SubscriptionPage: React.FC = () => {
               // Handle successful payment
             }}
             onCancel={() => setShowPaymentModal(false)}
+            // billingInfo={{
+            //   name: 'Pedro Test',
+            //   lastname: "Pérez",
+            //   email: "test@ejemplo.com",
+            //   pais: "BO",
+            //   ciudad: "La Paz",
+            //   estado_lbl: "La Paz",
+            //   direccion: "Av. Siempre Viva 123",
+            //   zip: "0000",
+            //   phone: "70000000"
+            // }}
           />
         </DialogContent>
       </Dialog>

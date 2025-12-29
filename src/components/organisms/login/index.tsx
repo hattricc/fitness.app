@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import SocialLoginButtons from '../../molecules/social-login-buttons';
-import { supabase } from '../../../lib/supabase';
 import { useAuth } from '../../../contexts/auth/AuthContext';
 
 
@@ -51,7 +50,7 @@ export default function LoginForm({ title, subtitle, inSubscriptionPage = false,
   };
 
   const handleLogin = (login: (e?: React.FormEvent) => void, e?: React.FormEvent) => {
-    localStorage.setItem('wasOnSubscriptionPage', 'true');
+    localStorage.setItem('wasOnSubscriptionPage', inSubscriptionPage ? 'true' : 'false');
     
     login(e);
   };
