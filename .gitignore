@@ -141,3 +141,6 @@ dist
 .eslintcache
 
 src/data/courses.json
+
+# Local Netlify folder
+.netlify

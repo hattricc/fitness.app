@@ -65,16 +65,8 @@ serve(async (req) => {
     }
 
     try {
-        console.log("Function started");
-        console.log("ENV CHECK", {
-            SUPABASE_URL: !!Deno.env.get("SUPABASE_URL"),
-            SUPABASE_ANON_KEY: !!Deno.env.get("SUPABASE_ANON_KEY"),
-            LIVEES_TOKEN_COMERCIO: !!Deno.env.get("LIVEES_TOKEN_COMERCIO"),
-            LIVEES_LLAVE_RECURSO: !!Deno.env.get("LIVEES_LLAVE_RECURSO"),
-            LIVEES_POST_URL: !!Deno.env.get("LIVEES_POST_URL"),
-        });
 
-        // IMPORTANT: ensure `Auth`orization header exists
+        // IMPORTANT: ensure `Authorization header exists
         const authHeader = req.headers.get("Authorization");
         if (!authHeader) {
             console.log("Missing Authorization header");
@@ -103,12 +95,9 @@ serve(async (req) => {
 
 
         let body: any;
-
         const raw = await req.text();
-        console.log("RAW BODY RECEIVED >>>", raw);
 
         try {
-            // body = await req.json();
             body = JSON.parse(raw);
         } catch (err) {
             console.log('error parsing body: ', err)

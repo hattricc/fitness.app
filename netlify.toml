@@ -3,6 +3,19 @@
   publish = "dist"
   functions = "netlify/functions"
 
+[dev]
+  command = "pnpm run dev"
+  targetPort = 3000
+  port = 8888
+
+[[edge_functions]]
+  path = "/confirm-livees-payment"
+  function = "confirm-livees-payment"
+
+[[edge_functions]]
+  path = "/create-livees-payment"
+  function = "create-livees-payment"
+
 # Serve the CMS as a standalone page (no SPA fallback here)
 [[redirects]]
   from = "/admin/*"

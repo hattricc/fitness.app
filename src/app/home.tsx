@@ -61,6 +61,9 @@ const Home: React.FC<HomeProps> = ({
     return () => {
       // Any cleanup if needed when component unmounts
     };
+
+
+
   }, []);
 
   if (showSplash) {

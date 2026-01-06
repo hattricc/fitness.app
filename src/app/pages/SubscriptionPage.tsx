@@ -68,7 +68,7 @@ const SubscriptionPage: React.FC = () => {
           mb: 2,
           fontWeight: 700
         }}>
-          Acceso Permanente
+          Obtén acceso permanente
         </Typography>
 
         <Typography variant="h5" align="left" sx={{
@@ -76,7 +76,7 @@ const SubscriptionPage: React.FC = () => {
           mb: 2,
           fontWeight: 600
         }}>
-          Por solo el valor de un mes en el gimnasio
+          Por tan solo el valor de un mes en el gimnasio
         </Typography>
 
         <Typography variant="body2" sx={{
@@ -179,8 +179,8 @@ const SubscriptionPage: React.FC = () => {
       >
         <DialogContent sx={{ p: 0, '&.MuiDialogContent-root': { p: 0 } }}>
           <LoginForm
-            title="Iniciar sesión requerido"
-            subtitle="Para suscribirte, primero debes iniciar sesión o crear una cuenta."
+            title="Para suscribirte, primero debes iniciar sesión o crear una cuenta"
+            subtitle="Una vez registrado, serás re dirigido a la página de inicio para completar el proceso ingresando tu método de pago."
             inSubscriptionPage={true}
             onSuccess={handleSuccessfulLogin}
             onClose={() => setShowAuthModal(false)}

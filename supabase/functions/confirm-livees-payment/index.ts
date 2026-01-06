@@ -40,6 +40,7 @@ export function handleOptionsRequest(req: Request): Response | null {
 declare const Deno: any; // Temporary workaround for Deno types
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
+const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY")!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
 const LIVEES_LLAVE_RECURSO = Deno.env.get("LIVEES_LLAVE_RECURSO")!;
@@ -49,6 +50,14 @@ serve(async (req: Request) => {
     const corsHeaders = getCorsHeaders(req);
 
 
+    // ✅ Preflight must be handled BEFORE any method checks
+    if (req.method === "OPTIONS") {
+        return new Response(null, {
+            status: 204,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+    }
+
     if (req.method !== "POST") {
         return new Response("Method not allowed", {
             status: 405,
@@ -56,22 +65,59 @@ serve(async (req: Request) => {
         });
     }
 
-    // IMPORTANT: ensure `Auth`orization header exists
-    const authHeader = req.headers.get("Authorization");
-    if (!authHeader) {
-        console.log("Missing Authorization header");
-        return new Response(JSON.stringify({ error: "Missing Authorization header" }), {
-            status: 401,
-            headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-    }
-
-    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-        global: { headers: { ...corsHeaders, Authorization: authHeader } },
-    });
-
     try {
-        const { invno, order_id } = await req.json() as {
+
+        // IMPORTANT: ensure `Authorization header exists
+        const authHeader = req.headers.get("Authorization");
+        if (!authHeader) {
+            console.log("Missing Authorization header");
+            return new Response(JSON.stringify({ error: "Missing Authorization header" }), {
+                status: 401,
+                headers: { ...corsHeaders, "Content-Type": "application/json" },
+            });
+        }
+
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            global: { headers: { ...corsHeaders, Authorization: authHeader } },
+        });
+        
+        // const {
+        //     data: { user },
+        //     error: userError,
+        // } = await supabase.auth.getUser();
+
+        // console.log('user', user);
+        // console.log('userError', userError);
+
+        // if (userError || !user) {
+        //     console.log("Unauthorized", userError);
+        //     return new Response(JSON.stringify({ error: "Unauthorized", details: userError }), {
+        //         status: 401,
+        //         headers: { ...corsHeaders, "Content-Type": "application/json" },
+        //     });
+        // }
+
+        let body: any;
+        const raw = await req.text();
+        
+        try {
+            body = JSON.parse(raw);
+        } catch (err) {
+            console.log('error parsing body: ', err)
+            return new Response(
+                JSON.stringify({
+                    error: "Invalid JSON body",
+                    details: String(err),
+                    raw, // 👈 esto te muestra exactamente lo que llegó
+                }),
+                {
+                    status: 400,
+                    headers: { ...corsHeaders, "Content-Type": "application/json" },
+                }
+            );
+        }
+
+        const { invno, order_id } = body as {
             invno: string;
             order_id: string;
         };
@@ -117,7 +163,7 @@ serve(async (req: Request) => {
                 headers: { ...corsHeaders, "Content-Type": "application/json" },
             });
         }
-
+        
         const data = await res.json();
 
         const success =
@@ -127,6 +173,10 @@ serve(async (req: Request) => {
 
         const newStatus = success ? "paid" : "failed";
 
+        console.log('body to livees: ', body)
+        console.log('response from livees: ', data)
+        console.log('newStatus: ', newStatus)
+        
         await supabase.from("payment_events").insert({
             payment_id: payment.id,
             event_type: "livees.consulta_orden",
@@ -142,11 +192,13 @@ serve(async (req: Request) => {
         if (newStatus === "paid") {
             updateData["paid_at"] = new Date().toISOString();
         }
+        console.log('asi se ve nuevo objeto ', updateData)
 
         const { error: updateError } = await supabase
             .from("payments")
             .update(updateData)
             .eq("id", payment.id);
+        console.log('buscando pago actualizado', payment.id);
 
         if (updateError) {
             console.error(updateError);

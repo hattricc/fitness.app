@@ -1,6 +1,8 @@
 // src/pages/PagoExitosoPage.tsx
 import React, { useEffect, useState } from "react";
 import { supabase } from "../../../src/lib/supabase";
+import { CheckCircle, CrossIcon, Loader2, X } from "lucide-react"; // Add this import at the top
+
 
 type ViewState = "checking" | "ok" | "failed" | "error";
 
@@ -28,6 +30,9 @@ const PagoExitosoPage: React.FC = () => {
                     return;
                 }
 
+                const auth = await supabase.auth.getSession();
+                console.log(auth.data.session?.access_token);
+
                 const { data, error } = await supabase.functions.invoke<ConfirmResponse>(
                     "confirm-livees-payment",
                     {
@@ -37,6 +42,14 @@ const PagoExitosoPage: React.FC = () => {
                         },
                     }
                 );
+
+                // // TODO QUITAR LUEGO DE ARREGLAR INVOKE
+                // setTimeout(function() {
+                //     setState("ok");
+
+                // }, 2500);
+
+                // return;
 
                 if (error) {
                     console.error("Error al confirmar pago:", error);
@@ -71,8 +84,15 @@ const PagoExitosoPage: React.FC = () => {
 
     if (state === "checking") {
         return (
-            <div style={{ padding: "2rem", textAlign: "center" }}>
-                <h1>Validando tu pago...</h1>
+            <div className="flex flex-col text-center items-center text-black p-2">
+                <Loader2
+                    size={90}
+                    color="#3B82F6" // Blue color
+                    className="animate-spin" // Add spinning animation
+                    style={{ marginBottom: '1rem' }}
+                />
+                <h1 className="mb-2 text-2xl">Validando tu pago...</h1>
+
                 <p>Por favor espera unos segundos.</p>
             </div>
         );
@@ -80,8 +100,14 @@ const PagoExitosoPage: React.FC = () => {
 
     if (state === "ok") {
         return (
-            <div style={{ padding: "2rem", textAlign: "center" }}>
-                <h1>¡Pago confirmado!</h1>
+            <div className="flex flex-col text-center items-center text-black p-2">
+                <CheckCircle
+                    size={90}
+                    color="#10B981" // Green color
+                    style={{ marginBottom: '1rem' }}
+                />
+                <h1 className="mb-2 text-2xl">¡Pago confirmado!</h1>
+
                 <p>Gracias por tu compra. En breve recibirás más detalles en tu correo.</p>
                 {detail?.payment_id && (
                     <p style={{ marginTop: "1rem", fontSize: "0.9rem", color: "#555" }}>
@@ -94,8 +120,13 @@ const PagoExitosoPage: React.FC = () => {
 
     if (state === "failed") {
         return (
-            <div style={{ padding: "2rem", textAlign: "center" }}>
-                <h1>Pago no confirmado</h1>
+            <div className="flex flex-col text-center items-center text-black p-2">
+                <X
+                    size={90}
+                    color="#b91010ff" // Green color
+                    style={{ marginBottom: '1rem' }}
+                />
+                <h1 className="mb-2 text-2xl">Pago no confirmado</h1>
                 <p>{message}</p>
                 {detail?.livees_response && (
                     <details style={{ marginTop: "1rem", textAlign: "left" }}>
@@ -111,8 +142,13 @@ const PagoExitosoPage: React.FC = () => {
 
     // state === "error"
     return (
-        <div style={{ padding: "2rem", textAlign: "center" }}>
-            <h1>Ocurrió un problema al validar tu pago</h1>
+        <div className="flex flex-col text-center items-center text-black p-2">
+            <X
+                size={90}
+                color="#b91010ff" // Green color
+                style={{ marginBottom: '1rem' }}
+            />
+            <h1 className="mb-2 text-2xl">Ocurrió un problema al validar tu pago</h1>
             <p>{message}</p>
         </div>
     );

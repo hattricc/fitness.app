@@ -87,7 +87,7 @@ export function MakModal({ openModal, setOpenModal } : MakModalProps) {
                 }}
             >
                 <DialogTitle variant="h4" align="center" sx={{ pb: 1, color: '#FFFFFF' }}>
-                    Acceso Permanente
+                    Obtén acceso permanente
                 </DialogTitle>
                 <DialogContent>
                     <Typography variant="body2" align="center" sx={{ color: '#E57952', mb: 3 }}>

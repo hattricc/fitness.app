@@ -66,6 +66,9 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                 setShowPersonalInfoForm(false);
                 const { data: { user }, error } = await supabase.auth.getUser();
 
+                const auth = await supabase.auth.getSession();
+                console.log("access_token", auth.data.session?.access_token);
+
                 if (error) {
                     console.error('Auth error:', error);
                     throw error;
@@ -141,7 +144,7 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
 
 
             const auth = await supabase.auth.getSession();
-            console.log(auth.data.session?.access_token);
+            console.log("access_token", auth.data.session?.access_token);
 
             if (!auth) {
                 setError("No se pudo iniciar el pago porque no ha iniciado sesión.");
