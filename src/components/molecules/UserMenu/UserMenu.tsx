@@ -1,9 +1,10 @@
 import { Button, Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Stack, useTheme } from '@mui/material';
 import { AccountCircle, Facebook, Google, Login, Payment, Person } from '@mui/icons-material';
 import { Theme } from '@mui/material/styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getGoogleAvatarUrl, UserSession } from '@/lib/userSession';
+import { UserImage } from '@/components/atoms/user-image/UserImage';
 
 interface UserMenuProps {
     user: UserSession | null;
@@ -30,7 +31,11 @@ const UserMenu: React.FC<UserMenuProps> = ({
         setAnchorEl(event.currentTarget);
     };
 
-    const imageUrl = getGoogleAvatarUrl(user);
+    
+    const [image, setImage] = useState('');
+    useEffect(() => {
+        setImage(getGoogleAvatarUrl(user));
+    }, [user]);
 
     return (
         <>
@@ -42,12 +47,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 aria-haspopup="true"
                 onClick={handleMenu}
             >
-                {imageUrl && <img src={imageUrl} alt="Google Profile Image" style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: '50%',
-                }} />}
-                {!imageUrl && <AccountCircle />}
+                <UserImage user={user} imageUrl={image} />
             </IconButton>
 
 
