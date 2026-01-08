@@ -1,11 +1,12 @@
 import React, { useRef, useState } from "react";
 import { supabase } from "../../../lib/supabase";
 import { useEffect } from "react";
+import { Loader2, X } from "lucide-react";
 
 // Add this interface at the top of the file
 interface BillingFormData {
     name: string;
-    // lastname: string;
+    lastname: string;
     email: string;
     pais: string;
     ciudad: string;
@@ -13,6 +14,7 @@ interface BillingFormData {
     direccion: string;
     zip: string;
     phone: string;
+    nombre_factura: string;
 }
 
 
@@ -47,14 +49,15 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
     // Inside the LiveesPayment component, add state for the form
     const [formData, setFormData] = useState<BillingFormData>({
         name: '',
-        // lastname: '',
+        lastname: '',
         email: '',
         pais: 'Bolivia', // Default to Bolivia
         ciudad: '',
         estado_lbl: '',
         direccion: '',
         zip: '',
-        phone: ''
+        phone: '',
+        nombre_factura: ''
     });
 
 
@@ -202,29 +205,27 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
             };
 
             // Campos obligatorios para Livees
-            // appendField("_", livees.token_comercio);
-            // appendField("__", livees.llave_recurso);
-            appendField("_", '24bb5t7gn7iadjmhvdwzxurcf387f468l9s6q6kyfp65do1e0');
-            appendField("__", '201a875dypvxw3h2ug9aeq9knecm64osrzbj602i6d4ltecef');
+            appendField("_", livees.token_comercio);
+            appendField("__", livees.llave_recurso);
+            // appendField("_", '24bb5t7gn7iadjmhvdwzxurcf387f468l9s6q6kyfp65do1e0');
+            // appendField("__", '201a875dypvxw3h2ug9aeq9knecm64osrzbj602i6d4ltecef');
             // appendField("MontoTotal", payment.amount);
             appendField("amt2", price);
             appendField("invno", payment.invno);
             appendField("postURL", livees.postURL);
 
             appendField("currency", 'BOB');
-            appendField("name", 'Juan');
-            appendField("lastname", 'Perez');
-            appendField("email", 'raiden@gmail.com');
-            appendField("estado_lbl", 'Santa Cruz');
-            appendField("phone", '78002780');
-            appendField('zip', '33140');
-            appendField('nombre_factura', 'PEREZ');
-            
+            appendField("name", formData.name);
+            appendField("lastname", formData.lastname);
+            appendField("email", formData.email);
+            appendField("estado_lbl", formData.estado_lbl);
+            appendField("phone", formData.phone);
+            appendField('zip', formData.zip);
+            appendField('nombre_factura', formData.nombre_factura);
+
 
             // Campos de facturación y/o datos extra
             Object.entries(billingInfo).forEach(([key, value]) => {
-                console.log(key)
-                console.log(value)
                 appendField(key, value);
             });
 
@@ -255,22 +256,6 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                 iframeRef.current = iframe; // Store reference AFTER creating and appending
             }
 
-            // // Add overlay
-            // let overlay = document.getElementById("payment-overlay");
-            // if (!overlay) {
-            //     overlay = document.createElement("div");
-            //     overlay.id = "payment-overlay";
-            //     overlay.style.position = "fixed";
-            //     overlay.style.top = "0";
-            //     overlay.style.left = "0";
-            //     overlay.style.width = "100%";
-            //     overlay.style.height = "100%";
-            //     overlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-            //     overlay.style.zIndex = "999";
-            //     document.body.appendChild(overlay);
-            // }
-
-            // Enviar formulario
             form.submit();
             setLoading(false);
 
@@ -286,7 +271,18 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
     };
 
     if (loading) {
-        return <div className="text-black">Cargando datos...</div>;
+
+        return <>
+            <div className="flex flex-col text-center items-center text-black p-2">
+                <Loader2
+                    size={90}
+                    color="#3B82F6" // Blue color
+                    className="animate-spin" // Add spinning animation
+                    style={{ marginBottom: '1rem' }}
+                />
+                <h1 className="mb-2 text-2xl">Cargando datos...</h1>
+            </div>
+        </>;
     }
 
     if (showIframe) {
@@ -336,20 +332,20 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                                 required
                             />
                         </div>
-                        {/* <div>
-                        <label htmlFor="lastname" className="block text-sm font-medium text-gray-700">
-                            Apellido
-                        </label>
-                        <input
-                            type="text"
-                            id="lastname"
-                            name="lastname"
-                            value={formData.lastname}
-                            onChange={handleInputChange}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
-                            required
-                        />
-                    </div> */}
+                        <div>
+                            <label htmlFor="lastname" className="block text-sm font-medium text-gray-700">
+                                Apellido
+                            </label>
+                            <input
+                                type="text"
+                                id="lastname"
+                                name="lastname"
+                                value={formData.lastname}
+                                onChange={handleInputChange}
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
+                                required
+                            />
+                        </div>
                     </div>
 
                     <div>

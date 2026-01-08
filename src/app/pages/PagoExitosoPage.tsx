@@ -9,7 +9,7 @@ type ViewState = "checking" | "ok" | "failed" | "error";
 interface ConfirmResponse {
     status: string;
     payment_id?: string;
-    livees_response?: any;
+    data?: any;
 }
 
 const PagoExitosoPage: React.FC = () => {
@@ -33,23 +33,15 @@ const PagoExitosoPage: React.FC = () => {
                 const auth = await supabase.auth.getSession();
                 console.log(auth.data.session?.access_token);
 
-                const { data, error } = await supabase.functions.invoke<ConfirmResponse>(
+                const { data: liveesData, error } = await supabase.functions.invoke<ConfirmResponse>(
                     "confirm-livees-payment",
                     {
                         body: {
-                            invno,
+                            invno: invno,
                             order_id: orderId,
                         },
                     }
                 );
-
-                // // TODO QUITAR LUEGO DE ARREGLAR INVOKE
-                // setTimeout(function() {
-                //     setState("ok");
-
-                // }, 2500);
-
-                // return;
 
                 if (error) {
                     console.error("Error al confirmar pago:", error);
@@ -58,20 +50,24 @@ const PagoExitosoPage: React.FC = () => {
                     return;
                 }
 
-                if (!data) {
+                if (!liveesData) {
                     setState("error");
                     setMessage("Respuesta vacía del servidor al validar el pago.");
                     return;
                 }
 
+                const { data } = liveesData;
                 setDetail(data);
 
                 if (data.status === "paid") {
                     setState("ok");
-                } else {
-                    setState("failed");
-                    setMessage("El pago no fue confirmado correctamente. Si ya se debitó el monto, contáctanos.");
+                    // TODO MODIFICAR USUARIO PARA QUE SEPA QUE PAGO
+                    // TODO TEMPORIZADOR PARA VOLVER A HOME
+                    return;
                 }
+
+                setState("failed");
+                setMessage("El pago no fue confirmado correctamente. Si ya se debitó el monto, contáctanos.");
             } catch (err) {
                 console.error("Excepción al confirmar pago:", err);
                 setState("error");
@@ -128,11 +124,11 @@ const PagoExitosoPage: React.FC = () => {
                 />
                 <h1 className="mb-2 text-2xl">Pago no confirmado</h1>
                 <p>{message}</p>
-                {detail?.livees_response && (
+                {detail?.data && (
                     <details style={{ marginTop: "1rem", textAlign: "left" }}>
                         <summary>Detalle técnico (Livees)</summary>
                         <pre style={{ fontSize: "0.8rem", whiteSpace: "pre-wrap" }}>
-                            {JSON.stringify(detail.livees_response, null, 2)}
+                            {JSON.stringify(detail.data, null, 2)}
                         </pre>
                     </details>
                 )}

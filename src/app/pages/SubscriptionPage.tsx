@@ -137,8 +137,6 @@ const SubscriptionPage: React.FC = () => {
           El costo de un entrenador personal: Bs {comparePrice}.00/mes
         </Typography>
 
-        {/* <Box sx={{ mt: 4 }}> */}
-        {/* <button onClick={subscribe}>Suscribirse</button> */}
         <StyledButton
           variant="contained"
           size="large"
@@ -146,19 +144,6 @@ const SubscriptionPage: React.FC = () => {
         >
           ¡Quiero suscribirme!
         </StyledButton>
-        {/* <LiveesPayment
-            productId="20aed83a-e811-42b2-948f-a8d1a22d1bbf"
-            billingInfo={{
-              customer_name: 'Nombre del Cliente',
-              customer_email: 'cliente@ejemplo.com',
-              customer_phone: '1234567890'
-            }}
-            invoiceInfo={{
-              description: 'Suscripción de Acceso Permanente',
-              amount: price.toString()
-            }}
-          /> */}
-        {/* </Box> */}
       </Container>
 
 
@@ -205,24 +190,12 @@ const SubscriptionPage: React.FC = () => {
         {/* <DialogTitle>Completa tu suscripción</DialogTitle> */}
         <DialogContent sx={{ p: 0, '&.MuiDialogContent-root': { p: 0 } }}>
           <LiveesPayment
-            productId="20aed83a-e811-42b2-948f-a8d1a22d1bbf"
+            productId="e45f8d41-0132-44c5-9e05-254ca96db19a"
             price={price}
             onSuccess={() => {
               setShowPaymentModal(false);
-              // Handle successful payment
             }}
             onCancel={() => setShowPaymentModal(false)}
-            // billingInfo={{
-            //   name: 'Pedro Test',
-            //   lastname: "Pérez",
-            //   email: "test@ejemplo.com",
-            //   pais: "BO",
-            //   ciudad: "La Paz",
-            //   estado_lbl: "La Paz",
-            //   direccion: "Av. Siempre Viva 123",
-            //   zip: "0000",
-            //   phone: "70000000"
-            // }}
           />
         </DialogContent>
       </Dialog>
