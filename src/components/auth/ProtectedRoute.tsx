@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, CircularProgress } from '@mui/material';
-import { useAuth } from '@/contexts/auth/AuthContext';
+import { useAuth } from '@/contexts/auth/AuthProvider';
 
 type ProtectedRouteProps = {
   children: React.ReactNode;

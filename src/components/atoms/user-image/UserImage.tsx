@@ -21,20 +21,28 @@ export const UserImage = ({ user, imageUrl }: { user: UserSession | null, imageU
         let retryCount = 0;
         const maxRetries = 2;
 
-        const loadImage = (url: string) => {
+        const loadImage = (url: string, attempt: number) => {
             img.onload = () => {
-                if (!isMounted) return;
+                if (!isMounted) {
+                    return;
+                }
                 setIsLoading(false);
                 setError(false);
                 setImgSrc(url);
             };
 
-            img.onerror = () => {
+            img.onerror = (event) => {
+                console.error('Image load error:', {
+                    url,
+                    attempt,
+                    event: event,
+                    error: event
+                });
                 if (retryCount < maxRetries) {
                     retryCount++;
                     retryTimer = setTimeout(() => {
                         const separator = url.includes('?') ? '&' : '?';
-                        loadImage(`${url}${separator}t=${Date.now()}`);
+                        loadImage(`${url.split('?')[0]}${separator}t=${Date.now()}`, attempt + 1);
                     }, 1000 * Math.pow(2, retryCount));
                 } else if (isMounted) {
                     setIsLoading(false);
@@ -42,11 +50,19 @@ export const UserImage = ({ user, imageUrl }: { user: UserSession | null, imageU
                 }
             };
 
-            img.src = url;
+            try {
+                img.src = url;
+                // Force browser to actually load the image
+                img.loading = 'eager';
+            } catch (err) {
+                if (isMounted) {
+                    setError(true);
+                    setIsLoading(false);
+                }
+            }
         };
 
-        loadImage(imageUrl);
-
+        loadImage(imageUrl, 1);
         return () => {
             isMounted = false;
             img.onload = null;
@@ -58,9 +74,6 @@ export const UserImage = ({ user, imageUrl }: { user: UserSession | null, imageU
     if (isLoading) {
         return <Skeleton variant="circular" width={40} height={40} />;
     }
-
-    console.log('imgSrc', imgSrc)
-    console.log('error', error)
 
     return (
         <>

@@ -12,6 +12,7 @@ export const AuthCallback = ({ setSession }: { setSession: (user: any) => void }
             const urlParams = new URLSearchParams(window.location.search);
             const error = urlParams.get('error');
             const errorDescription = urlParams.get('error_description');
+            debugger
             if (error) {
                 console.error('OAuth error:', { error, errorDescription });
                 navigate('/login', {
@@ -23,6 +24,12 @@ export const AuthCallback = ({ setSession }: { setSession: (user: any) => void }
                 return;
             }
 
+            // try {
+            //     const result = await supabase.auth.getSession();
+            //     console.log(result);
+            // } catch (err) {
+            //     console.error('Supabase getSession error:', err);
+            // }
 
             try {
                 // This will parse the URL hash and set the session

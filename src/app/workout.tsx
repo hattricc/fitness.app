@@ -5,13 +5,15 @@ import { ExpandMore, InfoOutline } from '@mui/icons-material';
 import ExerciseClass from '../components/organisms/exercise-class';
 import { getWorkoutById } from '../data/getWorkout';
 import ReactMarkdown from 'react-markdown';
+import { Subscription } from '@/lib/userSession';
 
 interface WorkoutClassProps {
   withPrefix: boolean;
+  subscription: Subscription | undefined;
   setOpenModal?: (open: boolean) => void;
 }
 
-const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenModal }) => {
+const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false, subscription, setOpenModal }) => {
   const { id } = useParams<{ id: string }>();
   const workout = id ? getWorkoutById(id) : null;
   const [expandedModule, setExpandedModule] = useState<string | false>(false);
@@ -114,7 +116,7 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenModal
                   <ReactMarkdown>{(typeof module.note === 'string' ? module.note.replace(/\\n/g, '\n') : '')}</ReactMarkdown>
                 </Typography>
 
-                <ExerciseClass module={module} />
+                <ExerciseClass module={module} subscription={subscription} />
               </AccordionDetails>
             </Accordion>
           ))}

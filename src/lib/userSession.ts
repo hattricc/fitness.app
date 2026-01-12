@@ -1,5 +1,14 @@
 import { UserIdentity } from "@supabase/supabase-js";
 
+export type Subscription = {
+    id: string;
+    userId: string;
+    status: 'active' | 'canceled' | 'inactive' | 'paid';
+    currentPeriodEnd: string; // ISO date string
+    planId: string;
+    createdAt: string; // ISO date string
+    updatedAt: string; // ISO date string
+};
 export type UserSession = {
     email: string | undefined;
     id: string | undefined;
@@ -9,21 +18,35 @@ export type UserSession = {
         role?: string;
     };
     identities: UserIdentity[];
+    subscription?: {
+        isActive: boolean;
+        data?: Subscription;
+    };
 };
 
-export const mapUserSession = (user: UserSession): UserSession | null => {
+export const mapUserSession = (
+    authUser: any,
+    subscriptionData?: Subscription | null
+): UserSession | null => {
+    if (!authUser) return null;
 
-    if (!user) return null;
-
-    const userData: UserSession = {
-        email: user.email || undefined,
-        id: user.id || undefined,
-        role: user.user_metadata?.role,
-        last_sign_in_at: user.last_sign_in_at || undefined,
-        identities: user.identities,
+    const isSubscriptionActive = subscriptionData
+        ? ['active', 'paid'].includes(subscriptionData.status) &&
+        new Date(subscriptionData.currentPeriodEnd) > new Date()
+        : false;
+    
+    return {
+        email: authUser.email || undefined,
+        id: authUser.id || undefined,
+        role: authUser.user_metadata?.role,
+        last_sign_in_at: authUser.last_sign_in_at || undefined,
+        identities: authUser.identities || [],
+        subscription: {
+            isActive: isSubscriptionActive,
+            ...(subscriptionData && { data: subscriptionData })
+        }
     };
-    return userData;
-}
+};
 
 export const getUserSession = (): UserSession | null => {
     if (typeof window === 'undefined') return null;
@@ -72,6 +95,6 @@ export const getGoogleAvatarUrl = (user: UserSession | null) => {
         const googleIdentity = user.identities.find(x => x.provider === 'google');
         return googleIdentity?.identity_data?.picture;
     }
-    
+
     return null;
 };

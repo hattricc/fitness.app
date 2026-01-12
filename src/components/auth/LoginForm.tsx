@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/auth/AuthContext';
+import { useAuth } from '@/contexts/auth/AuthProvider';
 import { useAuthForm } from '@/hooks/useAuthForm';
 import { Button } from '@/components/ui/MakButton';
 import { Input } from '@/components/ui/MakInput';
