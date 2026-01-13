@@ -1,5 +1,14 @@
 import { UserIdentity } from "@supabase/supabase-js";
 
+export type Subscription = {
+    id: string;
+    userId: string;
+    status: 'active' | 'canceled' | 'inactive' | 'paid';
+    currentPeriodEnd: string; // ISO date string
+    planId: string;
+    createdAt: string; // ISO date string
+    updatedAt: string; // ISO date string
+};
 export type UserSession = {
     email: string | undefined;
     id: string | undefined;
@@ -9,21 +18,35 @@ export type UserSession = {
         role?: string;
     };
     identities: UserIdentity[];
+    subscription?: {
+        isActive: boolean;
+        data?: Subscription;
+    };
 };
 
-export const mapUserSession = (user: UserSession): UserSession | null => {
+export const mapUserSession = (
+    authUser: any,
+    subscriptionData?: Subscription | null
+): UserSession | null => {
+    if (!authUser) return null;
 
-    if (!user) return null;
-
-    const userData: UserSession = {
-        email: user.email || undefined,
-        id: user.id || undefined,
-        role: user.user_metadata?.role,
-        last_sign_in_at: user.last_sign_in_at || undefined,
-        identities: user.identities,
+    const isSubscriptionActive = subscriptionData
+        ? ['active', 'paid'].includes(subscriptionData.status) &&
+        new Date(subscriptionData.currentPeriodEnd) > new Date()
+        : false;
+    
+    return {
+        email: authUser.email || undefined,
+        id: authUser.id || undefined,
+        role: authUser.user_metadata?.role,
+        last_sign_in_at: authUser.last_sign_in_at || undefined,
+        identities: authUser.identities || [],
+        subscription: {
+            isActive: isSubscriptionActive,
+            ...(subscriptionData && { data: subscriptionData })
+        }
     };
-    return userData;
-}
+};
 
 export const getUserSession = (): UserSession | null => {
     if (typeof window === 'undefined') return null;
@@ -67,11 +90,59 @@ export const updateUserSession = (updates: Partial<UserSession>) => {
     return updatedSession;
 };
 
-export const getGoogleAvatarUrl = (user: UserSession | null) => {
-    if (user && user.identities) {
-        const googleIdentity = user.identities.find(x => x.provider === 'google');
-        return googleIdentity?.identity_data?.picture;
-    }
+
+const AVATAR_CACHE_KEY = 'user_avatar_url';
+const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+export const getGoogleAvatarUrl = (user: UserSession | null): string | null => {
+    if (typeof window === 'undefined') return null;
     
-    return null;
+    if (!user?.identities) return null;
+    try {
+        // Try to get cached avatar
+        const cachedAvatar = localStorage.getItem(AVATAR_CACHE_KEY);
+        if (cachedAvatar) {
+            const { url, timestamp } = JSON.parse(cachedAvatar);
+            // Return cached URL if it's still valid
+            if (Date.now() - timestamp < CACHE_TTL) {
+                return url;
+            }
+        }
+        // Get fresh URL if no valid cache
+        const googleIdentity = user.identities.find(x => x.provider === 'google');
+        const pictureUrl = googleIdentity?.identity_data?.picture;
+        
+        if (!pictureUrl) return null;
+        // Add cache-busting parameter
+        const separator = pictureUrl.includes('?') ? '&' : '?';
+        const finalUrl = `${pictureUrl}${separator}t=${Date.now()}`;
+        // Cache the new URL
+        localStorage.setItem(
+            AVATAR_CACHE_KEY,
+            JSON.stringify({
+                url: finalUrl,
+                timestamp: Date.now()
+            })
+        );
+        console.log(finalUrl);
+        return finalUrl;
+    } catch (error) {
+        console.error('Error handling avatar URL:', error);
+        return null;
+    }
 };
+// Optional: Add a function to clear the avatar cache
+export const clearAvatarCache = (): void => {
+    if (typeof window !== 'undefined') {
+        localStorage.removeItem(AVATAR_CACHE_KEY);
+    }
+};
+
+// export const getGoogleAvatarUrl = (user: UserSession | null) => {
+//     if (user && user.identities) {
+//         const googleIdentity = user.identities.find(x => x.provider === 'google');
+//         const sep = googleIdentity?.identity_data?.picture.includes("?") ? "&" : "?";
+//         return `${googleIdentity?.identity_data?.picture}${sep}t=${Date.now()}`;
+//     }
+
+//     return null;
+// };

@@ -31,12 +31,6 @@ const UserMenu: React.FC<UserMenuProps> = ({
         setAnchorEl(event.currentTarget);
     };
 
-    
-    const [image, setImage] = useState('');
-    useEffect(() => {
-        setImage(getGoogleAvatarUrl(user));
-    }, [user]);
-
     return (
         <>
             <IconButton
@@ -47,7 +41,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 aria-haspopup="true"
                 onClick={handleMenu}
             >
-                <UserImage user={user} imageUrl={image} />
+                <UserImage />
             </IconButton>
 
 

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   Box,
 } from '@mui/material';
-import { useAuth } from '../../../contexts/auth/AuthContext';
+import { useAuth } from '../../../contexts/auth/AuthProvider.tsx';
 
 export default function SignOut({ theme }: { theme?: any } = {}) {
   const navigate = useNavigate();

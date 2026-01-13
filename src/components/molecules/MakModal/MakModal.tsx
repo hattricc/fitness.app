@@ -9,10 +9,12 @@ import {
     ListItem,
     ListItemIcon,
     styled,
+    IconButton,
 } from '@mui/material';
 import { Check as CheckIcon } from '@mui/icons-material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { X } from 'lucide-react';
 
 const PriceContainer = styled(Box)(({ theme }) => ({
     display: 'flex',
@@ -44,7 +46,7 @@ interface MakModalProps {
     setOpenModal: (value: boolean) => void;
 }
 
-export function MakModal({ openModal, setOpenModal } : MakModalProps) {
+export function MakModal({ openModal, setOpenModal }: MakModalProps) {
     // const [open, setOpen] = useState(false);
     const price = 499;
     const comparePrice = 700;
@@ -76,6 +78,7 @@ export function MakModal({ openModal, setOpenModal } : MakModalProps) {
                     sx: {
                         background: '#1B1B1B',
                         color: '#FFFFFF',
+                        position: 'relative', // Add this for absolute positioning of the close button
                         '& .MuiDialogTitle-root': {
                             color: '#FFFFFF',
                             padding: '24px 24px 8px'
@@ -86,6 +89,23 @@ export function MakModal({ openModal, setOpenModal } : MakModalProps) {
                     }
                 }}
             >
+                <IconButton
+                    aria-label="close"
+                    onClick={() => setOpenModal(false)}
+                    sx={{
+                        position: 'absolute',
+                        right: 8,
+                        top: 8,
+                        color: 'rgba(255, 255, 255, 0.7)',
+                        '&:hover': {
+                            color: 'rgba(255, 255, 255, 1)',
+                            backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }}
+                >
+                    <X />
+                </IconButton>
+
                 <DialogTitle variant="h4" align="center" sx={{ pb: 1, color: '#FFFFFF' }}>
                     Obtén acceso permanente
                 </DialogTitle>

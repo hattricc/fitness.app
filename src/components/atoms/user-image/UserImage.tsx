@@ -1,85 +1,71 @@
-import { useState, useEffect } from 'react';
-import { Skeleton } from '@mui/material'; // or your preferred loading component
-import { UserSession } from '@/lib/userSession';
+import { useState, useEffect, useMemo } from 'react';
+import { CircularProgress, Skeleton } from '@mui/material'; // or your preferred loading component
 import { AccountCircle } from '@mui/icons-material';
+import { getGoogleAvatarUrl } from '@/lib/userSession';
+import { useAuth } from "@/contexts/auth/AuthProvider";
 
-export const UserImage = ({ user, imageUrl }: { user: UserSession | null, imageUrl: string | null }) => {
+export const UserImage = () => {
+
+    const { user, authLoading } = useAuth();
+
+    const avatarBaseUrl = useMemo(
+        () => getGoogleAvatarUrl(user),
+        [user]
+    );
+
     const [imgSrc, setImgSrc] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [loadingImg, setLoadingImg] = useState(true);
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        if (!imageUrl) {
-            setIsLoading(false);
+        try {
+            setError(false);
+
+            if (authLoading) {
+                setLoadingImg(true);
+                setImgSrc(null);
+                return;
+            }
+
+            if (!avatarBaseUrl) {
+                setLoadingImg(false);
+                setImgSrc(null);
+                setError(true);
+                return;
+            }
+
+            setImgSrc(avatarBaseUrl);
+            setLoadingImg(false);
+
+        } catch (error) {
+            console.error('Error loading image:', error);
+            setLoadingImg(false);
             setError(true);
-            return;
         }
+    }, [avatarBaseUrl, authLoading]);
 
-        let isMounted = true;
-        const img = new Image();
-        let retryTimer: NodeJS.Timeout;
-        let retryCount = 0;
-        const maxRetries = 2;
-
-        const loadImage = (url: string) => {
-            img.onload = () => {
-                if (!isMounted) return;
-                setIsLoading(false);
-                setError(false);
-                setImgSrc(url);
-            };
-
-            img.onerror = () => {
-                if (retryCount < maxRetries) {
-                    retryCount++;
-                    retryTimer = setTimeout(() => {
-                        const separator = url.includes('?') ? '&' : '?';
-                        loadImage(`${url}${separator}t=${Date.now()}`);
-                    }, 1000 * Math.pow(2, retryCount));
-                } else if (isMounted) {
-                    setIsLoading(false);
-                    setError(true);
-                }
-            };
-
-            img.src = url;
-        };
-
-        loadImage(imageUrl);
-
-        return () => {
-            isMounted = false;
-            img.onload = null;
-            img.onerror = null;
-            clearTimeout(retryTimer);
-        };
-    }, [imageUrl]);
-
-    if (isLoading) {
-        return <Skeleton variant="circular" width={40} height={40} />;
+    if (!imgSrc || error) {
+        return <AccountCircle style={{ width: 40, height: 40 }} />;
     }
 
-    console.log('imgSrc', imgSrc)
-    console.log('error', error)
+    if (loadingImg) {
+        return <CircularProgress size={40} />;
+    } 
 
     return (
-        <>
-            {imgSrc && !error ? (
-                <img
-                    src={imgSrc}
-                    alt="Profile"
-                    style={{
-                        width: 40,
-                        height: 40,
-                        borderRadius: '50%',
-                        objectFit: 'cover'
-                    }}
-                    loading="lazy"
-                />
-            ) : (
-                <AccountCircle style={{ width: 40, height: 40 }} />
-            )}
-        </>
+        <img
+            src={imgSrc}
+            alt="Profile"
+            width={40}
+            height={40}
+            style={{ borderRadius: "50%", objectFit: "cover" }}
+            onLoad={() => setLoadingImg(false)}
+            onError={() => {
+                setLoadingImg(false);
+                setError(true);
+            }}
+            referrerPolicy="no-referrer"
+        />
     );
 };
 

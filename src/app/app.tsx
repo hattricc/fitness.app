@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,33 +14,28 @@ import { getAllWorkouts } from '../data/getWorkout';
 import { darkTheme } from '../data/theme';
 import LoginForm from '../components/organisms/login';
 import ResetPasswordForm from '../components/organisms/reset-password';
-import { AuthProvider } from '@/contexts/auth/AuthContext';
+import { useAuth } from '../contexts/auth/AuthProvider.tsx';
 import CombateSagrado from './pages/combate-sagrado';
 import PagoExitosoPage from './pages/PagoExitosoPage';
 import { AuthCallback } from '@/components/auth/AuthCallback';
-import { setUserSession, UserSession } from '@/lib/userSession'
 import SignOut from '@/components/organisms/signout/signout';
 import SubscriptionPage from './pages/SubscriptionPage';
 
 import { MakModal } from '@/components/molecules/MakModal/MakModal';
-
+import { Course } from '@/types/course';
 
 function App() {
+  const { user, subscription } = useAuth();
+
   const [hasIntroEnded, setHasIntroEnded] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const navigate = useNavigate();
   const [difficulty, setDifficulty] = useState<string>('all');
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
-  const [workouts] = useState<WorkoutRoutine[]>(getAllWorkouts());
-  const [user, setUser] = useState<UserSession | null>(null);
+  const [workouts] = useState<Course[]>(getAllWorkouts());
 
   const [openModal, setOpenModal] = useState(false);
-  
 
-  const setSession = useCallback((user: UserSession | null) => {
-    setUserSession(user);
-    setUser(user);
-  }, []);
 
   const handleWorkoutSelect = (workout: WorkoutRoutine) => {
     navigate(`/workout/${workout.id}`);
@@ -54,6 +49,8 @@ function App() {
     setSelectedExercise(exercise);
     navigate(`/exercise/${exercise.id}`);
   };
+
+
 
   // Show intro video if it hasn't ended yet
   if (!hasIntroEnded) {
@@ -98,25 +95,12 @@ function App() {
     },
     {
       path: "/signup",
-      // element: <SignUpForm theme={darkTheme} />,
       element: <LoginForm theme={darkTheme} />,
     },
     {
       path: "/reset-password",
       element: <ResetPasswordForm theme={darkTheme} />,
     },
-    // {
-    //   path: "/articles",
-    //   element: <Articles />,
-    // },
-    // {
-    //   path: "/weekly-challenge",
-    //   element: <WeeklyChallenge />,
-    // },
-    // {
-    //   path: "/progress",
-    //   element: <Progress />,
-    // },
     {
       path: "/combate-sagrado",
       element: <CombateSagrado />,
@@ -131,7 +115,7 @@ function App() {
     },
     {
       path: "/auth/callback",
-      element: <AuthCallback setSession={setSession} />
+      element: <AuthCallback />
     },
     {
       path: "/signout",
@@ -140,8 +124,8 @@ function App() {
   ];
 
   return (
-    <AuthProvider setSession={setSession}>
-      <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={darkTheme}>
+      {/* <AuthGate> */}
         <CssBaseline />
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
           <Header user={user} />
@@ -154,10 +138,9 @@ function App() {
               ))}
             </Routes>
           </Box>
-          {/* <MakModal initialOpen={openModal} onClose={() => setOpenModal(false)} /> */}
         </Box>
-      </ThemeProvider>
-    </AuthProvider>
+      {/* </AuthGate> */}
+    </ThemeProvider>
   );
 }
 

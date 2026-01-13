@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import SocialLoginButtons from '../../molecules/social-login-buttons';
-import { useAuth } from '../../../contexts/auth/AuthContext';
+import { useAuth } from '../../../contexts/auth/AuthProvider.tsx';
 
 
 interface LoginFormProps {

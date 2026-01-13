@@ -5,7 +5,7 @@ import { Check as CheckIcon } from '@mui/icons-material';
 import { LiveesPayment } from '../../components/molecules/livees-payment/livees-payment';
 import { styled } from '@mui/material/styles';
 
-import { useAuth } from '../../contexts/auth/AuthContext';
+import { useAuth } from '../../contexts/auth/AuthProvider.tsx';
 import LoginForm from '../../components/organisms/login';
 
 const PriceContainer = styled(Box)({
