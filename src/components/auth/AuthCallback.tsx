@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, CircularProgress, Typography } from '@mui/material';
-import { useAuth } from '@/contexts/auth/AuthProvider';
 import { supabase } from '@/lib/supabase';
+
+const MANUAL_SESSION_KEY = "manual_supabase_session_v1";
 
 export const AuthCallback = () => {
     const navigate = useNavigate();
@@ -34,6 +35,19 @@ export const AuthCallback = () => {
                 const { data, error: sessionError } = await supabase.auth.getSession();
                 if (sessionError) throw sessionError;
                 if (!data.session) throw new Error("No session found after OAuth callback");
+
+                // Guarda lo mínimo necesario para restaurar sesión
+                const s = data.session;
+                localStorage.setItem(
+                    MANUAL_SESSION_KEY,
+                    JSON.stringify({
+                        access_token: s.access_token,
+                        refresh_token: s.refresh_token,
+                        expires_at: s.expires_at,
+                        user: { id: s.user?.id }, // opcional
+                        saved_at: Date.now(),
+                    })
+                );
 
                 const redirectTo = localStorage.getItem('redirectTo') || next;
                 localStorage.removeItem('redirectTo');

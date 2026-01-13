@@ -9,23 +9,20 @@ import Home from './home';
 import WorkoutList from './workout-list';
 import Workout from './workout';
 import ExerciseDetail from './exercise-detail';
-import { BaseExercise, Exercise, WorkoutRoutine } from '../types/exercise';
+import { Exercise, WorkoutRoutine } from '../types/exercise';
 import { getAllWorkouts } from '../data/getWorkout';
 import { darkTheme } from '../data/theme';
 import LoginForm from '../components/organisms/login';
 import ResetPasswordForm from '../components/organisms/reset-password';
-import { AuthProvider, useAuth } from '../contexts/auth/AuthProvider.tsx';
+import { useAuth } from '../contexts/auth/AuthProvider.tsx';
 import CombateSagrado from './pages/combate-sagrado';
 import PagoExitosoPage from './pages/PagoExitosoPage';
 import { AuthCallback } from '@/components/auth/AuthCallback';
-import { setUserSession, Subscription, UserSession } from '@/lib/userSession'
 import SignOut from '@/components/organisms/signout/signout';
 import SubscriptionPage from './pages/SubscriptionPage';
 
 import { MakModal } from '@/components/molecules/MakModal/MakModal';
 import { Course } from '@/types/course';
-import { getUserWithSubscription, supabase } from '@/lib/supabase';
-import { AuthGate } from "@/contexts/auth/AuthGate";
 
 function App() {
   const { user, subscription } = useAuth();
@@ -36,24 +33,9 @@ function App() {
   const [difficulty, setDifficulty] = useState<string>('all');
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
   const [workouts] = useState<Course[]>(getAllWorkouts());
-  // const [user, setUser] = useState<UserSession | null>(null);
 
   const [openModal, setOpenModal] = useState(false);
 
-  // const [subscription, setSubscription] = useState<Subscription>();
-
-
-
-  // const setSession = useCallback((user: UserSession | null) => {
-  //   if (user) {
-  //     localStorage.setItem('userSession', JSON.stringify(user));
-  //   } else {
-  //     localStorage.removeItem('userSession');
-  //   }
-
-  //   setUserSession(user);
-  //   setUser(user);
-  // }, []);
 
   const handleWorkoutSelect = (workout: WorkoutRoutine) => {
     navigate(`/workout/${workout.id}`);
@@ -67,56 +49,6 @@ function App() {
     setSelectedExercise(exercise);
     navigate(`/exercise/${exercise.id}`);
   };
-
-
-  // const getSubscription = async () => {
-  //   console.log('entra a getSubscription probando')
-  //   try {
-  //     const { data: { session }, error: authError } = await supabase.auth.getSession();
-  //     console.log(session)
-  //     console.log(authError)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-
-  //   const auth = await supabase.auth.getSession();
-  //   console.log(auth.data.session?.access_token);
-
-
-  //   const { data: { session }, error: authError } = await supabase.auth.getSession();
-
-  //   console.log('session', session)
-  //   console.log('authError', authError)
-
-  //   const subscription = await getUserWithSubscription(session?.user?.id || '');
-
-  //   console.log('getsubscription', subscription);
-  //   console.log('user', user);
-
-  //   if (subscription) {
-  //     console.log('subscription', subscription)
-  //     setSubscription(subscription);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   // getSubscription();
-  // }, []);
-
-  // useEffect(() => {
-  //   // Load user session from localStorage on initial load
-  //   const savedUser = localStorage.getItem('userSession');
-  //   if (savedUser) {
-  //     try {
-  //       const user = JSON.parse(savedUser);
-  //       setUser(user);
-  //       setUserSession(user);
-  //     } catch (error) {
-  //       console.error('Failed to parse user session:', error);
-  //       localStorage.removeItem('userSession');
-  //     }
-  //   }
-  // }, []);
 
 
 
@@ -149,7 +81,7 @@ function App() {
     },
     {
       path: "/workout/:id",
-      element: <Workout subscription={subscription} setOpenModal={setOpenModal} onSelectExercise={handleExerciseSelect} />,
+      element: <Workout setOpenModal={setOpenModal} onSelectExercise={handleExerciseSelect} />,
     },
     {
       path: "/exercise/:id",

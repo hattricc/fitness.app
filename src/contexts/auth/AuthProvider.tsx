@@ -17,6 +17,35 @@ type AuthContextType = {
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const MANUAL_SESSION_KEY = "manual_supabase_session_v1";
+
+
+async function restoreSessionFromLocalStorage() {
+  try {
+    const raw = localStorage.getItem(MANUAL_SESSION_KEY);
+    if (!raw) return false;
+
+    const parsed = JSON.parse(raw);
+    if (!parsed?.access_token || !parsed?.refresh_token) return false;
+
+    const { data, error } = await supabase.auth.setSession({
+      access_token: parsed.access_token,
+      refresh_token: parsed.refresh_token,
+    });
+
+    if (error) {
+      console.error("[auth] setSession error:", error);
+      localStorage.removeItem(MANUAL_SESSION_KEY);
+      return false;
+    }
+
+    return !!data.session;
+  } catch (e) {
+    console.error("[auth] restoreSession parse error:", e);
+    localStorage.removeItem(MANUAL_SESSION_KEY);
+    return false;
+  }
+}
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [authLoading, setAuthLoading] = useState(true);
@@ -61,11 +90,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return subFetchInFlight.current;
   };
 
-  const applySession = async (session: Session | null) => {
+  const applySession = async (event: string, session: Session | null) => {
     setSupabaseSession(session);
 
-    if (!session?.user) {
+    // Solo limpiar definitivo si realmente se firmó out
+    if (event === "SIGNED_OUT") {
       clearAll();
+      setSubscriptionLoading(false);
+      setAuthLoading(false);
+      return;
+    }
+
+    if (!session?.user) {
+      setSubscription(null);
       setSubscriptionLoading(false);
       setAuthLoading(false);
       return;
@@ -89,23 +126,34 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     let mounted = true;
 
-    console.log('1')
-
-    // 1) sesión inicial
+    // 1) intenta sesión normal
     supabase.auth.getSession().then(async ({ data, error }) => {
-      console.log('data', data)
-      console.log('error', error)
-      
       if (!mounted) return;
-      console.log('2')
       if (error) console.error("getSession error:", error);
-      await applySession(data.session ?? null);
+
+      // 2) si no hay sesión, intenta restaurar manualmente
+      if (!data.session) {
+        const restored = await restoreSessionFromLocalStorage();
+        if (!restored) {
+          await applySession("INITIAL_SESSION", null);
+          return;
+        }
+
+        const again = await supabase.auth.getSession();
+        await applySession("INITIAL_SESSION", again.data.session ?? null);
+        return;
+      }
+
+      await applySession("INITIAL_SESSION", data.session ?? null);
     });
 
     // 2) listener único
     const { data: listener } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      // Nota: no llames getSession aquí; usa `session` directo
-      await applySession(session ?? null);
+      await applySession(_event, session ?? null);
+
+      if (_event === "SIGNED_OUT") {
+        localStorage.removeItem(MANUAL_SESSION_KEY);
+      }
     });
 
     return () => {

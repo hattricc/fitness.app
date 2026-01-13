@@ -90,22 +90,59 @@ export const updateUserSession = (updates: Partial<UserSession>) => {
     return updatedSession;
 };
 
+
+const AVATAR_CACHE_KEY = 'user_avatar_url';
+const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+export const getGoogleAvatarUrl = (user: UserSession | null): string | null => {
+    if (typeof window === 'undefined') return null;
+    
+    if (!user?.identities) return null;
+    try {
+        // Try to get cached avatar
+        const cachedAvatar = localStorage.getItem(AVATAR_CACHE_KEY);
+        if (cachedAvatar) {
+            const { url, timestamp } = JSON.parse(cachedAvatar);
+            // Return cached URL if it's still valid
+            if (Date.now() - timestamp < CACHE_TTL) {
+                return url;
+            }
+        }
+        // Get fresh URL if no valid cache
+        const googleIdentity = user.identities.find(x => x.provider === 'google');
+        const pictureUrl = googleIdentity?.identity_data?.picture;
+        
+        if (!pictureUrl) return null;
+        // Add cache-busting parameter
+        const separator = pictureUrl.includes('?') ? '&' : '?';
+        const finalUrl = `${pictureUrl}${separator}t=${Date.now()}`;
+        // Cache the new URL
+        localStorage.setItem(
+            AVATAR_CACHE_KEY,
+            JSON.stringify({
+                url: finalUrl,
+                timestamp: Date.now()
+            })
+        );
+        console.log(finalUrl);
+        return finalUrl;
+    } catch (error) {
+        console.error('Error handling avatar URL:', error);
+        return null;
+    }
+};
+// Optional: Add a function to clear the avatar cache
+export const clearAvatarCache = (): void => {
+    if (typeof window !== 'undefined') {
+        localStorage.removeItem(AVATAR_CACHE_KEY);
+    }
+};
+
 // export const getGoogleAvatarUrl = (user: UserSession | null) => {
 //     if (user && user.identities) {
 //         const googleIdentity = user.identities.find(x => x.provider === 'google');
-//         return googleIdentity?.identity_data?.picture;
+//         const sep = googleIdentity?.identity_data?.picture.includes("?") ? "&" : "?";
+//         return `${googleIdentity?.identity_data?.picture}${sep}t=${Date.now()}`;
 //     }
-    
 
 //     return null;
 // };
-
-export const getGoogleAvatarUrl = (session: any): string | null => {
-  const md = session?.user?.user_metadata;
-  return (
-    md?.avatar_url || // Google suele poner esto
-    md?.picture ||    // a veces esto
-    md?.avatarUrl ||  // por si tu app lo guardó así
-    null
-  );
-}

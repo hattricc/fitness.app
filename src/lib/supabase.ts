@@ -1,5 +1,4 @@
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { Subscription } from './userSession';
+import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -13,48 +12,13 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
+    storage: localStorage,
   },
 });
 
-// Get user subscription
-// export async function getUserWithSubscription(userId: string): Promise<Subscription | null> {
-//   try {
-//     if (!userId) {
-//       console.error('No userId provided');
-//       return null;
-//     }
-
-//     console.log('vamos a buscar suscripcion para el usuario', userId);
-
-//     const { data: subscription, error } = await supabase
-//       .from('payments')
-//       .select('status')
-//       .eq('user_id', userId)
-//       // .eq('product_id', 'e45f8d41-0132-44c5-9e05-254ca96db19a')
-//       .eq('status', 'paid')  // Filter for paid status
-//       // .order('created_at', { ascending: false })  // Get most recent first
-//       .limit(1)  // Only return one record
-//       .maybeSingle();  // Returns null if no rows, or the single row if found
-
-//     console.log('looking subscription for user', userId);
-//     console.log('looking subscription for user', userId);
-
-//     if (error) {
-//       if (error.code === 'PGRST116') {
-//         console.error('No subscription found for user');
-//         return null;
-//       }
-//       throw error;
-//     }
-//     return subscription as Subscription;
-//   } catch (error) {
-//     console.error('Error in getUserWithSubscription:', error);
-//     return null;
-//   }
-// }
 
 export async function getUserWithSubscription(userId: string) {
-  console.log("[sub] start", { userId });
+  // console.log("[sub] start", { userId });
 
   try {
     if (!userId) {
@@ -62,7 +26,7 @@ export async function getUserWithSubscription(userId: string) {
       return null;
     }
 
-    console.time("[sub] query");
+    // console.time("[sub] query");
 
     const queryPromise = supabase
       .from("payments")
@@ -80,8 +44,8 @@ export async function getUserWithSubscription(userId: string) {
 
     const result = (await Promise.race([queryPromise, timeoutPromise])) as any;
 
-    console.timeEnd("[sub] query");
-    console.log("[sub] result", result);
+    // console.timeEnd("[sub] query");
+    // console.log("[sub] result", result);
 
     const { data, error } = result;
 
