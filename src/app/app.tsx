@@ -14,7 +14,7 @@ import { getAllWorkouts } from '../data/getWorkout';
 import { darkTheme } from '../data/theme';
 import LoginForm from '../components/organisms/login';
 import ResetPasswordForm from '../components/organisms/reset-password';
-import { AuthProvider } from '../contexts/auth/AuthProvider.tsx';
+import { AuthProvider, useAuth } from '../contexts/auth/AuthProvider.tsx';
 import CombateSagrado from './pages/combate-sagrado';
 import PagoExitosoPage from './pages/PagoExitosoPage';
 import { AuthCallback } from '@/components/auth/AuthCallback';
@@ -24,35 +24,36 @@ import SubscriptionPage from './pages/SubscriptionPage';
 
 import { MakModal } from '@/components/molecules/MakModal/MakModal';
 import { Course } from '@/types/course';
-import { useAuth } from '../contexts/auth/AuthProvider.tsx';
 import { getUserWithSubscription, supabase } from '@/lib/supabase';
-
+import { AuthGate } from "@/contexts/auth/AuthGate";
 
 function App() {
+  const { user, subscription } = useAuth();
+
   const [hasIntroEnded, setHasIntroEnded] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const navigate = useNavigate();
   const [difficulty, setDifficulty] = useState<string>('all');
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
   const [workouts] = useState<Course[]>(getAllWorkouts());
-  const [user, setUser] = useState<UserSession | null>(null);
+  // const [user, setUser] = useState<UserSession | null>(null);
 
   const [openModal, setOpenModal] = useState(false);
 
-  const [subscription, setSubscription] = useState<Subscription>();
+  // const [subscription, setSubscription] = useState<Subscription>();
 
 
 
-  const setSession = useCallback((user: UserSession | null) => {
-    if (user) {
-      localStorage.setItem('userSession', JSON.stringify(user));
-    } else {
-      localStorage.removeItem('userSession');
-    }
+  // const setSession = useCallback((user: UserSession | null) => {
+  //   if (user) {
+  //     localStorage.setItem('userSession', JSON.stringify(user));
+  //   } else {
+  //     localStorage.removeItem('userSession');
+  //   }
 
-    setUserSession(user);
-    setUser(user);
-  }, []);
+  //   setUserSession(user);
+  //   setUser(user);
+  // }, []);
 
   const handleWorkoutSelect = (workout: WorkoutRoutine) => {
     navigate(`/workout/${workout.id}`);
@@ -68,54 +69,54 @@ function App() {
   };
 
 
-  const getSubscription = async () => {
-    console.log('entra a getSubscription probando')
-    try {
-      const { data: { session }, error: authError } = await supabase.auth.getSession();
-      console.log(session)
-      console.log(authError)
-    } catch (error) {
-      console.log(error)
-    }
+  // const getSubscription = async () => {
+  //   console.log('entra a getSubscription probando')
+  //   try {
+  //     const { data: { session }, error: authError } = await supabase.auth.getSession();
+  //     console.log(session)
+  //     console.log(authError)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
 
-    const auth = await supabase.auth.getSession();
-    console.log(auth.data.session?.access_token);
+  //   const auth = await supabase.auth.getSession();
+  //   console.log(auth.data.session?.access_token);
 
 
-    const { data: { session }, error: authError } = await supabase.auth.getSession();
+  //   const { data: { session }, error: authError } = await supabase.auth.getSession();
 
-    console.log('session', session)
-    console.log('authError', authError)
+  //   console.log('session', session)
+  //   console.log('authError', authError)
 
-    const subscription = await getUserWithSubscription(session?.user?.id || '');
+  //   const subscription = await getUserWithSubscription(session?.user?.id || '');
 
-    console.log('getsubscription', subscription);
-    console.log('user', user);
+  //   console.log('getsubscription', subscription);
+  //   console.log('user', user);
 
-    if (subscription) {
-      console.log('subscription', subscription)
-      setSubscription(subscription);
-    }
-  }
+  //   if (subscription) {
+  //     console.log('subscription', subscription)
+  //     setSubscription(subscription);
+  //   }
+  // }
 
   // useEffect(() => {
   //   // getSubscription();
   // }, []);
 
-  useEffect(() => {
-    // Load user session from localStorage on initial load
-    const savedUser = localStorage.getItem('userSession');
-    if (savedUser) {
-      try {
-        const user = JSON.parse(savedUser);
-        setUser(user);
-        setUserSession(user);
-      } catch (error) {
-        console.error('Failed to parse user session:', error);
-        localStorage.removeItem('userSession');
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   // Load user session from localStorage on initial load
+  //   const savedUser = localStorage.getItem('userSession');
+  //   if (savedUser) {
+  //     try {
+  //       const user = JSON.parse(savedUser);
+  //       setUser(user);
+  //       setUserSession(user);
+  //     } catch (error) {
+  //       console.error('Failed to parse user session:', error);
+  //       localStorage.removeItem('userSession');
+  //     }
+  //   }
+  // }, []);
 
 
 
@@ -162,25 +163,12 @@ function App() {
     },
     {
       path: "/signup",
-      // element: <SignUpForm theme={darkTheme} />,
       element: <LoginForm theme={darkTheme} />,
     },
     {
       path: "/reset-password",
       element: <ResetPasswordForm theme={darkTheme} />,
     },
-    // {
-    //   path: "/articles",
-    //   element: <Articles />,
-    // },
-    // {
-    //   path: "/weekly-challenge",
-    //   element: <WeeklyChallenge />,
-    // },
-    // {
-    //   path: "/progress",
-    //   element: <Progress />,
-    // },
     {
       path: "/combate-sagrado",
       element: <CombateSagrado />,
@@ -195,7 +183,7 @@ function App() {
     },
     {
       path: "/auth/callback",
-      element: <AuthCallback setSession={setSession} />
+      element: <AuthCallback />
     },
     {
       path: "/signout",
@@ -204,8 +192,8 @@ function App() {
   ];
 
   return (
-    <AuthProvider setSession={setSession}>
-      <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={darkTheme}>
+      {/* <AuthGate> */}
         <CssBaseline />
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
           <Header user={user} />
@@ -218,10 +206,9 @@ function App() {
               ))}
             </Routes>
           </Box>
-          {/* <MakModal initialOpen={openModal} onClose={() => setOpenModal(false)} /> */}
         </Box>
-      </ThemeProvider>
-    </AuthProvider>
+      {/* </AuthGate> */}
+    </ThemeProvider>
   );
 }
 

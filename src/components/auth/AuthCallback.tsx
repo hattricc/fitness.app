@@ -1,10 +1,10 @@
-// src/components/auth/AuthCallback.tsx
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, CircularProgress, Typography } from '@mui/material';
-import { supabase } from "../../../src/lib/supabase";
+import { useAuth } from '@/contexts/auth/AuthProvider';
+import { supabase } from '@/lib/supabase';
 
-export const AuthCallback = ({ setSession }: { setSession: (user: any) => void }) => {
+export const AuthCallback = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -12,9 +12,9 @@ export const AuthCallback = ({ setSession }: { setSession: (user: any) => void }
             const urlParams = new URLSearchParams(window.location.search);
             const error = urlParams.get('error');
             const errorDescription = urlParams.get('error_description');
-            debugger
+            const next = urlParams.get("next") || "/";
+
             if (error) {
-                console.error('OAuth error:', { error, errorDescription });
                 navigate('/login', {
                     state: {
                         error: errorDescription || 'Authentication failed. Please try again.'
@@ -24,41 +24,28 @@ export const AuthCallback = ({ setSession }: { setSession: (user: any) => void }
                 return;
             }
 
-            // try {
-            //     const result = await supabase.auth.getSession();
-            //     console.log(result);
-            // } catch (err) {
-            //     console.error('Supabase getSession error:', err);
-            // }
-
             try {
-                // This will parse the URL hash and set the session
-                const { data: { session }, error: authError } = await supabase.auth.getSession();
-                if (authError) throw authError;
-                if (error) throw error;
-
-                if (session) {
-                    setSession(session);
-
-                    const wasOnSubscriptionPage = localStorage.getItem('wasOnSubscriptionPage') === 'true';
-                    localStorage.removeItem('wasOnSubscriptionPage');
-
-                    if (wasOnSubscriptionPage) {
-                        navigate('/subscription', { replace: true });
-                        return;
-                    }
-
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const next = urlParams.get('next') || '/';
-                    navigate(next.startsWith('/') ? next : `/${next}`, { replace: true });
-                } else {
-                    throw new Error('No session found');
+                // Si el callback trae ?code=..., esto es lo correcto en v2 (PKCE)
+                if (urlParams.get("code")) {
+                    const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(window.location.href);
+                    if (exchangeError) throw exchangeError;
                 }
+
+                const { data, error: sessionError } = await supabase.auth.getSession();
+                if (sessionError) throw sessionError;
+                if (!data.session) throw new Error("No session found after OAuth callback");
+
+                const redirectTo = localStorage.getItem('redirectTo') || next;
+                localStorage.removeItem('redirectTo');
+
+                navigate(redirectTo.startsWith('/') ? redirectTo : `/${redirectTo}`, {
+                    replace: true
+                });
             } catch (error) {
                 console.error('Authentication error:', error);
                 navigate('/login', {
                     state: {
-                        error: 'Failed to authenticate. Please try again.'
+                        error: 'Failed to complete authentication. Please try again.'
                     },
                     replace: true
                 });
@@ -66,7 +53,7 @@ export const AuthCallback = ({ setSession }: { setSession: (user: any) => void }
         };
 
         handleAuth();
-    }, [navigate, setSession]);
+    }, [navigate]);
 
     return (
         <Box
@@ -80,7 +67,7 @@ export const AuthCallback = ({ setSession }: { setSession: (user: any) => void }
             }}
         >
             <CircularProgress />
-            <Typography variant="h6">Completing authentication...</Typography>
+            <Typography variant="h6">Completando autenticación...</Typography>
         </Box>
     );
 };

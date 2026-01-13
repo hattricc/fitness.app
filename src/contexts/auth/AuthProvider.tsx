@@ -1,11 +1,15 @@
-import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
+import { createContext, useContext, useEffect, useState, ReactNode, useCallback, useRef, useMemo } from 'react';
 import { getUserWithSubscription, supabase } from '@/lib/supabase';
 import { mapUserSession, UserSession, Subscription } from '@/lib/userSession';
+import { Session } from '@supabase/supabase-js';
 
 type AuthContextType = {
   user: UserSession | null;
+  supabaseSession: Session | null;
   subscription: Subscription | null;
-  loading: boolean;
+  authLoading: boolean;
+  subscriptionLoading: boolean;
+  refreshSubscription: () => Promise<void>;
   signInWithEmail: (email: string, password: string) => Promise<void>;
   signUpWithEmail: (email: string, password: string) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
@@ -14,98 +18,131 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-type AuthProviderProps = {
-  children: ReactNode;
-  setSession: (user: UserSession | null) => void;
-};
-
-export const AuthProvider = ({ children, setSession }: AuthProviderProps) => {
-  const [loading, setLoading] = useState(true);
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [authLoading, setAuthLoading] = useState(true);
+  const [supabaseSession, setSupabaseSession] = useState<Session | null>(null);
   const [user, setUser] = useState<UserSession | null>(null);
   const [subscription, setSubscription] = useState<Subscription | null>(null);
+  const [subscriptionLoading, setSubscriptionLoading] = useState(false);
 
 
-  const getSubscription = async (currentUser: UserSession | null) => {
-    const savedUser = localStorage.getItem('userSession');
-    if (!savedUser) return;
+  // Evita llamadas repetidas de subscription si hay eventos seguidos
+  const subFetchInFlight = useRef<Promise<void> | null>(null);
+  const lastUserIdRef = useRef<string | null>(null);
 
-    try {
-      const user = JSON.parse(savedUser);
-      if (!user?.id) return null;
+  const persistUser = (u: UserSession | null) => {
+    if (u) localStorage.setItem("userSession", JSON.stringify(u));
+    else localStorage.removeItem("userSession");
+  };
 
-      console.log('trying to get subscription', user.id);
-      const subscription = await getUserWithSubscription(user.id);
+  const clearAll = () => {
+    setSupabaseSession(null);
+    setUser(null);
+    setSubscription(null);
+    persistUser(null);
+  };
 
-      setSubscription(subscription);
-      return subscription;
-    } catch (error) {
-      console.error('Failed to parse user session:', error);
-      localStorage.removeItem('userSession');
+  const fetchAndSetSubscription = async (userId: string) => {
+    // dedupe
+    if (subFetchInFlight.current) return subFetchInFlight.current;
+
+    subFetchInFlight.current = (async () => {
+      try {
+        const sub = await getUserWithSubscription(userId);
+        setSubscription(sub ?? null);
+      } catch (e) {
+        console.error("getUserWithSubscription error:", e);
+        setSubscription(null);
+      } finally {
+        subFetchInFlight.current = null;
+      }
+    })();
+
+    return subFetchInFlight.current;
+  };
+
+  const applySession = async (session: Session | null) => {
+    setSupabaseSession(session);
+
+    if (!session?.user) {
+      clearAll();
+      setSubscriptionLoading(false);
+      setAuthLoading(false);
+      return;
     }
+
+    const currentUser = mapUserSession(session.user, null);
+    setUser(currentUser);
+    persistUser(currentUser);
+
+    if (lastUserIdRef.current !== currentUser?.id) {
+      lastUserIdRef.current = currentUser?.id ?? '';
+      setSubscriptionLoading(true);
+      await fetchAndSetSubscription(currentUser?.id ?? '');
+      setSubscriptionLoading(false);
+    }
+
+    setAuthLoading(false);
   };
 
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        console.log('event', event)
-        console.log('session', session)
+    let mounted = true;
 
-        if (event === 'SIGNED_OUT') {
-          setUser(null);
-          setSubscription(null);
-          setSession(null);
-          setLoading(false);
-          return;
-        }
+    console.log('1')
 
-        if (event === 'SIGNED_IN' && session?.user) {
-          const currentUser = session?.user;
-          const userData = mapUserSession(currentUser, null);
-          setUser(userData);
-          // await getSubscription(userData);
-          setSession(userData);
-          setLoading(false);
-        }
-      }
-    );
+    // 1) sesión inicial
+    supabase.auth.getSession().then(async ({ data, error }) => {
+      console.log('data', data)
+      console.log('error', error)
+      
+      if (!mounted) return;
+      console.log('2')
+      if (error) console.error("getSession error:", error);
+      await applySession(data.session ?? null);
+    });
+
+    // 2) listener único
+    const { data: listener } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      // Nota: no llames getSession aquí; usa `session` directo
+      await applySession(session ?? null);
+    });
 
     return () => {
-      subscription.unsubscribe();
+      mounted = false;
+      listener.subscription.unsubscribe();
     };
   }, []);
 
+  const refreshSubscription = async () => {
+    if (!user?.id) return;
+    await fetchAndSetSubscription(user.id);
+  };
 
-  useEffect(() => {
-    setTimeout(async () => {
-      console.log('getSubscription')
-      await getSubscription(user);
-    }, 1000);
-  }, [user]);
 
 
   const signInWithEmail = async (email: string, password: string) => {
-    setLoading(true);
+    setAuthLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
     if (error) throw error;
-    setLoading(false);
+    setAuthLoading(false);
   };
 
   const signUpWithEmail = async (email: string, password: string) => {
-    setLoading(true);
+    setAuthLoading(true);
     const { error } = await supabase.auth.signUp({
       email,
       password,
     });
     if (error) throw error;
-    setLoading(false);
+    setAuthLoading(false);
   };
 
   const signInWithGoogle = async () => {
-    setLoading(true);
+    setAuthLoading(true);
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
@@ -115,27 +152,38 @@ export const AuthProvider = ({ children, setSession }: AuthProviderProps) => {
       },
     });
     if (error) throw error;
-    setLoading(false);
+    setAuthLoading(false);
   };
 
   const signOut = async () => {
-    setLoading(true);
+    setAuthLoading(true);
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
     setUser(null);
-    setSession(null);
-    setLoading(false);
+    setAuthLoading(false);
   };
 
-  const value: AuthContextType = {
+  const value = useMemo<AuthContextType>(() => ({
     user,
-    loading,
+    supabaseSession,
+    subscription,
+    authLoading,
+    subscriptionLoading,
+    refreshSubscription,
     signInWithEmail,
     signUpWithEmail,
     signInWithGoogle,
     signOut,
+  }), [
+    user,
+    supabaseSession,
     subscription,
-  };
+    authLoading,
+    subscriptionLoading,
+    refreshSubscription,
+  ]);
+
+
 
   return (
     <AuthContext.Provider value={value}>

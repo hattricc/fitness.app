@@ -90,11 +90,22 @@ export const updateUserSession = (updates: Partial<UserSession>) => {
     return updatedSession;
 };
 
-export const getGoogleAvatarUrl = (user: UserSession | null) => {
-    if (user && user.identities) {
-        const googleIdentity = user.identities.find(x => x.provider === 'google');
-        return googleIdentity?.identity_data?.picture;
-    }
+// export const getGoogleAvatarUrl = (user: UserSession | null) => {
+//     if (user && user.identities) {
+//         const googleIdentity = user.identities.find(x => x.provider === 'google');
+//         return googleIdentity?.identity_data?.picture;
+//     }
+    
 
-    return null;
-};
+//     return null;
+// };
+
+export const getGoogleAvatarUrl = (session: any): string | null => {
+  const md = session?.user?.user_metadata;
+  return (
+    md?.avatar_url || // Google suele poner esto
+    md?.picture ||    // a veces esto
+    md?.avatarUrl ||  // por si tu app lo guardó así
+    null
+  );
+}

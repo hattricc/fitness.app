@@ -88,10 +88,6 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
     setTitleState(newTitle);
   }, [location.pathname, courses]);
 
-  useEffect(() => {
-    console.log(user)
-  }, [user])
-
   return (
     <AppBar
       // position="fixed"
