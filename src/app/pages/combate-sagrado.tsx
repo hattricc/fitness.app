@@ -59,8 +59,8 @@ const CombateSagrado: React.FC = () => {
         setIsDragging(false);
     };
 
-    const images = Array.from({ length: 10 }, (_, i) => 
-        `/images/combate-sagrado/combate-sagrado-${String(i + 1).padStart(2, '0')}.jpg`
+    const images = Array.from({ length: 4 }, (_, i) => 
+        `/images/combate-sagrado/combate-sagrado-${String(i + 1).padStart(2, '0')}.png`
     );
 
     return (
@@ -121,7 +121,7 @@ const CombateSagrado: React.FC = () => {
                     <Box sx={{ 
                         position: 'absolute', 
                         top: 16, 
-                        right: 16, 
+                        left: 16, 
                         display: 'flex', 
                         gap: 1,
                         zIndex: 1,

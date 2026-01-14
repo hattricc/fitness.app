@@ -10,6 +10,7 @@ import {
   Link as MuiLink,
   Stack,
   InputAdornment,
+  Theme,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import SocialLoginButtons from '../../molecules/social-login-buttons';
@@ -20,11 +21,12 @@ interface LoginFormProps {
   title?: string;
   subtitle?: string;
   inSubscriptionPage?: boolean;
-  onSuccess: () => void;
-  onClose: () => void;
+  onSuccess?: () => void;
+  onClose?: () => void;
+  theme?: Theme;
 }
 
-export default function LoginForm({ title, subtitle, inSubscriptionPage = false, onSuccess, onClose }: LoginFormProps) {
+export default function LoginForm({ title, subtitle, inSubscriptionPage = false, onSuccess, onClose, theme }: LoginFormProps) {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -46,7 +48,7 @@ export default function LoginForm({ title, subtitle, inSubscriptionPage = false,
     e?.preventDefault();
     
     console.log('Login attempt with:', formData);
-    onSuccess();
+    onSuccess?.();
   };
 
   const handleLogin = (login: (e?: React.FormEvent) => void, e?: React.FormEvent) => {

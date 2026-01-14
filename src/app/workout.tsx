@@ -6,13 +6,15 @@ import ExerciseClass from '../components/organisms/exercise-class';
 import { getWorkoutById } from '../data/getWorkout';
 import ReactMarkdown from 'react-markdown';
 import { useAuth } from '@/contexts/auth/AuthProvider';
+import { Exercise } from '@/types/exercise';
 
 interface WorkoutClassProps {
-  withPrefix: boolean;
+  withPrefix?: boolean;
   setOpenModal?: (open: boolean) => void;
+  onSelectExercise?: (exercise: Exercise) => void;
 }
 
-const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenModal }) => {
+const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenModal, onSelectExercise }) => {
   const { id } = useParams<{ id: string }>();
   const workout = id ? getWorkoutById(id) : null;
   const [expandedModule, setExpandedModule] = useState<string | false>(false);

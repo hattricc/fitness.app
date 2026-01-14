@@ -4,12 +4,13 @@ import { Box, Container, Typography } from '@mui/material';
 import { WorkoutRoutine } from '../types/exercise';
 import WorkoutListHeader from '../components/organisms/workout/workout-list-header';
 import { ExerciseCard } from '../components/molecules';
+import { Course } from '@/types/course';
 
 interface WorkoutListProps {
   difficulty: string;
   onDifficultyChange: (difficulty: string) => void;
   onSelectWorkout: (workout: WorkoutRoutine) => void;
-  workouts: WorkoutRoutine[];
+  workouts: Course[];
 }
 
 const WorkoutList: React.FC<WorkoutListProps> = ({
