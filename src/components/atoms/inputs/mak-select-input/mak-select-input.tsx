@@ -1,12 +1,35 @@
 
 interface MakSelectInputProps {
-
+  value?: string;
+  onChange?: (value: string) => void;
+  placeholder?: string;
+  required?: boolean;
+  className?: string;
+  id?: string;
+  name?: string;
 }
 
-const MakSelectInput: React.FC<MakSelectInputProps> = (() => {
+const MakSelectInput: React.FC<MakSelectInputProps> = ({
+  value,
+  onChange,
+  placeholder,
+  required,
+  className,
+  id,
+  name,
+}) => {
   return (
-    <select className="form-select" autoComplete="country" id="country" name="country">
-      <option>select country</option>
+    <select 
+      className="form-select" 
+      autoComplete="country" 
+      id={id} 
+      name={name}
+      value={value}
+      onChange={(e) => onChange?.(e.target.value)}
+      required={required}
+      className={className}
+    >
+      <option>{placeholder || 'Selecciona un país'}</option>
       <option value="AF">Afganistán</option>
       <option value="AX">Islas Aland</option>
       <option value="AL">Albania</option>
@@ -261,6 +284,6 @@ const MakSelectInput: React.FC<MakSelectInputProps> = (() => {
       <option value="ZW">Zimbabue</option>
     </select>
   );
-});
+};
 
 export default MakSelectInput;

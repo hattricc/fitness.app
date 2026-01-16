@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { supabase } from "../../../lib/supabase";
 import { useEffect } from "react";
 import { Loader2, X } from "lucide-react";
+import MakSelectInput from "@/components/atoms/inputs/mak-select-input/mak-select-input";
 
 // Add this interface at the top of the file
 interface BillingFormData {
@@ -368,23 +369,15 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                             <label htmlFor="pais" className="block text-sm font-medium text-gray-700">
                                 País
                             </label>
-                            <input
+                            <MakSelectInput
                                 id="pais"
                                 name="pais"
                                 value={formData.pais || ''}
-                                onChange={handleInputChange}
+                                onChange={(value) => setFormData(prev => ({ ...prev, pais: value }))}
+                                placeholder="Selecciona tu país"
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
                                 required
                             />
-                            {/* <select
-                            id="pais"
-                            name="pais"
-                            value={formData.pais}
-                            onChange={handleInputChange}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
-                        >
-                            <option value="BO">Bolivia</option>
-                        </select> */}
                         </div>
                         <div>
                             <label htmlFor="ciudad" className="block text-sm font-medium text-gray-700">
