@@ -5,6 +5,7 @@
         "title": "Rutina básica de gimnasio",
         "showTitle": true,
         "showInfo": false,
+        "locked": true,
         "description": "",
         "imageUrl": "./images/welcome/bienvenida-3.jpg",
         "url": "https://www.youtube.com/watch?v=IODxDxX7oi4",

@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 
-const CombateSagrado: React.FC = () => {
+const CombateSagradoPage: React.FC = () => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [scale, setScale] = useState<number>(1);
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -196,4 +196,4 @@ const CombateSagrado: React.FC = () => {
     );
 };
 
-export default CombateSagrado;
+export default CombateSagradoPage;

@@ -12,16 +12,16 @@ export const ProtectedRoute = ({
   children,
   redirectTo = '/login',
 }: ProtectedRouteProps) => {
-  const { user, loading } = useAuth();
+  const { user, subscriptionLoading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loading && !user) {
+    if (!subscriptionLoading && !user) {
       navigate(redirectTo);
     }
-  }, [user, loading, navigate, redirectTo]);
+  }, [user, subscriptionLoading, navigate, redirectTo]);
 
-  if (loading) {
+  if (subscriptionLoading) {
     return (
       <Box
         display="flex"

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Container, Typography, Accordion, AccordionSummary, AccordionDetails, CircularProgress } from '@mui/material';
 import { ExpandMore, InfoOutline } from '@mui/icons-material';
-import ExerciseClass from '../components/organisms/exercise-class';
-import { getWorkoutById } from '../data/getWorkout';
+import ExerciseClass from '../../components/organisms/exercise-class';
+import { getWorkoutById } from '../../data/getWorkout';
 import ReactMarkdown from 'react-markdown';
 import { useAuth } from '@/contexts/auth/AuthProvider';
 import { Exercise } from '@/types/exercise';
@@ -14,7 +14,7 @@ interface WorkoutClassProps {
   onSelectExercise?: (exercise: Exercise) => void;
 }
 
-const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenModal, onSelectExercise }) => {
+const CoursePage: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenModal, onSelectExercise }) => {
   const { id } = useParams<{ id: string }>();
   const workout = id ? getWorkoutById(id) : null;
   const [expandedModule, setExpandedModule] = useState<string | false>(false);
@@ -22,10 +22,10 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenModal
   const { subscription, subscriptionLoading } = useAuth();
 
   const handleAccordionChange = (moduleId: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
+    
     setExpandedModule(isExpanded ? moduleId : false);
 
     if (subscriptionLoading) return;
-
 
     if (subscription?.status !== 'paid' && workout?.locked && isExpanded) {
       setOpenModal?.(true);
@@ -143,4 +143,4 @@ const Workout: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenModal
   );
 };
 
-export default Workout;
+export default CoursePage;

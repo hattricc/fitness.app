@@ -35,7 +35,7 @@ const ExerciseClass: React.FC<ExerciseClassProps> = ({
     setSelectedVideo(videoUrl);
   };
 
-  console.log('subscription', subscription);
+  console.log('subscription ExcerciseClass', subscription);
 
   return (
     <>
