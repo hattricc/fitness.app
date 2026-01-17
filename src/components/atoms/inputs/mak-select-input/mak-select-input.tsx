@@ -20,14 +20,13 @@ const MakSelectInput: React.FC<MakSelectInputProps> = ({
 }) => {
   return (
     <select 
-      className="form-select" 
       autoComplete="country" 
       id={id} 
       name={name}
       value={value}
       onChange={(e) => onChange?.(e.target.value)}
       required={required}
-      className={className}
+      className={"form-select " + className}
     >
       <option>{placeholder || 'Selecciona un país'}</option>
       <option value="AF">Afganistán</option>

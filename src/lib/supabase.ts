@@ -18,7 +18,12 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
 
 
 export async function getUserWithSubscription(userId: string) {
-  // console.log("[sub] start", { userId });
+  // console.log("[sub] start", { userId });}
+  const { data: sessionData } = await supabase.auth.getSession();
+  console.log("[sub] hasSession?", !!sessionData.session);
+  console.log("[sub] auth.uid?", sessionData.session?.user?.id);
+  console.log("[sub] userId param:", userId);
+
 
   try {
     if (!userId) {
@@ -28,26 +33,37 @@ export async function getUserWithSubscription(userId: string) {
 
     // console.time("[sub] query");
 
-    const queryPromise = supabase
-      .from("payments")
-      .select("status, user_id, created_at")
-      .eq("user_id", userId)
-      .eq("status", "paid")
-      .order("created_at", { ascending: false })
-      .limit(1)
-      .maybeSingle();
+    // const queryPromise = supabase
+    //   .from("payments")
+    //   .select("status, user_id, created_at")
+    //   .eq("user_id", userId)
+    //   .eq("status", "paid")
+    //   .order("created_at", { ascending: false })
+    //   .limit(1)
+    //   .maybeSingle();
 
-    // Timeout para detectar “promise colgada”
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Timeout after 5s in payments query")), 5000)
-    );
+    // // Timeout para detectar “promise colgada”
+    // const timeoutPromise = new Promise((_, reject) =>
+    //   setTimeout(() => reject(new Error("Timeout after 5s in payments query")), 5000)
+    // );
 
-    const result = (await Promise.race([queryPromise, timeoutPromise])) as any;
+    // const result = (await Promise.race([queryPromise, timeoutPromise])) as any;
 
     // console.timeEnd("[sub] query");
     // console.log("[sub] result", result);
 
-    const { data, error } = result;
+    // const { data, error } = result;
+
+    const { data, error } = await supabase
+      .from("payments")
+      .select("id, status, user_id, created_at")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false })
+      .limit(5);
+
+    console.log("[sub] rows:", data);
+    console.log("[sub] error:", error);
+
 
     if (error) {
       console.error("[sub] supabase error", {

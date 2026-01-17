@@ -36,6 +36,12 @@ export const AuthCallback = () => {
                 if (sessionError) throw sessionError;
                 if (!data.session) throw new Error("No session found after OAuth callback");
 
+                // Verifica que el token realmente sea válido antes de persistirlo
+                const { data: verified, error: verifyErr } = await supabase.auth.getUser(data.session.access_token);
+                if (verifyErr || !verified?.user) {
+                    throw verifyErr || new Error('Token verification failed after callback');
+                }
+
                 // Guarda lo mínimo necesario para restaurar sesión
                 const s = data.session;
                 localStorage.setItem(

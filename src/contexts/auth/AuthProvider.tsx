@@ -1,7 +1,9 @@
-import { createContext, useContext, useEffect, useState, ReactNode, useCallback, useRef, useMemo } from 'react';
+import { createContext, useContext, useEffect, useState, ReactNode, useRef, useMemo } from 'react';
 import { getUserWithSubscription, supabase } from '@/lib/supabase';
 import { mapUserSession, UserSession, Subscription } from '@/lib/userSession';
 import { Session } from '@supabase/supabase-js';
+import { verifyToken } from '@/lib/verifyToken';
+
 
 type AuthContextType = {
   user: UserSession | null;
@@ -32,6 +34,16 @@ async function restoreSessionFromLocalStorage() {
       access_token: parsed.access_token,
       refresh_token: parsed.refresh_token,
     });
+
+    if (data.session?.access_token) {
+      try {
+        await verifyToken(data.session.access_token);
+      } catch (e) {
+        console.error('[auth] verifyToken after restore failed:', e);
+        localStorage.removeItem(MANUAL_SESSION_KEY);
+        return false;
+      }
+    }
 
     if (error) {
       console.error("[auth] setSession error:", error);
@@ -91,6 +103,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const applySession = async (event: string, session: Session | null) => {
+    console.log('[auth] event:', event, 'hasSession:', !!session, 'hasToken:', !!session?.access_token);
     setSupabaseSession(session);
 
     // Solo limpiar definitivo si realmente se firmó out
@@ -101,14 +114,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    if (!session?.user) {
+    if (!session?.access_token) {
       setSubscription(null);
       setSubscriptionLoading(false);
       setAuthLoading(false);
       return;
     }
 
-    const currentUser = mapUserSession(session.user, null);
+
+    // 1) Verifica el token con Supabase
+    let verifiedUser = null;
+    try {
+      verifiedUser = await verifyToken(session.access_token);
+    } catch (e) {
+      console.error('[auth] verifyToken failed:', e);
+      // Token inválido o sesión inconsistente => limpiar todo
+      clearAll();
+      setSubscriptionLoading(false);
+      setAuthLoading(false);
+      return;
+    }
+    
+    console.log('[auth] verifiedUserId:', verifiedUser?.id);
+
+
+    // 2) Usa el usuario verificado (fuente de verdad)
+    const currentUser = mapUserSession(verifiedUser, null);
     setUser(currentUser);
     persistUser(currentUser);
 
@@ -189,6 +220,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setAuthLoading(false);
   };
 
+  const resetPassword = async (email: string, options?: { redirectTo?: string }) => {
+    setAuthLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, options);
+    if (error) throw error;
+    setAuthLoading(false);
+  };
+
   const signInWithGoogle = async () => {
     setAuthLoading(true);
     const { error } = await supabase.auth.signInWithOAuth({
@@ -220,6 +258,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     refreshSubscription,
     signInWithEmail,
     signUpWithEmail,
+    resetPassword,
     signInWithGoogle,
     signOut,
   }), [
@@ -229,6 +268,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     authLoading,
     subscriptionLoading,
     refreshSubscription,
+    resetPassword,
   ]);
 
 

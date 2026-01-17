@@ -15,17 +15,16 @@ import {
   CircularProgress,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Google as GoogleIcon } from '@mui/icons-material';
+import SocialLoginButtons from '@/components/molecules/social-login-buttons';
 
 export default function SignUpForm({ theme }: { theme?: any } = {}) {
   const navigate = useNavigate();
-  const { signUpWithEmail, signInWithGoogle } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -36,25 +35,27 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  const auth = useAuth();
+
   const validate = () => {
     const newErrors: Record<string, string> = {};
-    
+
     if (!formData.email) {
-      newErrors.email = 'Email is required';
+      newErrors.email = 'El correo es obligatorio';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
+      newErrors.email = 'El correo es inválido';
     }
-    
+
     if (!formData.password) {
-      newErrors.password = 'Password is required';
+      newErrors.password = 'La contraseña es obligatoria';
     } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
+      newErrors.password = 'La contraseña debe tener al menos 6 caracteres';
     }
-    
+
     if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
+      newErrors.confirmPassword = 'Las contraseñas no coinciden';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -70,25 +71,17 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setAuthError(null);
-    
+
     if (!validate()) return;
-    
+
     try {
       setIsSubmitting(true);
-      await signUpWithEmail(formData.email, formData.password);
+      await auth.signUpWithEmail(formData.email, formData.password);
       setIsSuccess(true);
     } catch (error) {
-      setAuthError(error instanceof Error ? error.message : 'Failed to create account');
+      setAuthError(error instanceof Error ? error.message : 'Falla al crear la cuenta');
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const handleGoogleSignUp = async () => {
-    try {
-      await signInWithGoogle();
-    } catch (error) {
-      setAuthError('Failed to sign up with Google');
     }
   };
 
@@ -116,11 +109,11 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
         >
           <Box sx={{ mb: 3 }}>
             <Typography variant="h5" component="h2" color="success.main" gutterBottom>
-              Check your email
+              Verifica tu email
             </Typography>
             <Typography variant="body1" color="text.primary">
-              We've sent a verification link to <strong>{formData.email}</strong>.
-              Please check your inbox and verify your email to continue.
+              Hemos enviado un enlace de verificación a <strong>{formData.email}</strong>.
+              Por favor, revisa tu bandeja de entrada y verifica tu email para continuar.
             </Typography>
           </Box>
           <Button
@@ -129,7 +122,7 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
             fullWidth
             sx={{ mt: 2 }}
           >
-            Back to login
+            Volver al inicio de sesión
           </Button>
         </Box>
       </Box>
@@ -173,28 +166,13 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
         )}
 
         {/* Social Login Buttons */}
-        <Button
-          fullWidth
-          variant="outlined"
-          size="large"
-          onClick={handleGoogleSignUp}
-          disabled={isSubmitting}
-          startIcon={<GoogleIcon />}
-          sx={{
-            mb: 3,
-            py: 1.5,
-            borderRadius: 2,
-            textTransform: 'none',
-            fontSize: '1rem',
-            fontWeight: 600,
-          }}
-        >
-          Continue with Google
-        </Button>
+        <SocialLoginButtons
+          onGoogleLogin={() => auth.signInWithGoogle()}
+        />
 
-        <Divider sx={{ my: 3 }}>
-          <Typography variant="body2" color="text.secondary">
-            OR
+        <Divider sx={{ my: 2 }}>
+          <Typography variant="body2" color="text.primary">
+            O
           </Typography>
         </Divider>
 
@@ -208,17 +186,7 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
               type="text"
               value={formData.name}
               onChange={handleChange}
-              variant="outlined"
-              size="medium"
-            />
-
-            <TextField
-              fullWidth
-              label="Número de teléfono (opcional)"
-              name="phone"
-              type="text"
-              value={formData.phone}
-              onChange={handleChange}
+              required
               variant="outlined"
               size="medium"
             />

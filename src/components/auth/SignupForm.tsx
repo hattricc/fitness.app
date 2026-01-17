@@ -3,8 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/auth/AuthProvider';
 import { useAuthForm } from '@/hooks/useAuthForm';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
-import { Button } from '@/components/ui/MakButton';
-import { Input } from '@/components/ui/MakInput';
+import { MakButton } from '@/components/ui/MakButton';
+import { MakInput } from '@/components/ui/MakInput';
 
 export const SignupForm = () => {
   const navigate = useNavigate();
@@ -73,14 +73,14 @@ export const SignupForm = () => {
             />
           </svg>
         </div>
-        <h2 className="text-2xl font-bold">Check your email</h2>
+        <h2 className="text-2xl font-bold">Revisa tu correo</h2>
         <p className="text-muted-foreground">
-          We've sent you a verification link to <span className="font-medium">{values.email}</span>.
-          Please check your inbox and verify your email to continue.
+          Hemos enviado un link de verificación a <span className="font-medium">{values.email}</span>.
+          Por favor revisa tu bandeja y verifica tu correo para continuar.
         </p>
-        <Button onClick={() => navigate('/login')} className="mt-4">
-          Back to login
-        </Button>
+        <MakButton onClick={() => navigate('/login')} className="mt-4">
+          Volver al inicio de sesión
+        </MakButton>
       </div>
     );
   }
@@ -88,14 +88,14 @@ export const SignupForm = () => {
   return (
     <div className="w-full max-w-md space-y-6">
       <div className="text-center">
-        <h1 className="text-2xl font-bold">Create an account</h1>
+        <h1 className="text-2xl font-bold">Crear una cuenta</h1>
         <p className="text-muted-foreground mt-2">
-          Enter your details to get started
+          Ingresa tus datos para comenzar
         </p>
       </div>
 
       <div className="space-y-4">
-        <Button
+        <MakButton
           type="button"
           variant="outlined"
           size="medium"
@@ -104,8 +104,8 @@ export const SignupForm = () => {
           disabled={isSubmitting}
         >
           <GoogleIcon className="w-4 h-4 mr-2" />
-          Sign up with Google
-        </Button>
+          Registrarse con Google
+        </MakButton>
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
@@ -113,7 +113,7 @@ export const SignupForm = () => {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">
-              Or continue with email
+              O continúa con correo electrónico
             </span>
           </div>
         </div>
@@ -125,7 +125,7 @@ export const SignupForm = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <Input
+          <MakInput
             label="Email"
             name="email"
             type="email"
@@ -137,7 +137,7 @@ export const SignupForm = () => {
             autoComplete="email"
           />
 
-          <Input
+          <MakInput
             label="Password"
             name="password"
             type="password"
@@ -149,7 +149,7 @@ export const SignupForm = () => {
             autoComplete="new-password"
           />
 
-          <Input
+          <MakInput
             label="Confirm Password"
             name="confirmPassword"
             type="password"
@@ -161,16 +161,16 @@ export const SignupForm = () => {
             autoComplete="new-password"
           />
 
-          <Button type="submit" className="w-full" isLoading={isSubmitting}>
-            Create account
-          </Button>
+          <MakButton type="submit" className="w-full" isLoading={isSubmitting}>
+            Crear cuenta
+          </MakButton>
         </form>
       </div>
 
       <p className="text-center text-sm text-muted-foreground">
-        Already have an account?{' '}
+        ¿Ya tienes una cuenta?{' '}
         <Link to="/login" className="font-medium text-primary hover:underline">
-          Sign in
+          Inicia sesión
         </Link>
       </p>
     </div>

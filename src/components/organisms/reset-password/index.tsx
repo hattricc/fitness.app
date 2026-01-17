@@ -21,31 +21,28 @@ export default function ResetPasswordForm({ theme }: { theme?: any } = {}) {
   return (
     <Box
       sx={{
-        minHeight: '100vh',
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        p: 3,
-        backgroundColor: theme.palette.background.default,
+        p: 1,
+        backgroundColor: '#1B1B1B',
+        borderRadius: 6,
       }}
     >
       <Box
         sx={{
           width: '100%',
-          maxWidth: 400,
-          bgcolor: theme.palette.background.paper,
-          borderRadius: 2,
-          p: 4,
-          boxShadow: 3,
+          p: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: '3vh'
         }}
       >
         {/* Header */}
         <Box textAlign="center" mb={4}>
-          <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
+          <Typography variant="h4" component="h1" fontWeight="bold" color='text.primary' gutterBottom>
             Restablecer contraseña
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" color="text.primary">
             Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña
           </Typography>
         </Box>
@@ -85,7 +82,7 @@ export default function ResetPasswordForm({ theme }: { theme?: any } = {}) {
 
         {/* Back to login link */}
         <Box textAlign="center" mt={3}>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.primary">
             ¿Recordaste tu contraseña?{' '}
             <Button 
               variant="text" 

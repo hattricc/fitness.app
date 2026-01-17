@@ -16,6 +16,7 @@ import { getAllWorkouts } from '@/data/getWorkout.ts';
 import { Exercise, WorkoutRoutine } from '../types/exercise.ts';
 import { Course } from '@/types/course';
 import { darkTheme } from '../data/theme';
+import SignUpForm from '@/components/organisms/signup/index.tsx';
 
 // Route configuration factory
 export const createAppRoutes = (
@@ -61,7 +62,7 @@ export const createAppRoutes = (
         },
         {
             path: "/signup",
-            element: <LoginForm theme={darkTheme} />,
+            element: <SignUpForm theme={darkTheme} />,
         },
         {
             path: "/reset-password",

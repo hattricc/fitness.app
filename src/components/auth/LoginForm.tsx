@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/auth/AuthProvider';
 import { useAuthForm } from '@/hooks/useAuthForm';
-import { Button } from '@/components/ui/MakButton';
-import { Input } from '@/components/ui/MakInput';
+import { MakButton } from '@/components/ui/MakButton';
+import { MakInput } from '@/components/ui/MakInput';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
 
 export const LoginForm = () => {
@@ -49,7 +49,7 @@ export const LoginForm = () => {
       </div>
 
       <div className="space-y-4">
-        <Button
+        <MakButton
           type="button"
           variant="outlined"
           size="medium"
@@ -59,7 +59,7 @@ export const LoginForm = () => {
         >
           <GoogleIcon className="w-4 h-4 mr-2" />
           Continue with Google
-        </Button>
+        </MakButton>
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
@@ -79,7 +79,7 @@ export const LoginForm = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* <Input
+          {/* <MakInput
             label="Email"
             name="email"
             type="email"
@@ -103,7 +103,7 @@ export const LoginForm = () => {
                 Forgot password?
               </a>
             </div>
-            <Input
+            <MakInput
               name="password"
               type="password"
               placeholder="••••••••"
@@ -115,9 +115,9 @@ export const LoginForm = () => {
             />
           </div>
 
-          <Button type="submit" variant="contained" size="medium" className="w-full" isLoading={isSubmitting}>
+          <MakButton type="submit" variant="contained" size="medium" className="w-full" isLoading={isSubmitting}>
             Sign in
-          </Button>
+          </MakButton>
         </form>
       </div>
 

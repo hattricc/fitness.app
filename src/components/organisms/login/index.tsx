@@ -60,11 +60,7 @@ export default function LoginForm({ title, subtitle, inSubscriptionPage = false,
   return (
     <Box
       sx={{
-        // minHeight: '100vh',
-        // minHeight: '50vh',
         display: 'flex',
-        // flexDirection: 'column',
-        // alignItems: 'center',
         p: 1,
         backgroundColor: '#1B1B1B',
         borderRadius: 6,
@@ -73,7 +69,6 @@ export default function LoginForm({ title, subtitle, inSubscriptionPage = false,
       <Box
         sx={{
           width: '100%',
-          maxWidth: 400,
           p: 2,
           display: 'flex',
           flexDirection: 'column',
@@ -130,17 +125,17 @@ export default function LoginForm({ title, subtitle, inSubscriptionPage = false,
               }}
             />
 
-            {/* <Box sx={{ textAlign: 'right' }}>
+            <Box sx={{ textAlign: 'right' }}>
               <MuiLink 
                 component="button" 
                 type="button" 
                 variant="body2" 
-                color={theme.palette.primary.main}
+                color="primary"
                 onClick={() => navigate('/reset-password')}
               >
                 ¿Olvidaste tu contraseña?
               </MuiLink>
-            </Box> */}
+            </Box>
 
             <Button
               fullWidth
@@ -160,7 +155,7 @@ export default function LoginForm({ title, subtitle, inSubscriptionPage = false,
           </Stack>
         </form>
 
-        <Divider sx={{ my: 3 }}>
+        <Divider sx={{ mt: 3 }}>
           <Typography variant="body2" color="text.primary">
             O
           </Typography>
@@ -172,20 +167,23 @@ export default function LoginForm({ title, subtitle, inSubscriptionPage = false,
         />
 
         {/* Sign up link */}
-        {/* <Box textAlign="center" mt={2}>
+        <Box textAlign="center">
           <Typography variant="body2" color="text.primary">
             ¿No tienes una cuenta?{' '}
             <MuiLink 
               component="button" 
               type="button" 
-              color={theme.palette.primary.main} 
+              color="text.primary" 
               fontWeight="medium"
+              sx={{
+                color: theme?.palette.primary.main,
+              }}
               onClick={() => navigate('/signup')}
             >
               Registrate
             </MuiLink>
           </Typography>
-        </Box> */}
+        </Box>
       </Box>
     </Box>
   );
