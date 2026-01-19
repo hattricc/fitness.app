@@ -1,14 +1,23 @@
 import { UserIdentity } from "@supabase/supabase-js";
 
-export type Subscription = {
-    id: string;
-    userId: string;
-    status: 'active' | 'canceled' | 'inactive' | 'paid';
-    currentPeriodEnd: string; // ISO date string
-    planId: string;
-    createdAt: string; // ISO date string
-    updatedAt: string; // ISO date string
+// export type Subscription = {
+//     id: string;
+//     userId: string;
+//     status: 'active' | 'canceled' | 'inactive' | 'paid';
+//     currentPeriodEnd: string; // ISO date string
+//     planId: string;
+//     createdAt: string; // ISO date string
+//     updatedAt: string; // ISO date string
+// };
+export type PaymentAccess = {
+    hasAccess: boolean;
+    productId: string;
+    lastPaidAt: string | null;   // paid_at o created_at
+    paymentId: string | null;
+    status: "paid" | "pending" | string | null;
 };
+
+
 export type UserSession = {
     email: string | undefined;
     id: string | undefined;
@@ -20,19 +29,22 @@ export type UserSession = {
     identities: UserIdentity[];
     subscription?: {
         isActive: boolean;
-        data?: Subscription;
+        data?: PaymentAccess;
     };
 };
 
 export const mapUserSession = (
     authUser: any,
-    subscriptionData?: Subscription | null
+    subscriptionData?: PaymentAccess | null
 ): UserSession => {
     if (!authUser) return {} as any;
 
+    // const isSubscriptionActive = subscriptionData
+    //     ? ['active', 'paid'].includes(subscriptionData.status) &&
+    //     new Date(subscriptionData.currentPeriodEnd) > new Date()
+    //     : false;
     const isSubscriptionActive = subscriptionData
-        ? ['active', 'paid'].includes(subscriptionData.status) &&
-        new Date(subscriptionData.currentPeriodEnd) > new Date()
+        ? subscriptionData.hasAccess
         : false;
 
     return {

@@ -28,7 +28,7 @@ const CoursePage: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenMo
     if (subscriptionLoading) return;
     if (!subscription) return;       // evita abrir modal por “unknown”
 
-    if (subscription?.status !== 'paid' && workout?.locked && isExpanded) {
+    if (!subscription?.hasAccess && workout?.locked && isExpanded) {
       setOpenModal?.(true);
       return;
     }

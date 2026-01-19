@@ -1,14 +1,15 @@
 import { createContext, useContext, useEffect, useState, ReactNode, useRef, useMemo } from 'react';
 import { getUserWithSubscription, supabase } from '@/lib/supabase';
-import { mapUserSession, UserSession, Subscription } from '@/lib/userSession';
+import { mapUserSession, UserSession, PaymentAccess } from '@/lib/userSession';
 import { Session } from '@supabase/supabase-js';
 import { verifyToken } from '@/lib/verifyToken';
+import { getAccessFromEdge } from '@/lib/access';
 
 
 type AuthContextType = {
   user: UserSession | null;
   supabaseSession: Session | null;
-  subscription: Subscription | null;
+  subscription: PaymentAccess | null;
   authLoading: boolean;
   subscriptionLoading: boolean;
   refreshSubscription: () => Promise<void>;
@@ -64,7 +65,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [authLoading, setAuthLoading] = useState(true);
   const [supabaseSession, setSupabaseSession] = useState<Session | null>(null);
   const [user, setUser] = useState<UserSession | null>(null);
-  const [subscription, setSubscription] = useState<Subscription | null>(null);
+  const [subscription, setSubscription] = useState<PaymentAccess | null>(null);
   const [subscriptionLoading, setSubscriptionLoading] = useState(false);
 
   // Add this flag at the top of AuthProvider
@@ -73,7 +74,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const subReqIdRef = useRef(0);
 
   // Evita llamadas repetidas de subscription si hay eventos seguidos
-  const subFetchInFlight = useRef<Promise<Subscription | null> | null>(null);
+  const subFetchInFlight = useRef<Promise<PaymentAccess | null> | null>(null);
   const lastUserIdRef = useRef<string>('');
 
   const persistUser = (u: UserSession | null) => {
@@ -88,7 +89,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     persistUser(null);
   };
 
-  const fetchAndSetSubscription = async (userId: string) => {
+  // const fetchAndSetSubscription = async (userId: string) => {
+  const fetchAndSetSubscription = async (session: Session) => {
     // const fetchAndSetSubscription = async (userId: string): Promise<Subscription | null> => {
     // if (subFetchInFlight.current) return subFetchInFlight.current;
 
@@ -139,7 +141,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     subFetchInFlight.current = (async () => {
       try {
-        const sub = await getUserWithSubscription(userId);
+        // const sub = await getUserWithSubscription(userId);
+        const sub = await getAccessFromEdge(session);
         if (reqId !== subReqIdRef.current) return null; // stale
         setSubscription(sub);
         return sub;
@@ -220,7 +223,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setSubscriptionLoading(true);
 
       // Fetch subscription first
-      const subscription = await fetchAndSetSubscription(currentUser?.id ?? '');
+      const subscription = await fetchAndSetSubscription(session);
       console.log('[auth] Subscription fetched:', subscription);
 
       // Then map user session with subscription
@@ -364,7 +367,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const refreshSubscription = async () => {
     if (!user?.id) return;
-    await fetchAndSetSubscription(user.id);
+    // await fetchAndSetSubscription(user.id);
+    await fetchAndSetSubscription(supabaseSession!);
   };
 
 

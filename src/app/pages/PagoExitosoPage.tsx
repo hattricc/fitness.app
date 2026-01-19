@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../../../src/lib/supabase";
 import { CheckCircle, CrossIcon, Loader2, X } from "lucide-react"; // Add this import at the top
+import IconLink from "@/components/atoms/icon-link/IconLink";
+import { WhatsApp } from "@mui/icons-material";
 
 
 type ViewState = "checking" | "ok" | "failed" | "error";
@@ -16,6 +18,13 @@ const PagoExitosoPage: React.FC = () => {
     const [state, setState] = useState<ViewState>("checking");
     const [detail, setDetail] = useState<ConfirmResponse | null>(null);
     const [message, setMessage] = useState<string | null>(null);
+
+    const whatsappContact =
+    {
+        Icon: <WhatsApp fontSize="small" color="inherit" />,
+        Link: "https://wa.me/59170870099",
+        Text: "+591 70870099",
+    };
 
     useEffect(() => {
         const confirmPayment = async () => {
@@ -132,6 +141,16 @@ const PagoExitosoPage: React.FC = () => {
                         </pre>
                     </details>
                 )}
+
+                <IconLink
+                    key={0}
+                    icon={whatsappContact.Icon}
+                    href={whatsappContact.Link}
+                    text={whatsappContact.Text}
+                    sx={{
+                        marginTop: "2rem",
+                    }}
+                />
             </div>
         );
     }
@@ -146,6 +165,16 @@ const PagoExitosoPage: React.FC = () => {
             />
             <h1 className="mb-2 text-2xl">Ocurrió un problema al validar tu pago</h1>
             <p>{message}</p>
+
+            <IconLink
+                key={0}
+                icon={whatsappContact.Icon}
+                href={whatsappContact.Link}
+                text={whatsappContact.Text}
+                sx={{
+                    marginTop: "2rem",
+                }}
+            />
         </div>
     );
 };

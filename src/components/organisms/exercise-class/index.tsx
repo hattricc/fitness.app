@@ -24,18 +24,14 @@ const ExerciseClass: React.FC<ExerciseClassProps> = ({
 
   const handleExerciseClick = (videoUrl: string, exercise: Exercise) => {
     if (subscriptionLoading) return;
-    // Check if exercise is locked and user doesn't have an active subscription
-    if (exercise.locked && subscription?.status !== 'paid') {
-      // Option 1: Show a modal or alert
+    
+    if (exercise.locked && !subscription?.hasAccess) {
       alert('Please subscribe to access premium content');
-      // Option 2: Redirect to subscription page
       // navigate('/subscribe');
       return;
     }
     setSelectedVideo(videoUrl);
   };
-
-  console.log('subscription ExcerciseClass', subscription);
 
   return (
     <>
@@ -49,7 +45,7 @@ const ExerciseClass: React.FC<ExerciseClassProps> = ({
       {!subscriptionLoading && (
         module.exercises.map((exercise, index) => {
           const isExerciseLocked =
-            !subscriptionLoading && exercise.locked && subscription?.status !== "paid";
+            !subscriptionLoading && exercise.locked && !subscription?.hasAccess;
 
           return (
             <Box key={index} sx={{ position: 'relative' }}>

@@ -1,6 +1,7 @@
 import { Typography, Box, Link, Stack } from '@mui/material';
 import { Instagram, EmailOutlined, WhatsApp } from '@mui/icons-material';
 import React from 'react';
+import IconLink from '@/components/atoms/icon-link/IconLink';
 
 const Footer: React.FC = () => {
     const links = [
@@ -19,7 +20,7 @@ const Footer: React.FC = () => {
             Link: "https://wa.me/59170870099",
             Text: "+591 70870099",
         }
-    ] 
+    ]
 
     return (
         <Box>
@@ -29,12 +30,12 @@ const Footer: React.FC = () => {
 
             <Box component="nav" sx={{ display: 'flex', flexDirection: 'column', mt: 1, mb: 1 }}>
                 {links.map((link, index) => (
-                    <Stack direction="row" alignItems="center" spacing={1} color="text.secondary" key={index}>
-                        {link.Icon}
-                        <Link href={link.Link} target="_blank" rel="noopener noreferrer" underline="always" color="inherit" sx={{ whiteSpace: 'pre' }}>
-                            {link.Text}      ↗
-                        </Link>
-                    </Stack>
+                    <IconLink
+                        key={index}
+                        icon={link.Icon}
+                        href={link.Link}
+                        text={link.Text}
+                    />
                 ))}
             </Box>
             <hr />

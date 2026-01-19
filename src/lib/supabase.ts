@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { Subscription } from './userSession';
+import { PaymentAccess } from './userSession';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -18,7 +18,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
 });
 
 
-export async function getUserWithSubscription(userId: string): Promise<Subscription | null> {
+export async function getUserWithSubscription(userId: string): Promise<PaymentAccess | null> {
   try {
     if (!userId) {
       console.error("[sub] No userId provided");
