@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { Subscription } from './userSession';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -17,53 +18,42 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
 });
 
 
-export async function getUserWithSubscription(userId: string) {
-  // console.log("[sub] start", { userId });}
-  const { data: sessionData } = await supabase.auth.getSession();
-  console.log("[sub] hasSession?", !!sessionData.session);
-  console.log("[sub] auth.uid?", sessionData.session?.user?.id);
-  console.log("[sub] userId param:", userId);
-
-
+export async function getUserWithSubscription(userId: string): Promise<Subscription | null> {
   try {
     if (!userId) {
       console.error("[sub] No userId provided");
       return null;
     }
 
-    // console.time("[sub] query");
+    // Add a small delay to prevent race conditions with auth state changes
+    await new Promise(resolve => setTimeout(resolve, 100));
 
-    // const queryPromise = supabase
-    //   .from("payments")
-    //   .select("status, user_id, created_at")
-    //   .eq("user_id", userId)
-    //   .eq("status", "paid")
-    //   .order("created_at", { ascending: false })
-    //   .limit(1)
-    //   .maybeSingle();
+    const { data: s } = await supabase.auth.getSession();
+    console.log("[sub] hasSession?", !!s.session);
+    console.log("[sub] session.user.id", s.session?.user?.id);
+    console.log("[sub] param userId", userId);
 
-    // // Timeout para detectar “promise colgada”
-    // const timeoutPromise = new Promise((_, reject) =>
-    //   setTimeout(() => reject(new Error("Timeout after 5s in payments query")), 5000)
-    // );
 
-    // const result = (await Promise.race([queryPromise, timeoutPromise])) as any;
-
-    // console.timeEnd("[sub] query");
-    // console.log("[sub] result", result);
-
-    // const { data, error } = result;
-
-    const { data, error } = await supabase
+    const queryPromise = supabase
       .from("payments")
-      .select("id, status, user_id, created_at")
+      .select("status, user_id, created_at")
       .eq("user_id", userId)
+      .eq("status", "paid")
       .order("created_at", { ascending: false })
-      .limit(5);
+      .limit(1)
+      .maybeSingle();
 
-    console.log("[sub] rows:", data);
-    console.log("[sub] error:", error);
+    // Timeout para detectar “promise colgada”
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Timeout after 3s in payments query")), 3000)
+    );
 
+    const result = (await Promise.race([queryPromise, timeoutPromise])) as any;
+
+    console.timeEnd("[sub] query");
+    console.log("[sub] result", result);
+
+    const { data, error } = result;
 
     if (error) {
       console.error("[sub] supabase error", {
@@ -75,7 +65,7 @@ export async function getUserWithSubscription(userId: string) {
       return null;
     }
 
-    console.log("[sub] data", data);
+    console.log("[sub] subscription data:", data);
     return data ?? null;
   } catch (e) {
     console.error("[sub] catch", e);

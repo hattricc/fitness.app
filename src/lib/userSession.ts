@@ -27,14 +27,14 @@ export type UserSession = {
 export const mapUserSession = (
     authUser: any,
     subscriptionData?: Subscription | null
-): UserSession | null => {
-    if (!authUser) return null;
+): UserSession => {
+    if (!authUser) return {} as any;
 
     const isSubscriptionActive = subscriptionData
         ? ['active', 'paid'].includes(subscriptionData.status) &&
         new Date(subscriptionData.currentPeriodEnd) > new Date()
         : false;
-    
+
     return {
         email: authUser.email || undefined,
         id: authUser.id || undefined,
@@ -95,7 +95,7 @@ const AVATAR_CACHE_KEY = 'user_avatar_url';
 const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 export const getGoogleAvatarUrl = (user: UserSession | null): string | null => {
     if (typeof window === 'undefined') return null;
-    
+
     if (!user?.identities) return null;
     try {
         // Try to get cached avatar
@@ -110,7 +110,7 @@ export const getGoogleAvatarUrl = (user: UserSession | null): string | null => {
         // Get fresh URL if no valid cache
         const googleIdentity = user.identities.find(x => x.provider === 'google');
         const pictureUrl = googleIdentity?.identity_data?.picture;
-        
+
         if (!pictureUrl) return null;
         // Add cache-busting parameter
         const separator = pictureUrl.includes('?') ? '&' : '?';

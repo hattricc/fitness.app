@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
+  CircularProgress,
+  Typography,
 } from '@mui/material';
 import { useAuth } from '../../../contexts/auth/AuthProvider.tsx';
 
@@ -10,28 +12,42 @@ export default function SignOut({ theme }: { theme?: any } = {}) {
 
   const auth = useAuth();
 
-  const handleSignOut = () => {
-    auth.signOut();
-    navigate('/');
+
+  const handleSignOut = async () => {
+    try {
+      console.log('1')
+      await auth.signOut();
+      console.log('2')
+      navigate('/');
+
+      console.log('3')
+    } catch (error) {
+      console.error('SignOut error:', error);
+    }
   };
 
+  // Auto sign out after 500ms (remove this if you want instant sign out)
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       handleSignOut();
     }, 500);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
     <Box
       sx={{
         display: 'flex',
-        width: '100vw',
-        height: '100vh',
+        height: '60vh',
         justifyContent: 'center',
         alignItems: 'center',
+        gap: '2',
+        flexDirection: 'column',
       }}
     >
-      CERRANDO SESION
+      <CircularProgress size={36} className='mb-4' />
+
+      <Typography variant="h6">Cerrando sesión</Typography>
     </Box>
   );
 }

@@ -24,6 +24,7 @@ const MANUAL_SESSION_KEY = "manual_supabase_session_v1";
 
 async function restoreSessionFromLocalStorage() {
   try {
+    console.log('restore session from local storage')
     const raw = localStorage.getItem(MANUAL_SESSION_KEY);
     if (!raw) return false;
 
@@ -66,10 +67,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [subscriptionLoading, setSubscriptionLoading] = useState(false);
 
+  // Add this flag at the top of AuthProvider
+  const isManualSignOut = useRef(false);
+  const mountedRef = useRef(true);
+  const subReqIdRef = useRef(0);
 
   // Evita llamadas repetidas de subscription si hay eventos seguidos
-  const subFetchInFlight = useRef<Promise<void> | null>(null);
-  const lastUserIdRef = useRef<string | null>(null);
+  const subFetchInFlight = useRef<Promise<Subscription | null> | null>(null);
+  const lastUserIdRef = useRef<string>('');
 
   const persistUser = (u: UserSession | null) => {
     if (u) localStorage.setItem("userSession", JSON.stringify(u));
@@ -84,29 +89,73 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const fetchAndSetSubscription = async (userId: string) => {
-    // dedupe
+    // const fetchAndSetSubscription = async (userId: string): Promise<Subscription | null> => {
+    // if (subFetchInFlight.current) return subFetchInFlight.current;
+
+    // subFetchInFlight.current = (async () => {
+    //   try {
+    //     const sub = await getUserWithSubscription(userId) as Subscription;
+    //     setSubscription(sub ?? null);
+    //   } catch (e) {
+    //     console.error("getUserWithSubscription error:", e);
+    //     setSubscription(null);
+    //   } finally {
+    //     subFetchInFlight.current = null;
+    //   }
+    // })();
+
+    // return subFetchInFlight.current;
+
+
+
+
+    // if (subFetchInFlight.current) {
+    //   console.log('[auth] Subscription fetch already in flight, waiting...');
+    //   return subFetchInFlight.current;
+    // }
+    // subFetchInFlight.current = (async () => {
+    //   try {
+    //     console.log('[auth] Fetching subscription for userId:', userId);
+    //     const sub = await getUserWithSubscription(userId);
+    //     console.log('[auth] Subscription fetched:', sub);
+    //     setSubscription(sub);
+    //     return sub;
+    //   } catch (e) {
+    //     console.error("[auth] getUserWithSubscription error:", e);
+    //     setSubscription(null);
+    //     return null;
+    //   } finally {
+    //     subFetchInFlight.current = null;
+    //   }
+    // })();
+    // return subFetchInFlight.current;
+
+
+
+
     if (subFetchInFlight.current) return subFetchInFlight.current;
+
+    const reqId = ++subReqIdRef.current;
 
     subFetchInFlight.current = (async () => {
       try {
         const sub = await getUserWithSubscription(userId);
-        setSubscription(sub ?? null);
-      } catch (e) {
-        console.error("getUserWithSubscription error:", e);
-        setSubscription(null);
+        if (reqId !== subReqIdRef.current) return null; // stale
+        setSubscription(sub);
+        return sub;
       } finally {
         subFetchInFlight.current = null;
       }
     })();
 
     return subFetchInFlight.current;
+
   };
 
   const applySession = async (event: string, session: Session | null) => {
     console.log('[auth] event:', event, 'hasSession:', !!session, 'hasToken:', !!session?.access_token);
     setSupabaseSession(session);
 
-    // Solo limpiar definitivo si realmente se firmó out
     if (event === "SIGNED_OUT") {
       clearAll();
       setSubscriptionLoading(false);
@@ -114,12 +163,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    if (!session?.access_token) {
-      setSubscription(null);
+    if (!session?.access_token || !session?.user) {
+      // estado no autenticado
+      clearAll();
       setSubscriptionLoading(false);
       setAuthLoading(false);
       return;
     }
+
+    // // Solo limpiar definitivo si realmente se firmó out
+    // if (event === "SIGNED_OUT") {
+    //   clearAll();
+    //   setSubscriptionLoading(false);
+    //   setAuthLoading(false);
+    //   return;
+    // }
+
+    // if (!session?.access_token) {
+    //   setSubscription(null);
+    //   setSubscriptionLoading(false);
+    //   setAuthLoading(false);
+    //   return;
+    // }
 
 
     // 1) Verifica el token con Supabase
@@ -134,32 +199,56 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setAuthLoading(false);
       return;
     }
-    
-    console.log('[auth] verifiedUserId:', verifiedUser?.id);
+
+    // console.log('[auth] verifiedUserId:', verifiedUser?.id);
 
 
     // 2) Usa el usuario verificado (fuente de verdad)
     const currentUser = mapUserSession(verifiedUser, null);
     setUser(currentUser);
     persistUser(currentUser);
+    console.log('[auth] Mapped user:', currentUser);
 
-    if (lastUserIdRef.current !== currentUser?.id) {
-      lastUserIdRef.current = currentUser?.id ?? '';
+
+    // 3) Check if user changed and fetch subscription
+    const SHOULD_FETCH_SUBSCRIPTION =
+      lastUserIdRef.current !== currentUser.id;
+
+    if (SHOULD_FETCH_SUBSCRIPTION) {
+      console.log('[auth] User changed, fetching subscription for:', currentUser?.id);
+      lastUserIdRef.current = currentUser.id ?? '';
       setSubscriptionLoading(true);
-      await fetchAndSetSubscription(currentUser?.id ?? '');
+
+      // Fetch subscription first
+      const subscription = await fetchAndSetSubscription(currentUser?.id ?? '');
+      console.log('[auth] Subscription fetched:', subscription);
+
+      // Then map user session with subscription
+      const userWithSubscription = mapUserSession(verifiedUser, subscription);
+      console.log('[auth] Final user with subscription:', userWithSubscription);
+
+      setUser(userWithSubscription);
+      persistUser(userWithSubscription);
       setSubscriptionLoading(false);
     }
 
     setAuthLoading(false);
   };
 
+  const handleSession = async () => {
 
-  useEffect(() => {
-    let mounted = true;
+    console.log('handleSession')
 
     // 1) intenta sesión normal
     supabase.auth.getSession().then(async ({ data, error }) => {
-      if (!mounted) return;
+      console.log('getSession resolved');
+      console.log('getSession data:', data);
+      console.log('getSession error:', error);
+
+      // let mounted = true;
+
+      if (!mountedRef.current) return;
+      // if (!mounted) return;
       if (error) console.error("getSession error:", error);
 
       // 2) si no hay sesión, intenta restaurar manualmente
@@ -177,21 +266,101 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       await applySession("INITIAL_SESSION", data.session ?? null);
     });
+  }
 
-    // 2) listener único
+
+  const addListener = async () => {
+    // // 2) listener único
+    // const { data: listener } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    //   await applySession(_event, session ?? null);
+
+    //   // Save session to localStorage when user signs in
+    //   if (_event === 'SIGNED_IN' && session) {
+    //     console.log('[auth] Saving session after sign in');
+    //     localStorage.setItem(
+    //       MANUAL_SESSION_KEY,
+    //       JSON.stringify({
+    //         access_token: session.access_token,
+    //         refresh_token: session.refresh_token,
+    //         expires_at: session.expires_at,
+    //         user: { id: session.user?.id },
+    //         saved_at: Date.now(),
+    //       })
+    //     );
+    //   }
+
+    //   if (_event === "SIGNED_OUT") {
+    //     console.log('[auth] User signed out');
+    //     localStorage.removeItem(MANUAL_SESSION_KEY);
+    //   }
+    // });
+    const DEBUG_AUTH = false; // Set to true for detailed logging
+    // Then in your listener, add more detailed logs
     const { data: listener } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      await applySession(_event, session ?? null);
+      if (DEBUG_AUTH) {
+        console.log('=== AUTH DEBUG ===');
+        console.log('Event:', _event);
+        console.log('Session exists:', !!session);
+        console.log('Session user:', session?.user?.id);
+        console.log('Manual sign out flag:', isManualSignOut.current);
+        console.log('Current user in context:', user?.id);
+        console.log('===================');
+      }
 
+      // Skip processing if this is a manual sign out
+      if (isManualSignOut.current) {
+        if (DEBUG_AUTH) console.log('Skipping listener due to manual sign out');
+        return;
+      }
+
+      await applySession(_event, session ?? null);
       if (_event === "SIGNED_OUT") {
+        if (DEBUG_AUTH) console.log('[auth] User signed out via listener');
         localStorage.removeItem(MANUAL_SESSION_KEY);
       }
     });
 
+    // Make sure to return the unsubscribe function
     return () => {
-      mounted = false;
+      // console.log('[auth] Cleaning up auth listener');
+      // mounted = false;
       listener.subscription.unsubscribe();
     };
+  }
+
+  // const handleAuth = async () => {
+  //   // await handleSession();
+  //   await addListener();
+
+  //   // Make sure to return the unsubscribe function
+  //   return () => {
+  //     console.log('[auth] Cleaning up auth listener');
+  //     mountedRef.current = false;
+  //     // listener.subscription.unsubscribe();
+  //   };
+  // // }
+
+
+  // useEffect(() => {
+  //   handleAuth();
+  // }, []);
+
+
+  useEffect(() => {
+    let unsubscribe: undefined | (() => void);
+
+    (async () => {
+      await handleSession();
+      unsubscribe = await addListener();
+    })();
+
+    return () => {
+      mountedRef.current = false;
+      unsubscribe?.();
+    };
   }, []);
+
+
 
   const refreshSubscription = async () => {
     if (!user?.id) return;
@@ -241,13 +410,66 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setAuthLoading(false);
   };
 
+  // const signOut = async () => {
+  //   setAuthLoading(true);
+  //   try {
+  //     console.log('1.1 - Starting sign out');
+
+  //     // First clear local storage
+  //     localStorage.removeItem(MANUAL_SESSION_KEY);
+  //     localStorage.removeItem("userSession");
+  //     console.log('1.2 - Local storage cleared');
+
+  //     // Then sign out from Supabase
+  //     const { error } = await supabase.auth.signOut();
+  //     console.log('1.3 - Supabase signOut completed, error:', error);
+
+  //     if (error) {
+  //       console.error('[auth] Sign out error:', error);
+  //     }
+
+  //     // Manually clear all state
+  //     clearAll();
+  //     console.log('1.4 - State cleared');
+  //     setAuthLoading(false);
+  //     console.log('1.5 - Sign out completed');
+  //   } catch (error) {
+  //     console.error('[auth] Sign out exception:', error);
+  //     setAuthLoading(false);
+  //   }
+  // };
   const signOut = async () => {
     setAuthLoading(true);
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
-    setUser(null);
-    setAuthLoading(false);
+    isManualSignOut.current = true; // Set flag to prevent listener interference
+
+    try {
+      console.log('1.1 - Starting manual sign out');
+
+      // First clear local storage
+      localStorage.removeItem(MANUAL_SESSION_KEY);
+      localStorage.removeItem("userSession");
+      console.log('1.2 - Local storage cleared');
+      // Then sign out from Supabase
+      const { error } = await supabase.auth.signOut();
+      console.log('1.3 - Supabase signOut completed, error:', error);
+
+      if (error) {
+        console.error('[auth] Sign out error:', error);
+      }
+
+      // Manually clear all state
+      clearAll();
+      console.log('1.4 - State cleared');
+      setAuthLoading(false);
+      console.log('1.5 - Sign out completed');
+    } catch (error) {
+      console.error('[auth] Sign out exception:', error);
+      setAuthLoading(false);
+    } finally {
+      isManualSignOut.current = false; // Reset flag
+    }
   };
+
 
   const value = useMemo<AuthContextType>(() => ({
     user,

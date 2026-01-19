@@ -22,10 +22,11 @@ const CoursePage: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenMo
   const { subscription, subscriptionLoading } = useAuth();
 
   const handleAccordionChange = (moduleId: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
-    
+
     setExpandedModule(isExpanded ? moduleId : false);
 
     if (subscriptionLoading) return;
+    if (!subscription) return;       // evita abrir modal por “unknown”
 
     if (subscription?.status !== 'paid' && workout?.locked && isExpanded) {
       setOpenModal?.(true);
@@ -72,7 +73,7 @@ const CoursePage: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenMo
       {subscriptionLoading && (
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
           <CircularProgress size={18} />
-          <Typography variant="body2">Verificando suscripción…</Typography>
+          <Typography variant="body2">Verificando tu suscripción…</Typography>
         </Box>
       )}
 

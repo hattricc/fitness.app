@@ -1,12 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { supabase } from '@/lib/supabase';
+import { useAuth } from '@/contexts/auth/AuthProvider';
 
 const MANUAL_SESSION_KEY = "manual_supabase_session_v1";
 
 export const AuthCallback = () => {
     const navigate = useNavigate();
+    const { user, authLoading } = useAuth();
+
+    const [checkAuth, setCheckAuth] = useState<NodeJS.Timeout | undefined>( );
 
     useEffect(() => {
         const handleAuth = async () => {
@@ -28,32 +32,30 @@ export const AuthCallback = () => {
             try {
                 // Si el callback trae ?code=..., esto es lo correcto en v2 (PKCE)
                 if (urlParams.get("code")) {
+                    console.log('[AuthCallback] Processing OAuth callback with code');
+
                     const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(window.location.href);
                     if (exchangeError) throw exchangeError;
+
+
+                    // Wait for AuthProvider to process the callback
+                    let attempts = 0;
+                    const maxAttempts = 10;
+
+                    while (attempts < maxAttempts && authLoading) {
+                        console.log(`[AuthCallback] Waiting for auth... attempt ${attempts + 1}`);
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                        attempts++;
+                    }
+
+                    // Check if we have a user after the auth process
+                    if (!user && !authLoading) {
+                        console.error('[AuthCallback] No user found after auth processing');
+                        throw new Error('Authentication failed - no user session established');
+                    }
+
+                    console.log('[AuthCallback] Auth successful, user:', user?.id);
                 }
-
-                const { data, error: sessionError } = await supabase.auth.getSession();
-                if (sessionError) throw sessionError;
-                if (!data.session) throw new Error("No session found after OAuth callback");
-
-                // Verifica que el token realmente sea válido antes de persistirlo
-                const { data: verified, error: verifyErr } = await supabase.auth.getUser(data.session.access_token);
-                if (verifyErr || !verified?.user) {
-                    throw verifyErr || new Error('Token verification failed after callback');
-                }
-
-                // Guarda lo mínimo necesario para restaurar sesión
-                const s = data.session;
-                localStorage.setItem(
-                    MANUAL_SESSION_KEY,
-                    JSON.stringify({
-                        access_token: s.access_token,
-                        refresh_token: s.refresh_token,
-                        expires_at: s.expires_at,
-                        user: { id: s.user?.id }, // opcional
-                        saved_at: Date.now(),
-                    })
-                );
 
                 const redirectTo = localStorage.getItem('redirectTo') || next;
                 localStorage.removeItem('redirectTo');
@@ -72,8 +74,21 @@ export const AuthCallback = () => {
             }
         };
 
-        handleAuth();
-    }, [navigate]);
+        // Only run if we're not currently loading
+        console.log('authLoading in AuthCallback', authLoading);
+        if (!authLoading) {
+            handleAuth();
+        } else {
+            setCheckAuth(setInterval(() => {
+                if (!authLoading) {
+                    clearInterval(checkAuth);
+                    handleAuth();
+                }
+            }, 100));
+        }
+
+        return () => clearInterval(checkAuth);
+    }, [navigate, user, authLoading]);
 
     return (
         <Box
