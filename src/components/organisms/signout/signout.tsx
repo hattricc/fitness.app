@@ -7,20 +7,15 @@ import {
 } from '@mui/material';
 import { useAuth } from '../../../contexts/auth/AuthProvider.tsx';
 
-export default function SignOut({ theme }: { theme?: any } = {}) {
+export default function SignOut() {
   const navigate = useNavigate();
-
   const auth = useAuth();
-
 
   const handleSignOut = async () => {
     try {
-      console.log('1')
       await auth.signOut();
-      console.log('2')
       navigate('/');
 
-      console.log('3')
     } catch (error) {
       console.error('SignOut error:', error);
     }

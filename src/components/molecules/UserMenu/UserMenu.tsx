@@ -1,9 +1,8 @@
-import { Button, Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Stack, useTheme } from '@mui/material';
-import { AccountCircle, Facebook, Google, Login, Payment, Person } from '@mui/icons-material';
-import { Theme } from '@mui/material/styles';
-import { useEffect, useState } from 'react';
+import { Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
+import { Login, Payment, Person } from '@mui/icons-material';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getGoogleAvatarUrl, UserSession } from '@/lib/userSession';
+import { UserSession } from '@/lib/userSession';
 import { UserImage } from '@/components/atoms/user-image/UserImage';
 
 interface UserMenuProps {

@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { CircularProgress, Skeleton } from '@mui/material'; // or your preferred loading component
+import { CircularProgress } from '@mui/material'; // or your preferred loading component
 import { AccountCircle } from '@mui/icons-material';
 import { getGoogleAvatarUrl } from '@/lib/userSession';
 import { useAuth } from "@/contexts/auth/AuthProvider";

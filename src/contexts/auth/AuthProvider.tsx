@@ -156,7 +156,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const applySession = async (event: string, session: Session | null) => {
-    console.log('[auth] event:', event, 'hasSession:', !!session, 'hasToken:', !!session?.access_token);
+    // console.log('[auth] event:', event, 'hasSession:', !!session, 'hasToken:', !!session?.access_token);
     setSupabaseSession(session);
 
     if (event === "SIGNED_OUT") {
@@ -174,22 +174,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    // // Solo limpiar definitivo si realmente se firmó out
-    // if (event === "SIGNED_OUT") {
-    //   clearAll();
-    //   setSubscriptionLoading(false);
-    //   setAuthLoading(false);
-    //   return;
-    // }
-
-    // if (!session?.access_token) {
-    //   setSubscription(null);
-    //   setSubscriptionLoading(false);
-    //   setAuthLoading(false);
-    //   return;
-    // }
-
-
     // 1) Verifica el token con Supabase
     let verifiedUser = null;
     try {
@@ -203,14 +187,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    // console.log('[auth] verifiedUserId:', verifiedUser?.id);
-
-
     // 2) Usa el usuario verificado (fuente de verdad)
     const currentUser = mapUserSession(verifiedUser, null);
     setUser(currentUser);
     persistUser(currentUser);
-    console.log('[auth] Mapped user:', currentUser);
+    // console.log('[auth] Mapped user:', currentUser);
 
 
     // 3) Check if user changed and fetch subscription
@@ -218,17 +199,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       lastUserIdRef.current !== currentUser.id;
 
     if (SHOULD_FETCH_SUBSCRIPTION) {
-      console.log('[auth] User changed, fetching subscription for:', currentUser?.id);
+      // console.log('[auth] User changed, fetching subscription for:', currentUser?.id);
       lastUserIdRef.current = currentUser.id ?? '';
       setSubscriptionLoading(true);
 
-      // Fetch subscription first
       const subscription = await fetchAndSetSubscription(session);
-      console.log('[auth] Subscription fetched:', subscription);
+      // console.log('[auth] Subscription fetched:', subscription);
 
-      // Then map user session with subscription
       const userWithSubscription = mapUserSession(verifiedUser, subscription);
-      console.log('[auth] Final user with subscription:', userWithSubscription);
+      // console.log('[auth] Final user with subscription:', userWithSubscription);
 
       setUser(userWithSubscription);
       persistUser(userWithSubscription);
@@ -239,19 +218,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const handleSession = async () => {
-
-    console.log('handleSession')
-
     // 1) intenta sesión normal
     supabase.auth.getSession().then(async ({ data, error }) => {
-      console.log('getSession resolved');
-      console.log('getSession data:', data);
-      console.log('getSession error:', error);
-
-      // let mounted = true;
 
       if (!mountedRef.current) return;
-      // if (!mounted) return;
       if (error) console.error("getSession error:", error);
 
       // 2) si no hay sesión, intenta restaurar manualmente
@@ -273,32 +243,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 
   const addListener = async () => {
-    // // 2) listener único
-    // const { data: listener } = supabase.auth.onAuthStateChange(async (_event, session) => {
-    //   await applySession(_event, session ?? null);
-
-    //   // Save session to localStorage when user signs in
-    //   if (_event === 'SIGNED_IN' && session) {
-    //     console.log('[auth] Saving session after sign in');
-    //     localStorage.setItem(
-    //       MANUAL_SESSION_KEY,
-    //       JSON.stringify({
-    //         access_token: session.access_token,
-    //         refresh_token: session.refresh_token,
-    //         expires_at: session.expires_at,
-    //         user: { id: session.user?.id },
-    //         saved_at: Date.now(),
-    //       })
-    //     );
-    //   }
-
-    //   if (_event === "SIGNED_OUT") {
-    //     console.log('[auth] User signed out');
-    //     localStorage.removeItem(MANUAL_SESSION_KEY);
-    //   }
-    // });
     const DEBUG_AUTH = false; // Set to true for detailed logging
-    // Then in your listener, add more detailed logs
+
     const { data: listener } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (DEBUG_AUTH) {
         console.log('=== AUTH DEBUG ===');
@@ -326,27 +272,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Make sure to return the unsubscribe function
     return () => {
       // console.log('[auth] Cleaning up auth listener');
-      // mounted = false;
       listener.subscription.unsubscribe();
     };
   }
-
-  // const handleAuth = async () => {
-  //   // await handleSession();
-  //   await addListener();
-
-  //   // Make sure to return the unsubscribe function
-  //   return () => {
-  //     console.log('[auth] Cleaning up auth listener');
-  //     mountedRef.current = false;
-  //     // listener.subscription.unsubscribe();
-  //   };
-  // // }
-
-
-  // useEffect(() => {
-  //   handleAuth();
-  // }, []);
 
 
   useEffect(() => {
@@ -414,48 +342,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setAuthLoading(false);
   };
 
-  // const signOut = async () => {
-  //   setAuthLoading(true);
-  //   try {
-  //     console.log('1.1 - Starting sign out');
-
-  //     // First clear local storage
-  //     localStorage.removeItem(MANUAL_SESSION_KEY);
-  //     localStorage.removeItem("userSession");
-  //     console.log('1.2 - Local storage cleared');
-
-  //     // Then sign out from Supabase
-  //     const { error } = await supabase.auth.signOut();
-  //     console.log('1.3 - Supabase signOut completed, error:', error);
-
-  //     if (error) {
-  //       console.error('[auth] Sign out error:', error);
-  //     }
-
-  //     // Manually clear all state
-  //     clearAll();
-  //     console.log('1.4 - State cleared');
-  //     setAuthLoading(false);
-  //     console.log('1.5 - Sign out completed');
-  //   } catch (error) {
-  //     console.error('[auth] Sign out exception:', error);
-  //     setAuthLoading(false);
-  //   }
-  // };
+  const AVATAR_CACHE_KEY = 'user_avatar_url';
   const signOut = async () => {
     setAuthLoading(true);
     isManualSignOut.current = true; // Set flag to prevent listener interference
 
     try {
-      console.log('1.1 - Starting manual sign out');
-
-      // First clear local storage
       localStorage.removeItem(MANUAL_SESSION_KEY);
       localStorage.removeItem("userSession");
-      console.log('1.2 - Local storage cleared');
-      // Then sign out from Supabase
+      localStorage.removeItem(AVATAR_CACHE_KEY);
+
       const { error } = await supabase.auth.signOut();
-      console.log('1.3 - Supabase signOut completed, error:', error);
 
       if (error) {
         console.error('[auth] Sign out error:', error);
@@ -463,9 +360,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       // Manually clear all state
       clearAll();
-      console.log('1.4 - State cleared');
       setAuthLoading(false);
-      console.log('1.5 - Sign out completed');
     } catch (error) {
       console.error('[auth] Sign out exception:', error);
       setAuthLoading(false);

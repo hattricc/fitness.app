@@ -26,7 +26,7 @@ const CoursePage: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenMo
     setExpandedModule(isExpanded ? moduleId : false);
 
     if (subscriptionLoading) return;
-    if (!subscription) return;       // evita abrir modal por “unknown”
+    // if (!subscription) return;       // evita abrir modal por “unknown”
 
     if (!subscription?.hasAccess && workout?.locked && isExpanded) {
       setOpenModal?.(true);
@@ -42,8 +42,6 @@ const CoursePage: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenMo
     p: 2,
     backgroundColor: 'rgba(255, 193, 7, 0.1)',
     border: '1px solid rgba(255, 193, 7, 0.3)',
-    // backgroundColor: 'rgba(2, 136, 209, 0.1)',
-    // border: '1px solid rgba(2, 136, 209, 0.3)',
     borderRadius: 2,
     color: 'warning.main'
   }
@@ -91,12 +89,6 @@ const CoursePage: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenMo
 
           {/* <WorkoutHeader workout={workout} /> */}
 
-          {/* <Box sx={boxLockInfoStyles}>
-        <LockIcon sx={{ color: 'warning.main', fontSize: 20 }} />
-        <Typography variant="body2" color="warning.main" fontWeight="medium">
-          Sé parte de la suscripción básica para ver todas las clases.
-        </Typography>
-      </Box> */}
           {workout.showInfo && (
             <Box sx={boxLockInfoStyles}>
               <InfoOutline sx={{ color: 'warning.main', fontSize: 20 }} />
