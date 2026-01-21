@@ -146,6 +146,29 @@ serve(async (req) => {
         // Generar invno único (puedes usar otro formato)
         const invno = `ORD-${crypto.randomUUID()}`;
 
+        const raw_request = {
+            provider: "livees",
+            created_from: "create-livees-payment",
+            invno,
+            postURL: LIVEES_POST_URL,
+            product: {
+                id: product.id,
+                name: product.name ?? null,
+                price_cents: product.price_cents,
+                currency: product.currency,
+            },
+            amount: {
+                cents: product.price_cents,
+                value: product.price_cents / 100,
+                currency: product.currency,
+            },
+            billing_info: billing_info,
+            invoice_info: invoice_info,
+            // si en el futuro mandas items desde frontend:
+            items: (body as any)?.items ?? null,
+        };
+
+
         // Crear registro de pago pendiente
         const { data: payment, error: paymentError } = await supabase
             .from("payments")
@@ -159,9 +182,7 @@ serve(async (req) => {
                 currency: product.currency,
                 billing_info: billing_info ?? {},
                 invoice_info: invoice_info ?? {},
-                raw_request: {
-                    postURL: LIVEES_POST_URL,
-                },
+                raw_request,
             })
             .select("*")
             .single();

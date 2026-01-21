@@ -3,6 +3,7 @@ import { supabase } from "../../../lib/supabase";
 import { useEffect } from "react";
 import { Loader2, X } from "lucide-react";
 import MakSelectInput from "@/components/atoms/inputs/mak-select-input/mak-select-input";
+import { TextField } from "@mui/material";
 
 // Add this interface at the top of the file
 interface BillingFormData {
@@ -16,6 +17,8 @@ interface BillingFormData {
     zip: string;
     phone: string;
     nombre_factura: string;
+    nit: string;
+    param2: object[];
 }
 
 
@@ -52,13 +55,17 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
         name: '',
         lastname: '',
         email: '',
-        pais: 'Bolivia', // Default to Bolivia
+        pais: 'BO', // Default to Bolivia
         ciudad: '',
         estado_lbl: '',
         direccion: '',
         zip: '',
         phone: '',
-        nombre_factura: ''
+        nombre_factura: '',
+        nit: '',
+        param2: [{ "sku": "001", "name": "Servicio Prueba", "price": "80.00", "quantity": "1" },
+        { "sku": "002", "name": "Servicio Prueba 2", "price": "180.00", "quantity": "1" }
+        ]
     });
 
 
@@ -69,9 +76,6 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
             try {
                 setShowPersonalInfoForm(false);
                 const { data: { user }, error } = await supabase.auth.getUser();
-
-                const auth = await supabase.auth.getSession();
-                console.log("access_token", auth.data.session?.access_token);
 
                 if (error) {
                     console.error('Auth error:', error);
@@ -93,7 +97,6 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                         ...prev,
                         ...newData
                     }));
-
 
                     setLoading(false);
                 }
@@ -159,14 +162,38 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
             setError(null);
             setLoading(true);
 
+            // 1) Armar billing_info desde lo que el usuario llenó
+            const billing_info = {
+                name: formData.name?.trim() ?? "",
+                lastname: formData.lastname?.trim() ?? "",
+                email: formData.email?.trim() ?? "",
+                phone: formData.phone?.trim() ?? "",
+
+                pais: formData.pais ?? "BO",
+                ciudad: formData.ciudad?.trim() ?? "",
+                estado_lbl: formData.estado_lbl?.trim() ?? "",
+                direccion: formData.direccion?.trim() ?? "",
+                zip: formData.zip?.trim() ?? "",
+            };
+
+            // 2) Armar invoice_info (facturación)
+            const invoice_info = {
+                nit: formData.nit?.trim() ?? "",
+                razon_social: formData.nombre_factura?.trim() ?? "",
+                // si quieres guardar también ubicación fiscal:
+                pais: formData.pais ?? "BO",
+                ciudad: formData.ciudad?.trim() ?? "",
+                direccion: formData.direccion?.trim() ?? "",
+            };
+
             // Paso 1: Invocar la edge function
             const { data, error: fnError } = await supabase.functions.invoke(
                 "create-livees-payment",
                 {
                     body: {
                         product_id: productId,
-                        billing_info: billingInfo,
-                        invoice_info: invoiceInfo,
+                        billing_info,
+                        invoice_info,
                     },
                 }
             );
@@ -187,7 +214,6 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
             }
 
             const { livees, payment } = data;
-            console.log(livees)
 
             // Paso 2: Crear formulario oculto para enviar a Livees
             const form = document.createElement("form");
@@ -208,22 +234,27 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
             // Campos obligatorios para Livees
             appendField("_", livees.token_comercio);
             appendField("__", livees.llave_recurso);
-            // appendField("_", '24bb5t7gn7iadjmhvdwzxurcf387f468l9s6q6kyfp65do1e0');
-            // appendField("__", '201a875dypvxw3h2ug9aeq9knecm64osrzbj602i6d4ltecef');
-            // appendField("MontoTotal", payment.amount);
-            appendField("amt2", price);
-            appendField("invno", payment.invno);
             appendField("postURL", livees.postURL);
 
+            appendField("amt2", price);
             appendField("currency", 'BOB');
+            appendField("invno", payment.invno);
+
+
             appendField("name", formData.name);
             appendField("lastname", formData.lastname);
             appendField("email", formData.email);
-            appendField("estado_lbl", formData.estado_lbl);
-            appendField("phone", formData.phone);
-            appendField('zip', formData.zip);
-            appendField('nombre_factura', formData.nombre_factura);
+            appendField("pais", formData.pais);
+            appendField("ciudad", formData.ciudad);
 
+            appendField("estado_lbl", formData.estado_lbl);
+            appendField("direccion", formData.direccion);
+            appendField('zip', formData.zip);
+            appendField("phone", formData.phone);
+
+            appendField('nombre_factura', formData.nombre_factura);
+            appendField('nit', formData.nit);
+            appendField('param2', JSON.stringify(formData.param2));
 
             // Campos de facturación y/o datos extra
             Object.entries(billingInfo).forEach(([key, value]) => {
@@ -448,6 +479,33 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                             name="phone"
                             value={formData.phone}
                             onChange={handleInputChange}
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="nombre_factura" className="block text-sm font-medium text-gray-700">
+                            Nombre de Factura
+                        </label>
+                        <input
+                            id="nombre_factura"
+                            name="nombre_factura"
+                            value={formData.nombre_factura}
+                            onChange={(e) => setFormData(prev => ({ ...prev, nombre_factura: e.target.value }))}
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="nit" className="block text-sm font-medium text-gray-700">
+                            NIT
+                        </label>
+                        <input
+                            id="nit"
+                            name="nit"
+                            value={formData.nit}
+                            onChange={(e) => setFormData(prev => ({ ...prev, nit: e.target.value }))}
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
                             required
                         />
