@@ -148,10 +148,7 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
         setShowPersonalInfoForm(true);
 
         try {
-
-
             const auth = await supabase.auth.getSession();
-            console.log("access_token", auth.data.session?.access_token);
 
             if (!auth) {
                 setError("No se pudo iniciar el pago porque no ha iniciado sesión.");
@@ -240,21 +237,20 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
             appendField("currency", 'BOB');
             appendField("invno", payment.invno);
 
-
             appendField("name", formData.name);
             appendField("lastname", formData.lastname);
             appendField("email", formData.email);
             appendField("pais", formData.pais);
-            appendField("ciudad", formData.ciudad);
+            // appendField("ciudad", formData.ciudad);
 
             appendField("estado_lbl", formData.estado_lbl);
-            appendField("direccion", formData.direccion);
-            appendField('zip', formData.zip);
+            // appendField("direccion", formData.direccion);
+            // appendField('zip', formData.zip);
             appendField("phone", formData.phone);
 
-            appendField('nombre_factura', formData.nombre_factura);
-            appendField('nit', formData.nit);
-            appendField('param2', JSON.stringify(formData.param2));
+            // appendField('nombre_factura', formData.nombre_factura);
+            // appendField('nit', formData.nit);
+            // appendField('param2', JSON.stringify(formData.param2));
 
             // Campos de facturación y/o datos extra
             Object.entries(billingInfo).forEach(([key, value]) => {

@@ -42,6 +42,8 @@ const SubscriptionPage: React.FC = () => {
   const auth = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
 
   const handleSuccessfulLogin = () => {
     setShowAuthModal(false);
@@ -180,7 +182,7 @@ const SubscriptionPage: React.FC = () => {
         fullWidth
         PaperProps={{
           sx: {
-            backgroundColor: 'white', 
+            backgroundColor: 'white',
             boxShadow: 24, // Add a nice shadow
             overflow: 'visible',
             borderRadius: 6,
@@ -188,7 +190,7 @@ const SubscriptionPage: React.FC = () => {
         }}
       >
         {/* <DialogTitle>Completa tu suscripción</DialogTitle> */}
-        <DialogContent sx={{ p: 0, '&.MuiDialogContent-root': { p: 0 } }}>
+        {/* <DialogContent sx={{ p: 0, '&.MuiDialogContent-root': { p: 0 } }}>
           <LiveesPayment
             productId="e45f8d41-0132-44c5-9e05-254ca96db19a"
             price={price}
@@ -196,6 +198,23 @@ const SubscriptionPage: React.FC = () => {
               setShowPaymentModal(false);
             }}
             onCancel={() => setShowPaymentModal(false)}
+          />
+        </DialogContent> */}
+        <DialogContent
+          sx={{ p: 0, '&.MuiDialogContent-root': { p: 0 } }}
+          onClick={() => setHasInteracted(true)} // Track interaction
+        >
+          <LiveesPayment
+            productId="e45f8d41-0132-44c5-9e05-254ca96db19a"
+            price={price}
+            onSuccess={() => {
+              setShowPaymentModal(false);
+              setHasInteracted(false); // Reset interaction state
+            }}
+            onCancel={() => {
+              setShowPaymentModal(false);
+              setHasInteracted(false); // Reset interaction state
+            }}
           />
         </DialogContent>
       </Dialog>
