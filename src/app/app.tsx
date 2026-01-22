@@ -9,7 +9,7 @@ import { darkTheme } from '../data/theme';
 import { useAuth } from '../contexts/auth/AuthProvider.tsx';
 
 import { MakModal } from '@/components/molecules/MakModal/MakModal';
-import { useAppRoutes } from './routes.tsx';
+import { useAppRoutes } from './Routes.tsx';
 
 function App() {
   const { user } = useAuth();
