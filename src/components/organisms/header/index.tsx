@@ -30,7 +30,7 @@ const routeConfig = {
   '/login': { title: 'Iniciar Sesión' },
   '/signup': { title: 'Registrarse' },
   '/reset-password': { title: 'Restablecer Contraseña' },
-  '/combate-sagrado': { title: 'Combate Sagrado' },
+  '/acerca-de-mi': { title: 'Acerca de mí' },
   '/subscription': { title: 'Suscripción' },
 };
 

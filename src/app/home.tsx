@@ -156,7 +156,7 @@ const Home: React.FC<HomeProps> = ({
           <Button
             variant="contained"
             onClick={() => {
-              navigate('/combate-sagrado')
+              navigate('/acerca-de-mi')
             }}
             sx={welcomeButtonStyle}
           >

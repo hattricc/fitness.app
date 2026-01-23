@@ -69,7 +69,7 @@ export const createAppRoutes = (
             element: <ResetPasswordForm theme={darkTheme} />,
         },
         {
-            path: "/combate-sagrado",
+            path: "/acerca-de-mi",
             element: <CombateSagradoPage />,
         },
         {
