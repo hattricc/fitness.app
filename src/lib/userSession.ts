@@ -139,13 +139,3 @@ export const clearAvatarCache = (): void => {
         localStorage.removeItem(AVATAR_CACHE_KEY);
     }
 };
-
-// export const getGoogleAvatarUrl = (user: UserSession | null) => {
-//     if (user && user.identities) {
-//         const googleIdentity = user.identities.find(x => x.provider === 'google');
-//         const sep = googleIdentity?.identity_data?.picture.includes("?") ? "&" : "?";
-//         return `${googleIdentity?.identity_data?.picture}${sep}t=${Date.now()}`;
-//     }
-
-//     return null;
-// };

@@ -4,6 +4,7 @@ import { mapUserSession, UserSession, PaymentAccess } from '@/lib/userSession';
 import { Session } from '@supabase/supabase-js';
 import { verifyToken } from '@/lib/verifyToken';
 import { getAccessFromEdge } from '@/lib/access';
+import { useEnsureProfileFromEdge } from '@/modules/auth/application/hooks/useEnsureProfileFromEdge';
 
 
 type AuthContextType = {
@@ -67,6 +68,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserSession | null>(null);
   const [subscription, setSubscription] = useState<PaymentAccess | null>(null);
   const [subscriptionLoading, setSubscriptionLoading] = useState(false);
+  const { ensureProfile } = useEnsureProfileFromEdge();
+
 
   // Add this flag at the top of AuthProvider
   const isManualSignOut = useRef(false);
@@ -89,51 +92,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     persistUser(null);
   };
 
-  // const fetchAndSetSubscription = async (userId: string) => {
   const fetchAndSetSubscription = async (session: Session) => {
-    // const fetchAndSetSubscription = async (userId: string): Promise<Subscription | null> => {
-    // if (subFetchInFlight.current) return subFetchInFlight.current;
-
-    // subFetchInFlight.current = (async () => {
-    //   try {
-    //     const sub = await getUserWithSubscription(userId) as Subscription;
-    //     setSubscription(sub ?? null);
-    //   } catch (e) {
-    //     console.error("getUserWithSubscription error:", e);
-    //     setSubscription(null);
-    //   } finally {
-    //     subFetchInFlight.current = null;
-    //   }
-    // })();
-
-    // return subFetchInFlight.current;
-
-
-
-
-    // if (subFetchInFlight.current) {
-    //   console.log('[auth] Subscription fetch already in flight, waiting...');
-    //   return subFetchInFlight.current;
-    // }
-    // subFetchInFlight.current = (async () => {
-    //   try {
-    //     console.log('[auth] Fetching subscription for userId:', userId);
-    //     const sub = await getUserWithSubscription(userId);
-    //     console.log('[auth] Subscription fetched:', sub);
-    //     setSubscription(sub);
-    //     return sub;
-    //   } catch (e) {
-    //     console.error("[auth] getUserWithSubscription error:", e);
-    //     setSubscription(null);
-    //     return null;
-    //   } finally {
-    //     subFetchInFlight.current = null;
-    //   }
-    // })();
-    // return subFetchInFlight.current;
-
-
-
 
     if (subFetchInFlight.current) return subFetchInFlight.current;
 
@@ -159,7 +118,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // console.log('[auth] event:', event, 'hasSession:', !!session, 'hasToken:', !!session?.access_token);
     setSupabaseSession(session);
 
+
     if (event === "SIGNED_OUT") {
+      console.log('[auth] User signed out');
       clearAll();
       setSubscriptionLoading(false);
       setAuthLoading(false);
@@ -193,6 +154,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     persistUser(currentUser);
     // console.log('[auth] Mapped user:', currentUser);
 
+    // // Step 4: Create profile for new sign-ins
+    // if (event === 'SIGNED_IN') {
+    //   console.log('[auth] User signed in, creating profile');
+    //   await supabase.functions.invoke("ensure-profile", { body: {} });
+    // }
 
     // 3) Check if user changed and fetch subscription
     const SHOULD_FETCH_SUBSCRIPTION =
@@ -292,6 +258,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
 
+  useEffect(() => {
+    if (!supabaseSession?.access_token) return;
+    ensureProfile();
+  }, [supabaseSession?.access_token, ensureProfile]);
+
+
 
   const refreshSubscription = async () => {
     if (!user?.id) return;
@@ -330,6 +302,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signInWithGoogle = async () => {
     setAuthLoading(true);
+
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {

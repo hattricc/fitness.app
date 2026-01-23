@@ -4,6 +4,8 @@ import { supabase } from "../../../src/lib/supabase";
 import { CheckCircle, CrossIcon, Loader2, X } from "lucide-react"; // Add this import at the top
 import IconLink from "@/components/atoms/icon-link/IconLink";
 import { WhatsApp } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 
 type ViewState = "checking" | "ok" | "failed" | "error";
@@ -18,6 +20,9 @@ const PagoExitosoPage: React.FC = () => {
     const [state, setState] = useState<ViewState>("checking");
     const [detail, setDetail] = useState<ConfirmResponse | null>(null);
     const [message, setMessage] = useState<string | null>(null);
+    const [countdown, setCountdown] = useState(10);
+    const navigate = useNavigate();
+    const [hasBillingInfo, setHasBillingInfo] = useState(false);
 
     const whatsappContact =
     {
@@ -68,11 +73,42 @@ const PagoExitosoPage: React.FC = () => {
                 const { data } = liveesData;
                 setDetail(data);
 
+                const { data: paymentsData, error: paymentsError } = await supabase
+                    .from("payments")
+                    .select("id")
+                    .eq("user_id", auth.data.session?.user.id)
+                    .not("invoice_info->>nit", "is", null)
+                    .neq("invoice_info->>nit", "")
+                    .not("invoice_info->>razon_social", "is", null)
+                    .neq("invoice_info->>razon_social", "")
+                    .limit(1);
+
+                console.log('paymentsData', paymentsData);
+
+                if (paymentsError) {
+                    setState("error");
+                    setMessage("No se pudo obtener información de pago. Intenta nuevamente o contáctanos.");
+                    return;
+                }
+
+                const hasBillingInfo = !!paymentsData?.length;
+                setHasBillingInfo(hasBillingInfo);
+
                 if (data.status === "paid") {
                     setState("ok");
-                    // TODO MODIFICAR USUARIO PARA QUE SEPA QUE PAGO
-                    // TODO TEMPORIZADOR PARA VOLVER A HOME
-                    return;
+
+                    const timer = setInterval(() => {
+                        setCountdown((prev) => {
+                            if (prev <= 1) {
+                                clearInterval(timer);
+                                navigate('/');
+                                return 0;
+                            }
+                            return prev - 1;
+                        });
+                    }, 5000);
+
+                    return () => clearInterval(timer);
                 }
 
                 setState("failed");
@@ -113,12 +149,33 @@ const PagoExitosoPage: React.FC = () => {
                 />
                 <h1 className="mb-2 text-2xl">¡Pago confirmado!</h1>
 
-                <p>Gracias por tu compra. En breve recibirás más detalles en tu correo.</p>
+                {hasBillingInfo ? (
+                    <p className="mb-4">
+                        Gracias por tu compra. En breve recibirás más detalles y tu factura en tu correo electrónico.
+                    </p>
+                ) : (
+                    <p className="mb-4">
+                        Gracias por tu compra. Tu suscripción ha sido activada correctamente.
+                    </p>
+                )}
+
                 {detail?.payment_id && (
                     <p style={{ marginTop: "1rem", fontSize: "0.9rem", color: "#555" }}>
                         ID interno de pago: {detail.payment_id}
                     </p>
                 )}
+
+                <Button
+                    variant="contained"
+                    onClick={() => navigate('/')}
+                    sx={
+                        {
+                            marginTop: '1rem'
+                        }
+                    }
+                >
+                    Ir a la página principal
+                </Button>
             </div>
         );
     }
