@@ -103,7 +103,7 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
           sx={{
             width: '100%',
             maxWidth: 400,
-            p: 4,
+            p: 2,
             textAlign: 'center',
           }}
         >
@@ -132,12 +132,12 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
   return (
     <Box
       sx={{
-        minHeight: '100vh',
+        minHeight: '60vh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        p: 1,
+        p: 2,
         backgroundColor: '#1B1B1B',
         borderRadius: 6,
       }}
@@ -146,11 +146,11 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
         sx={{
           width: '100%',
           maxWidth: 400,
-          p: 2,
+          p: 1,
         }}
       >
         {/* Header */}
-        <Box textAlign="center" mb={4}>
+        <Box textAlign="center" mb={2}>
           <Typography variant="h4" component="h1" fontWeight="bold" color="text.primary" gutterBottom>
             ¡Comencemos!
           </Typography>
@@ -178,7 +178,7 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
 
         {/* Signup Form */}
         <form onSubmit={handleSubmit}>
-          <Stack spacing={2}>
+          <Stack spacing={1}>
             <TextField
               fullWidth
               label="Nombre"

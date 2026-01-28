@@ -105,8 +105,12 @@ const UserMenu: React.FC<UserMenuProps> = ({
 
                         <Divider sx={{ backgroundColor: '#333333' }} />
 
-                        <MenuItem
-                            onClick={() => handleNavigation('/subscription')}
+                        <MenuItem onClick={() => {
+                                const phoneNumber = '59170870099';
+                                const message = encodeURIComponent('Hola, estoy interesado en obtener información sobre la suscripción del programa de entrenamiento.');
+                                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+                                window.open(whatsappUrl, '_blank');
+                            }}
                             sx={{
                                 color: '#ffffff',
                                 '&:hover': {

@@ -73,11 +73,11 @@ export default function LoginForm({ title, subtitle, inSubscriptionPage = false,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          gap: '3vh'
+          gap: '2vh'
         }}
       >
         {/* Header */}
-        <Box textAlign="center" mb={4}>
+        <Box textAlign="center" mb={2}>
           <Typography variant="h4" component="h1" fontWeight="bold" color='text.primary' gutterBottom>
             {title || '¡Bienvenido de vuelta!'}
           </Typography>
@@ -88,7 +88,7 @@ export default function LoginForm({ title, subtitle, inSubscriptionPage = false,
 
         {/* Login Form */}
         <form onSubmit={(e) => handleLogin(handleSubmit, e)}>
-          <Stack spacing={3}>
+          <Stack spacing={2}>
             <TextField
               fullWidth
               label="Usuario o correo"
@@ -155,7 +155,7 @@ export default function LoginForm({ title, subtitle, inSubscriptionPage = false,
           </Stack>
         </form>
 
-        <Divider sx={{ mt: 3 }}>
+        <Divider>
           <Typography variant="body2" color="text.primary">
             O
           </Typography>

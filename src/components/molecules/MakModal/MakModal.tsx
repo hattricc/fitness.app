@@ -114,21 +114,32 @@ export function MakModal({ openModal, setOpenModal }: MakModalProps) {
                         Tu suscripción no caducará ni requerirá renovación mensual.
                     </Typography>
 
-                    <PriceContainer>
-                        <Box>
-                            <Typography variant="h6" sx={{ color: '#FFFFFF' }}>Acceso de por vida</Typography>
-                            <Typography variant="body2" sx={{ color: '#9BB9F1' }}>
-                                Un solo pago, para siempre
-                            </Typography>
-                        </Box>
-                        <Box sx={{ textAlign: 'right' }}>
-                            <Typography variant="h5" sx={{ color: '#E57952' }}>
-                                Bs. {price}
-                            </Typography>
-                            <Typography variant="body2" sx={{ color: '#9BB9F1', textDecoration: 'line-through' }}>
+                    <PriceContainer sx={{ 
+                        display: 'flex',
+                        flexDirection: 'column',
+                        textAlign: 'center'
+                        }}>
+                        {/* <Box sx={{ textAlign: 'center'}}> */}
+                            {/* <Typography variant="h6" sx={{ color: '#FFFFFF' }}>Acceso de por vida</Typography> */}
+                            <Typography variant="h6" sx={{ color: '#9BB9F1', textDecoration: 'line-through' }}>
                                 Bs {comparePrice}.00/mes
                             </Typography>
-                        </Box>
+                            <Typography variant="h3" sx={{ color: '#E57952' }}>
+                                Bs. {price}
+                            </Typography>
+                            <Typography variant="h5" sx={{ color: '#FFFFFF', mt: 2 }}>Un solo pago</Typography>
+                            {/* <Typography variant="body2" sx={{ color: '#9BB9F1' }}>
+                                Un solo pago
+                            </Typography> */}
+                        {/* </Box> */}
+                        {/* <Box sx={{ textAlign: 'right' }}> */}
+                            {/* <Typography variant="h5" sx={{ color: '#E57952' }}>
+                                Bs. {price}
+                            </Typography> */}
+                            {/* <Typography variant="body2" sx={{ color: '#9BB9F1', textDecoration: 'line-through' }}>
+                                Bs {comparePrice}.00/mes
+                            </Typography> */}
+                        {/* </Box> */}
                     </PriceContainer>
 
                     <Typography variant="caption" display="block" sx={{ color: '#9BB9F1', textAlign: 'center', mt: 1 }}>

@@ -51,7 +51,7 @@ function App() {
         <Header user={user} />
         <MakModal openModal={openModal} setOpenModal={setOpenModal} />
 
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Box component="main" sx={{ flexGrow: 1, px: 2 }}>
           {renderedRoutes}
         </Box>
       </Box>

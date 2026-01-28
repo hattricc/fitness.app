@@ -10,7 +10,7 @@ import { AuthCallback } from '@/components/auth/AuthCallback';
 import SignOut from '@/components/organisms/signout/signout';
 import SubscriptionPage from './pages/SubscriptionPage.tsx';
 import CoursePage from './pages/CoursePage.tsx';
-import CombateSagradoPage from './pages/CombateSagradoPage.tsx';
+import AcercaDeMiPage from './pages/AcercaDeMiPage.tsx';
 import { useState } from 'react';
 import { getAllWorkouts } from '@/data/getWorkout.ts';
 import { Exercise, WorkoutRoutine } from '../types/exercise.ts';
@@ -70,7 +70,7 @@ export const createAppRoutes = (
         },
         {
             path: "/acerca-de-mi",
-            element: <CombateSagradoPage />,
+            element: <AcercaDeMiPage />,
         },
         {
             path: "/pago-exitoso",
