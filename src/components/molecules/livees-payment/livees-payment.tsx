@@ -631,7 +631,7 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                             <>
                                 <div>
                                     <label htmlFor="nombre_factura" className="block text-sm font-medium text-gray-700">
-                                        Nombre de Factura
+                                        Razón social
                                     </label>
                                     <input
                                         id="nombre_factura"
@@ -649,7 +649,7 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
 
                                 <div>
                                     <label htmlFor="nit" className="block text-sm font-medium text-gray-700">
-                                        NIT
+                                        NIT / CI
                                     </label>
                                     <input
                                         id="nit"
