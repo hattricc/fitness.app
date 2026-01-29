@@ -3,7 +3,8 @@ import { supabase } from "../../../lib/supabase";
 import { useEffect } from "react";
 import { ArrowLeft, ArrowRight, Loader2, X } from "lucide-react";
 import MakSelectInput from "@/components/atoms/inputs/mak-select-input/mak-select-input";
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
+import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
 
 // Add this interface at the top of the file
 interface BillingFormData {
@@ -78,6 +79,9 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
     type Errors = Partial<Record<keyof BillingFormData, string>>
     const [errors, setErrors] = useState<Errors>({})
 
+    const [nitAutoFilled, setNitAutoFilled] = useState(true)
+
+
     const steps = [
         {
             id: 'personal',
@@ -126,7 +130,9 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
         setCurrentStep((s) => s - 1)
     }
 
-    const isLastStep = currentStep === steps.length - 1
+    const isLastStep = currentStep === steps.length - 1;
+
+
 
 
     // Inside the LiveesPayment component, add this effect
@@ -183,6 +189,36 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
             }
         };
     }, []);
+
+
+    const inputClass = (field: keyof BillingFormData) =>
+        `mt-1 block w-full rounded-md shadow-sm sm:text-sm p-2 border
+   ${errors[field]
+            ? 'border-red-500 focus:ring-red-500 focus:border-red-500'
+            : 'border-gray-300 focus:ring-primary-500 focus:border-primary-500'
+        }`
+
+
+    useEffect(() => {
+        if (!formData.nombre_factura) {
+            setFormData(prev => ({
+                ...prev,
+                nombre_factura: `${prev.name} ${prev.lastname}`.trim(),
+            }))
+        }
+    }, [formData.name, formData.lastname])
+
+    useEffect(() => {
+        if (nitAutoFilled && formData.document) {
+            setFormData(prev => ({
+                ...prev,
+                nit: prev.document,
+            }))
+        }
+    }, [formData.document, nitAutoFilled])
+
+
+
 
     const closeIframe = () => {
         if (formRef.current && document.body.contains(formRef.current)) {
@@ -394,33 +430,6 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
         );
     }
 
-    const inputClass = (field: keyof BillingFormData) =>
-        `mt-1 block w-full rounded-md shadow-sm sm:text-sm p-2 border
-   ${errors[field]
-            ? 'border-red-500 focus:ring-red-500 focus:border-red-500'
-            : 'border-gray-300 focus:ring-primary-500 focus:border-primary-500'
-        }`
-
-
-    useEffect(() => {
-        if (!formData.nombre_factura) {
-            setFormData(prev => ({
-                ...prev,
-                nombre_factura: `${prev.name} ${prev.lastname}`.trim(),
-            }))
-        }
-    }, [formData.name, formData.lastname])
-
-    useEffect(() => {
-        if (!formData.nit && formData.document) {
-            setFormData(prev => ({
-                ...prev,
-                nit: prev.document,
-            }))
-        }
-    }, [formData.document])
-
-
 
     return (
         <>
@@ -471,17 +480,19 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                                         <p className="text-xs text-red-600 mt-1">{errors.lastname}</p>
                                     )}
                                 </div>
+                                <div>
+                                    <label htmlFor="document" className="block text-sm font-medium text-gray-700">
+                                        Documento de Identidad
+                                    </label>
+                                    <input
+                                        name="document"
+                                        value={formData.document}
+                                        onChange={handleInputChange}
+                                        className={inputClass('document')}
+                                    />
 
-                                <label>Documento de Identidad</label>
-                                <input
-                                    name="documento"
-                                    value={formData.document}
-                                    onChange={handleInputChange}
-                                    className={inputClass('document')}
-                                />
-
-                                {errors.document && <p className="text-xs text-red-600">{errors.document}</p>}
-
+                                    {errors.document && <p className="text-xs text-red-600">{errors.document}</p>}
+                                </div>
 
                                 <div>
                                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -644,9 +655,11 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                                         id="nit"
                                         name="nit"
                                         value={formData.nit}
-                                        onChange={(e) => setFormData(prev => ({ ...prev, nit: e.target.value }))}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
-                                        required
+                                        onChange={(e) => {
+                                            setNitAutoFilled(false)
+                                            setFormData(prev => ({ ...prev, nit: e.target.value }))
+                                        }}
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border"
                                     />
 
                                     {errors.nit && (
@@ -687,24 +700,24 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                     </button> */}
                     <div className="flex justify-between pt-6">
                         {currentStep > 0 && (
-                            <button
-                                type="button"
+                            <Button
                                 onClick={prevStep}
-                                className="px-4 py-2 border rounded"
+                                startIcon={<ArrowBackIosNew />}
                             >
-                                <ArrowLeft size={16} /> Atrás
-                            </button>
+                                Anterior
+                            </Button>
                         )}
 
 
                         {!isLastStep ? (
-                            <button
-                                type="button"
+                            <Button
+                                variant="contained"
                                 onClick={nextStep}
-                                className="px-6 py-2 bg-blue-600 text-white rounded"
+                                startIcon={<ArrowForwardIos />}
                             >
-                                Siguiente <ArrowRight size={16} />
-                            </button>
+                                Siguiente
+                            </Button>
+
                         ) : (
                             <button
                                 type="submit"
