@@ -1,12 +1,13 @@
 import React, { useRef, useState } from "react";
 import { supabase } from "../../../lib/supabase";
 import { useEffect } from "react";
-import { Loader2, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Loader2, X } from "lucide-react";
 import MakSelectInput from "@/components/atoms/inputs/mak-select-input/mak-select-input";
 import { TextField } from "@mui/material";
 
 // Add this interface at the top of the file
 interface BillingFormData {
+    document: string
     name: string;
     lastname: string;
     email: string;
@@ -50,8 +51,10 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
     const formRef = useRef<HTMLFormElement | null>(null);
     const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
+
     // Inside the LiveesPayment component, add state for the form
     const [formData, setFormData] = useState<BillingFormData>({
+        document: '',
         name: '',
         lastname: '',
         email: '',
@@ -68,6 +71,62 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
         ]
     });
 
+
+
+    const [currentStep, setCurrentStep] = useState(0)
+
+    type Errors = Partial<Record<keyof BillingFormData, string>>
+    const [errors, setErrors] = useState<Errors>({})
+
+    const steps = [
+        {
+            id: 'personal',
+            fields: ['name', 'lastname', 'document', 'email', 'phone'],
+            title: 'Datos personales',
+        },
+        {
+            id: 'location',
+            fields: ['pais', 'ciudad', 'estado_lbl', 'zip', 'direccion'],
+            title: 'Dirección',
+        },
+        {
+            id: 'invoice',
+            fields: ['nombre_factura', 'nit'],
+            title: 'Facturación',
+        },
+        { id: 'summary', fields: [] }, // ← IMPORTANTE
+    ]
+    const validateStep = () => {
+        const stepFields = steps[currentStep].fields
+        const newErrors: Errors = {}
+
+        stepFields.forEach((field) => {
+            const value = formData[field as keyof BillingFormData]
+
+            if (!value || (typeof value === 'string' && !value.trim())) {
+                newErrors[field as keyof BillingFormData] = 'Campo obligatorio'
+            }
+
+            if (field === 'email' && typeof value === 'string' && value && !value.includes('@')) {
+                newErrors.email = 'Correo inválido'
+            }
+        })
+
+        setErrors(newErrors)
+        return Object.keys(newErrors).length === 0
+    }
+
+
+    const nextStep = () => {
+        if (!validateStep()) return
+        setCurrentStep((s) => s + 1)
+    }
+
+    const prevStep = () => {
+        setCurrentStep((s) => s - 1)
+    }
+
+    const isLastStep = currentStep === steps.length - 1
 
 
     // Inside the LiveesPayment component, add this effect
@@ -241,16 +300,16 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
             appendField("lastname", formData.lastname);
             appendField("email", formData.email);
             appendField("pais", formData.pais);
-            // appendField("ciudad", formData.ciudad);
+            appendField("ciudad", formData.ciudad);
 
             appendField("estado_lbl", formData.estado_lbl);
-            // appendField("direccion", formData.direccion);
-            // appendField('zip', formData.zip);
+            appendField("direccion", formData.direccion);
+            appendField('zip', formData.zip);
             appendField("phone", formData.phone);
 
-            // appendField('nombre_factura', formData.nombre_factura);
-            // appendField('nit', formData.nit);
-            // appendField('param2', JSON.stringify(formData.param2));
+            appendField('nombre_factura', formData.nombre_factura);
+            appendField('nit', formData.nit);
+            appendField('param2', JSON.stringify(formData.param2));
 
             // Campos de facturación y/o datos extra
             Object.entries(billingInfo).forEach(([key, value]) => {
@@ -335,6 +394,33 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
         );
     }
 
+    const inputClass = (field: keyof BillingFormData) =>
+        `mt-1 block w-full rounded-md shadow-sm sm:text-sm p-2 border
+   ${errors[field]
+            ? 'border-red-500 focus:ring-red-500 focus:border-red-500'
+            : 'border-gray-300 focus:ring-primary-500 focus:border-primary-500'
+        }`
+
+
+    useEffect(() => {
+        if (!formData.nombre_factura) {
+            setFormData(prev => ({
+                ...prev,
+                nombre_factura: `${prev.name} ${prev.lastname}`.trim(),
+            }))
+        }
+    }, [formData.name, formData.lastname])
+
+    useEffect(() => {
+        if (!formData.nit && formData.document) {
+            setFormData(prev => ({
+                ...prev,
+                nit: prev.document,
+            }))
+        }
+    }, [formData.document])
+
+
 
     return (
         <>
@@ -342,194 +428,301 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                 key={formData.email} // This will force a re-render when email changes
                 onSubmit={(e) => {
                     e.preventDefault();
+                    if (!validateStep()) return;
                     handlePay();
                 }}>
                 <div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
-                        <div>
-                            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                                Nombre
-                            </label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                value={formData.name || ''}
-                                onChange={handleInputChange}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="lastname" className="block text-sm font-medium text-gray-700">
-                                Apellido
-                            </label>
-                            <input
-                                type="text"
-                                id="lastname"
-                                name="lastname"
-                                value={formData.lastname}
-                                onChange={handleInputChange}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
-                                required
-                            />
-                        </div>
+                        {currentStep === 0 && (
+                            <>
+                                <div>
+                                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                                        Nombre
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        value={formData.name || ''}
+                                        onChange={handleInputChange}
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
+                                        required
+                                    />
+
+                                    {errors.name && (
+                                        <p className="text-xs text-red-600 mt-1">{errors.name}</p>
+                                    )}
+                                </div>
+                                <div>
+                                    <label htmlFor="lastname" className="block text-sm font-medium text-gray-700">
+                                        Apellido
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="lastname"
+                                        name="lastname"
+                                        value={formData.lastname}
+                                        onChange={handleInputChange}
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
+                                        required
+                                    />
+
+                                    {errors.lastname && (
+                                        <p className="text-xs text-red-600 mt-1">{errors.lastname}</p>
+                                    )}
+                                </div>
+
+                                <label>Documento de Identidad</label>
+                                <input
+                                    name="documento"
+                                    value={formData.document}
+                                    onChange={handleInputChange}
+                                    className={inputClass('document')}
+                                />
+
+                                {errors.document && <p className="text-xs text-red-600">{errors.document}</p>}
+
+
+                                <div>
+                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                                        Correo electrónico
+                                    </label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        value={formData.email || ''}
+                                        onChange={handleInputChange}
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                                        Teléfono
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={handleInputChange}
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
+                                        required
+                                    />
+                                </div>
+                            </>
+                        )}
+
+
+                        {currentStep === 1 && (
+                            <>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+                                    <div>
+                                        <label htmlFor="pais" className="block text-sm font-medium text-gray-700">
+                                            País
+                                        </label>
+                                        <MakSelectInput
+                                            id="pais"
+                                            name="pais"
+                                            value={formData.pais || ''}
+                                            onChange={(value) => setFormData(prev => ({ ...prev, pais: value }))}
+                                            placeholder="Selecciona tu país"
+                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
+                                            required
+                                        />
+
+
+                                        {errors.pais && (
+                                            <p className="text-xs text-red-600 mt-1">{errors.pais}</p>
+                                        )}
+                                    </div>
+                                    <div>
+                                        <label htmlFor="ciudad" className="block text-sm font-medium text-gray-700">
+                                            Ciudad
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="ciudad"
+                                            name="ciudad"
+                                            value={formData.ciudad}
+                                            onChange={handleInputChange}
+                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
+                                            required
+                                        />
+
+                                        {errors.ciudad && (
+                                            <p className="text-xs text-red-600 mt-1">{errors.ciudad}</p>
+                                        )}
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+                                    <div>
+                                        <label htmlFor="estado_lbl" className="block text-sm font-medium text-gray-700">
+                                            Estado/Departamento
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="estado_lbl"
+                                            name="estado_lbl"
+                                            value={formData.estado_lbl}
+                                            onChange={handleInputChange}
+                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
+                                            required
+                                        />
+
+                                        {errors.estado_lbl && (
+                                            <p className="text-xs text-red-600 mt-1">{errors.estado_lbl}</p>
+                                        )}
+                                    </div>
+                                    <div>
+                                        <label htmlFor="zip" className="block text-sm font-medium text-gray-700">
+                                            Código Postal
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="zip"
+                                            name="zip"
+                                            value={formData.zip}
+                                            onChange={handleInputChange}
+                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
+                                            required
+                                        />
+
+                                        {errors.zip && (
+                                            <p className="text-xs text-red-600 mt-1">{errors.zip}</p>
+                                        )}
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor="direccion" className="block text-sm font-medium text-gray-700">
+                                        Dirección
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="direccion"
+                                        name="direccion"
+                                        value={formData.direccion}
+                                        onChange={handleInputChange}
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
+                                        required
+                                    />
+
+                                    {errors.direccion && (
+                                        <p className="text-xs text-red-600 mt-1">{errors.direccion}</p>
+                                    )}
+                                </div>
+                            </>
+                        )}
+
+
+                        {currentStep === 2 && (
+                            <>
+                                <div>
+                                    <label htmlFor="nombre_factura" className="block text-sm font-medium text-gray-700">
+                                        Nombre de Factura
+                                    </label>
+                                    <input
+                                        id="nombre_factura"
+                                        name="nombre_factura"
+                                        value={formData.nombre_factura}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, nombre_factura: e.target.value }))}
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
+                                        required
+                                    />
+
+                                    {errors.nombre_factura && (
+                                        <p className="text-xs text-red-600 mt-1">{errors.nombre_factura}</p>
+                                    )}
+                                </div>
+
+                                <div>
+                                    <label htmlFor="nit" className="block text-sm font-medium text-gray-700">
+                                        NIT
+                                    </label>
+                                    <input
+                                        id="nit"
+                                        name="nit"
+                                        value={formData.nit}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, nit: e.target.value }))}
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
+                                        required
+                                    />
+
+                                    {errors.nit && (
+                                        <p className="text-xs text-red-600 mt-1">{errors.nit}</p>
+                                    )}
+                                </div>
+                            </>
+                        )}
+
+                        {currentStep === 3 && (
+                            <div className="space-y-2 text-sm">
+                                <p><b>Nombre:</b> {formData.name} {formData.lastname}</p>
+                                <p><b>Email:</b> {formData.email}</p>
+                                <p><b>Documento:</b> {formData.document}</p>
+                                <p><b>NIT:</b> {formData.nit}</p>
+                                <p><b>Razón Social:</b> {formData.nombre_factura}</p>
+                            </div>
+                        )}
+
+
                     </div>
 
-                    <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                            Correo electrónico
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email || ''}
-                            onChange={handleInputChange}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
-                            required
-                        />
+                    {/* <button
+                        type="submit"
+                        // onClick={handlePay}
+                        disabled={loading}
+                        style={{
+                            padding: "12px 20px",
+                            backgroundColor: "#1A73E8",
+                            color: "white",
+                            borderRadius: "8px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            opacity: loading ? 0.6 : 1,
+                        }}
+                    >
+                        {loading ? "Iniciando pago..." : "Ir a pagar"}
+                    </button> */}
+                    <div className="flex justify-between pt-6">
+                        {currentStep > 0 && (
+                            <button
+                                type="button"
+                                onClick={prevStep}
+                                className="px-4 py-2 border rounded"
+                            >
+                                <ArrowLeft size={16} /> Atrás
+                            </button>
+                        )}
+
+
+                        {!isLastStep ? (
+                            <button
+                                type="button"
+                                onClick={nextStep}
+                                className="px-6 py-2 bg-blue-600 text-white rounded"
+                            >
+                                Siguiente <ArrowRight size={16} />
+                            </button>
+                        ) : (
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="px-6 py-2 bg-blue-600 text-white rounded"
+                            >
+                                {loading ? 'Iniciando pago...' : 'Ir a pagar'}
+                            </button>
+                        )}
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
-                        <div>
-                            <label htmlFor="pais" className="block text-sm font-medium text-gray-700">
-                                País
-                            </label>
-                            <MakSelectInput
-                                id="pais"
-                                name="pais"
-                                value={formData.pais || ''}
-                                onChange={(value) => setFormData(prev => ({ ...prev, pais: value }))}
-                                placeholder="Selecciona tu país"
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="ciudad" className="block text-sm font-medium text-gray-700">
-                                Ciudad
-                            </label>
-                            <input
-                                type="text"
-                                id="ciudad"
-                                name="ciudad"
-                                value={formData.ciudad}
-                                onChange={handleInputChange}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
-                        <div>
-                            <label htmlFor="estado_lbl" className="block text-sm font-medium text-gray-700">
-                                Estado/Departamento
-                            </label>
-                            <input
-                                type="text"
-                                id="estado_lbl"
-                                name="estado_lbl"
-                                value={formData.estado_lbl}
-                                onChange={handleInputChange}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="zip" className="block text-sm font-medium text-gray-700">
-                                Código Postal
-                            </label>
-                            <input
-                                type="text"
-                                id="zip"
-                                name="zip"
-                                value={formData.zip}
-                                onChange={handleInputChange}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div>
-                        <label htmlFor="direccion" className="block text-sm font-medium text-gray-700">
-                            Dirección
-                        </label>
-                        <input
-                            type="text"
-                            id="direccion"
-                            name="direccion"
-                            value={formData.direccion}
-                            onChange={handleInputChange}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                            Teléfono
-                        </label>
-                        <input
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleInputChange}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="nombre_factura" className="block text-sm font-medium text-gray-700">
-                            Nombre de Factura
-                        </label>
-                        <input
-                            id="nombre_factura"
-                            name="nombre_factura"
-                            value={formData.nombre_factura}
-                            onChange={(e) => setFormData(prev => ({ ...prev, nombre_factura: e.target.value }))}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
-                            required
-                        />
-                    </div>
 
-                    <div>
-                        <label htmlFor="nit" className="block text-sm font-medium text-gray-700">
-                            NIT
-                        </label>
-                        <input
-                            id="nit"
-                            name="nit"
-                            value={formData.nit}
-                            onChange={(e) => setFormData(prev => ({ ...prev, nit: e.target.value }))}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
-                            required
-                        />
-                    </div>
+                    {error && (
+                        <p style={{ color: "red", marginTop: "10px" }}>
+                            {error}
+                        </p>
+                    )}
                 </div>
-
-                <button
-                    type="submit"
-                    // onClick={handlePay}
-                    disabled={loading}
-                    style={{
-                        padding: "12px 20px",
-                        backgroundColor: "#1A73E8",
-                        color: "white",
-                        borderRadius: "8px",
-                        fontSize: "16px",
-                        cursor: "pointer",
-                        opacity: loading ? 0.6 : 1,
-                    }}
-                >
-                    {loading ? "Iniciando pago..." : "Ir a pagar"}
-                </button>
-
-                {error && (
-                    <p style={{ color: "red", marginTop: "10px" }}>
-                        {error}
-                    </p>
-                )}
             </form>}
         </>
     );
