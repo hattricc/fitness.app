@@ -67,9 +67,12 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
         phone: '',
         nombre_factura: '',
         nit: '',
-        param2: [{ "sku": "001", "name": "Servicio Prueba", "price": "80.00", "quantity": "1" },
-        { "sku": "002", "name": "Servicio Prueba 2", "price": "180.00", "quantity": "1" }
-        ]
+        param2: [{ 
+            "sku": productId, 
+            "name": "Suscripción Fitness App", 
+            "price": price.toString(), 
+            "quantity": "1" 
+        }]
     });
 
 
