@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import { Check as CheckIcon } from '@mui/icons-material';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { X } from 'lucide-react';
 
 const PriceContainer = styled(Box)(({ theme }) => ({
@@ -50,7 +49,6 @@ export function MakModal({ openModal, setOpenModal }: MakModalProps) {
     // const [open, setOpen] = useState(false);
     const price = 499;
     const comparePrice = 700;
-    const navigate = useNavigate();
 
     return (
         <Box>
@@ -151,7 +149,7 @@ export function MakModal({ openModal, setOpenModal }: MakModalProps) {
                         size="large"
                         onClick={() => {
                             setOpenModal(false)
-                            navigate('/subscription')
+                            window.open('https://wa.me/59170870099', '_blank')
                         }}
                     >
                         ¡Quiero suscribirme!

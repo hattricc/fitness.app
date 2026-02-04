@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import { supabase } from "../../../lib/supabase";
 import { useEffect } from "react";
-import { ArrowLeft, ArrowRight, Loader2, X } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import MakSelectInput from "@/components/atoms/inputs/mak-select-input/mak-select-input";
-import { Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
 
 // Add this interface at the top of the file
@@ -20,6 +20,7 @@ interface BillingFormData {
     phone: string;
     nombre_factura: string;
     nit: string;
+    tipo_documento: string;
     param2: object[];
 }
 
@@ -67,11 +68,12 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
         phone: '',
         nombre_factura: '',
         nit: '',
-        param2: [{ 
-            "sku": productId, 
-            "name": "Suscripción Fitness App", 
-            "price": price.toString(), 
-            "quantity": "1" 
+        tipo_documento: '',
+        param2: [{
+            "sku": productId,
+            "name": "Suscripción Luis Suarez F4F App",
+            "price": price.toString(),
+            "quantity": "1"
         }]
     });
 
@@ -98,7 +100,7 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
         },
         {
             id: 'invoice',
-            fields: ['nombre_factura', 'nit'],
+            fields: ['tipo_documento', 'nombre_factura', 'nit'],
             title: 'Facturación',
         },
         { id: 'summary', fields: [] }, // ← IMPORTANTE
@@ -315,7 +317,7 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
             formRef.current = form; // Store reference
 
             form.method = "POST";
-            form.action = "https://www.livees.net/Checkout/api4";
+            form.action = "https://www.livees.net/Checkout/api26";
             form.target = "livees_iframe";
 
             const appendField = (name: string, value: string | number) => {
@@ -346,7 +348,7 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
             appendField('zip', formData.zip);
             appendField("phone", formData.phone);
 
-            appendField('nombre_factura', formData.nombre_factura);
+            appendField('nro_factura', formData.nombre_factura);
             appendField('nit', formData.nit);
             appendField('param2', JSON.stringify(formData.param2));
 
@@ -632,6 +634,32 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
 
                         {currentStep === 2 && (
                             <>
+                                <div>
+                                    <label htmlFor="tipo_documento" className="block text-sm font-medium text-gray-700">
+                                        Tipo de Documento
+                                    </label>
+                                    <select
+                                        autoComplete="country"
+                                        id="tipo_documento"
+                                        name="tipo_documento"
+                                        value={formData.tipo_documento}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, tipo_documento: e.target.value }))}
+                                        required
+                                        className={"form-select mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"}
+                                    >
+                                        <option>Selecciona un tipo de documento</option>
+                                        <option value="1">Carnet de Identidad</option>
+                                        <option value="2">Carnet de Identidad de Extranjería</option>
+                                        <option value="3">Pasaporte</option>
+                                        <option value="4">Otro documento de Identidad</option>
+                                        <option value="5">Nit de Empresa</option>
+                                    </select>
+
+                                    {errors.tipo_documento && (
+                                        <p className="text-xs text-red-600 mt-1">{errors.tipo_documento}</p>
+                                    )}
+                                </div>
+
                                 <div>
                                     <label htmlFor="nombre_factura" className="block text-sm font-medium text-gray-700">
                                         Razón social
