@@ -150,10 +150,10 @@ const Home: React.FC<HomeProps> = ({
             }}
             sx={welcomeButtonStyle}
           >
-            Mensaje de Bienvenida
+            Empieza aquí
           </Button>
 
-          <Button
+          {/* <Button
             variant="contained"
             onClick={() => {
               navigate('/acerca-de-mi')
@@ -161,7 +161,7 @@ const Home: React.FC<HomeProps> = ({
             sx={welcomeButtonStyle}
           >
             Acerca de mí
-          </Button>
+          </Button> */}
         </Box>
 
         <Box>
