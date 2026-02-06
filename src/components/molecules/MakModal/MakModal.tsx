@@ -14,6 +14,9 @@ import {
 import { Check as CheckIcon } from '@mui/icons-material';
 import { useState } from 'react';
 import { X } from 'lucide-react';
+import { useAuth } from '../../../contexts/auth/AuthProvider.tsx';
+import { useNavigate } from 'react-router-dom';
+import LoginForm from '@/components/organisms/login/index.tsx';
 
 const PriceContainer = styled(Box)(({ theme }) => ({
     display: 'flex',
@@ -47,8 +50,25 @@ interface MakModalProps {
 
 export function MakModal({ openModal, setOpenModal }: MakModalProps) {
     // const [open, setOpen] = useState(false);
+      const [showAuthModal, setShowAuthModal] = useState(false);
     const price = 499;
     const comparePrice = 700;
+    const { user } = useAuth();
+    const navigate = useNavigate();
+
+    const handleSubscribe = () => {
+        setOpenModal(false);
+
+        if (user) {
+            navigate('/subscription');
+        } else if (setShowAuthModal) {
+            localStorage.setItem('redirectTo', '/subscription');
+            setShowAuthModal(true);
+        } else {
+            // Fallback to WhatsApp if no auth modal handler provided
+            window.open('https://wa.me/59170870099', '_blank');
+        }
+    };
 
     return (
         <Box>
@@ -66,6 +86,35 @@ export function MakModal({ openModal, setOpenModal }: MakModalProps) {
             >
                 Obtener Acceso Premium
             </Button> */}
+
+
+            <Dialog
+                open={showAuthModal}
+                onClose={() => setShowAuthModal(false)}
+                maxWidth="sm"
+                fullWidth
+                PaperProps={{
+                    sx: {
+                        backgroundColor: 'transparent',
+                        boxShadow: 'none',
+                        overflow: 'visible',
+                        borderRadius: 6,
+                    }
+                }}
+            >
+                <DialogContent sx={{ p: 0, '&.MuiDialogContent-root': { p: 0 } }}>
+                    <LoginForm
+                        title="Para suscribirte, primero debes iniciar sesión o crear una cuenta"
+                        subtitle="Una vez registrado, serás re dirigido a la página de inicio para completar el proceso ingresando tu método de pago."
+                        inSubscriptionPage={true}
+                        onSuccess={() => {
+                            setShowAuthModal(false);
+                            // setShowPaymentModal(true);
+                        }}
+                        onClose={() => setShowAuthModal(false)}
+                    />
+                </DialogContent>
+            </Dialog>
 
             <Dialog
                 open={openModal}
@@ -112,29 +161,29 @@ export function MakModal({ openModal, setOpenModal }: MakModalProps) {
                         Tu suscripción no caducará ni requerirá renovación mensual.
                     </Typography>
 
-                    <PriceContainer sx={{ 
+                    <PriceContainer sx={{
                         display: 'flex',
                         flexDirection: 'column',
                         textAlign: 'center'
-                        }}>
+                    }}>
                         {/* <Box sx={{ textAlign: 'center'}}> */}
-                            {/* <Typography variant="h6" sx={{ color: '#FFFFFF' }}>Acceso de por vida</Typography> */}
-                            <Typography variant="h6" sx={{ color: '#9BB9F1', textDecoration: 'line-through' }}>
-                                Bs {comparePrice}.00/mes
-                            </Typography>
-                            <Typography variant="h3" sx={{ color: '#E57952' }}>
-                                Bs. {price}
-                            </Typography>
-                            <Typography variant="h5" sx={{ color: '#FFFFFF', mt: 2 }}>Un solo pago</Typography>
-                            {/* <Typography variant="body2" sx={{ color: '#9BB9F1' }}>
+                        {/* <Typography variant="h6" sx={{ color: '#FFFFFF' }}>Acceso de por vida</Typography> */}
+                        <Typography variant="h6" sx={{ color: '#9BB9F1', textDecoration: 'line-through' }}>
+                            Bs {comparePrice}.00/mes
+                        </Typography>
+                        <Typography variant="h3" sx={{ color: '#E57952' }}>
+                            Bs. {price}
+                        </Typography>
+                        <Typography variant="h5" sx={{ color: '#FFFFFF', mt: 2 }}>Un solo pago</Typography>
+                        {/* <Typography variant="body2" sx={{ color: '#9BB9F1' }}>
                                 Un solo pago
                             </Typography> */}
                         {/* </Box> */}
                         {/* <Box sx={{ textAlign: 'right' }}> */}
-                            {/* <Typography variant="h5" sx={{ color: '#E57952' }}>
+                        {/* <Typography variant="h5" sx={{ color: '#E57952' }}>
                                 Bs. {price}
                             </Typography> */}
-                            {/* <Typography variant="body2" sx={{ color: '#9BB9F1', textDecoration: 'line-through' }}>
+                        {/* <Typography variant="body2" sx={{ color: '#9BB9F1', textDecoration: 'line-through' }}>
                                 Bs {comparePrice}.00/mes
                             </Typography> */}
                         {/* </Box> */}
@@ -147,10 +196,7 @@ export function MakModal({ openModal, setOpenModal }: MakModalProps) {
                     <StyledButton
                         variant="contained"
                         size="large"
-                        onClick={() => {
-                            setOpenModal(false)
-                            window.open('https://wa.me/59170870099', '_blank')
-                        }}
+                        onClick={handleSubscribe}
                     >
                         ¡Quiero suscribirme!
                     </StyledButton>

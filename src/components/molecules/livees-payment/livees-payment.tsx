@@ -70,13 +70,12 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
         nit: '',
         tipo_documento: '',
         param2: [{
-            "sku": productId,
+            "sku": "LSF4F-001",
             "name": "Suscripción Luis Suarez F4F App",
             "price": price.toString(),
             "quantity": "1"
         }]
     });
-
 
 
     const [currentStep, setCurrentStep] = useState(0)

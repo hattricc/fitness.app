@@ -189,17 +189,6 @@ const SubscriptionPage: React.FC = () => {
           }
         }}
       >
-        {/* <DialogTitle>Completa tu suscripción</DialogTitle> */}
-        {/* <DialogContent sx={{ p: 0, '&.MuiDialogContent-root': { p: 0 } }}>
-          <LiveesPayment
-            productId="e45f8d41-0132-44c5-9e05-254ca96db19a"
-            price={price}
-            onSuccess={() => {
-              setShowPaymentModal(false);
-            }}
-            onCancel={() => setShowPaymentModal(false)}
-          />
-        </DialogContent> */}
         <DialogContent
           sx={{ p: 0, '&.MuiDialogContent-root': { p: 0 } }}
           onClick={() => setHasInteracted(true)} // Track interaction
