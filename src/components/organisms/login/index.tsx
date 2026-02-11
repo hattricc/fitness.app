@@ -87,7 +87,7 @@ export default function LoginForm({ title, subtitle, inSubscriptionPage = false,
         </Box>
 
         {/* Login Form */}
-        <form onSubmit={(e) => handleLogin(handleSubmit, e)}>
+        {/* <form onSubmit={(e) => handleLogin(handleSubmit, e)}>
           <Stack spacing={2}>
             <TextField
               fullWidth
@@ -159,7 +159,7 @@ export default function LoginForm({ title, subtitle, inSubscriptionPage = false,
           <Typography variant="body2" color="text.primary">
             O
           </Typography>
-        </Divider>
+        </Divider> */}
 
         {/* Social Login Buttons */}
         <SocialLoginButtons
