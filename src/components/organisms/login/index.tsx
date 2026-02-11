@@ -167,7 +167,7 @@ export default function LoginForm({ title, subtitle, inSubscriptionPage = false,
         />
 
         {/* Sign up link */}
-        <Box textAlign="center">
+        {/* <Box textAlign="center">
           <Typography variant="body2" color="text.primary">
             ¿No tienes una cuenta?{' '}
             <MuiLink 
@@ -183,7 +183,7 @@ export default function LoginForm({ title, subtitle, inSubscriptionPage = false,
               Registrate
             </MuiLink>
           </Typography>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );
