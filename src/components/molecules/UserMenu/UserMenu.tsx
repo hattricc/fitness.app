@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserSession } from '@/lib/userSession';
 import { UserImage } from '@/components/atoms/user-image/UserImage';
+import MakLoginModal from '../MakLoginModal/MakLoginModal';
+import { useAuth } from '@/contexts/auth/AuthProvider';
 
 interface UserMenuProps {
     user: UserSession | null;
@@ -18,6 +20,9 @@ const UserMenu: React.FC<UserMenuProps> = ({
     const open = Boolean(anchorEl);
 
 
+    const [showAuthModal, setShowAuthModal] = useState(false);
+    const { user: authUser } = useAuth();
+
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -30,8 +35,32 @@ const UserMenu: React.FC<UserMenuProps> = ({
         setAnchorEl(event.currentTarget);
     };
 
+    const handleSubscription = () => {
+        // const phoneNumber = '59170870099';
+        // const message = encodeURIComponent('Hola, estoy interesado en obtener información sobre la suscripción del programa de entrenamiento.');
+        // const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+        // window.open(whatsappUrl, '_blank');
+
+        console.log(authUser)
+        if (authUser) {
+            navigate('/subscription');
+        } else if (setShowAuthModal) {
+            localStorage.setItem('redirectTo', '/subscription');
+            setShowAuthModal(true);
+        } else {
+            // Fallback to WhatsApp if no auth modal handler provided
+            window.open('https://wa.me/59170870099', '_blank');
+        }
+    }
+
     return (
         <>
+            <MakLoginModal
+                showAuthModal={showAuthModal}
+                setShowAuthModal={setShowAuthModal}
+            />
+
+
             <IconButton
                 size="large"
                 color="inherit"
@@ -88,6 +117,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
             >
                 {!user && (
                     <>
+
                         <MenuItem
                             onClick={() => handleNavigation('/login')}
                             sx={{
@@ -105,12 +135,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
 
                         <Divider sx={{ backgroundColor: '#333333' }} />
 
-                        <MenuItem onClick={() => {
-                                const phoneNumber = '59170870099';
-                                const message = encodeURIComponent('Hola, estoy interesado en obtener información sobre la suscripción del programa de entrenamiento.');
-                                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-                                window.open(whatsappUrl, '_blank');
-                            }}
+                        <MenuItem onClick={handleSubscription}
                             sx={{
                                 color: '#ffffff',
                                 '&:hover': {
@@ -123,6 +148,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                             </ListItemIcon>
                             <ListItemText>Inscribirse</ListItemText>
                         </MenuItem>
+
 
                         {/* <Divider sx={{ backgroundColor: '#333333' }} />
 

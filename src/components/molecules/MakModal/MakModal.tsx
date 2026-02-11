@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { X } from 'lucide-react';
 import { useAuth } from '../../../contexts/auth/AuthProvider.tsx';
 import { useNavigate } from 'react-router-dom';
-import LoginForm from '@/components/organisms/login/index.tsx';
+import { MakLoginModal } from '../MakLoginModal/MakLoginModal';
 
 const PriceContainer = styled(Box)(({ theme }) => ({
     display: 'flex',
@@ -50,7 +50,7 @@ interface MakModalProps {
 
 export function MakModal({ openModal, setOpenModal }: MakModalProps) {
     // const [open, setOpen] = useState(false);
-      const [showAuthModal, setShowAuthModal] = useState(false);
+    const [showAuthModal, setShowAuthModal] = useState(false);
     const price = 499;
     const comparePrice = 700;
     const { user } = useAuth();
@@ -88,33 +88,10 @@ export function MakModal({ openModal, setOpenModal }: MakModalProps) {
             </Button> */}
 
 
-            <Dialog
-                open={showAuthModal}
-                onClose={() => setShowAuthModal(false)}
-                maxWidth="sm"
-                fullWidth
-                PaperProps={{
-                    sx: {
-                        backgroundColor: 'transparent',
-                        boxShadow: 'none',
-                        overflow: 'visible',
-                        borderRadius: 6,
-                    }
-                }}
-            >
-                <DialogContent sx={{ p: 0, '&.MuiDialogContent-root': { p: 0 } }}>
-                    <LoginForm
-                        title="Para suscribirte, primero debes iniciar sesión o crear una cuenta"
-                        subtitle="Una vez registrado, serás re dirigido a la página de inicio para completar el proceso ingresando tu método de pago."
-                        inSubscriptionPage={true}
-                        onSuccess={() => {
-                            setShowAuthModal(false);
-                            // setShowPaymentModal(true);
-                        }}
-                        onClose={() => setShowAuthModal(false)}
-                    />
-                </DialogContent>
-            </Dialog>
+            <MakLoginModal 
+                showAuthModal={showAuthModal} 
+                setShowAuthModal={setShowAuthModal} 
+            />
 
             <Dialog
                 open={openModal}

@@ -73,7 +73,7 @@ const SubscriptionPage: React.FC = () => {
           Obtén acceso permanente
         </Typography>
 
-        <Typography variant="h5" align="left" sx={{
+        {/* <Typography variant="h5" align="left" sx={{
           color: '#363B5F',
           mb: 2,
           fontWeight: 600
@@ -87,7 +87,7 @@ const SubscriptionPage: React.FC = () => {
           fontWeight: 500
         }}>
           Tu suscripción no caducará ni requerirá renovación mensual.
-        </Typography>
+        </Typography> */}
 
         <Box sx={{ my: 3 }}>
           <Typography variant="h6" sx={{
@@ -130,14 +130,14 @@ const SubscriptionPage: React.FC = () => {
           </Box>
         </PriceContainer>
 
-        <Typography variant="caption" display="block" sx={{
+        {/* <Typography variant="caption" display="block" sx={{
           color: '#9BB9F1',
           textAlign: 'left',
           mt: 1,
           mb: 2
         }}>
           El costo de un entrenador personal: Bs {comparePrice}.00/mes
-        </Typography>
+        </Typography> */}
 
         <StyledButton
           variant="contained"
