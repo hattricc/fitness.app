@@ -16,7 +16,7 @@ if (window.CMS) {
                         infoDescription: item.infoDescription || '',
                         showDescription: item.showDescription || false,
                         description: item.description || '',
-                        locked: item.locked || false,
+                        locked: item.locked || true,
                         visible: item.visible !== false, // default to true if not set
                         // Preserve existing modules structure
                         modules: (item.modules || []).map(module => ({
@@ -25,7 +25,7 @@ if (window.CMS) {
                             exercises: (module.exercises || []).map(exercise => ({
                                 ...exercise,
                                 visible: exercise.visible !== false,
-                                locked: exercise.locked || false
+                                locked: exercise.locked || true
                             }))
                         }))
                     }))

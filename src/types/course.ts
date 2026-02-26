@@ -33,6 +33,8 @@ export interface Course {
     showTitle: boolean;
     url: string;
     description: string;
+    showDescription: boolean;
+    infoDescription: string;
     imageUrl: string;
     duration: string;
     showInfo: boolean;

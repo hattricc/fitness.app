@@ -40,10 +40,10 @@ const CoursePage: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenMo
     gap: 1,
     mb: 2,
     p: 2,
-    backgroundColor: 'rgba(255, 193, 7, 0.1)',
-    border: '1px solid rgba(255, 193, 7, 0.3)',
+    backgroundColor: 'rgba(25, 118, 210, 0.1)', // blue background
+    border: '1px solid rgba(25, 118, 210, 0.3)', // blue border
     borderRadius: 2,
-    color: 'warning.main'
+    color: 'primary.main' // blue text
   }
   const accordionStyles = {
     mb: 2,
@@ -91,9 +91,9 @@ const CoursePage: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenMo
 
           {workout.showInfo && (
             <Box sx={boxLockInfoStyles}>
-              <InfoOutline sx={{ color: 'warning.main', fontSize: 20 }} />
-              <Typography variant="body2" color="warning.main" fontWeight="medium">
-                Más cursos próximamente.
+              <InfoOutline sx={{ color: 'primary.main', fontSize: 20 }} />
+              <Typography variant="body2" color="primary.main" fontWeight="medium">
+                {workout.infoDescription}
               </Typography>
             </Box>
           )}

@@ -36,7 +36,7 @@ export const loadAllCourses = async (): Promise<Course[]> => {
               .filter(exercise => exercise.visible !== false)
               .map(exercise => ({
                 ...exercise,
-                locked: course.locked === true
+                locked: exercise.locked !== false ? course.locked === true : false
               }))
           }))
       }));
