@@ -52,7 +52,7 @@ collections:
                     fields:
                       - { name: "id", label: "ID", widget: "string" }
                       - { name: "visible", label: "Visible", widget: "boolean", default: true }
-                      - { name: "locked", label: "Ejercicio bloqueado", widget: "boolean", default: false, hint: "Si está activo, el ejercicio no podrá reproducirse" }
+                      - { name: "locked", label: "Ejercicio bloqueado", widget: "boolean", default: true, hint: "Si está activo, el ejercicio no podrá reproducirse sin suscripción" }
                       - { name: "name", label: "Nombre", widget: "string" }
                       - { name: "url", label: "URL", widget: "string", required: false }
                       - { name: "duration", label: "Duración", widget: "string", required: false }
