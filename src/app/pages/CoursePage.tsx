@@ -42,8 +42,7 @@ const CoursePage: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenMo
     p: 2,
     backgroundColor: 'rgba(25, 118, 210, 0.1)', // blue background
     border: '1px solid rgba(25, 118, 210, 0.3)', // blue border
-    borderRadius: 2,
-    color: 'primary.main' // blue text
+    borderRadius: 2
   }
   const accordionStyles = {
     mb: 2,

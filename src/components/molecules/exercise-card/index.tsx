@@ -97,7 +97,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
             {exercise.name}
           </Typography>
 
-          {showDetails && exercise.description && (
+          {exercise.showDescription && exercise.description && (
             <Typography variant="body2" color="text.primary" paragraph>
               {exercise.description}
             </Typography>

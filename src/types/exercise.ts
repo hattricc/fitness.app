@@ -17,6 +17,7 @@ export interface BaseExercise {
   calories?: number;
   imageUrl: string;
   description?: string;
+  showDescription?: boolean;
   category: string;
   url?: string;
   pdfUrl?: string;
