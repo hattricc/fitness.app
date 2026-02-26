@@ -37,7 +37,9 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
         },
         display: 'flex',
         flexDirection: isDesktop ? 'column' : 'row',
-        height: isDesktop ? 'auto' : 90,
+        minHeight: isDesktop ? 'auto' : 90,
+        paddingBottom: 1,
+        paddingTop: 2,
         width: isDesktop ? '95%' : '100%',
         maxWidth: '100%',
         backgroundColor: '#1B1B1B'
@@ -85,7 +87,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
       {/* Content Section */}
       <Box sx={{
-        width: isDesktop ? '100%' : '60%',
+        width: isDesktop ? '100%' : '90%',
         pr: isDesktop ? 3 : 2,
         pl: isDesktop ? 3 : 4,
         display: 'flex',

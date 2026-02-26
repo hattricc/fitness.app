@@ -2,6 +2,9 @@
   "items": [
     {
       "showInfo": true,
+      "infoDescription": "Este curso contiene ejercicios gratuitos y premium. Los ejercicios marcados como bloqueados requieren suscripción.",
+      "showDescription": true,
+      "description": "Aprende los fundamentos del fitness con nuestra guía completa de movimientos básicos. Este curso incluye ejercicios para principiantes y avanzados.",
       "id": "guia-movimientos-basicos",
       "name": "Cursos",
       "imageUrl": "/images/welcome/bienvenida-2.jpg",
@@ -21,35 +24,45 @@
               "url": "https://youtu.be/nyC_9PdCPVE?si=XtMmu_hUrqhe5gsJ",
               "duration": "3 min",
               "id": "exp-001-01",
-              "visible": true
+              "visible": true,
+              "locked": false,
+              "showDescription": true,
+              "description": "Aprende los movimientos de jalón básicos que forman la base de muchos ejercicios de espalda y bíceps."
             },
             {
               "name": "Parte 2: Empujones",
               "url": "https://youtu.be/myxBE3JWLLY?si=UGgoWgpuXgdLTAHm",
               "duration": "4 min",
               "id": "exp-001-02",
-              "visible": true
+              "visible": true,
+              "locked": false,
+              "showDescription": true,
+              "description": "Domina los movimientos de empuje para desarrollar pecho, hombros y tríceps de manera efectiva."
             },
             {
               "name": "Parte 3: Complementos",
               "url": "https://youtu.be/NBGYQ2E6ef8?si=K5B-6cjntUqlcdPr",
               "duration": "4 min",
               "id": "exp-001-03",
-              "visible": true
+              "visible": true,
+              "locked": true,
+              "showDescription": false
             },
             {
               "name": "Parte 4: Tren Inferior",
               "url": "https://youtu.be/xR9VgqKAz_8?si=C60bRECedJvHF3QZ",
               "duration": "6 min",
               "id": "exp-001-04",
-              "visible": true
+              "visible": true,
+              "locked": true
             },
             {
               "name": "Parte 5: Recomendaciones",
               "url": "https://youtu.be/YO1BsJIuids?si=EmuMtcv4gRknLm5J",
               "duration": "4 min",
               "id": "exp-001-05",
-              "visible": true
+              "visible": true,
+              "locked": true
             }
           ],
           "visible": true
@@ -66,35 +79,42 @@
               "url": "https://www.youtube.com/watch?v=y9-_6xBgJbE&pp=ygUJZWplcmNpY2lv",
               "duration": "20 min",
               "id": "exp-002-01",
-              "visible": true
+              "visible": true,
+              "locked": false,
+              "showDescription": true,
+              "description": "Rutina perfecta para principiantes que quieren comenzar su viaje fitness desde cero."
             },
             {
               "name": "Rutina de ABDOMEN & CARDIO 🔥 Quema Grasa y Tonifica en Tiempo Récord",
               "url": "https://www.youtube.com/watch?v=C8NcifEVk0Y&pp=ygUJZWplcmNpY2lv",
               "duration": "23 min",
               "id": "exp-002-02",
-              "visible": true
+              "visible": true,
+              "locked": false
             },
             {
               "name": "🔥 RUTINA para ADELGAZAR - Ejercicios para PERDER PESO en CASA 🏠",
               "url": "https://www.youtube.com/watch?v=WnoCFnIiQHw&pp=ygUJZWplcmNpY2lv",
               "duration": "26 min",
               "id": "exp-002-03",
-              "visible": false
+              "visible": false,
+              "locked": true
             },
             {
               "name": "Rutina ABDOMEN en Casa -PRINCIPIANTES-🍫🔥 [10min Ejercicios INTENSOS]",
               "url": "https://www.youtube.com/watch?v=RPfxeHWm8Oo",
               "duration": "10 min",
               "id": "exp-002-04",
-              "visible": false
+              "visible": false,
+              "locked": true
             },
             {
               "name": "Así TRANSFORMA el DEPORTE nuestro CUERPO",
               "url": "https://www.youtube.com/watch?v=LbD1Cmo3zRQ&pp=ugUEEgJlcw%3D%3D",
               "duration": "14 min",
               "id": "exp-002-05",
-              "visible": false
+              "visible": false,
+              "locked": true
             }
           ],
           "visible": true

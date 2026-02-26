@@ -28,7 +28,14 @@ const CoursePage: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenMo
     if (subscriptionLoading) return;
     // if (!subscription) return;       // evita abrir modal por “unknown”
 
-    if (!subscription?.hasAccess && workout?.locked && isExpanded) {
+    // Find the module being expanded
+    const currentModule = workout?.modules.find(module => module.id === moduleId);
+
+    // Check if the module has at least one unlocked exercise
+    const hasUnlockedExercises = currentModule?.exercises.some(exercise => exercise.locked === false);
+
+    // Only block access if user doesn't have subscription AND course is locked AND no exercises are unlocked
+    if (!subscription?.hasAccess && workout?.locked && !hasUnlockedExercises && isExpanded) {
       setOpenModal?.(true);
       return;
     }
@@ -42,7 +49,7 @@ const CoursePage: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenMo
     p: 2,
     backgroundColor: 'rgba(25, 118, 210, 0.1)', // blue background
     border: '1px solid rgba(25, 118, 210, 0.3)', // blue border
-    borderRadius: 2
+    borderRadius: 2,
   }
   const accordionStyles = {
     mb: 2,
@@ -90,8 +97,8 @@ const CoursePage: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenMo
 
           {workout.showInfo && (
             <Box sx={boxLockInfoStyles}>
-              <InfoOutline sx={{ color: 'primary.main', fontSize: 20 }} />
-              <Typography variant="body2" color="primary.main" fontWeight="medium">
+              <InfoOutline sx={{ color: 'info.main', fontSize: 20 }} />
+              <Typography variant="body2" color="info.main" fontWeight="medium">
                 {workout.infoDescription}
               </Typography>
             </Box>
