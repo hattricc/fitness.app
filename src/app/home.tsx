@@ -14,6 +14,8 @@ import coursesData from '../data/courses.json';
 import linksData from '../data/home.json';
 import YouTubeModal from '../components/molecules/youtube-modal';
 import Footer from '@/components/organisms/footer';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { PlayCircle, PlayCircleFilled, PlayCircleOutline } from '@mui/icons-material';
 
 interface HomeProps {
 }
@@ -84,7 +86,7 @@ const Home: React.FC<HomeProps> = ({
       opacity: 0.9,
     },
     transition: 'all 0.3s ease',
-    minWidth: '40%',
+    minWidth: '100%',
     width: 'fit-content'
   }
 
@@ -150,7 +152,7 @@ const Home: React.FC<HomeProps> = ({
             }}
             sx={welcomeButtonStyle}
           >
-            Empieza aquí
+            Empieza aquí <PlayCircleOutline sx={{ ml: 1 }} />
           </Button>
 
           {/* <Button

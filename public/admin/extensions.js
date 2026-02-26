@@ -13,13 +13,20 @@ if (window.CMS) {
                         ...item,
                         // Ensure all top-level fields are included
                         showInfo: item.showInfo || false,
+                        infoDescription: item.infoDescription || '',
+                        showDescription: item.showDescription || false,
+                        description: item.description || '',
                         locked: item.locked || false,
                         visible: item.visible !== false, // default to true if not set
                         // Preserve existing modules structure
                         modules: (item.modules || []).map(module => ({
                             ...module,
                             visible: module.visible !== false,
-                            exercises: module.exercises || []
+                            exercises: (module.exercises || []).map(exercise => ({
+                                ...exercise,
+                                visible: exercise.visible !== false,
+                                locked: exercise.locked || false
+                            }))
                         }))
                     }))
                 };

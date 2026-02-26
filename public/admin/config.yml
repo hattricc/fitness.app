@@ -29,6 +29,9 @@ collections:
               - { name: "id", label: "ID", widget: "string", hint: "slug único (ej. guia-movimientos-basicos)" }
               - { name: "name", label: "Nombre", widget: "string" }
               - { name: "showInfo", label: "Mostrar info", widget: "boolean", default: false }
+              - { name: "infoDescription", label: "Descripción de info", widget: "text", required: false }
+              - { name: "showDescription", label: "Mostrar descripción", widget: "boolean", default: false }
+              - { name: "description", label: "Descripción", widget: "text", required: false }
               - { name: "locked", label: "Curso bloqueado", widget: "boolean", default: false, hint: "Si está activo, ningún ejercicio del curso podrá reproducirse" }
               - { name: "visible", label: "Visible", widget: "boolean", default: true }
               - name: "modules"
@@ -49,6 +52,7 @@ collections:
                     fields:
                       - { name: "id", label: "ID", widget: "string" }
                       - { name: "visible", label: "Visible", widget: "boolean", default: true }
+                      - { name: "locked", label: "Ejercicio bloqueado", widget: "boolean", default: false, hint: "Si está activo, el ejercicio no podrá reproducirse" }
                       - { name: "name", label: "Nombre", widget: "string" }
                       - { name: "url", label: "URL", widget: "string", required: false }
                       - { name: "duration", label: "Duración", widget: "string", required: false }
