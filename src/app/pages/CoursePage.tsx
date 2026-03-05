@@ -104,7 +104,7 @@ const CoursePage: React.FC<WorkoutClassProps> = ({ withPrefix = false, setOpenMo
             </Box>
           )}
 
-          <Box key={workout.id} sx={{ mb: 3 }}>
+          <Box key={workout.id} sx={{ mb: 3, pb: 20 }}>
 
             {workout.modules.map((module, index) => (
               <Accordion
