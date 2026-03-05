@@ -576,15 +576,25 @@ export const LiveesPayment: React.FC<LiveesPaymentProps> = ({
                                         <label htmlFor="estado_lbl" className="block text-sm font-medium text-gray-700">
                                             Estado/Departamento
                                         </label>
-                                        <input
-                                            type="text"
+                                        <select
                                             id="estado_lbl"
                                             name="estado_lbl"
                                             value={formData.estado_lbl}
                                             onChange={handleInputChange}
                                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
                                             required
-                                        />
+                                        >
+                                            <option value="">Seleccione un departamento</option>
+                                            <option value="La Paz">La Paz</option>
+                                            <option value="Santa Cruz">Santa Cruz</option>
+                                            <option value="Cochabamba">Cochabamba</option>
+                                            <option value="Chuquisaca">Chuquisaca</option>
+                                            <option value="Oruro">Oruro</option>
+                                            <option value="Potosí">Potosí</option>
+                                            <option value="Tarija">Tarija</option>
+                                            <option value="Beni">Beni</option>
+                                            <option value="Pando">Pando</option>
+                                        </select>
 
                                         {errors.estado_lbl && (
                                             <p className="text-xs text-red-600 mt-1">{errors.estado_lbl}</p>

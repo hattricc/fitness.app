@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import {
   Box,
@@ -14,8 +14,7 @@ import coursesData from '../data/courses.json';
 import linksData from '../data/home.json';
 import YouTubeModal from '../components/molecules/youtube-modal';
 import Footer from '@/components/organisms/footer';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import { PlayCircle, PlayCircleFilled, PlayCircleOutline } from '@mui/icons-material';
+import { PlayCircleOutline } from '@mui/icons-material';
 
 interface HomeProps {
 }
@@ -37,6 +36,7 @@ const Home: React.FC<HomeProps> = ({
   const [open, setOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<string | undefined>(undefined);
 
+
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -57,16 +57,14 @@ const Home: React.FC<HomeProps> = ({
     setSelectedVideo(undefined);
   };
 
+  const [animateIn, setAnimateIn] = useState(false);
 
-  // Cleanup effect to ensure we don't have memory leaks
   useEffect(() => {
-    return () => {
-      // Any cleanup if needed when component unmounts
-    };
-
-
-
+    const t = setTimeout(() => setAnimateIn(true), 50);
+    return () => clearTimeout(t);
   }, []);
+
+  const animClass = animateIn ? 'animate-[fadeUp_600ms_ease-out_both]' : '';
 
   if (showSplash) {
     return (
@@ -143,7 +141,10 @@ const Home: React.FC<HomeProps> = ({
   return (
     <>
       <Box sx={homeBoxStyle}>
-        <Box sx={{ mb: 3, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+        <Box
+          className={`opacity-0 translate-y-2 ${animClass}`}
+          style={{ animationDelay: '0ms' }}
+          sx={{ mb: 3, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
           <Button
             variant="contained"
             onClick={() => {
@@ -166,18 +167,24 @@ const Home: React.FC<HomeProps> = ({
           </Button> */}
         </Box>
 
-        <Box>
+        <Box
+          className={`opacity-0 translate-y-2 ${animClass}`}
+          style={{ animationDelay: '200ms' }}
+        >
           <Typography variant="h5" component="h1" fontWeight="bold" gutterBottom>
             ¿Qué te gustaría hacer hoy?
           </Typography>
         </Box>
 
         <Box sx={boxExerciseCardStyle}>
-          {courses.map((item) => (
-            <ExerciseCard key={item.id} exercise={item as ExerciseRoutine} onClick={() => goToCourse(item)} />
-          ))}
-          {links.map((item) => (
-            <ExerciseCard key={item.id} exercise={item as ExerciseRoutine} onClick={() => goToCourse(item)} />
+          {[...courses, ...links].map((item, idx) => (
+            <div
+              key={item.id}
+              className={`opacity-0 translate-y-2 ${animClass}`}
+              style={{ animationDelay: `${300 + idx * 60}ms` }}
+            >
+              <ExerciseCard exercise={item as ExerciseRoutine} onClick={() => goToCourse(item as any)} />
+            </div>
           ))}
         </Box>
 
@@ -189,7 +196,12 @@ const Home: React.FC<HomeProps> = ({
 
         {/* Footer - Only visible on mobile */}
         {/* {isMobile && <Footer />} */}
-        <Footer />
+        <div
+          className={`opacity-0 translate-y-2 ${animClass}`}
+          style={{ animationDelay: '1000ms' }}
+        >
+          <Footer />
+        </div>
       </Box>
     </>
   );
