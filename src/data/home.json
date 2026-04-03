@@ -27,7 +27,7 @@
                         "sets": "4",
                         "repetitions": "12",
                         "rest": "1 min",
-                        "locked": false
+                        "locked": true
                     },
                     {
                         "name": "Empuje alto en máquina",
@@ -35,7 +35,7 @@
                         "sets": "4",
                         "repetitions": "12",
                         "rest": "1 min",
-                        "locked": false
+                        "locked": true
                     },
                     {
                         "name": "Empuje medio en apertura con máquina",
@@ -43,7 +43,7 @@
                         "sets": "4",
                         "repetitions": "12",
                         "rest": "1 min",
-                        "locked": false
+                        "locked": true
                     },
                     {
                         "name": "Complemento elevaciones frontales alternadas para hombros",
@@ -51,7 +51,7 @@
                         "sets": "4",
                         "repetitions": "12",
                         "rest": "1 min",
-                        "locked": false
+                        "locked": true
                     },
                     {
                         "name": "Complemento curl de bíceps con mancuernas",
@@ -59,7 +59,7 @@
                         "sets": "4",
                         "repetitions": "12",
                         "rest": "1 min",
-                        "locked": false
+                        "locked": true
                     }
                 ]
             },
@@ -77,7 +77,7 @@
                         "sets": "4",
                         "repetitions": "12",
                         "rest": "1 min",
-                        "locked": false
+                        "locked": true
                     },
                     {
                         "name": "Tren inferior extensiones en máquina para cuádriceps",
@@ -85,7 +85,7 @@
                         "sets": "4",
                         "repetitions": "12",
                         "rest": "1 min",
-                        "locked": false
+                        "locked": true
                     },
                     {
                         "name": "Tren inferior flexiones en máquina para femorales",
@@ -93,7 +93,7 @@
                         "sets": "4",
                         "repetitions": "12",
                         "rest": "1 min",
-                        "locked": false
+                        "locked": true
                     },
                     {
                         "name": "Tren inferior aductores en máquina",
@@ -101,7 +101,7 @@
                         "sets": "4",
                         "repetitions": "12",
                         "rest": "1 min",
-                        "locked": false
+                        "locked": true
                     },
                     {
                         "name": "Tren inferior abductores en máquina",
@@ -109,7 +109,7 @@
                         "sets": "4",
                         "repetitions": "10-15",
                         "rest": "1 min",
-                        "locked": false
+                        "locked": true
                     }
                 ]
             },
@@ -127,7 +127,7 @@
                         "sets": "4",
                         "repetitions": "12",
                         "rest": "1 min",
-                        "locked": false
+                        "locked": true
                     },
                     {
                         "name": "Jalón horizontal con máquina",
@@ -135,7 +135,7 @@
                         "sets": "4",
                         "repetitions": "12",
                         "rest": "1 min",
-                        "locked": false
+                        "locked": true
                     },
                     {
                         "name": "Jalón en apertura horizontal con máquina",
@@ -143,7 +143,7 @@
                         "sets": "4",
                         "repetitions": "12",
                         "rest": "1 min",
-                        "locked": false
+                        "locked": true
                     },
                     {
                         "name": "Complemento elevaciones laterales para hombros",
@@ -151,7 +151,7 @@
                         "sets": "4",
                         "repetitions": "12",
                         "rest": "1 min",
-                        "locked": false
+                        "locked": true
                     },
                     {
                         "name": "Complemento jalones de tríceps con cable",
@@ -159,7 +159,7 @@
                         "sets": "4",
                         "repetitions": "10-15",
                         "rest": "1 min",
-                        "locked": false
+                        "locked": true
                     }
                 ]
             },
