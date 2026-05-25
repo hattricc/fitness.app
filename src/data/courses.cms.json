@@ -47,6 +47,29 @@
               "duration": "10:15"
             }
           ]
+        },
+        {
+          "visible": true,
+          "id": "CC01",
+          "name": "Cursos cortos",
+          "exercises": [
+            {
+              "visible": true,
+              "locked": true,
+              "id": "Sent",
+              "name": "Sentarse en el piso y volver a pararse",
+              "url": "https://www.youtube.com/live/XwqxDOL1RI4?si=8cLDGa8nzU9R4043",
+              "duration": "20:05"
+            },
+            {
+              "visible": true,
+              "locked": true,
+              "id": "Jal",
+              "name": "Lección básica sobre jalones",
+              "url": "https://www.youtube.com/live/bBzOhz5iY-4?si=rPdV4ZYz8BcwLeue",
+              "duration": "18:19"
+            }
+          ]
         }
       ]
     },
