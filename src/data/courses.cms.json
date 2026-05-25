@@ -1,13 +1,6 @@
 {
   "items": [
     {
-      "showInfo": true,
-      "showDescription": true,
-      "locked": true,
-      "visible": true,
-      "id": "Lnv01",
-      "name": "¡¡¡Lo nuevo!!!",
-      "infoDescription": "Actualizaciones semanales y nuevo material para apoyarte constántemente en tu camino fitness",
       "modules": [
         {
           "visible": true,
@@ -71,7 +64,15 @@
             }
           ]
         }
-      ]
+      ],
+      "locked": true,
+      "showInfo": true,
+      "name": "¡¡¡Lo nuevo!!!",
+      "infoDescription": "Actualizaciones semanales y nuevo material para apoyarte constántemente en tu camino fitness",
+      "visible": true,
+      "id": "Lnv01",
+      "description": "Actualizaciones semanales",
+      "showDescription": true
     },
     {
       "modules": [
