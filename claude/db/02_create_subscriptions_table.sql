@@ -1,0 +1,4 @@
+-- ⚠️  SCRIPT OBSOLETO — NO EJECUTAR
+-- Reemplazado por 02_patch_enums.sql (v2).
+-- La tabla subscriptions ya existe en producción con esquema diferente.
+-- Ver docs/changelog-interno.md para contexto del cambio.

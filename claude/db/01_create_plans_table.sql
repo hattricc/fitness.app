@@ -1,0 +1,4 @@
+-- ⚠️  SCRIPT OBSOLETO — NO EJECUTAR
+-- Reemplazado por 01_verify_existing_schema.sql (v2).
+-- La tabla plans no existe ni es necesaria; products sirve como catálogo.
+-- Ver docs/changelog-interno.md para contexto del cambio.
