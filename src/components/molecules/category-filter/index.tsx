@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
   backgroundColor: 'transparent',
+  userSelect: 'none',
   '& .MuiToggleButtonGroup-grouped': {
     margin: theme.spacing(0.5),
     border: 0,
@@ -37,7 +38,7 @@ interface CategoryFilterProps {
 
 const CategoryFilter: React.FC<CategoryFilterProps> = ({ value, onChange }) => {
   const handleChange = (
-    event: React.MouseEvent<HTMLElement>,
+    _: React.MouseEvent<HTMLElement>,
     newValue: string,
   ) => {
     if (newValue !== null) {

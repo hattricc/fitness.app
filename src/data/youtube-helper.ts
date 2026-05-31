@@ -9,7 +9,7 @@ export class YouTubeHelper {
     
     // Regular expressions for different YouTube URL formats
     const patterns = [
-      /^.*(?:youtu\.be\/|v\/|u\/\w\/|shorts\/|watch\?v=|&v=)([^#&?]*).*/,
+      /^.*(?:youtu\.be\/|v\/|u\/\w\/|shorts\/|live\/|watch\?v=|&v=)([^#&?]*).*/,
       /^.*(?:embed\/)([^#&?]*).*/,
     ];
     

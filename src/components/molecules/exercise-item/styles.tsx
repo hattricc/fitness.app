@@ -56,6 +56,7 @@ const createCardStyles = ({ borderRadius, mb = 2, hoverEffect = 'smoothGlow' }: 
     boxShadow: 3,
     overflow: 'hidden',
     cursor: 'pointer',
+    userSelect: 'none',
     position: 'relative',
     backgroundColor: '#1B1B1B',
     display: 'flex',

@@ -11,26 +11,29 @@ export const ModalStyles = {
 export const ModalBoxStyles = {
   position: 'relative',
   width: '90dvw',
-  maxWidth: '800px',
-  height: '90dvh',
+  maxWidth: { xs: 'none', md: 'min(90dvw, calc(90dvh * 16 / 9))' },
+  height: { xs: '90dvh', md: 'auto' },
   bgcolor: '#1B1B1B',
   boxShadow: 24,
-  // p: 2,
   outline: 'none',
 }
 
 export const ModalVideoBoxStyles = {
   position: 'relative',
   width: '100%',
-  paddingTop: '177.77%', // 16:9 = 56.25%, 9:16 = 177.77%
+  paddingTop: { xs: '177.77%', md: '56.25%' }, // mobile 9:16, desktop 16:9
   borderRadius: 1,
   overflow: 'hidden',
 }
 
 export const ModalCloseButtonStyles = {
   position: 'absolute',
-  right: 8,
-  top: 8,
+  // mobile: bottom-left (away from YouTube controls at top-right and bottom-right)
+  // desktop: top-right (standard overlay)
+  top: { xs: 'auto', md: 8 },
+  bottom: { xs: 8, md: 'auto' },
+  left: { xs: 8, md: 'auto' },
+  right: { xs: 'auto', md: 8 },
   color: 'text.primary',
   zIndex: 10006,
   backgroundColor: 'rgba(255, 255, 255, 0.7)',

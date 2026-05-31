@@ -3,6 +3,80 @@
     "modules": [
       {
         "visible": true,
+        "id": "HibridInicio",
+        "name": "Entrenamiento Híbrido",
+        "exercises": [
+          {
+            "visible": true,
+            "locked": true,
+            "id": "HibIntroTut",
+            "name": "Iniciar aquí ",
+            "url": "https://youtu.be/2qbNLMAKcOI?si=LppvwuLqVY3ilzCV",
+            "duration": "5:08"
+          },
+          {
+            "visible": true,
+            "locked": true,
+            "id": "Hibpierna",
+            "name": "Sesión de piernas",
+            "url": "https://youtu.be/_y8DjGi_8hg?si=J7pK2MdMh5NSuZcd",
+            "duration": "10:12"
+          },
+          {
+            "visible": true,
+            "locked": true,
+            "id": "Hibpush",
+            "name": "Sesión de empuje",
+            "url": "https://youtu.be/W5eI_lnA6YE?si=2x3yfFis5fHBJRQW",
+            "duration": "10:16"
+          },
+          {
+            "visible": true,
+            "locked": true,
+            "id": "Hibjalon",
+            "name": "Sesión de jalones ",
+            "url": "https://youtu.be/qhwQLR0BDc8?si=DkcuzUtllu9JaUk3",
+            "duration": "10:15"
+          }
+        ]
+      },
+      {
+        "visible": true,
+        "id": "CC01",
+        "name": "Cursos cortos",
+        "exercises": [
+          {
+            "visible": true,
+            "locked": true,
+            "id": "Sent",
+            "name": "Sentarse en el piso y volver a pararse",
+            "url": "https://www.youtube.com/live/XwqxDOL1RI4?si=lXdzOd1QApw4pQZL",
+            "duration": "20:05"
+          },
+          {
+            "visible": true,
+            "locked": true,
+            "id": "Jal",
+            "name": "Lección básica sobre jalones",
+            "url": "https://www.youtube.com/live/bBzOhz5iY-4?si=rPdV4ZYz8BcwLeue",
+            "duration": "18:19"
+          }
+        ]
+      }
+    ],
+    "locked": true,
+    "showInfo": true,
+    "name": "¡¡¡Lo nuevo!!!",
+    "infoDescription": "Actualizaciones semanales y nuevo material para apoyarte constántemente en tu camino fitness",
+    "visible": true,
+    "id": "Lnv01",
+    "description": "Actualizaciones semanales",
+    "showDescription": true
+  },
+  {
+    "modules": [
+      {
+        "visible": true,
         "id": "DMInicio",
         "name": "Inicio",
         "exercises": [
