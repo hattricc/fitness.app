@@ -66,8 +66,10 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
     const path = location.pathname;
     let newTitle = 'Inicio';
 
-    // Check for dynamic course route
-    if (path.startsWith('/workout/')) {
+    if (path === '/video') {
+      const state = location.state as { title?: string } | null;
+      newTitle = state?.title ?? 'Video';
+    } else if (path.startsWith('/workout/')) {
       const courseId = path.split('/workout/')[1];
       const course = courses.find(c => c.id === courseId);
       newTitle = course ? course.name : 'Curso';
@@ -86,7 +88,7 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
     }
 
     setTitleState(newTitle);
-  }, [location.pathname, courses]);
+  }, [location.pathname, location.state, courses]);
 
   return (
     <AppBar

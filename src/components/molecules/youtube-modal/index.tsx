@@ -12,7 +12,11 @@ interface YouTubeModalProps {
 }
 
 const YouTubeModal: React.FC<YouTubeModalProps> = ({ open, url, onClose, title = 'Exercise Video' }) => {
-  const embedUrl = url ? YouTubeHelper.getEmbedUrl(url, true) : '';
+  const embedUrl = url ? YouTubeHelper.getEmbedUrl(url, true, {
+    playsinline: '1',  // prevent iOS auto-fullscreen
+    rel: '0',          // no related videos
+    modestbranding: '1',
+  }) : '';
 
   return (
     <Modal
@@ -30,7 +34,6 @@ const YouTubeModal: React.FC<YouTubeModalProps> = ({ open, url, onClose, title =
         <Box sx={ModalVideoBoxStyles}>
           {embedUrl && (
             <iframe
-              allowFullScreen
               src={embedUrl}
               title={title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

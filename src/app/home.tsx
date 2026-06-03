@@ -12,7 +12,6 @@ import { ExerciseCard } from '../components/molecules';
 import { ExerciseRoutine } from '@/types/exercise';
 import coursesData from '../data/courses.json';
 import linksData from '../data/home.json';
-import YouTubeModal from '../components/molecules/youtube-modal';
 import Footer from '@/components/organisms/footer';
 import { PlayCircleOutline } from '@mui/icons-material';
 
@@ -33,10 +32,6 @@ const Home: React.FC<HomeProps> = ({
   });
 
 
-  const [open, setOpen] = useState(false);
-  const [selectedVideo, setSelectedVideo] = useState<string | undefined>(undefined);
-
-
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -46,15 +41,6 @@ const Home: React.FC<HomeProps> = ({
     if (typeof window !== 'undefined') {
       localStorage.setItem('lastSeenSplash', Date.now().toString());
     }
-  };
-
-  const handleOpenModal = (url: string | undefined) => {
-    setOpen(true);
-    setSelectedVideo(url);
-  };
-  const handleCloseModal = () => {
-    setOpen(false);
-    setSelectedVideo(undefined);
   };
 
   const [animateIn, setAnimateIn] = useState(false);
@@ -121,7 +107,7 @@ const Home: React.FC<HomeProps> = ({
 
   const goToCourse = (item: ExerciseRoutine) => {
     if (item.directLink) {
-      return handleOpenModal(item.url);
+      return navigate('/video', { state: { url: item.url, title: item.name } });
     }
 
     const pdfUrl = (item as any)?.pdfUrl as string | undefined;
@@ -148,8 +134,7 @@ const Home: React.FC<HomeProps> = ({
           <Button
             variant="contained"
             onClick={() => {
-              handleOpenModal('https://www.youtube.com/watch?v=pKCm7NGsjpM?autoplay=1');
-              // setTimeout(handleCloseModal, 87000 + 2000);
+              navigate('/video', { state: { url: 'https://www.youtube.com/watch?v=pKCm7NGsjpM', title: 'Empieza aquí' } });
             }}
             sx={welcomeButtonStyle}
           >
@@ -187,12 +172,6 @@ const Home: React.FC<HomeProps> = ({
             </div>
           ))}
         </Box>
-
-        {open && <YouTubeModal
-          open={open}
-          url={selectedVideo || null}
-          onClose={handleCloseModal}
-        />}
 
         {/* Footer - Only visible on mobile */}
         {/* {isMobile && <Footer />} */}

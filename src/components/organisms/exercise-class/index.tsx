@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import ExerciseItem from '../../molecules/exercise-item';
-import YouTubeModal from '../../molecules/youtube-modal';
 import { Exercise, Module } from '@/types/course';
 import { useAuth } from "@/contexts/auth/AuthProvider";
 
@@ -12,25 +12,18 @@ interface ExerciseClassProps {
 const ExerciseClass: React.FC<ExerciseClassProps> = ({
   module,
 }) => {
-  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
-
+  const navigate = useNavigate();
   const { subscription, subscriptionLoading } = useAuth();
-
-  const handleCloseVideo = () => {
-    setTimeout(() => {
-      setSelectedVideo(null);
-    }, 100);
-  };
 
   const handleExerciseClick = (videoUrl: string, exercise: Exercise) => {
     if (subscriptionLoading) return;
-    
+
     if (exercise.locked && !subscription?.hasAccess) {
       alert('Please subscribe to access premium content');
       // navigate('/subscribe');
       return;
     }
-    setSelectedVideo(videoUrl);
+    navigate('/video', { state: { url: videoUrl, title: exercise.name } });
   };
 
   return (
@@ -72,11 +65,6 @@ const ExerciseClass: React.FC<ExerciseClassProps> = ({
 
       )}
 
-      <YouTubeModal
-        open={!!selectedVideo}
-        url={selectedVideo}
-        onClose={handleCloseVideo}
-      />
     </>
   );
 };

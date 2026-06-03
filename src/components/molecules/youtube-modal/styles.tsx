@@ -10,9 +10,13 @@ export const ModalStyles = {
 
 export const ModalBoxStyles = {
   position: 'relative',
-  width: '90dvw',
-  maxWidth: { xs: 'none', md: 'min(90dvw, calc(90dvh * 16 / 9))' },
-  height: { xs: '90dvh', md: 'auto' },
+  // Width drives height via paddingTop aspect ratio.
+  // Capping width at (85dvh × ratio) guarantees video never exceeds 85dvh.
+  width: {
+    xs: 'min(90dvw, calc(70dvh * 9 / 16))',  // mobile: 9:16, max ~70dvh tall
+    md: 'min(90dvw, calc(70dvh * 16 / 9))',  // desktop: 16:9, max ~70dvh tall
+  },
+  height: 'auto',
   bgcolor: '#1B1B1B',
   boxShadow: 24,
   outline: 'none',
@@ -28,10 +32,7 @@ export const ModalVideoBoxStyles = {
 
 export const ModalCloseButtonStyles = {
   position: 'absolute',
-  // mobile: bottom-left (away from YouTube controls at top-right and bottom-right)
-  // desktop: top-right (standard overlay)
-  top: { xs: 'auto', md: 8 },
-  bottom: { xs: 8, md: 'auto' },
+  top: 8,
   left: { xs: 8, md: 'auto' },
   right: { xs: 'auto', md: 8 },
   color: 'text.primary',
