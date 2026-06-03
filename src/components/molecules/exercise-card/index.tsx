@@ -30,6 +30,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
         boxShadow: 3,
         overflow: 'hidden',
         cursor: 'pointer',
+        userSelect: 'none',
         transition: 'transform 0.2s, box-shadow 0.2s',
         '&:hover': {
           transform: 'translateY(-2px)',

@@ -5,8 +5,8 @@
 - [x] **YouTube /live/ URLs no cargan** — regex en `extractVideoId` no tenía patrón para `/live/`. Fix: agregado `live\/` en `src/data/youtube-helper.ts`
 
 ## Media Prioridad
-- [ ] Se pueden seleccionar textos de ejercicios/categorías (divs fondo negro) y actúan como botón — agregar `user-select: none` y `pointer-events: none` en texto
-- [ ] el video en celular es un poco alta por demás a los videos de youtube, y el botón de cerrar no funciona correctamente, se apreta con el activar/desactivar subtítulos
+- [x] **Selección de texto en ejercicios/categorías** — Fix: `userSelect: 'none'` en `src/components/molecules/exercise-item/styles.tsx` (createCardStyles) y `src/components/molecules/category-filter/index.tsx` (StyledToggleButtonGroup)
+- [x] **Video móvil demasiado alto + botón cerrar colisiona con subtítulos** — Resuelto por ADR-001: VideoPage reemplaza el modal. El video vive dentro del layout normal (sin overlay), cierre via `←` del header. Ver `src/app/pages/VideoPage.tsx`
 
 ## Baja Prioridad
-- [ ] Splash screen — último botón ilegible: texto blanco sobre fondo blanco en hover
+
