@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, Navigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import { YouTubeHelper } from '@/data/youtube-helper';
 
@@ -10,19 +10,16 @@ interface VideoPageState {
 
 const VideoPage: React.FC = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const state = location.state as VideoPageState | null;
 
   if (!state?.url) {
-    navigate('/', { replace: true });
-    return null;
+    return <Navigate to="/" replace />;
   }
 
   const embedUrl = YouTubeHelper.getEmbedUrl(state.url, true, {
     playsinline: '1',
     rel: '0',
     modestbranding: '1',
-    autoplay: '1',
   });
 
   return (
@@ -69,13 +66,13 @@ const VideoPage: React.FC = () => {
           />
         </Box>
 
-        {state.title && (
+        {/* {state.title && (
           <Box sx={{ px: { xs: 2, md: 0 }, pt: 2 }}>
             <Typography variant="h6" fontWeight="bold">
               {state.title}
             </Typography>
           </Box>
-        )}
+        )} */}
       </Box>
     </Box>
   );
