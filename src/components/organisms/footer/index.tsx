@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
             <hr />
 
             <Typography variant="body2" sx={{ mt: 1, mb: 1 }}>
-                © 2025 Luis Suarez – Entrenamiento e Integración. Todos los derechos reservados.
+                © {new Date().getFullYear()} Luis Suarez – Entrenamiento e Integración. Todos los derechos reservados.
             </Typography>
 
             <Typography variant="body2" sx={{ mt: 1 }}>
