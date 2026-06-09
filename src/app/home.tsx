@@ -12,6 +12,7 @@ import { ExerciseCard } from '../components/molecules';
 import { ExerciseRoutine } from '@/types/exercise';
 import coursesData from '../data/courses.json';
 import linksData from '../data/home.json';
+import welcomeVideoData from '../data/welcome-video.json';
 import Footer from '@/components/organisms/footer';
 import { PlayCircleOutline } from '@mui/icons-material';
 
@@ -78,19 +79,11 @@ const Home: React.FC<HomeProps> = ({
     display: 'grid',
     gridTemplateColumns: {
       xs: '1fr',
+      sm: 'repeat(2, 1fr)',
       md: 'repeat(4, 1fr)'
     },
-    '& > *': {
-      width: '100%',
-      mb: { xs: 2, md: 0 }
-    },
-    '@media (min-width: 900px)': {
-      gap: 3,
-      '& > *': {
-        maxWidth: '280px',
-        margin: '0 auto'
-      }
-    },
+    gap: { xs: 2, md: 3 },
+    alignItems: 'stretch',
     mb: 1
   }
 
@@ -134,11 +127,11 @@ const Home: React.FC<HomeProps> = ({
           <Button
             variant="contained"
             onClick={() => {
-              navigate('/video', { state: { url: 'https://www.youtube.com/watch?v=pKCm7NGsjpM', title: 'Empieza aquí' } });
+              navigate('/video', { state: { url: welcomeVideoData.url, title: welcomeVideoData.buttonText } });
             }}
             sx={welcomeButtonStyle}
           >
-            Empieza aquí <PlayCircleOutline sx={{ ml: 1 }} />
+            {welcomeVideoData.buttonText} <PlayCircleOutline sx={{ ml: 1 }} />
           </Button>
 
           {/* <Button

@@ -9,6 +9,17 @@ public_folder: "/uploads"
 
 # Colección por archivo: edita un único courses.json
 collections:
+  - name: "welcomeVideo"
+    label: "Video de Bienvenida"
+    files:
+      - name: "welcome-video"
+        label: "Video — Empieza Aquí"
+        file: "src/data/welcome-video.json"
+        format: "json"
+        fields:
+          - { name: "url", label: "URL del video (YouTube)", widget: "string", hint: "Ej: https://www.youtube.com/watch?v=xxxxx" }
+          - { name: "buttonText", label: "Texto del botón", widget: "string", hint: "Ej: Empieza aquí" }
+
   - name: "coursesFile"
     label: "Cursos"
     label_singular: "Curso"
