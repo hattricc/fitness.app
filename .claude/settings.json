@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(node -e \"const d = require\\('./src/data/courses.json'\\); console.log\\('courses count:', d.length, d.map\\(x=>x.name||x.id||'?'\\)\\)\")",
-      "Bash(node -e \"const d = require\\('./src/data/home.json'\\); console.log\\('home count:', d.length, d.map\\(x=>x.name||x.id||'?'\\)\\)\")"
+      "Bash(node -e \"const d = require\\('./src/data/home.json'\\); console.log\\('home count:', d.length, d.map\\(x=>x.name||x.id||'?'\\)\\)\")",
+      "Bash(xargs grep -l \"CREATE TABLE.*payment\\\\|CREATE TABLE.*payment_event\")",
+      "Bash(xargs grep -l \"CREATE TABLE.*payment\")",
+      "Bash(xargs grep \"payment\")"
     ]
   }
 }

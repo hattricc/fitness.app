@@ -35,6 +35,15 @@ export function handleOptionsRequest(req: Request): Response | null {
     return null;
 }
 
+const LOG_PREFIX = "[create-livees-payment]";
+
+function errorDetails(error: unknown): { message: string; stack?: string } {
+    if (error instanceof Error) {
+        return { message: error.message, stack: error.stack };
+    }
+    return { message: String(error) };
+}
+
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY")!;
 // Estos valores te los da Livees
@@ -69,7 +78,7 @@ serve(async (req) => {
         // IMPORTANT: ensure `Authorization header exists
         const authHeader = req.headers.get("Authorization");
         if (!authHeader) {
-            console.log("Missing Authorization header");
+            console.log(`${LOG_PREFIX} Missing Authorization header`);
             return new Response(JSON.stringify({ error: "Missing Authorization header" }), {
                 status: 401,
                 headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -86,7 +95,7 @@ serve(async (req) => {
         } = await supabase.auth.getUser();
 
         if (userError || !user) {
-            console.log("Unauthorized", userError);
+            console.error(`${LOG_PREFIX} Unauthorized:`, userError);
             return new Response(JSON.stringify({ error: "Unauthorized", details: userError }), {
                 status: 401,
                 headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -100,7 +109,7 @@ serve(async (req) => {
         try {
             body = JSON.parse(raw);
         } catch (err) {
-            console.log('error parsing body: ', err)
+            console.error(`${LOG_PREFIX} Error parsing body user_id=${user.id}:`, errorDetails(err), "raw:", raw);
             return new Response(
                 JSON.stringify({
                     error: "Invalid JSON body",
@@ -113,7 +122,7 @@ serve(async (req) => {
                 }
             );
         }
-        console.log('body received: ', body)
+        console.log(`${LOG_PREFIX} body received user_id=${user.id}:`, JSON.stringify(body))
 
         const { product_id, billing_info, invoice_info } = body as {
             product_id: string;
@@ -122,7 +131,7 @@ serve(async (req) => {
         };
 
         if (!product_id) {
-            console.log("product_id is required");
+            console.error(`${LOG_PREFIX} product_id is required user_id=${user.id}`);
             return new Response(JSON.stringify({ error: "product_id is required" }), {
                 status: 400,
                 headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -136,7 +145,7 @@ serve(async (req) => {
             .single();
 
         if (productError || !product) {
-            console.log("Product not found", productError);
+            console.error(`${LOG_PREFIX} Product not found product_id=${product_id} user_id=${user.id}:`, productError);
             return new Response(JSON.stringify({ error: "Product not found", details: productError }), {
                 status: 404,
                 headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -188,12 +197,14 @@ serve(async (req) => {
             .single();
 
         if (paymentError || !payment) {
-            console.error(paymentError);
+            console.error(`${LOG_PREFIX} Error creating payment invno=${invno} user_id=${user.id} product_id=${product_id}:`, paymentError);
             return new Response(JSON.stringify({ error: "Error creating payment", details: paymentError }), {
                 status: 500,
                 headers: { ...corsHeaders, "Content-Type": "application/json" },
             });
         }
+
+        console.log(`${LOG_PREFIX} Payment created invno=${invno} payment_id=${payment.id} user_id=${user.id} product_id=${product_id}`);
 
         // Devolvemos todo lo necesario para armar el <form> en el frontend
         const responsePayload = {
@@ -215,7 +226,7 @@ serve(async (req) => {
             headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
     } catch (err) {
-        console.error(err);
+        console.error(`${LOG_PREFIX} Unhandled error:`, errorDetails(err));
         // ✅ even unexpected errors return JSON + CORS
         return new Response(JSON.stringify({ error: "Internal server error", details: String(err) }), {
             status: 500,

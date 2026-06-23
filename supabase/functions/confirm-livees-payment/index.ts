@@ -132,10 +132,19 @@ const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const LIVEES_LLAVE_RECURSO = Deno.env.get("LIVEES_LLAVE_RECURSO")!;
 const LIVEES_WS_BASE = "https://www.livees.net/Checkout/WS";
 
+const LOG_PREFIX = "[confirm-livees-payment]";
+
+function errorDetails(error: unknown): { message: string; stack?: string } {
+    if (error instanceof Error) {
+        return { message: error.message, stack: error.stack };
+    }
+    return { message: String(error) };
+}
+
 function handleAuthorization(req: Request, corsHeaders: CorsHeaders): Response | null {
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) {
-        console.log("Missing Authorization header");
+        console.log(`${LOG_PREFIX} Missing Authorization header`);
         return ResponseBuilder.error(401, corsHeaders, { error: "Missing Authorization header" });
     }
     return null;
@@ -146,7 +155,7 @@ async function parseRequestBody(req: Request, corsHeaders: CorsHeaders): Promise
         const raw = await req.text();
         return { body: JSON.parse(raw), error: null };
     } catch (err) {
-        console.log('Error parsing body:', err);
+        console.error(`${LOG_PREFIX} Error parsing body:`, errorDetails(err));
         return {
             body: null,
             error: ResponseBuilder.error(400, corsHeaders, {
@@ -160,6 +169,7 @@ async function parseRequestBody(req: Request, corsHeaders: CorsHeaders): Promise
 function validateRequiredFields(body: any, fields: string[], corsHeaders: CorsHeaders): Response | null {
     const missingFields = fields.filter(field => !body[field]);
     if (missingFields.length > 0) {
+        console.error(`${LOG_PREFIX} Missing required fields:`, missingFields, "body:", body);
         return ResponseBuilder.error(400, corsHeaders, {
             error: "Missing required fields",
             missing: missingFields
@@ -176,6 +186,7 @@ async function findPayment(supabase: any, invno: string, corsHeaders: CorsHeader
         .single();
 
     if (paymentError || !payment) {
+        console.error(`${LOG_PREFIX} Payment not found for invno=${invno}:`, paymentError);
         return {
             payment: null,
             error: ResponseBuilder.error(404, corsHeaders, {
@@ -187,7 +198,7 @@ async function findPayment(supabase: any, invno: string, corsHeaders: CorsHeader
     return { payment, error: null };
 }
 
-async function checkLiveesPayment(orderId: string, req: Request): Promise<{ data: any; error: Response | null }> {
+async function checkLiveesPayment(orderId: string, invno: string, req: Request): Promise<{ data: any; error: Response | null }> {
     try {
         const formBody = {
             order_id: orderId,
@@ -202,7 +213,7 @@ async function checkLiveesPayment(orderId: string, req: Request): Promise<{ data
 
         if (!res.ok) {
             const text = await res.text();
-            console.error("Error Livees WS:", res.status, text);
+            console.error(`${LOG_PREFIX} Livees WS error invno=${invno} order_id=${orderId} status=${res.status}:`, text);
             return {
                 data: null,
                 error: ResponseBuilder.error(502, getCorsHeaders(req), {
@@ -211,9 +222,11 @@ async function checkLiveesPayment(orderId: string, req: Request): Promise<{ data
             };
         }
 
-        return { data: await res.json(), error: null };
+        const data = await res.json();
+        console.log(`${LOG_PREFIX} Livees WS response invno=${invno} order_id=${orderId}:`, JSON.stringify(data));
+        return { data, error: null };
     } catch (error) {
-        console.error("Error in checkLiveesPayment:", error);
+        console.error(`${LOG_PREFIX} Exception calling Livees WS invno=${invno} order_id=${orderId}:`, errorDetails(error));
         return {
             data: null,
             error: ResponseBuilder.error(500, getCorsHeaders(req), {
@@ -243,7 +256,7 @@ async function updatePaymentStatus(
     }
 
     // Log payment event
-    await supabase.from("payment_events").insert({
+    const { error: eventError } = await supabase.from("payment_events").insert({
         payment_id: paymentId,
         event_type: "livees.consulta_orden",
         payload: {
@@ -252,11 +265,19 @@ async function updatePaymentStatus(
         },
     });
 
+    if (eventError) {
+        console.error(`${LOG_PREFIX} Failed to insert payment_events payment_id=${paymentId} order_id=${orderId}:`, eventError);
+    }
+
     // Update payment status
     const { error } = await supabase
         .from("payments")
         .update(updateData)
         .eq("id", paymentId);
+
+    if (error) {
+        console.error(`${LOG_PREFIX} Failed to update payment payment_id=${paymentId} order_id=${orderId} new_status=${newStatus}:`, error);
+    }
 
     return { error };
 }
@@ -285,7 +306,7 @@ async function handlePaymentConfirmation(req: Request, corsHeaders: CorsHeaders)
     if (paymentError) return paymentError;
 
     // 5. Check payment with Livees
-    const { data: liveesData, error: liveesError } = await checkLiveesPayment(order_id, req);
+    const { data: liveesData, error: liveesError } = await checkLiveesPayment(order_id, invno, req);
     if (liveesError) return liveesError;
 
     // 6. Process payment status
@@ -303,12 +324,14 @@ async function handlePaymentConfirmation(req: Request, corsHeaders: CorsHeaders)
     );
 
     if (updateError) {
-        console.error("Error updating payment:", updateError);
+        console.error(`${LOG_PREFIX} Error updating payment invno=${invno} order_id=${order_id} payment_id=${payment.id}:`, updateError);
         return ResponseBuilder.error(500, corsHeaders, {
             error: "Failed to update payment",
             details: updateError
         });
     }
+
+    console.log(`${LOG_PREFIX} Payment confirmed invno=${invno} order_id=${order_id} payment_id=${payment.id} status=${success ? "paid" : "failed"}`);
 
     return ResponseBuilder.createResponse(200, corsHeaders, {
         status: success ? "paid" : "failed",
@@ -333,7 +356,7 @@ serve(async (req: Request) => {
     try {
         return await handlePaymentConfirmation(req, corsHeaders);
     } catch (error) {
-        console.error("Unhandled error:", error);
+        console.error(`${LOG_PREFIX} Unhandled error:`, errorDetails(error));
         return ResponseBuilder.error(500, corsHeaders, {
             error: "Internal server error",
             details: String(error)
