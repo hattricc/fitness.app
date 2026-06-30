@@ -20,6 +20,51 @@ collections:
           - { name: "url", label: "URL del video (YouTube)", widget: "string", hint: "Ej: https://www.youtube.com/watch?v=xxxxx" }
           - { name: "buttonText", label: "Texto del botón", widget: "string", hint: "Ej: Empieza aquí" }
 
+  - name: "armaRutina"
+    label: "Arma tu propia rutina"
+    files:
+      - name: "arma-tu-rutina"
+        label: "Categorías y ejercicios"
+        file: "src/data/arma-tu-rutina.json"
+        format: "json"
+        fields:
+          - { name: "name", label: "Nombre de la card", widget: "string" }
+          - { name: "description", label: "Descripción corta", widget: "string" }
+          - { name: "infoDescription", label: "Texto informativo", widget: "string" }
+          - { name: "imageUrl", label: "Imagen de la card", widget: "image" }
+          - { name: "visible", label: "Visible en Home", widget: "boolean", default: true }
+          - name: "modules"
+            label: "Categorías"
+            widget: "list"
+            collapsed: true
+            summary: "{{fields.name}}"
+            fields:
+              - { name: "id", label: "ID (no cambiar)", widget: "string" }
+              - { name: "name", label: "Nombre de categoría", widget: "string" }
+              - name: "exercises"
+                label: "Ejercicios"
+                widget: "list"
+                collapsed: true
+                summary: "{{fields.name}}"
+                fields:
+                  - { name: "id", label: "ID (único, sin espacios)", widget: "string", hint: "Ej: ex-empujes-002" }
+                  - { name: "name", label: "Nombre del ejercicio", widget: "string" }
+                  - { name: "visible", label: "Visible", widget: "boolean", default: true }
+                  - { name: "locked", label: "Requiere suscripción", widget: "boolean", default: false }
+                  - name: "mediaType"
+                    label: "Tipo de media"
+                    widget: "select"
+                    options:
+                      - { label: "Imagen", value: "image" }
+                      - { label: "Video", value: "video" }
+                    default: "image"
+                  - { name: "imageUrl", label: "Imagen", widget: "image", required: false, hint: "Para ejercicios tipo imagen" }
+                  - { name: "url", label: "URL de video (YouTube)", widget: "string", required: false, hint: "Para ejercicios tipo video" }
+                  - { name: "sets", label: "Series", widget: "string", required: false }
+                  - { name: "repetitions", label: "Repeticiones", widget: "string", required: false }
+                  - { name: "rest", label: "Descanso", widget: "string", required: false }
+                  - { name: "duration", label: "Duración", widget: "string", required: false }
+
   - name: "coursesFile"
     label: "Cursos"
     label_singular: "Curso"

@@ -7,21 +7,24 @@ export const loadAllCourses = async (): Promise<Course[]> => {
   if (coursesCache) return coursesCache;
 
   try {
-    const [coursesModule, homeModule] = await Promise.all([
+    const [coursesModule, homeModule, armaModule] = await Promise.all([
       import('./courses.json'),
-      import('./home.json')
+      import('./home.json'),
+      import('./arma-tu-rutina.json')
     ]);
 
     // Handle both default and direct imports
     const coursesData = coursesModule.default || coursesModule;
     const homeData = homeModule.default || homeModule;
+    const armaData = armaModule.default || armaModule;
 
     // Ensure we have arrays
     const coursesArray = Array.isArray(coursesData) ? coursesData : [];
     const homeArray = Array.isArray(homeData) ? homeData : [];
+    const armaArray = armaData && typeof armaData === 'object' && !Array.isArray(armaData) ? [armaData] : [];
 
     // Combine and filter out any undefined/null items
-    coursesCache = [...coursesArray, ...homeArray].filter(Boolean) as Course[];
+    coursesCache = [...coursesArray, ...homeArray, ...armaArray].filter(Boolean) as Course[];
 
     // Filter out invisible courses and modules, and apply course.locked to exercises
     coursesCache = coursesCache

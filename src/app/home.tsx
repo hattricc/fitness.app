@@ -12,6 +12,7 @@ import { ExerciseCard } from '../components/molecules';
 import { ExerciseRoutine } from '@/types/exercise';
 import coursesData from '../data/courses.json';
 import linksData from '../data/home.json';
+import armaRutinaData from '../data/arma-tu-rutina.json';
 import welcomeVideoData from '../data/welcome-video.json';
 import Footer from '@/components/organisms/footer';
 import { PlayCircleOutline } from '@mui/icons-material';
@@ -96,7 +97,10 @@ const Home: React.FC<HomeProps> = ({
   }
 
   const courses = coursesData as unknown as ExerciseRoutine[];
-  const links = (linksData as unknown as ExerciseRoutine[]).filter((item: any) => item.visible !== false);
+  const links = [
+    ...(linksData as unknown as ExerciseRoutine[]).filter((item: any) => item.visible !== false),
+    ...(armaRutinaData as any).visible !== false ? [armaRutinaData as unknown as ExerciseRoutine] : [],
+  ];
 
 
   const goToCourse = (item: ExerciseRoutine) => {
