@@ -1,0 +1,9 @@
+El cliente me ha solicitado reemplazar la última card de módulos llamada "Gimnasio" y con descripción "Rutina básica para levantar pesas" por una nueva tarjeta que debe poder ser administrable.
+Esta tarjeta "Gimnasio" debe ocultarse, guardemos sus componentes pero borremos del home cualquier referencia, para no tener códigos comentados
+Agregar una nueva tarjeta llamada "Arma tu propia rutina", donde dentro tendrá en vez de los grupos de ejercicios "Día 1", "Día 2", "Día 3" tendrán las siguientes categorías: Empujes, Jalones, Piernas, Complementos, Estabilizadores
+Cada categoría debe tener sus propios ejercicios, y en este caso estos ejercicios vamos a mostrar imágenes por el momento, entonces debemos hacer que los ejercicios puedan tener videos o imágenes.
+Ahora, este módulo debe tener una funcionalidad nueva, diferente a la actual de solo desplegar los ejercicios, y darle click para mostrar el video.
+    - Si debe mostrar cada categoría como los dropdown actuales que tenemos, pero cuando armemos una nueva rutina
+    - Cuando terminemos de seleccionar los ejercicios de la rutina, se debe ingresar a otro espacio o página donde visualizo los ejercicios pero como stories de redes sociales tipo Instagram. Quiero que me visualice el ejercicio (video o imagen) en casi todas la pantalla
+    - Al visualizarse un ejercicio deseo tener controles como los de un reproductor de música como YouTube Music o Spotify, para poder ir al siguiente ejercicio o volver, o reproducir/pausar nuevamente el ejercicio actual.
+    - Cuando la rutina esté hecha, se debe poder guardar como un shortcut o eliminar, no sé qué es mejor ahí

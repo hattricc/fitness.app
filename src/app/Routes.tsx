@@ -12,10 +12,11 @@ import SubscriptionPage from './pages/SubscriptionPage.tsx';
 import CoursePage from './pages/CoursePage.tsx';
 import AcercaDeMiPage from './pages/AcercaDeMiPage.tsx';
 import VideoPage from './pages/VideoPage.tsx';
+import RoutineBuilderPage from './pages/RoutineBuilderPage.tsx';
+import StoryViewerPage from './pages/StoryViewerPage.tsx';
 import { useState } from 'react';
 import { getAllWorkouts } from '@/data/getWorkout.ts';
 import { Exercise, WorkoutRoutine } from '../types/exercise.ts';
-import { Course } from '@/types/course';
 import { darkTheme } from '../data/theme';
 import SignUpForm from '@/components/organisms/signup/index.tsx';
 
@@ -50,6 +51,14 @@ export const createAppRoutes = (
         {
             path: "/workout/:id",
             element: <CoursePage setOpenModal={setOpenModal} onSelectExercise={handleExerciseSelect} />,
+        },
+        {
+            path: "/builder/:id",
+            element: <RoutineBuilderPage />,
+        },
+        {
+            path: "/story/:id",
+            element: <StoryViewerPage />,
         },
         {
             path: "/exercise/:id",
@@ -92,7 +101,7 @@ export const createAppRoutes = (
         {
             path: "/video",
             element: <VideoPage />
-        }
+        },
     ];
 };
 

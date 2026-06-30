@@ -10,6 +10,9 @@ export interface Exercise {
     sets: string | undefined;
     repetitions: string | undefined;
     locked: boolean;
+    mediaType?: 'image' | 'video';
+    imageUrl?: string;
+    videoUrl?: string;
 }
 
 export interface Module {
@@ -41,4 +44,5 @@ export interface Course {
     visible?: boolean;
     locked?: boolean;
     modules: Module[];
+    builder?: boolean;
 }

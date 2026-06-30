@@ -96,9 +96,15 @@ const Home: React.FC<HomeProps> = ({
   }
 
   const courses = coursesData as unknown as ExerciseRoutine[];
-  const links = linksData as unknown as ExerciseRoutine[];
+  const links = (linksData as unknown as ExerciseRoutine[]).filter((item: any) => item.visible !== false);
+
 
   const goToCourse = (item: ExerciseRoutine) => {
+    if ((item as any).builder) {
+      return navigate(`/builder/${item.id}`);
+    }
+
+    
     if (item.directLink) {
       return navigate('/video', { state: { url: item.url, title: item.name } });
     }

@@ -73,6 +73,13 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
       const courseId = path.split('/workout/')[1];
       const course = courses.find(c => c.id === courseId);
       newTitle = course ? course.name : 'Curso';
+    } else if (path.startsWith('/builder/')) {
+      const courseId = path.split('/builder/')[1];
+      const course = courses.find(c => c.id === courseId);
+      newTitle = course ? course.name : 'Arma tu rutina';
+    } else if (path.startsWith('/story/')) {
+      const state = location.state as { exercises?: { name?: string }[] } | null;
+      newTitle = state?.exercises?.length ? 'Tu rutina' : 'Reproduciendo';
     } else {
       // Handle static routes
       const route = Object.entries(routeConfig).find(([route]) =>
