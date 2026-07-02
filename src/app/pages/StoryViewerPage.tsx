@@ -59,12 +59,12 @@ const StoryViewerPage: React.FC = () => {
                 <Close />
             </IconButton>
 
-            <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Box sx={{ flex: 1, minHeight: 0, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {current.mediaType === 'image' && current.imageUrl && (
-                    <Box component="img" src={current.imageUrl} alt={current.name} sx={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                    <Box component="img" src={current.imageUrl} alt={current.name} sx={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }} />
                 )}
                 {current.mediaType === 'video' && (current.videoUrl || current.url) && (
-                    <Box component="video" src={current.videoUrl || current.url} autoPlay={isPlaying} controls={false} sx={{ maxWidth: '100%', maxHeight: '100%' }} />
+                    <Box component="video" src={current.videoUrl || current.url} autoPlay={isPlaying} controls={false} sx={{ maxWidth: '100%', maxHeight: '100%', display: 'block' }} />
                 )}
             </Box>
 

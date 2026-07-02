@@ -24,7 +24,7 @@
                     "id": "ex-empujes-001",
                     "name": "Empuje con barra en banca plana",
                     "mediaType": "image",
-                    "imageUrl": "/images/exercises/arma-tu-rutina/empujes/empuje-barra-banca.jpg",
+                    "imageUrl": "/images/exercises/exercises-exteriores.jpg",
                     "locked": false
                 }
             ]
@@ -40,7 +40,7 @@
                     "id": "ex-jalones-001",
                     "name": "Jalón vertical con cable",
                     "mediaType": "image",
-                    "imageUrl": "/images/exercises/arma-tu-rutina/jalones/jalon-vertical-cable.jpg",
+                    "imageUrl": "/images/exercises/exercises-exteriores.jpg",
                     "locked": false
                 }
             ]
@@ -56,7 +56,7 @@
                     "id": "ex-piernas-001",
                     "name": "Sentadilla en barra guiada",
                     "mediaType": "image",
-                    "imageUrl": "/images/exercises/arma-tu-rutina/piernas/sentadilla-barra-guiada.jpg",
+                    "imageUrl": "/images/exercises/exercises-exteriores.jpg",
                     "locked": false
                 }
             ]
@@ -72,7 +72,7 @@
                     "id": "ex-complementos-001",
                     "name": "Curl de bíceps con mancuernas",
                     "mediaType": "image",
-                    "imageUrl": "/images/exercises/arma-tu-rutina/complementos/curl-biceps-mancuernas.jpg",
+                    "imageUrl": "/images/exercises/exercises-exteriores.jpg",
                     "locked": false
                 }
             ]
@@ -88,7 +88,7 @@
                     "id": "ex-estabilizadores-001",
                     "name": "Plancha abdominal",
                     "mediaType": "image",
-                    "imageUrl": "/images/exercises/arma-tu-rutina/estabilizadores/plancha-abdominal.jpg",
+                    "imageUrl": "/images/exercises/exercises-exteriores.jpg",
                     "locked": false
                 }
             ]
