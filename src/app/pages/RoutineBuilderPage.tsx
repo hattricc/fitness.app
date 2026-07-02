@@ -1,19 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Box, Container, Typography, Accordion, AccordionSummary, AccordionDetails, Button, List, ListItem, ListItemText, IconButton } from '@mui/material';
+import { Box, Container, Typography, Accordion, AccordionSummary, AccordionDetails, Button, List, ListItem, ListItemText, IconButton, CircularProgress } from '@mui/material';
 import { ExpandMore, Delete } from '@mui/icons-material';
 import RoutineBuilderClass from '../../components/organisms/routine-builder-class';
 import { getWorkoutById } from '../../data/getWorkout';
 import { Exercise, Module } from '@/types/course';
 import { CustomRoutineExerciseRef } from '@/types/customRoutine';
 import { useCustomRoutines } from '@/hooks/useCustomRoutines';
+import { useAuth } from '@/contexts/auth/AuthProvider';
 
-const RoutineBuilderPage: React.FC = () => {
+interface RoutineBuilderPageProps {
+  setOpenModal?: (open: boolean) => void;
+}
+
+const RoutineBuilderPage: React.FC<RoutineBuilderPageProps> = ({ setOpenModal }) => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const workout = id ? getWorkoutById(id) : null;
+  const { subscription, subscriptionLoading } = useAuth();
   const [selected, setSelected] = useState<Map<string, CustomRoutineExerciseRef>>(new Map());
   const { routines, deleteRoutine } = useCustomRoutines();
+
+  useEffect(() => {
+    if (subscriptionLoading) return;
+    if (workout?.locked && !subscription?.hasAccess) {
+      setOpenModal?.(true);
+      navigate(-1);
+    }
+  }, [subscriptionLoading, workout?.locked, subscription?.hasAccess]);
 
   const toggleExercise = (exercise: Exercise, module: Module) => {
     setSelected((prev) => {
@@ -38,6 +52,15 @@ const RoutineBuilderPage: React.FC = () => {
   const startStory = (exercises: CustomRoutineExerciseRef[]) => {
     navigate(`/story/${id}`, { state: { exercises } });
   };
+
+  if (subscriptionLoading) {
+    return (
+      <Container maxWidth="sm" sx={{ py: 4, display: 'flex', alignItems: 'center', gap: 2 }}>
+        <CircularProgress size={18} />
+        <Typography variant="body2">Verificando tu suscripción…</Typography>
+      </Container>
+    );
+  }
 
   if (!workout) {
     return (

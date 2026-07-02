@@ -54,7 +54,7 @@ export const createAppRoutes = (
         },
         {
             path: "/builder/:id",
-            element: <RoutineBuilderPage />,
+            element: <RoutineBuilderPage setOpenModal={setOpenModal} />,
         },
         {
             path: "/story/:id",
