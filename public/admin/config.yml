@@ -2,8 +2,8 @@ backend:
   name: git-gateway
   branch: main # ó la rama que uses
 
-media_folder: "public/uploads"       # donde se suben imágenes
-public_folder: "/uploads"
+media_folder: "public/images"
+public_folder: "/images"
 
 # publish_mode: editorial_workflow     # opcional: revisiones antes de publicar
 
