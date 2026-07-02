@@ -1,97 +1,102 @@
 {
-    "id": "category-003",
-    "name": "Arma tu propia rutina",
-    "title": "Arma tu propia rutina",
-    "showTitle": true,
-    "showDescription": true,
-    "showInfo": true,
-    "locked": false,
-    "builder": true,
-    "visible": true,
-    "description": "Elige tus ejercicios favoritos por categoría y arma tu rutina personalizada",
-    "infoDescription": "Selecciona ejercicios de cada categoría y visualízalos como una historia",
-    "imageUrl": "./images/welcome/bienvenida-3.jpg",
-    "category": "Rutinas",
-    "modules": [
+  "modules": [
+    {
+      "id": "cat-empujes",
+      "category": "Empujes",
+      "subcategory": "General",
+      "duration": "",
+      "name": "Empujes",
+      "exercises": [
         {
-            "id": "cat-empujes",
-            "category": "Empujes",
-            "subcategory": "General",
-            "duration": "",
-            "name": "Empujes",
-            "exercises": [
-                {
-                    "id": "ex-empujes-001",
-                    "name": "Empuje con barra en banca plana",
-                    "mediaType": "image",
-                    "imageUrl": "/images/exercises/exercises-exteriores.jpg",
-                    "locked": false
-                }
-            ]
-        },
-        {
-            "id": "cat-jalones",
-            "category": "Jalones",
-            "subcategory": "General",
-            "duration": "",
-            "name": "Jalones",
-            "exercises": [
-                {
-                    "id": "ex-jalones-001",
-                    "name": "Jalón vertical con cable",
-                    "mediaType": "image",
-                    "imageUrl": "/images/exercises/exercises-exteriores.jpg",
-                    "locked": false
-                }
-            ]
-        },
-        {
-            "id": "cat-piernas",
-            "category": "Piernas",
-            "subcategory": "General",
-            "duration": "",
-            "name": "Piernas",
-            "exercises": [
-                {
-                    "id": "ex-piernas-001",
-                    "name": "Sentadilla en barra guiada",
-                    "mediaType": "image",
-                    "imageUrl": "/images/exercises/exercises-exteriores.jpg",
-                    "locked": false
-                }
-            ]
-        },
-        {
-            "id": "cat-complementos",
-            "category": "Complementos",
-            "subcategory": "General",
-            "duration": "",
-            "name": "Complementos",
-            "exercises": [
-                {
-                    "id": "ex-complementos-001",
-                    "name": "Curl de bíceps con mancuernas",
-                    "mediaType": "image",
-                    "imageUrl": "/images/exercises/exercises-exteriores.jpg",
-                    "locked": false
-                }
-            ]
-        },
-        {
-            "id": "cat-estabilizadores",
-            "category": "Estabilizadores",
-            "subcategory": "General",
-            "duration": "",
-            "name": "Estabilizadores",
-            "exercises": [
-                {
-                    "id": "ex-estabilizadores-001",
-                    "name": "Plancha abdominal",
-                    "mediaType": "image",
-                    "imageUrl": "/images/exercises/exercises-exteriores.jpg",
-                    "locked": false
-                }
-            ]
+          "id": "ex-empujes-001",
+          "name": "Empuje con barra en banca plana",
+          "mediaType": "image",
+          "imageUrl": "/images/exercises/exercises-exteriores.jpg",
+          "locked": false,
+          "visible": true
         }
-    ]
+      ]
+    },
+    {
+      "id": "cat-jalones",
+      "category": "Jalones",
+      "subcategory": "General",
+      "duration": "",
+      "name": "Jalones",
+      "exercises": [
+        {
+          "id": "ex-jalones-001",
+          "name": "Jalón vertical con cable",
+          "mediaType": "image",
+          "imageUrl": "/images/exercises/exercises-exteriores.jpg",
+          "locked": false,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "id": "cat-piernas",
+      "category": "Piernas",
+      "subcategory": "General",
+      "duration": "",
+      "name": "Piernas",
+      "exercises": [
+        {
+          "id": "ex-piernas-001",
+          "name": "Sentadilla en barra guiada",
+          "mediaType": "image",
+          "imageUrl": "/images/exercises/exercises-exteriores.jpg",
+          "locked": false,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "id": "cat-complementos",
+      "category": "Complementos",
+      "subcategory": "General",
+      "duration": "",
+      "name": "Complementos",
+      "exercises": [
+        {
+          "id": "ex-complementos-001",
+          "name": "Curl de bíceps con mancuernas",
+          "mediaType": "image",
+          "imageUrl": "/images/exercises/exercises-exteriores.jpg",
+          "locked": false,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "id": "cat-estabilizadores",
+      "category": "Estabilizadores",
+      "subcategory": "General",
+      "duration": "",
+      "name": "Estabilizadores",
+      "exercises": [
+        {
+          "id": "ex-estabilizadores-001",
+          "name": "Plancha abdominal",
+          "mediaType": "image",
+          "imageUrl": "/images/exercises/exercises-exteriores.jpg",
+          "locked": false,
+          "visible": true
+        }
+      ]
+    }
+  ],
+  "locked": false,
+  "showInfo": true,
+  "name": "Arma tu propia rutina",
+  "infoDescription": "Selecciona ejercicios de cada categoría y visualízalos como una historia",
+  "visible": true,
+  "imageUrl": "/uploads/press-de-banca-con-barra-de-agarre-cerrado.jpg",
+  "title": "Arma tu propia rutina",
+  "id": "category-003",
+  "showTitle": true,
+  "builder": true,
+  "description": "Elige tus ejercicios favoritos por categoría y arma tu rutina personalizada",
+  "category": "Rutinas",
+  "showDescription": true
 }
