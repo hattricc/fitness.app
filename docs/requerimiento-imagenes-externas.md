@@ -78,5 +78,5 @@ Las imágenes actuales en `public/images/` (placeholders) se pueden subir manual
 
 ## Estado
 
-- [ ] Pendiente de implementación
+- [ ] Pendiente de sprint
 - Prioridad: media — el repo funciona con imágenes en Git por ahora, pero escalar sin esto genera deuda técnica.

@@ -14,6 +14,7 @@ import AcercaDeMiPage from './pages/AcercaDeMiPage.tsx';
 import VideoPage from './pages/VideoPage.tsx';
 import RoutineBuilderPage from './pages/RoutineBuilderPage.tsx';
 import StoryViewerPage from './pages/StoryViewerPage.tsx';
+import TimerPage from './pages/TimerPage.tsx';
 import { useState } from 'react';
 import { getAllWorkouts } from '@/data/getWorkout.ts';
 import { Exercise, WorkoutRoutine } from '../types/exercise.ts';
@@ -101,6 +102,10 @@ export const createAppRoutes = (
         {
             path: "/video",
             element: <VideoPage />
+        },
+        {
+            path: "/timer",
+            element: <TimerPage />
         },
     ];
 };
