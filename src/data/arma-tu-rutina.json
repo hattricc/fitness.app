@@ -9,9 +9,9 @@
       "exercises": [
         {
           "id": "ex-empujes-001",
-          "name": "Empuje con barra en banca plana",
+          "name": "P-Emp01",
           "mediaType": "image",
-          "imageUrl": "/images/press-de-banca-con-barra-de-agarre-cerrado.jpg",
+          "imageUrl": "/images/sentadilla_guia.jpg",
           "locked": false,
           "visible": true
         }
@@ -96,7 +96,7 @@
   "id": "category-003",
   "showTitle": true,
   "builder": true,
-  "description": "Elige tus ejercicios favoritos por categoría y arma tu rutina personalizada",
+  "description": "Selecciona dos primarios [P-] dos secundarios [S-] dos complementos [C-] y dos estabilizadores [E-]",
   "category": "Rutinas",
   "showDescription": true
 }
