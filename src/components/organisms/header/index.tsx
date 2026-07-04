@@ -32,6 +32,7 @@ const routeConfig = {
   '/reset-password': { title: 'Restablecer Contraseña' },
   '/acerca-de-mi': { title: 'Acerca de mí' },
   '/subscription': { title: 'Suscripción' },
+  '/timer': { title: 'Temporizador' },
 };
 
 interface HeaderProps {

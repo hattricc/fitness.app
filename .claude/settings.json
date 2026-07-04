@@ -6,7 +6,8 @@
       "Bash(xargs grep -l \"CREATE TABLE.*payment\\\\|CREATE TABLE.*payment_event\")",
       "Bash(xargs grep -l \"CREATE TABLE.*payment\")",
       "Bash(xargs grep \"payment\")",
-      "Bash(git mv *)"
+      "Bash(git mv *)",
+      "Bash(npx tsc *)"
     ]
   }
 }

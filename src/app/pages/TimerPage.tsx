@@ -1,5 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {
+  Box,
+  Button,
+  Container,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { TimerConfig, TimerPhase, TimerStep } from '@/types/timer';
 import { useTimerAudio } from '@/hooks/useTimerAudio';
 import './TimerPage.css';
@@ -28,7 +35,7 @@ function fmtTime(s: number) {
   return String(m).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
 }
 
-// ── Mutable timer state (lives in a ref, not React state) ─────────────────────
+// ── Mutable timer state ───────────────────────────────────────────────────────
 
 interface MutableTimer {
   sequence: TimerStep[];
@@ -56,17 +63,25 @@ const NEXT_LABELS: Record<string, string> = {
   entre: 'Entre ejercicios',
 };
 
+const FIELDS = [
+  { id: 'prepTime',        label: 'Tiempo de preparación',  unit: 'seg', min: 1,  max: 60  },
+  { id: 'workTime',        label: 'Duración por ejercicio',  unit: 'seg', min: 5,  max: 300 },
+  { id: 'betweenTime',     label: 'Tiempo entre ejercicios', unit: 'seg', min: 0,  max: 60  },
+  { id: 'exercisesPerSet', label: 'Ejercicios por serie',    unit: '#',   min: 1,  max: 20  },
+  { id: 'sets',            label: 'Número de series',        unit: '#',   min: 1,  max: 20  },
+  { id: 'restTime',        label: 'Tiempo de descanso',      unit: 'seg', min: 5,  max: 600 },
+] as const;
+
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export default function TimerPage() {
-  const navigate = useNavigate();
   const audio = useTimerAudio();
 
   const [formCfg, setFormCfg] = useState<TimerConfig>(DEFAULT_CFG);
   const [screen, setScreen] = useState<'config' | 'timer'>('config');
   const [isDone, setIsDone] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [tick, setTick] = useState(0);
+  const [, setTick] = useState(0);
 
   const ms = useRef<MutableTimer>({
     sequence: [],
@@ -80,9 +95,6 @@ export default function TimerPage() {
   });
 
   const timerIdRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  // Use refs for startStep/startTick so they can call each other without
-  // stale closure issues — the interval always reads the latest version.
   const startStepRef = useRef<() => void>(() => {});
   const startTickRef = useRef<() => void>(() => {});
 
@@ -128,12 +140,11 @@ export default function TimerPage() {
     };
   }, []);
 
-  // ── Derived display values (recomputed each render triggered by tick) ──────
+  // ── Derived display values ────────────────────────────────────────────────
 
   const s = ms.current;
   const currentStep = s.sequence[s.stepIndex];
   const nextStep    = s.sequence[s.stepIndex + 1];
-
   const phase: TimerPhase = isDone ? 'done' : (currentStep?.type ?? 'prep');
   const pct = s.stepDuration > 0 ? (s.secondsLeft / s.stepDuration) * 100 : 0;
 
@@ -151,7 +162,6 @@ export default function TimerPage() {
       : (NEXT_LABELS[nextStep.type] ?? nextStep.label)
     : null;
 
-  // Work dots
   const workSteps = s.sequence.filter(st => st.type === 'work');
   let workDoneCount = 0;
   s.sequence.slice(0, s.stepIndex).forEach(st => { if (st.type === 'work') workDoneCount++; });
@@ -220,110 +230,126 @@ export default function TimerPage() {
   // ── Render ────────────────────────────────────────────────────────────────
 
   return (
-    <div className={`timer-root phase-${phase}`}>
+    <>
+      {/* ── Config screen — normal MUI page, below the app header ── */}
+      {screen === 'config' && (
+        <Container maxWidth="sm" sx={{ py: 3, pb: 6 }}>
+          <Typography variant="h5" fontWeight={900} gutterBottom color="text.secondary">
+            Temporizador de Entrenamiento
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 3, color: 'rgba(0,0,0,0.5)' }}>
+            Configura tu sesión y presiona comenzar
+          </Typography>
 
-      {/* ── Config screen ── */}
-      <section id="config-screen" className={`screen${screen === 'config' ? ' active' : ''}`}>
-        <div className="config-header">
-          <button
-            className="btn btn-back"
-            style={{ alignSelf: 'flex-start', marginBottom: '0.5rem' }}
-            onClick={() => navigate(-1)}
-          >
-            ← Volver
-          </button>
-          <h1>Temporizador de Entrenamiento</h1>
-          <p>Configura tu sesión y presiona comenzar</p>
-        </div>
-
-        <form className="config-form" onSubmit={e => { e.preventDefault(); handleStart(); }}>
-          {(
-            [
-              { id: 'prepTime',        label: 'Tiempo de preparación',  unit: 'seg', min: 1,  max: 60  },
-              { id: 'workTime',        label: 'Duración por ejercicio',  unit: 'seg', min: 5,  max: 300 },
-              { id: 'betweenTime',     label: 'Tiempo entre ejercicios', unit: 'seg', min: 0,  max: 60  },
-              { id: 'exercisesPerSet', label: 'Ejercicios por serie',    unit: '#',   min: 1,  max: 20  },
-              { id: 'sets',            label: 'Número de series',        unit: '#',   min: 1,  max: 20  },
-              { id: 'restTime',        label: 'Tiempo de descanso',      unit: 'seg', min: 5,  max: 600 },
-            ] as const
-          ).map(({ id, label, unit, min, max }) => (
-            <div className="field" key={id}>
-              <label htmlFor={id}>{label}</label>
-              <input
-                type="number"
-                id={id}
-                value={formCfg[id]}
-                min={min}
-                max={max}
-                onChange={e =>
-                  setFormCfg(prev => ({ ...prev, [id]: parseInt(e.target.value) || 0 }))
-                }
-              />
-              <span className="unit">{unit}</span>
-            </div>
-          ))}
-          <button className="btn-start" type="submit">COMENZAR</button>
-        </form>
-      </section>
-
-      {/* ── Timer screen ── */}
-      <section id="timer-screen" className={`screen${screen === 'timer' ? ' active' : ''}`}>
-        <div className="timer-topbar">
-          <button className="btn btn-back" onClick={handleBack}>← Configuración</button>
-          <span className="series-indicator">{seriesIndicator}</span>
-        </div>
-
-        <div className="timer-body">
-          <div className="timer-main">
-            <div className="countdown">{isDone ? '✓' : s.secondsLeft}</div>
-          </div>
-
-          <div className="timer-info">
-            <div className="phase-label">
-              {isDone ? '¡COMPLETADO!' : (currentStep?.label ?? '')}
-            </div>
-            <div className="phase-bar">
-              <div className="phase-bar-fill" style={{ width: `${pct}%` }} />
-            </div>
-            <div className="progress-dots">
-              {dots.map((cls, i) => (
-                <div key={i} className={`dot${cls ? ` ${cls}` : ''}`} />
-              ))}
-            </div>
-            <div className="next-phase">
-              {nextLabel && <>A continuación: <span>{nextLabel}</span></>}
-            </div>
-            <div className="controls">
-              <button
-                className={`btn ${isPaused ? 'btn-resume' : 'btn-pause'}`}
-                onClick={handlePause}
+          <Stack spacing={1.5} component="form" onSubmit={(e: React.FormEvent) => { e.preventDefault(); handleStart(); }}>
+            {FIELDS.map(({ id, label, unit, min, max }) => (
+              <Box
+                key={id}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 2,
+                  bgcolor: '#1B1B1B',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: 2,
+                  px: 2,
+                  py: 1.5,
+                }}
               >
-                {isPaused ? 'Reanudar' : 'Pausa'}
-              </button>
-              <button className="btn btn-reset" onClick={handleReset}>Reiniciar</button>
+                <Typography variant="body2" fontWeight={600} color="text.primary" sx={{ flex: 1 }}>
+                  {label}
+                </Typography>
+                <TextField
+                  type="number"
+                  value={formCfg[id]}
+                  size="small"
+                  inputProps={{ min, max }}
+                  onChange={e => setFormCfg(prev => ({ ...prev, [id]: parseInt(e.target.value) || 0 }))}
+                  sx={{
+                    width: 80,
+                    '& .MuiInputBase-input': { color: '#fff', textAlign: 'center' },
+                    '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.2)' },
+                  }}
+                />
+                <Typography variant="caption" sx={{ minWidth: 24, color: 'rgba(255,255,255,0.5)' }}>
+                  {unit}
+                </Typography>
+              </Box>
+            ))}
+
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              size="large"
+              sx={{ mt: 1, py: 1.5, fontWeight: 900, fontSize: '1.1rem', letterSpacing: '0.08em' }}
+            >
+              COMENZAR
+            </Button>
+          </Stack>
+        </Container>
+      )}
+
+      {/* ── Timer screen — fixed overlay above everything including the header ── */}
+      {screen === 'timer' && (
+        <div className={`timer-root phase-${phase}`}>
+          <div className="timer-topbar">
+            <button className="btn btn-back" onClick={handleBack}>← Configuración</button>
+            <span className="series-indicator">{seriesIndicator}</span>
+          </div>
+
+          <div className="timer-body">
+            <div className="timer-main">
+              <div className="countdown">{isDone ? '✓' : s.secondsLeft}</div>
+            </div>
+
+            <div className="timer-info">
+              <div className="phase-label">
+                {isDone ? '¡COMPLETADO!' : (currentStep?.label ?? '')}
+              </div>
+              <div className="phase-bar">
+                <div className="phase-bar-fill" style={{ width: `${pct}%` }} />
+              </div>
+              <div className="progress-dots">
+                {dots.map((cls, i) => (
+                  <div key={i} className={`dot${cls ? ` ${cls}` : ''}`} />
+                ))}
+              </div>
+              <div className="next-phase">
+                {nextLabel && <>A continuación: <span>{nextLabel}</span></>}
+              </div>
+              <div className="controls">
+                <button
+                  className={`btn ${isPaused ? 'btn-resume' : 'btn-pause'}`}
+                  onClick={handlePause}
+                >
+                  {isPaused ? 'Reanudar' : 'Pausa'}
+                </button>
+                <button className="btn btn-reset" onClick={handleReset}>Reiniciar</button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="time-totals">
-          <span>Transcurrido: <span className="time-value">{fmtTime(s.elapsedSeconds)}</span></span>
-          <span>Faltante: <span className="time-value">{fmtTime(Math.max(0, s.totalDuration - s.elapsedSeconds))}</span></span>
-        </div>
-
-        {isDone && (
-          <div className="done-overlay visible">
-            <div className="done-title">¡Completado!</div>
-            <div className="done-sub">Entrenamiento finalizado</div>
-            <button
-              className="btn btn-resume"
-              style={{ flex: 'none', padding: '1rem 2rem', fontSize: '1rem' }}
-              onClick={handleDoneBack}
-            >
-              Volver al inicio
-            </button>
+          <div className="time-totals">
+            <span>Transcurrido: <span className="time-value">{fmtTime(s.elapsedSeconds)}</span></span>
+            <span>Faltante: <span className="time-value">{fmtTime(Math.max(0, s.totalDuration - s.elapsedSeconds))}</span></span>
           </div>
-        )}
-      </section>
-    </div>
+
+          {isDone && (
+            <div className="done-overlay visible">
+              <div className="done-title">¡Completado!</div>
+              <div className="done-sub">Entrenamiento finalizado</div>
+              <button
+                className="btn btn-resume"
+                style={{ flex: 'none', padding: '1rem 2rem', fontSize: '1rem' }}
+                onClick={handleDoneBack}
+              >
+                Volver al inicio
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+    </>
   );
 }

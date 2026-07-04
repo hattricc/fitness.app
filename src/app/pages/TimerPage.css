@@ -1,4 +1,4 @@
-/* ── Timer root — replaces html/body scope from the original styles.css ── */
+/* ── Timer full-screen overlay ── */
 .timer-root {
   --timer-bg:      #0a0a0a;
   --timer-surface: #141414;
@@ -9,11 +9,13 @@
   --timer-orange:  #ff8800;
   --timer-text:    #f0f0f0;
   --timer-muted:   #666;
-  --timer-radius:  12px;
 
   position: fixed;
   inset: 0;
-  z-index: 50;
+  /* above MUI AppBar (1200) and Drawer (1200) */
+  z-index: 1300;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   background: var(--timer-bg);
   color: var(--timer-text);
@@ -23,125 +25,23 @@
   touch-action: manipulation;
 }
 
-/* ── SCREENS ─────────────────────────────────────── */
-.timer-root .screen { display: none; height: 100dvh; overflow-y: auto; }
-.timer-root .screen.active { display: flex; flex-direction: column; }
-
-/* ── CONFIG SCREEN ───────────────────────────────── */
-.timer-root #config-screen {
-  align-items: center;
-  justify-content: flex-start;
-  padding: 3.5rem 1.2rem 3rem;
-  gap: 0;
-}
-
-.timer-root .config-header {
-  text-align: center;
-  margin-bottom: 2rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.timer-root .config-header h1 {
-  font-size: clamp(1.4rem, 5vw, 2rem);
-  font-weight: 900;
-  color: var(--timer-green);
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-}
-
-.timer-root .config-header p {
-  color: var(--timer-muted);
-  font-size: 0.85rem;
-}
-
-.timer-root .config-form {
-  width: 100%;
-  max-width: 480px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.timer-root .field {
-  background: var(--timer-surface);
-  border: 1px solid var(--timer-border);
-  border-radius: var(--timer-radius);
-  padding: 1rem 1.2rem;
+/* ── Top bar ─────────────────────────────────────── */
+.timer-root .timer-topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  padding: 0.8rem 1.2rem 0;
+  flex-shrink: 0;
 }
 
-.timer-root .field label {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--timer-text);
-  flex: 1;
-}
-
-.timer-root .field input {
-  background: #1e1e1e;
-  border: 1px solid #333;
-  border-radius: 8px;
-  color: var(--timer-green);
-  font-size: 1.4rem;
-  font-weight: 800;
-  width: 5rem;
-  text-align: center;
-  padding: 0.4rem 0.2rem;
-  -moz-appearance: textfield;
-}
-
-.timer-root .field input::-webkit-outer-spin-button,
-.timer-root .field input::-webkit-inner-spin-button { -webkit-appearance: none; }
-
-.timer-root .field input:focus {
-  outline: none;
-  border-color: var(--timer-green);
-  box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.15);
-}
-
-.timer-root .field .unit {
-  font-size: 0.75rem;
+.timer-root .series-indicator {
+  font-size: 0.85rem;
   color: var(--timer-muted);
-  min-width: 2rem;
+  font-weight: 600;
 }
 
-.timer-root .btn-start {
-  margin-top: 1.5rem;
-  width: 100%;
-  max-width: 480px;
-  background: var(--timer-green);
-  color: #000;
-  border: none;
-  border-radius: var(--timer-radius);
-  font-size: 1.3rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 1.1rem;
-  cursor: pointer;
-  transition: transform 0.1s, opacity 0.1s;
-}
-
-.timer-root .btn-start:active { transform: scale(0.97); opacity: 0.9; }
-
-/* ── TIMER SCREEN ────────────────────────────────── */
-.timer-root #timer-screen {
-  position: relative;
-  overflow: hidden;
-}
-
+/* ── Body ─────────────────────────────────────────── */
 @media (orientation: portrait) {
-  .timer-root #timer-screen {
-    flex-direction: column;
-    justify-content: flex-start;
-  }
   .timer-root .timer-body {
     flex: 1;
     display: flex;
@@ -161,10 +61,6 @@
 }
 
 @media (orientation: landscape) {
-  .timer-root #timer-screen {
-    flex-direction: column;
-    justify-content: flex-start;
-  }
   .timer-root .timer-body {
     flex: 1;
     display: flex;
@@ -189,7 +85,7 @@
   }
 }
 
-/* Countdown digit */
+/* ── Countdown ────────────────────────────────────── */
 .timer-root .countdown {
   font-size: min(42vw, 42vh);
   font-weight: 900;
@@ -217,7 +113,7 @@
 .timer-root.phase-rest  .phase-bar-fill { background: var(--timer-blue);   }
 .timer-root.phase-entre .phase-bar-fill { background: var(--timer-orange); }
 
-/* Phase label */
+/* ── Phase label ──────────────────────────────────── */
 .timer-root .phase-label {
   font-size: clamp(1rem, 3.5vw, 1.5rem);
   font-weight: 800;
@@ -227,7 +123,7 @@
   color: var(--timer-text);
 }
 
-/* Progress bar */
+/* ── Progress bar ─────────────────────────────────── */
 .timer-root .phase-bar {
   height: 6px;
   background: #222;
@@ -242,7 +138,7 @@
   transition: width 0.9s linear, background 0.3s;
 }
 
-/* Progress dots */
+/* ── Dots ─────────────────────────────────────────── */
 .timer-root .progress-dots {
   display: flex;
   gap: 6px;
@@ -261,7 +157,7 @@
 .timer-root .dot.done   { background: var(--timer-green); }
 .timer-root .dot.active { background: var(--timer-green); box-shadow: 0 0 6px var(--timer-green); }
 
-/* Next phase */
+/* ── Next phase ───────────────────────────────────── */
 .timer-root .next-phase {
   font-size: 0.8rem;
   color: var(--timer-muted);
@@ -270,7 +166,7 @@
 
 .timer-root .next-phase span { color: var(--timer-text); font-weight: 600; }
 
-/* Controls */
+/* ── Controls ─────────────────────────────────────── */
 .timer-root .controls {
   display: flex;
   gap: 0.6rem;
@@ -305,21 +201,7 @@
   padding: 0.75rem 1rem;
 }
 
-/* Top bar */
-.timer-root .timer-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.8rem 1.2rem 0;
-}
-
-.timer-root .series-indicator {
-  font-size: 0.85rem;
-  color: var(--timer-muted);
-  font-weight: 600;
-}
-
-/* Total time bar */
+/* ── Time totals bar ──────────────────────────────── */
 .timer-root .time-totals {
   display: flex;
   justify-content: space-between;
@@ -338,7 +220,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Done overlay */
+/* ── Done overlay ─────────────────────────────────── */
 .timer-root .done-overlay {
   display: none;
   position: absolute;
