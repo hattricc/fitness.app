@@ -8,12 +8,15 @@
       "name": "Empujes (Primarios y secundarios)",
       "exercises": [
         {
-          "id": "ex-empujes-001",
-          "name": "P-Emp01",
-          "mediaType": "image",
-          "imageUrl": "/images/file_00000000e154720eb816cec4cf440e33.png",
+          "repetitions": "8 a 12 repeticiones",
           "locked": false,
-          "visible": true
+          "name": "P-Emp01",
+          "sets": "4 series",
+          "visible": true,
+          "imageUrl": "/images/file_00000000e154720eb816cec4cf440e33.png",
+          "rest": "60 seg",
+          "id": "ex-empujes-001",
+          "mediaType": "image"
         },
         {
           "visible": true,
@@ -22,6 +25,30 @@
           "id": "Ex-emp002",
           "name": "P-Emp02",
           "imageUrl": "/images/file_0000000047fc720eb9ecdeea0dc17ffe.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-empujes003",
+          "name": "P-Emp03",
+          "imageUrl": "/images/file_0000000094d4720eb5bc3015c31abe13.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-empujes004",
+          "name": "P-Emp04",
+          "imageUrl": "/images/file_000000000a98720eb316fbcd8aa8971f.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-empujes005",
+          "name": "P-Emp05",
+          "imageUrl": "/images/file_0000000053dc720e96cacca73f69a86b.png"
         }
       ]
     },
