@@ -11,9 +11,17 @@
           "id": "ex-empujes-001",
           "name": "P-Emp01",
           "mediaType": "image",
-          "imageUrl": "/images/sentadilla_guia.jpg",
+          "imageUrl": "/images/file_00000000e154720eb816cec4cf440e33.png",
           "locked": false,
           "visible": true
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-emp002",
+          "name": "P-Emp02",
+          "imageUrl": "/images/file_0000000047fc720eb9ecdeea0dc17ffe.png"
         }
       ]
     },
