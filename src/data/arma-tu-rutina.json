@@ -8,13 +8,13 @@
       "name": "Empujes (Primarios y secundarios)",
       "exercises": [
         {
-          "repetitions": "8 a 12 repeticiones",
+          "repetitions": "",
           "locked": false,
-          "name": "P-Emp01",
-          "sets": "4 series",
+          "name": "[P-]Emp01",
+          "sets": "",
           "visible": true,
           "imageUrl": "/images/file_00000000e154720eb816cec4cf440e33.png",
-          "rest": "60 seg",
+          "rest": "",
           "id": "ex-empujes-001",
           "mediaType": "image"
         },
@@ -23,7 +23,7 @@
           "locked": false,
           "mediaType": "image",
           "id": "Ex-emp002",
-          "name": "P-Emp02",
+          "name": "[P-]Emp02",
           "imageUrl": "/images/file_0000000047fc720eb9ecdeea0dc17ffe.png"
         },
         {
@@ -31,7 +31,7 @@
           "locked": false,
           "mediaType": "image",
           "id": "Ex-empujes003",
-          "name": "P-Emp03",
+          "name": "[P-]Emp03",
           "imageUrl": "/images/file_0000000094d4720eb5bc3015c31abe13.png"
         },
         {
@@ -39,7 +39,7 @@
           "locked": false,
           "mediaType": "image",
           "id": "Ex-empujes004",
-          "name": "P-Emp04",
+          "name": "[P-]Emp04",
           "imageUrl": "/images/file_000000000a98720eb316fbcd8aa8971f.png"
         },
         {
@@ -47,8 +47,96 @@
           "locked": false,
           "mediaType": "image",
           "id": "Ex-empujes005",
-          "name": "P-Emp05",
+          "name": "[P-]Emp05",
           "imageUrl": "/images/file_0000000053dc720e96cacca73f69a86b.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-empujes006",
+          "name": "[P-]Emp06",
+          "imageUrl": "/images/file_000000008da471f59438295ef11987c6.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-empujes007",
+          "name": "[P-]Emp07",
+          "imageUrl": "/images/file_0000000001bc71f585cde67301125dfd.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-empujes008",
+          "name": "[P-]Emp08",
+          "imageUrl": "/images/file_000000002880720e9fedc38d5959987a.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-empujes009",
+          "name": "[P-]Emp09",
+          "imageUrl": "/images/file_000000003f18720ea36343c29a7298a0.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-empujes010",
+          "name": "[S-]Emp10",
+          "imageUrl": "/images/file_00000000fd48720e8312c3d2d793679c.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-empujes011",
+          "name": "[S-]Emp11",
+          "imageUrl": "/images/file_00000000ade871f598bef6077fd13e05.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-empujes12",
+          "name": "[S-]Emp12",
+          "imageUrl": "/images/20260602_163732_0000.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-empujes13",
+          "name": "[S-]Emp13",
+          "imageUrl": "/images/file_00000000dd5871f5af97fa46715e7ecd.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-empujes14",
+          "name": "[S-]Emp14",
+          "imageUrl": "/images/file_000000004dfc720e86917f967ba25cbe.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-empujes15",
+          "name": "[S-]Emp15",
+          "imageUrl": "/images/file_000000007ac4720ea0c21db45c578b5e.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-empujes16",
+          "name": "[S-]Emp16",
+          "imageUrl": "/images/file_000000009788720ebb04fc0d4146c87b.png"
         }
       ]
     },
