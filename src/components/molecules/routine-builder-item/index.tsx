@@ -20,7 +20,7 @@ const RoutineBuilderItem: React.FC<RoutineBuilderItemProps> = ({ exercise, isSel
           component="img"
           src={exercise.imageUrl}
           alt={exercise.name}
-          sx={{ width: 60, height: 60, borderRadius: 3, objectFit: 'cover' }}
+          sx={{ width: 60, height: 60, borderRadius: 3, objectFit: 'cover', mr: 2 }}
         />
       )}
 
