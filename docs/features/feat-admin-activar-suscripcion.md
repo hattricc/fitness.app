@@ -1,0 +1,4 @@
+- En el administrador, que haya la posibilidad de registrar a los estudiantes, por lo tanto, los estudiantes deben leerse de supabase y poderse mostrar en Admin Netlify DeCap para poder editar sus datos personales.
+- En estos estudiantes, tener la funcionalidad de poder activar o desactivar su suscripción y poder cambiar de suscripción.
+- Poder mandarles mensajes a los estudiantes desde acá, los manda a WhatsApp si se guardó el número de teléfono.
+- También tener otro botón de recordatorio de que su suscripción está por vencerse
