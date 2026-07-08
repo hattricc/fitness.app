@@ -97,9 +97,21 @@ const Home: React.FC<HomeProps> = ({
   }
 
   const courses = coursesData as unknown as ExerciseRoutine[];
+  const timerCardData: ExerciseRoutine = {
+    id: 'timer-card',
+    name: 'Temporizador',
+    title: 'Temporizador',
+    imageUrl: '',
+    category: 'Herramientas',
+    urlPage: '/timer',
+    showTitle: true,
+    showDescription: false,
+  };
+
   const links = [
     ...(linksData as unknown as ExerciseRoutine[]).filter((item: any) => item.visible !== false),
     ...(armaRutinaData as any).visible !== false ? [armaRutinaData as unknown as ExerciseRoutine] : [],
+    timerCardData,
   ];
 
 
