@@ -145,15 +145,55 @@
       "category": "Jalones",
       "subcategory": "General",
       "duration": "",
-      "name": "Jalones",
+      "name": "Jalones (Primarios y secundarios)",
       "exercises": [
         {
           "id": "ex-jalones-001",
-          "name": "Jalón vertical con cable",
+          "name": "[P-]Jal01",
           "mediaType": "image",
-          "imageUrl": "/images/exercises/exercises-exteriores.jpg",
+          "imageUrl": "/images/img-20260514-wa0005.jpg",
           "locked": false,
           "visible": true
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-jalones002",
+          "name": "[P-]Jal02",
+          "imageUrl": "/images/file_000000000b8c720e97696f23a809b000.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-jalones003",
+          "name": "[P-]Jal03",
+          "imageUrl": "/images/file_0000000011e4720ebbe09e6ac3d3116a.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-jalones004",
+          "name": "[P-]Jal04",
+          "imageUrl": "/images/file_00000000717871f993116b6715e4c98a.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-jalones005",
+          "name": "[P-]Jal05",
+          "imageUrl": "/images/img-20260514-wa0006.jpg"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-jalones006",
+          "name": "[P-]Jal06",
+          "imageUrl": "/images/file_000000005d6071f99e41797581e3ab94.png"
         }
       ]
     },
