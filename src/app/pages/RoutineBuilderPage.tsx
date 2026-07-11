@@ -183,7 +183,6 @@ const RoutineBuilderPage: React.FC<RoutineBuilderPageProps> = ({ setOpenModal })
       )}
 
       <Box sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, p: 2, bgcolor: '#1B1B1B', boxShadow: 4 }}>
-        {/* Guardar inline — oculto temporalmente
         {showSaveInput && (
           <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
             <TextField
@@ -211,7 +210,6 @@ const RoutineBuilderPage: React.FC<RoutineBuilderPageProps> = ({ setOpenModal })
             </Button>
           </Stack>
         )}
-        */}
         <Stack direction="row" spacing={1}>
           <Button
             variant="contained"
@@ -222,7 +220,6 @@ const RoutineBuilderPage: React.FC<RoutineBuilderPageProps> = ({ setOpenModal })
           >
             Comenzar ({selectedList.length} seleccionados)
           </Button>
-          {/* Guardar / Compartir — ocultos temporalmente
           <IconButton
             disabled={selectedList.length === 0}
             onClick={() => setShowSaveInput((s) => !s)}
@@ -237,7 +234,6 @@ const RoutineBuilderPage: React.FC<RoutineBuilderPageProps> = ({ setOpenModal })
           >
             <Share />
           </IconButton>
-          */}
         </Stack>
       </Box>
     </Container>
