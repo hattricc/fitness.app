@@ -10,7 +10,7 @@
 | Video de bienvenida editable | El administrador puede cambiar el video y texto de "Empieza aquí" del home sin tocar código | 2026-06-09 | 2026-06-09 | Bajo | Todavía |
 | Arma tu propia rutina | Nueva sección donde el usuario elige sus ejercicios favoritos por categoría y los ve como si fueran historias de Instagram | 2026-06-30 | 2026-07-06 | Alto | Todavía |
 | Temporizador de intervalos | Cronómetro configurable para entrenar por tiempos (trabajo/descanso), funciona como app instalable | 2026-07-03 | 2026-07-03 | Medio | Todavía |
-| Compartir y guardar rutinas | El usuario puede guardar sus rutinas armadas y compartirlas por link con otra persona | 2026-07-08 | 2026-07-08 | Medio | Todavía |
+| Compartir y guardar rutinas | El usuario puede guardar sus rutinas armadas y compartirlas por link con otra persona | 2026-07-08 | 2026-07-11 | Medio | Todavía |
 
 ---
 

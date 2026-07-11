@@ -7,7 +7,7 @@ También se aprovecha este feature para ajustar el botón comenzar:
 ---
 
 ## Estado
-- [x] Implementado — pendiente probar en navegador (tsc --noEmit ok)
+- [x] Implementado y activo en producción — botones Guardar/Compartir visibles en la bottom bar, lista "Rutinas guardadas" visible (2026-07-11)
 
 ## Plan
 

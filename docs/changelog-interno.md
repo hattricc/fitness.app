@@ -4,6 +4,18 @@
 
 ---
 
+## 2026-07-11 — Compartir/Guardar rutina reactivado + query de pagos manuales
+
+### Feature "Compartir y guardar rutinas" (docs/done/feat-share-routine.md)
+- Botones "Guardar" y "Compartir" de la bottom bar de `RoutineBuilderPage.tsx` estuvieron ocultos (comentados) temporalmente por pedido del cliente — reactivados hoy
+- Lista "Rutinas guardadas": fix de contraste — el texto salía blanco sobre blanco porque el `sx` del wrapper de `ListItemText` no sobreescribe el color del `Typography` interno (el tema ya fija `color` explícito en la variant `body1`). Solución: `slotProps={{ primary: { sx: { color: '#1B1B1B' } } }}` (API de MUI v7)
+- Accordeones de categorías ahora abren automáticamente si el link compartido trae ejercicios seleccionados de ese módulo
+
+### Base de datos
+- `claude/db/07_list_users_payment_status.sql` — nuevo script: lista usuarios con nombre, correo, plan y estado de pago (`payments.status`). Incluye fallback para suscripciones confirmadas manualmente (sin fila en `payments`) vía `LEFT JOIN LATERAL` a `subscriptions`, con columna `observacion` para anotar esos casos a mano
+
+---
+
 ## 2026-05-30 — Base de datos completada y tests verificados
 
 ### Ejecutado en Supabase
