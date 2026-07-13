@@ -194,6 +194,70 @@
           "id": "Ex-jalones006",
           "name": "[P-]Jal06",
           "imageUrl": "/images/file_000000005d6071f99e41797581e3ab94.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-jalones007",
+          "name": "[P-]Jal07",
+          "imageUrl": "/images/file_000000007074720eb7ea55dd2dc59f2c.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-jalones008",
+          "name": "[P-]Jal08",
+          "imageUrl": "/images/file_00000000bbcc720e9425eab1bf5c10a6.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-jalones009",
+          "name": "[P-]Jal09",
+          "imageUrl": "/images/file_00000000f0c471f5bf3b1d0f57be3b0d.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-jalones010",
+          "name": "[S-]Jal10",
+          "imageUrl": "/images/file_000000002e9471f5ad02b613558415e4.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-jalones011",
+          "name": "[S-]Jal11",
+          "imageUrl": "/images/file_00000000048071f5bf61509bdaa6952b.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-jalones12",
+          "name": "[S-]Jal12",
+          "imageUrl": "/images/file_000000009ae471f5b38761df8d773feb.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-jalones013",
+          "name": "[S-]Jal13",
+          "imageUrl": "/images/img-20260207-wa0007-2-.jpg"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "Ex-jalones014",
+          "name": "[S-]Jal14",
+          "imageUrl": "/images/file_0000000030b4720eb532544e5d164226.png"
         }
       ]
     },
