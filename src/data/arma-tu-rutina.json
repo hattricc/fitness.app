@@ -272,9 +272,121 @@
           "id": "ex-piernas-001",
           "name": "[P-]Leg01",
           "mediaType": "image",
-          "imageUrl": "/images/20260602_163732_0000.png",
+          "imageUrl": "/images/file_00000000ed88720e94a16d2dfae2cfd4.png",
           "locked": false,
           "visible": true
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-piernas-002",
+          "name": "[P-]Leg02",
+          "imageUrl": "/images/20260207_190139_0000.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-piernas-003",
+          "name": "[P-]Leg03",
+          "imageUrl": "/images/20260207_190727_0000.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-piernas-004",
+          "name": "[P-]Leg04",
+          "imageUrl": "/images/file_00000000162c820ea7c666103807d6e3.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-piernas-005",
+          "name": "[P-]Leg05",
+          "imageUrl": "/images/file_000000003498820eae1b5ed9ae1797a6.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-piernas-006",
+          "name": "[P-]Leg06",
+          "imageUrl": "/images/file_000000003cf8820ea6f3afa4529bd156.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-piernas-007",
+          "name": "[P-]Leg07",
+          "imageUrl": "/images/file_00000000909071f59bf0174dc328d80f.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-piernas-008",
+          "name": "[P-]Leg08",
+          "imageUrl": "/images/file_00000000efb0820e8731b7725a4c7a37.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-piernas-009",
+          "name": "[P-]Leg09",
+          "imageUrl": "/images/file_00000000f42071f5a324d62c9d385c13.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-piernas-010",
+          "name": "[S-]Leg10",
+          "imageUrl": "/images/file_00000000a35071f5b28a7a4c37ba1b3a.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-piernas-011",
+          "name": "[S-]Leg11",
+          "imageUrl": "/images/file_00000000fd7c720ea463efcc20340e68.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-piernas-012",
+          "name": "[S-]Leg12",
+          "imageUrl": "/images/file_000000000e14720eaf6362e5451fceb3.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-piernas-013",
+          "name": "[S-]Leg13",
+          "imageUrl": "/images/file_000000005240820ebaf1af8957de28d4.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-piernas-014",
+          "name": "[S-]Leg14",
+          "imageUrl": "/images/file_000000008638820e8b7087543fff65c8.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-piernas-015",
+          "name": "[S-]Leg15",
+          "imageUrl": "/images/file_000000001230820eb8fe33e0f5600b9d.png"
         }
       ]
     },
