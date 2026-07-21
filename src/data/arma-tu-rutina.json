@@ -266,13 +266,13 @@
       "category": "Piernas",
       "subcategory": "General",
       "duration": "",
-      "name": "Piernas",
+      "name": "Piernas (Primarios y secundarios)",
       "exercises": [
         {
           "id": "ex-piernas-001",
-          "name": "Sentadilla en barra guiada",
+          "name": "[P-]Leg01",
           "mediaType": "image",
-          "imageUrl": "/images/sentadilla_guia.jpg",
+          "imageUrl": "/images/20260602_163732_0000.png",
           "locked": false,
           "visible": true
         }
