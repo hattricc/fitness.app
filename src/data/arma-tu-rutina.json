@@ -496,11 +496,83 @@
       "exercises": [
         {
           "id": "ex-estabilizadores-001",
-          "name": "Plancha abdominal",
+          "name": "Est01",
           "mediaType": "image",
-          "imageUrl": "/images/file_000000008638820e8b7087543fff65c8.png",
+          "imageUrl": "/images/file_000000000f3c820e83c3f0e44a538b06.png",
           "locked": false,
           "visible": true
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-estabilizadores-002",
+          "name": "Est02",
+          "imageUrl": "/images/file_00000000664c820eb9c04b3ac90b6863.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-estabilizadores-003",
+          "name": "Est03",
+          "imageUrl": "/images/file_000000001e28820e936755e4bab0acc7.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-estabilizadores-004",
+          "name": "Est04",
+          "imageUrl": "/images/file_0000000025b0820e88dcedd6aa4e5a63.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-estabilizadores-005",
+          "name": "Est05",
+          "imageUrl": "/images/file_000000007038820e9a754936e45a719f.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-estabilizadores-006",
+          "name": "Est06",
+          "imageUrl": "/images/file_00000000f9dc820e8e0305d25b35be7d.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-estabilizadores-007",
+          "name": "Est07",
+          "imageUrl": "/images/file_0000000087f0820eb46455c45c9cf13c.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-estabilizadores-008",
+          "name": "Est08",
+          "imageUrl": "/images/file_00000000cb30820ea7386144bbf60ce5.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-estabilizadores-009",
+          "name": "Est09",
+          "imageUrl": "/images/file_00000000def8820ebc0c961f8f00f72e.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-estabilizadores-010",
+          "name": "Est10",
+          "imageUrl": "/images/file_00000000e3e4820ea0903473c5580b0f.png"
         }
       ]
     }
