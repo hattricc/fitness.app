@@ -399,11 +399,91 @@
       "exercises": [
         {
           "id": "ex-complementos-001",
-          "name": "Curl de bíceps con mancuernas",
+          "name": "Comp01",
           "mediaType": "image",
-          "imageUrl": "/images/exercises/exercises-exteriores.jpg",
+          "imageUrl": "/images/file_0000000026d8820e8b3cbe0fa56a6854.png",
           "locked": false,
           "visible": true
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-complementos-002",
+          "name": "Comp02",
+          "imageUrl": "/images/file_00000000cbd8820e91fdeb7a82c0e8e1.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-complementos-003",
+          "name": "Comp03",
+          "imageUrl": "/images/file_00000000d6e8820ebf6e74f344374433.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-complementos-004",
+          "name": "Comp04",
+          "imageUrl": "/images/file_000000004b04820eb1679aea22b87a9c.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-complementos-005",
+          "name": "Comp05",
+          "imageUrl": "/images/file_00000000c45c820ebc18a3a7c44b5d2f.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-complementos-006",
+          "name": "Comp06",
+          "imageUrl": "/images/file_00000000921c820ebc48c304fdaa5cea.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-complementos-007",
+          "name": "Comp07",
+          "imageUrl": "/images/file_0000000083f8720eb325228b5259c689.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-complementos-008",
+          "name": "Comp08",
+          "imageUrl": "/images/file_00000000b460820eb03c44385b1e3f7f.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-complementos-009",
+          "name": "Comp09",
+          "imageUrl": "/images/file_00000000e488720e8151d165dabb3098.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-complementos-010",
+          "name": "Comp10",
+          "imageUrl": "/images/file_000000006d04820e866b97590fd0acc3.png"
+        },
+        {
+          "visible": true,
+          "locked": false,
+          "mediaType": "image",
+          "id": "ex-complementos-011",
+          "name": "Comp11",
+          "imageUrl": "/images/file_00000000a898720eb029ce4d8569d79e.png"
         }
       ]
     },
