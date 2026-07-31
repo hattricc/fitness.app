@@ -5,62 +5,54 @@
         {
           "visible": true,
           "id": "HibridInicio",
-          "name": "Entrenamiento Híbrido",
+          "name": "Reto de la semana",
           "exercises": [
             {
               "visible": true,
               "locked": true,
               "id": "HibIntroTut",
-              "name": "Iniciar aquí ",
-              "url": "https://youtu.be/2qbNLMAKcOI?si=LppvwuLqVY3ilzCV",
-              "duration": "5:08"
-            },
-            {
-              "visible": true,
-              "locked": true,
-              "id": "Hibpierna",
-              "name": "Sesión de piernas",
-              "url": "https://youtu.be/_y8DjGi_8hg?si=J7pK2MdMh5NSuZcd",
-              "duration": "10:12"
-            },
-            {
-              "visible": true,
-              "locked": true,
-              "id": "Hibpush",
-              "name": "Sesión de empuje",
-              "url": "https://youtu.be/W5eI_lnA6YE?si=2x3yfFis5fHBJRQW",
-              "duration": "10:16"
-            },
-            {
-              "visible": true,
-              "locked": true,
-              "id": "Hibjalon",
-              "name": "Sesión de jalones ",
-              "url": "https://youtu.be/qhwQLR0BDc8?si=DkcuzUtllu9JaUk3",
-              "duration": "10:15"
+              "name": "27 de julio",
+              "url": "https://www.youtube.com/watch?v=WfmBfVjUUfA",
+              "duration": "3:45"
             }
           ]
         },
         {
           "visible": true,
           "id": "CC01",
-          "name": "Cursos cortos",
+          "name": "Patrones básicos de desplazamiento",
           "exercises": [
             {
               "visible": true,
               "locked": true,
               "id": "Sent",
-              "name": "Sentarse en el piso y volver a pararse",
-              "url": "https://www.youtube.com/live/XwqxDOL1RI4?si=lXdzOd1QApw4pQZL",
-              "duration": "20:05"
+              "name": "Triángulo",
+              "url": "https://www.youtube.com/shorts/M7ibgBtMypk",
+              "duration": "2:46"
             },
             {
               "visible": true,
               "locked": true,
               "id": "Jal",
-              "name": "Lección básica sobre jalones",
-              "url": "https://www.youtube.com/live/bBzOhz5iY-4?si=rPdV4ZYz8BcwLeue",
-              "duration": "18:19"
+              "name": "Patrón cruzado ",
+              "url": "https://www.youtube.com/shorts/fc9pzcFAF6g",
+              "duration": "2:29"
+            },
+            {
+              "visible": true,
+              "locked": true,
+              "id": "Cuadruped001",
+              "name": "Cuadrupedia",
+              "url": "https://www.youtube.com/watch?v=2ol4sexVVo8",
+              "duration": "8:40"
+            },
+            {
+              "visible": true,
+              "locked": true,
+              "id": "Lateraliz001",
+              "name": "Lateralizaciones",
+              "url": "https://www.youtube.com/watch?v=cKuZBOFlvxg",
+              "duration": "6:37"
             }
           ]
         }
@@ -336,6 +328,45 @@
               "locked": true
             }
           ]
+        },
+        {
+          "visible": true,
+          "id": "Dmad06",
+          "name": "Entrenamiento híbrido",
+          "exercises": [
+            {
+              "visible": true,
+              "locked": true,
+              "id": "Hibrid001",
+              "name": "Iniciar aquí",
+              "url": "https://youtu.be/2qbNLMAKcOI?si=LppvwuLqVY3ilzCV",
+              "duration": "5:08"
+            },
+            {
+              "visible": true,
+              "locked": true,
+              "id": "Hibrid002",
+              "name": "Sesión de piernas",
+              "url": "https://youtu.be/_y8DjGi_8hg?si=J7pK2MdMh5NSuZcd",
+              "duration": "10:12"
+            },
+            {
+              "visible": true,
+              "locked": true,
+              "id": "Hibrid003",
+              "name": "Sesión de empuje",
+              "url": "https://youtu.be/W5eI_lnA6YE?si=2x3yfFis5fHBJRQW",
+              "duration": "10:16"
+            },
+            {
+              "visible": true,
+              "locked": true,
+              "id": "Hibrid004",
+              "name": "Sesión de jalones",
+              "url": "https://youtu.be/qhwQLR0BDc8?si=DkcuzUtllu9JaUk3",
+              "duration": "10:15"
+            }
+          ]
         }
       ],
       "locked": true,
@@ -465,6 +496,22 @@
               "url": "https://www.youtube.com/shorts/-KLRlSRjiUo",
               "duration": "00:59",
               "locked": true
+            },
+            {
+              "visible": true,
+              "locked": true,
+              "id": "Sentarsepararse",
+              "name": "Sentarse en el piso y volver a pararse",
+              "url": "https://www.youtube.com/live/XwqxDOL1RI4?si=lXdzOd1QApw4pQZL",
+              "duration": "20:05"
+            },
+            {
+              "visible": true,
+              "locked": true,
+              "id": "Jalonesleccion",
+              "name": "Lección básica sobre jalones",
+              "duration": "18:19",
+              "url": "https://www.youtube.com/live/bBzOhz5iY-4?si=rPdV4ZYz8BcwLeue"
             }
           ]
         }
