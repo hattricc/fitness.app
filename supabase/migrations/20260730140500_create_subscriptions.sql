@@ -1,0 +1,8 @@
+-- ⚠️  NO-OP — la tabla public.subscriptions ya existía en producción desde 2026-05-30
+-- con un schema distinto y mejor (product_id → products, status enum, current_period_end).
+-- El CREATE TABLE IF NOT EXISTS original de este archivo no hizo nada (la tabla ya existía),
+-- así que se deja vacío para no confundir el historial de migraciones.
+--
+-- Ver claude/db/01_verify_existing_schema.sql y docs/changelog-interno.md (entrada
+-- "2026-05-30 — Scripts de base de datos: v1 → v2") para el schema real y su historia.
+-- admin-list-students (supabase/functions/admin-list-students/index.ts) usa ese schema real.

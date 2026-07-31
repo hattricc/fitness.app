@@ -9,7 +9,9 @@
       "Bash(git mv *)",
       "Bash(npx tsc *)",
       "Bash(npm run *)",
-      "Bash(curl -s http://localhost:3000/src/app/Routes.tsx)"
+      "Bash(curl -s http://localhost:3000/src/app/Routes.tsx)",
+      "Bash(pnpm test *)",
+      "Bash(pnpm run *)"
     ]
   }
 }

@@ -15,7 +15,7 @@ type AuthContextType = {
   subscriptionLoading: boolean;
   refreshSubscription: () => Promise<void>;
   signInWithEmail: (email: string, password: string) => Promise<void>;
-  signUpWithEmail: (email: string, password: string) => Promise<void>;
+  signUpWithEmail: (email: string, password: string, metadata?: { full_name?: string; phone?: string }) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
 };
@@ -283,11 +283,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setAuthLoading(false);
   };
 
-  const signUpWithEmail = async (email: string, password: string) => {
+  const signUpWithEmail = async (email: string, password: string, metadata?: { full_name?: string; phone?: string }) => {
     setAuthLoading(true);
     const { error } = await supabase.auth.signUp({
       email,
       password,
+      options: metadata ? { data: metadata } : undefined,
     });
     if (error) throw error;
     setAuthLoading(false);

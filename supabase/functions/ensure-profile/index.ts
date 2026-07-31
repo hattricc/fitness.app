@@ -28,6 +28,7 @@ type ProfileRow = {
     id: string;
     full_name: string;
     avatar_url: string;
+    phone: string;
     role: string;
     created_at?: string;
 };
@@ -80,7 +81,7 @@ serve(async (req) => {
     // 2) Si ya existe, devolverlo (y opcionalmente completar campos vacíos)
     const { data: existing, error: checkError } = await supabaseAdmin
         .from("profiles")
-        .select("id, full_name, avatar_url, role")
+        .select("id, full_name, avatar_url, phone, role")
         .eq("id", user.id)
         .maybeSingle();
 
@@ -98,12 +99,14 @@ serve(async (req) => {
         "";
 
     const avatarUrl = clean(user.user_metadata?.avatar_url) || "";
+    const phone = clean(user.user_metadata?.phone) || "";
 
     // Si existe, podrías opcionalmente “completar” campos vacíos:
     if (existing) {
         const needsUpdate =
             (!existing.full_name && fullName) ||
             (!existing.avatar_url && avatarUrl) ||
+            (!existing.phone && phone) ||
             !existing.role;
 
         if (!needsUpdate) {
@@ -116,6 +119,7 @@ serve(async (req) => {
         const patch: Partial<ProfileRow> = {
             full_name: existing.full_name || fullName,
             avatar_url: existing.avatar_url || avatarUrl,
+            phone: existing.phone || phone,
             role: existing.role || "user",
         };
 
@@ -123,7 +127,7 @@ serve(async (req) => {
             .from("profiles")
             .update(patch)
             .eq("id", user.id)
-            .select("id, full_name, avatar_url, role")
+            .select("id, full_name, avatar_url, phone, role")
             .single();
 
         if (updError) {
@@ -144,6 +148,7 @@ serve(async (req) => {
         id: user.id,
         full_name: fullName,
         avatar_url: avatarUrl,
+        phone,
         role: "user",
         created_at: new Date().toISOString(),
     };
@@ -151,14 +156,14 @@ serve(async (req) => {
     const { data: inserted, error: insError } = await supabaseAdmin
         .from("profiles")
         .insert(profileData)
-        .select("id, full_name, avatar_url, role")
+        .select("id, full_name, avatar_url, phone, role")
         .single();
 
     if (insError) {
         // En caso de carrera (dos llamados al mismo tiempo), intenta leer y devolver
         const { data: fallback } = await supabaseAdmin
             .from("profiles")
-            .select("id, full_name, avatar_url, role")
+            .select("id, full_name, avatar_url, phone, role")
             .eq("id", user.id)
             .maybeSingle();
 

@@ -37,7 +37,8 @@
     "build": "tsc && node scripts/cms-to-array.mjs && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "build:courses": "node scripts/cms-to-array.mjs"
+    "build:courses": "node scripts/cms-to-array.mjs",
+    "test": "vitest run"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -85,6 +86,7 @@
     "typescript": "5.6.3",
     "typescript-eslint": "8.10.0",
     "vite": "5.4.10",
-    "vite-preset-react": "2.3.0"
+    "vite-preset-react": "2.3.0",
+    "vitest": "^1.6.1"
   }
 }

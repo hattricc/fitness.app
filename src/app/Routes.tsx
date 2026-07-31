@@ -16,6 +16,8 @@ import RoutineBuilderPage from './pages/RoutineBuilderPage.tsx';
 import StoryViewerPage from './pages/StoryViewerPage.tsx';
 import TimerPage from './pages/TimerPage.tsx';
 import NotFoundPage from './pages/NotFoundPage.tsx';
+import AdminStudentsPage from './pages/AdminStudentsPage.tsx';
+import { AdminRoute } from '@/components/auth/AdminRoute';
 import { useState } from 'react';
 import { getAllWorkouts } from '@/data/getWorkout.ts';
 import { Exercise, WorkoutRoutine } from '../types/exercise.ts';
@@ -107,6 +109,14 @@ export const createAppRoutes = (
         {
             path: "/timer",
             element: <TimerPage />
+        },
+        {
+            path: "/panel/estudiantes",
+            element: (
+                <AdminRoute>
+                    <AdminStudentsPage />
+                </AdminRoute>
+            )
         },
         {
             path: "*",

@@ -76,7 +76,10 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
 
     try {
       setIsSubmitting(true);
-      await auth.signUpWithEmail(formData.email, formData.password);
+      await auth.signUpWithEmail(formData.email, formData.password, {
+        full_name: formData.name,
+        phone: formData.phone,
+      });
       setIsSuccess(true);
     } catch (error) {
       setAuthError(error instanceof Error ? error.message : 'Falla al crear la cuenta');
@@ -189,6 +192,18 @@ export default function SignUpForm({ theme }: { theme?: any } = {}) {
               required
               variant="outlined"
               size="medium"
+            />
+
+            <TextField
+              fullWidth
+              label="Teléfono"
+              name="phone"
+              type="tel"
+              value={formData.phone}
+              onChange={handleChange}
+              variant="outlined"
+              size="medium"
+              placeholder="Ej: 70123456"
             />
 
             <TextField
